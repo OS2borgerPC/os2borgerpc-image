@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="sort_by" mtime="1323079141" type="string">
+		<stringvalue>name</stringvalue>
+	</entry>
+	<entry name="show_validity" mtime="1323079141" type="bool" value="false"/>
+	<entry name="show_type" mtime="1323079141" type="bool" value="false"/>
+	<entry name="show_trust" mtime="1323079141" type="bool" value="false"/>
+	<entry name="show_expires" mtime="1323079141" type="bool" value="false"/>
+</gconf>

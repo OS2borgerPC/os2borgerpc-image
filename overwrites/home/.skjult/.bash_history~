@@ -1,0 +1,36 @@
+ls
+sftp -P 22000 christoffer@cloud.fleten.net
+ls
+cd BibOS1-postinstall/
+sudo cp bibos-postinstall.py /usr/local/bin/
+sudo rm /usr/local/bin/bibos-postinstall.py 
+exit
+sftp -P 22000 christoffer@cloud.fleten.net
+exit
+sudo userdel -r user
+sftp -P 22000 christoffer@cloud.fleten.net
+cd Bi
+cd BibOS1-postinstall/
+sudo cp bibos-postinstall.py /usr/local/bin/
+sudo rm /usr/local/bin/bibos-postinstall.py 
+sudo apt-get install landscape-client 
+exit
+nano BibOS1-postinstall/bibos-postinstall.py
+exit
+sudo apt-get remove gnome-screens
+sudo apt-get remove gnome-screensaver 
+sudo apt-get autoremove 
+sudo rm -r /etc/skel/Desktop
+sudo cp Desktop /etc/skel/Desktop
+sudo cp -r Desktop /etc/skel/Desktop
+exit
+rm -r BibOS1-postinstall/
+ls
+sftp -P 22000 christoffer@cloud.fleten.net
+ls
+cd BibOS1-postinstall/
+sudo cp {bibos-postinstall.py,user-cleanup.bash} /usr/local/bin/
+exit
+rm -r BibOS1-postinstall/
+sftp -P 22000 christoffer@cloud.fleten.net
+exit

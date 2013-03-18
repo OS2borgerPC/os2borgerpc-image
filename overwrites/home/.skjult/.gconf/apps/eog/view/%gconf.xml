@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="zoom_multiplier" mtime="1323079142" type="float" value="0.050000000000000003"/>
+	<entry name="use-background-color" mtime="1323079142" type="bool" value="true"/>
+	<entry name="trans_color" mtime="1323079142" type="string">
+		<stringvalue>#000000</stringvalue>
+	</entry>
+	<entry name="scroll_wheel_zoom" mtime="1323079142" type="bool" value="true"/>
+	<entry name="interpolate" mtime="1323079142" type="bool" value="true"/>
+	<entry name="extrapolate" mtime="1323079142" type="bool" value="true"/>
+	<entry name="background-color" mtime="1323079142" type="string">
+		<stringvalue>#000000</stringvalue>
+	</entry>
+	<entry name="autorotate" mtime="1323079142" type="bool" value="true"/>
+</gconf>

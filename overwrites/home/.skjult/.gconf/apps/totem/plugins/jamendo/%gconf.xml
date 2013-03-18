@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="num_per_page" mtime="1323079141" type="int" value="0"/>
+	<entry name="format" mtime="1323079141" type="string">
+		<stringvalue>ogg</stringvalue>
+	</entry>
+</gconf>

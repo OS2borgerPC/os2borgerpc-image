@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="show_protocols" mtime="1323079141" type="bool" value="false"/>
+	<entry name="show_offline" mtime="1323079141" type="bool" value="true"/>
+	<entry name="show_avatars" mtime="1323079141" type="bool" value="true"/>
+	<entry name="separate_chat_windows" mtime="1323079141" type="bool" value="false"/>
+	<entry name="main_window_hidden" mtime="1323079141" type="bool" value="false"/>
+	<entry name="compact_contact_list" mtime="1323079141" type="bool" value="false"/>
+	<entry name="chat_window_paned_pos" mtime="1323079141" type="int" value="0"/>
+	<entry name="avatar_directory" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+</gconf>

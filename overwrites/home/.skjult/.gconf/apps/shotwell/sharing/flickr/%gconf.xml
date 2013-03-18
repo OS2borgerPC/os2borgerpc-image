@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="visibility" mtime="1323079141" type="int" value="1"/>
+	<entry name="username" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="default_size" mtime="1323079141" type="int" value="2"/>
+	<entry name="auth_token" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+</gconf>

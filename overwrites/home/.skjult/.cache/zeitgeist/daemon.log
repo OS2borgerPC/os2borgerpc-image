@@ -1,0 +1,76 @@
+1599 [2011-12-07 09:58:16,327] - DEBUG - singleton - Checking for another running instance...
+1599 [2011-12-07 09:58:16,360] - INFO - zeitgeist.sql - Using database: /home/oem/.local/share/zeitgeist/activity.sqlite
+1599 [2011-12-07 09:58:16,363] - DEBUG - zeitgeist.sql - Core schema is good. DB loaded in 2.74300575256ms
+1599 [2011-12-07 09:58:16,364] - DEBUG - zeitgeist.extension - Searching for system extensions in: /usr/share/zeitgeist/_zeitgeist/engine/extensions
+1599 [2011-12-07 09:58:16,372] - DEBUG - zeitgeist.extension - Searching for user extensions in: /home/oem/.local/share/zeitgeist/extensions
+1599 [2011-12-07 09:58:16,448] - DEBUG - zeitgeist.extension - No extra extensions
+1599 [2011-12-07 09:58:16,448] - DEBUG - zeitgeist.extension - Found extensions: [<class '_zeitgeist.engine.extensions.fts.SearchEngineExtension'>, <class '_zeitgeist.engine.extensions.datasource_registry.DataSourceRegistry'>, <class '_zeitgeist.engine.extensions.storagemonitor.StorageMonitor'>, <class '_zeitgeist.engine.extensions.blacklist.Blacklist'>]
+1599 [2011-12-07 09:58:16,448] - DEBUG - zeitgeist.extension - Loading extension 'SearchEngineExtension'
+1599 [2011-12-07 09:58:16,449] - DEBUG - zeitgeist.fts - Opening full text index: /home/oem/.local/share/zeitgeist/fts.index
+1599 [2011-12-07 09:58:16,462] - DEBUG - zeitgeist.extension - Loading extension 'DataSourceRegistry'
+1599 [2011-12-07 09:58:16,462] - DEBUG - zeitgeist.datasource_registry - Loaded data-source data from /home/oem/.local/share/zeitgeist/datasources.pickle
+1599 [2011-12-07 09:58:16,464] - DEBUG - zeitgeist.extension - Loading extension 'StorageMonitor'
+1599 [2011-12-07 09:58:16,517] - DEBUG - zeitgeist.storagemonitor - Creating NetworkManager network monitor
+1599 [2011-12-07 09:58:16,522] - DEBUG - zeitgeist.storagemonitor - NetworkManager network state: 70
+1599 [2011-12-07 09:58:16,523] - DEBUG - zeitgeist.storagemonitor - Setting storage medium net 'Internet' as available
+1599 [2011-12-07 09:58:16,535] - DEBUG - zeitgeist.extension - Loading extension 'Blacklist'
+1599 [2011-12-07 09:58:16,536] - DEBUG - zeitgeist.blacklist - No existing blacklist config found
+1599 [2011-12-07 09:58:16,537] - INFO - root - Trying to start the datahub
+1599 [2011-12-07 09:58:16,553] - DEBUG - root - Running datahub (/usr/bin/zeitgeist-datahub) with PID=1602
+1599 [2011-12-07 09:58:16,554] - INFO - root - Starting Zeitgeist service...
+1599 [2011-12-07 09:58:16,576] - INFO - zeitgeist.fts - Empty index detected. Doing full rebuild
+1599 [2011-12-07 09:58:16,595] - DEBUG - zeitgeist.engine - Found 0 events in 0.018588s
+1599 [2011-12-07 09:58:16,624] - INFO - zeitgeist.fts - Preparing to rebuild index with 0 events
+1599 [2011-12-07 09:58:17,125] - DEBUG - zeitgeist.fts - Committing FTS index
+1599 [2011-12-07 09:58:17,436] - DEBUG - zeitgeist.fts - Search '(t*) AND ((zgem:http://www.zeitgeist-project.com/ontologies/2010/01/27/zg#UserActivity) AND (zgsu:file_*))' gave 0 hits in 0.0ms
+1599 [2011-12-07 09:58:18,234] - DEBUG - zeitgeist.fts - Search '(terminal*) AND ((zgem:http://www.zeitgeist-project.com/ontologies/2010/01/27/zg#UserActivity) AND (zgsu:file_*))' gave 0 hits in 0.144004821777ms
+1561 [2011-12-07 12:43:32,377] - DEBUG - singleton - Checking for another running instance...
+1561 [2011-12-07 12:43:32,416] - INFO - zeitgeist.sql - Using database: /home/oem/.local/share/zeitgeist/activity.sqlite
+1561 [2011-12-07 12:43:32,431] - DEBUG - zeitgeist.sql - Core schema is good. DB loaded in 15.5718326569ms
+1561 [2011-12-07 12:43:32,432] - DEBUG - zeitgeist.extension - Searching for system extensions in: /usr/share/zeitgeist/_zeitgeist/engine/extensions
+1561 [2011-12-07 12:43:32,433] - DEBUG - zeitgeist.extension - Searching for user extensions in: /home/oem/.local/share/zeitgeist/extensions
+1561 [2011-12-07 12:43:32,620] - DEBUG - zeitgeist.extension - No extra extensions
+1561 [2011-12-07 12:43:32,620] - DEBUG - zeitgeist.extension - Found extensions: [<class '_zeitgeist.engine.extensions.fts.SearchEngineExtension'>, <class '_zeitgeist.engine.extensions.datasource_registry.DataSourceRegistry'>, <class '_zeitgeist.engine.extensions.storagemonitor.StorageMonitor'>, <class '_zeitgeist.engine.extensions.blacklist.Blacklist'>]
+1561 [2011-12-07 12:43:32,620] - DEBUG - zeitgeist.extension - Loading extension 'SearchEngineExtension'
+1561 [2011-12-07 12:43:32,621] - DEBUG - zeitgeist.fts - Opening full text index: /home/oem/.local/share/zeitgeist/fts.index
+1561 [2011-12-07 12:43:32,635] - DEBUG - zeitgeist.extension - Loading extension 'DataSourceRegistry'
+1561 [2011-12-07 12:43:32,636] - DEBUG - zeitgeist.datasource_registry - Loaded data-source data from /home/oem/.local/share/zeitgeist/datasources.pickle
+1561 [2011-12-07 12:43:32,704] - DEBUG - zeitgeist.extension - Loading extension 'StorageMonitor'
+1561 [2011-12-07 12:43:32,822] - DEBUG - zeitgeist.storagemonitor - Creating NetworkManager network monitor
+1561 [2011-12-07 12:43:32,827] - DEBUG - zeitgeist.storagemonitor - NetworkManager network state: 70
+1561 [2011-12-07 12:43:32,827] - DEBUG - zeitgeist.storagemonitor - Setting storage medium net 'Internet' as available
+1561 [2011-12-07 12:43:32,837] - DEBUG - zeitgeist.extension - Loading extension 'Blacklist'
+1561 [2011-12-07 12:43:32,838] - DEBUG - zeitgeist.blacklist - No existing blacklist config found
+1561 [2011-12-07 12:43:32,839] - INFO - root - Trying to start the datahub
+1561 [2011-12-07 12:43:32,852] - DEBUG - root - Running datahub (/usr/bin/zeitgeist-datahub) with PID=1572
+1561 [2011-12-07 12:43:32,853] - INFO - root - Starting Zeitgeist service...
+1561 [2011-12-07 12:43:32,860] - INFO - zeitgeist.fts - Empty index detected. Doing full rebuild
+1561 [2011-12-07 12:43:32,861] - DEBUG - zeitgeist.engine - Found 0 events in 0.000437s
+1561 [2011-12-07 12:43:32,874] - INFO - zeitgeist.fts - Preparing to rebuild index with 0 events
+1561 [2011-12-07 12:43:33,374] - DEBUG - zeitgeist.fts - Committing FTS index
+1561 [2011-12-07 12:43:33,942] - DEBUG - zeitgeist.fts - Search '(terminal*) AND ((zgem:http://www.zeitgeist-project.com/ontologies/2010/01/27/zg#UserActivity) AND (zgsu:file_*))' gave 0 hits in 0.20694732666ms
+1558 [2011-12-07 13:12:43,147] - DEBUG - singleton - Checking for another running instance...
+1558 [2011-12-07 13:12:43,182] - INFO - zeitgeist.sql - Using database: /home/oem/.local/share/zeitgeist/activity.sqlite
+1558 [2011-12-07 13:12:43,184] - DEBUG - zeitgeist.sql - Core schema is good. DB loaded in 1.8048286438ms
+1558 [2011-12-07 13:12:43,185] - DEBUG - zeitgeist.extension - Searching for system extensions in: /usr/share/zeitgeist/_zeitgeist/engine/extensions
+1558 [2011-12-07 13:12:43,185] - DEBUG - zeitgeist.extension - Searching for user extensions in: /home/oem/.local/share/zeitgeist/extensions
+1558 [2011-12-07 13:12:43,254] - DEBUG - zeitgeist.extension - No extra extensions
+1558 [2011-12-07 13:12:43,254] - DEBUG - zeitgeist.extension - Found extensions: [<class '_zeitgeist.engine.extensions.fts.SearchEngineExtension'>, <class '_zeitgeist.engine.extensions.datasource_registry.DataSourceRegistry'>, <class '_zeitgeist.engine.extensions.storagemonitor.StorageMonitor'>, <class '_zeitgeist.engine.extensions.blacklist.Blacklist'>]
+1558 [2011-12-07 13:12:43,259] - DEBUG - zeitgeist.extension - Loading extension 'SearchEngineExtension'
+1558 [2011-12-07 13:12:43,259] - DEBUG - zeitgeist.fts - Opening full text index: /home/oem/.local/share/zeitgeist/fts.index
+1558 [2011-12-07 13:12:43,268] - DEBUG - zeitgeist.extension - Loading extension 'DataSourceRegistry'
+1558 [2011-12-07 13:12:43,269] - DEBUG - zeitgeist.datasource_registry - Loaded data-source data from /home/oem/.local/share/zeitgeist/datasources.pickle
+1558 [2011-12-07 13:12:43,275] - DEBUG - zeitgeist.extension - Loading extension 'StorageMonitor'
+1558 [2011-12-07 13:12:43,319] - DEBUG - zeitgeist.storagemonitor - Creating NetworkManager network monitor
+1558 [2011-12-07 13:12:43,327] - DEBUG - zeitgeist.storagemonitor - NetworkManager network state: 70
+1558 [2011-12-07 13:12:43,327] - DEBUG - zeitgeist.storagemonitor - Setting storage medium net 'Internet' as available
+1558 [2011-12-07 13:12:43,339] - DEBUG - zeitgeist.extension - Loading extension 'Blacklist'
+1558 [2011-12-07 13:12:43,339] - DEBUG - zeitgeist.blacklist - No existing blacklist config found
+1558 [2011-12-07 13:12:43,341] - INFO - root - Trying to start the datahub
+1558 [2011-12-07 13:12:43,369] - DEBUG - root - Running datahub (/usr/bin/zeitgeist-datahub) with PID=1562
+1558 [2011-12-07 13:12:43,369] - INFO - root - Starting Zeitgeist service...
+1558 [2011-12-07 13:12:43,371] - INFO - zeitgeist.fts - Empty index detected. Doing full rebuild
+1558 [2011-12-07 13:12:43,372] - DEBUG - zeitgeist.engine - Found 0 events in 0.000476s
+1558 [2011-12-07 13:12:43,387] - INFO - zeitgeist.fts - Preparing to rebuild index with 0 events
+1558 [2011-12-07 13:12:43,888] - DEBUG - zeitgeist.fts - Committing FTS index
+1558 [2011-12-07 13:12:44,816] - DEBUG - zeitgeist.fts - Search '(terminal*) AND ((zgem:http://www.zeitgeist-project.com/ontologies/2010/01/27/zg#UserActivity) AND (zgsu:file_*))' gave 0 hits in 0.265121459961ms

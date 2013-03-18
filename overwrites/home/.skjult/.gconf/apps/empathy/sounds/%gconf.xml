@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="sounds_service_logout" mtime="1323079141" type="bool" value="false"/>
+	<entry name="sounds_service_login" mtime="1323079141" type="bool" value="false"/>
+	<entry name="sounds_outgoing_message" mtime="1323079141" type="bool" value="false"/>
+	<entry name="sounds_new_conversation" mtime="1323079141" type="bool" value="true"/>
+	<entry name="sounds_incoming_message" mtime="1323079141" type="bool" value="true"/>
+	<entry name="sounds_enabled" mtime="1323079141" type="bool" value="true"/>
+	<entry name="sounds_disabled_away" mtime="1323079141" type="bool" value="true"/>
+	<entry name="sounds_contact_logout" mtime="1323079141" type="bool" value="false"/>
+	<entry name="sounds_contact_login" mtime="1323079141" type="bool" value="false"/>
+</gconf>

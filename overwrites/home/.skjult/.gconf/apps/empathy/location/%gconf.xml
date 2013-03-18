@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="resource_network" mtime="1323079141" type="bool" value="true"/>
+	<entry name="resource_gps" mtime="1323079141" type="bool" value="false"/>
+	<entry name="resource_cell" mtime="1323079141" type="bool" value="true"/>
+	<entry name="reduce_accuracy" mtime="1323079141" type="bool" value="true"/>
+	<entry name="publish" mtime="1323079141" type="bool" value="false"/>
+</gconf>

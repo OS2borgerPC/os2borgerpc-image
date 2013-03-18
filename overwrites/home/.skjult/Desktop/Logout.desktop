@@ -1,0 +1,8 @@
+
+[Desktop Entry]
+Version=1.0
+Type=Link
+Name=Log ud fra Internettet
+Comment=Logout-funktion til bibliotekerne i Aarhus
+Icon=application-exit
+URL=https://nhs.aarhuskommune.dk/nwa_auth/action/logout

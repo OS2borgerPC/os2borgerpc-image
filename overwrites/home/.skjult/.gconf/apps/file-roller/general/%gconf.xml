@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="encrypt_header" mtime="1323079141" type="bool" value="false"/>
+	<entry name="editors" mtime="1323079141" type="list" ltype="string">
+	</entry>
+	<entry name="compression_level" mtime="1323079141" type="string">
+		<stringvalue>normal</stringvalue>
+	</entry>
+</gconf>

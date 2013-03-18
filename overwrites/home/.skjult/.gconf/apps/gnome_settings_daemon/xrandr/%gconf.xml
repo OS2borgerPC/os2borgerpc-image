@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="default_configuration_file" mtime="1323079142" type="string">
+		<stringvalue>/etc/gnome-settings-daemon/xrandr/monitors.xml</stringvalue>
+	</entry>
+</gconf>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="use_default_font" mtime="1323079141" type="bool" value="true"/>
+	<entry name="editor_font" mtime="1323079141" type="string">
+		<stringvalue>Monospace 12</stringvalue>
+	</entry>
+</gconf>

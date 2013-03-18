@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="multihead_mode" mtime="1323079141" type="string">
+		<stringvalue>dont-focus-follow</stringvalue>
+	</entry>
+	<entry name="gravity" mtime="1323079141" type="int" value="1"/>
+</gconf>

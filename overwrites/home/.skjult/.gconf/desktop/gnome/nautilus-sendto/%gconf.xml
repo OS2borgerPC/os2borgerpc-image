@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="last_obex_device" mtime="1323079142" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="last_medium" mtime="1323079142" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="last_compress" mtime="1323079142" type="int" value="0"/>
+</gconf>

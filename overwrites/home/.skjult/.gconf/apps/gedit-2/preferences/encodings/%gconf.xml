@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="shown_in_menu" mtime="1323079141" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>ISO-8859-15</stringvalue>
+		</li>
+	</entry>
+	<entry name="auto_detected" mtime="1323079141" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>UTF-8</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>CURRENT</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>ISO-8859-15</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>UTF-16</stringvalue>
+		</li>
+	</entry>
+</gconf>

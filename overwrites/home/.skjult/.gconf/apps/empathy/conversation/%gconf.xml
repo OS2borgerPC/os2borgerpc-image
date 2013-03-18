@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="theme_chat_room" mtime="1323079141" type="bool" value="true"/>
+	<entry name="theme" mtime="1323079141" type="string">
+		<stringvalue>adium</stringvalue>
+	</entry>
+	<entry name="spell_checker_languages" mtime="1323079141" type="string">
+		<stringvalue>en</stringvalue>
+	</entry>
+	<entry name="spell_checker_enabled" mtime="1323079141" type="bool" value="true"/>
+	<entry name="show_contacts_in_rooms" mtime="1323079141" type="bool" value="true"/>
+	<entry name="nick_completion_char" mtime="1323079141" type="string">
+		<stringvalue>:</stringvalue>
+	</entry>
+	<entry name="graphical_smileys" mtime="1323079141" type="bool" value="true"/>
+	<entry name="enable_webkit_developer_tools" mtime="1323079141" type="bool" value="false"/>
+	<entry name="avatar_in_icon" mtime="1323079141" type="bool" value="false"/>
+	<entry name="adium_path" mtime="1323079141" type="string">
+		<stringvalue>/usr/share/adium/message-styles/ubuntu.AdiumMessageStyle</stringvalue>
+	</entry>
+</gconf>

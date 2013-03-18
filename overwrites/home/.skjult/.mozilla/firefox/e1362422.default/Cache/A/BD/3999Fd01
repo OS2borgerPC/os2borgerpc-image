@@ -1,0 +1,595 @@
+//window open funktion  
+var profiles = { 
+  windowNew: {
+    height:500,
+    width:780,
+    center:1,
+    createnew:1,
+    scrollbars:1,
+    status:1
+  }
+,
+windowLeftTop: {
+    height:500,      
+    width:780,
+    center:0,
+    createnew:1,
+    scrollbars:1,
+    status:1,
+    left:10,
+    top:10
+  }
+};
+
+$(document).ready(function() { 
+  $(function() {
+    $(".popupwindow").popupwindow(profiles);
+  });
+
+
+  // links i knapper kan klikkes på i hele div-elementet:
+  $(function() {
+    $('.buttons div').biggerlink();
+  });
+
+  // find højde og bredde på winduet.
+  if ( typeof( window.innerWidth ) == 'number' ) { //Non-IE
+    myWidth = window.innerWidth;
+    myHeight = window.innerHeight;
+  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) { //IE 6+ in 'standards compliant mode'
+    myWidth = document.documentElement.clientWidth;
+    myHeight = document.documentElement.clientHeight;
+  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) { //IE 4 compatible
+    myWidth = document.body.clientWidth;
+    myHeight = document.body.clientHeight;
+  }
+
+  // "luk hjælpetekst" funktioner
+  var elementArray = document.getElementsByTagName('p');
+  for ( i in elementArray ) {
+    if ( elementArray[i].className == "infoClose" )
+      elementArray[i].onclick = InfoClose_onClick; // assign function to onClick event
+  }
+
+  // "luk hjælpetekst" funktioner
+  var elementArray = document.getElementsByTagName('div');
+  for ( i in elementArray ) {
+    if ( elementArray[i].className == "infoDiv hideObject" )
+      elementArray[i].onclick = InfoClose_onClick; // assign function to onClick event
+  }
+
+  preaciser_foldud_check();
+
+});
+
+
+// ********* debug funktioner: ************
+
+
+  // $(document).ready( function() { // onClick function
+  //   $("span.objDebug").click( function () {
+  //     showContent(this);
+  //   });
+  // });
+
+  function showContent(obj) {
+    alert(dumpProps(obj, false));
+    return false;
+  }
+  
+  function concatObject(obj) {
+    str='';
+    for(prop in obj) {
+      str+=prop + " value :"+ obj[prop]+"\n";
+    }
+    return(str);
+  }
+  
+  function dumpProps(obj, parent) {
+     // Go through all the properties of the passed-in object
+     for (var i in obj) {
+        // if a parent (2nd parameter) was passed in, then use that to
+        // build the message. Message includes i (the object's property name)
+        // then the object's property value on a new line
+        if (parent) { var msg = parent + "." + i + "\n" + obj[i]; } else { var msg = i + "\n" + obj[i]; }
+        // Display the message. If the user clicks "OK", then continue. If they
+        // click "CANCEL" then quit this level of recursion
+        if (!confirm(msg)) { return; }
+        // If this property (i) is an object, then recursively process the object
+        if (typeof obj[i] == "object") {
+           if (parent) { dumpProps(obj[i], parent + "." + i); } else { dumpProps(obj[i], i); }
+        }
+     }
+  }
+
+
+
+// ********* 'præsicer' funktioner: ************
+
+
+  function   preaciser_foldud_check() {
+    if ( !checkSelected('checkboxMateriale') || !checkSelected('checkboxSprog') ) {
+      // openOrCloseBlock('secoptionsfull',0);
+      // openOrCloseBlock('secoptionsclosed',0);
+      // openOrCloseBlock('secoptionsopen',0);
+    }
+  }
+
+  // hvis andet end 'alle' vælges, skal checkmærket i 'alle' fjernes.
+  // hvis alle checkmærker fjernes, skal der checkmærke i 'alle'.
+  
+  $(document).ready( function() { // onClick function on "checkboxMateriale" checkbox
+    $("input.checkboxMateriale").click( function () {
+      checkSelected("checkboxMateriale");
+    });
+  });
+
+  $(document).ready( function() { // onClick function on "checkboxSprog" checkbox
+    $("input.checkboxSprog").click( function () {
+      checkSelected("checkboxSprog");
+    });
+  });
+
+  $(document).ready( function() { // onClick function on "checkboxTarget" checkbox
+    $("input.checkboxTarget").click( function () {
+      checkSelected("checkboxTarget");
+    });
+  });
+
+  function checkSelected(thisClass) {
+
+    var form, elements, elm, i;
+
+    form = document.getElementById ? document.getElementById('searchForm') : document.forms[f];
+
+    if ( ! form ) return true; // ingen søgeformular
+
+    var thisArray = [];
+    var selectAll = true;
+    var n = 0;
+
+    if ( document.getElementsByTagName ) { 
+        elements = form.getElementsByTagName('input'); 
+        for ( i=0, elm; elm=elements.item(i++); )  
+            if ( elm.getAttribute('class') == thisClass || elm.className == thisClass ) {
+                thisArray[n] = elm;
+                if ( elm.checked && n != 0 )
+                  selectAll = false;
+                n++;
+            }
+    } else {
+        // Actually looking through more elements here, but the result is the same. 
+        elements = form.elements; 
+        for ( i=0, elm; elm=elements[i++]; )  
+            if ( elm.className == thisClass )  {
+                thisArray[n] = elm;
+                if ( elm.checked && n != 0 )
+                  selectAll = false;
+                n++;
+            }
+    } 
+
+    if ( thisArray[0] ) {
+      if ( selectAll ) {
+        thisArray[0].checked = true;
+      } else {
+        thisArray[0].checked = false;
+      }
+    }
+    return selectAll;
+  }
+
+
+
+// ********* rens input funktioner: ************
+
+function ZapOddChars(elem,ccl) {
+   if ( arguments.length < 2 ) ccl = false;
+   if ( !ccl ) elem.value = elem.value.replace(/[\"\']/g, "");
+   elem.value = elem.value.replace(/\s+[\+-]\s+/g, " ");
+   elem.value = elem.value.replace(/^( +)/g, "");
+   elem.value = elem.value.replace(/([?]+)/g, "?");
+   elem.value = unescape(escape(elem.value).replace(/%0D%0A/g, " "));
+}
+
+function FixTrunc(elem,ccl) {
+   elem.value = elem.value.replace(/[\*]/g, "?");
+   if (arguments.length < 2) ccl = false;
+   ZapOddChars(elem, ccl);
+}
+
+function ZapTrunc(elem) {
+   elem.value = elem.value.replace(/[\*\?]/g, "");
+}
+
+function br2newline(txt) {
+  return txt.replace(/<[Bb][Rr][ \/]*>/g, "\n");
+}
+
+// ***** nulstil, hvis focus. Og sæt tilbage til default, hvis blank *****
+
+function clear_form_field(f,string) {
+  if(f.value==string) {
+    f.value=""
+  }
+}
+
+function populate_form_field(f,string) {
+  if(f.value=="") {
+    f.value=string
+  }
+}
+
+
+// ********* Pop-up funktioner: ************
+// ********* Gammel pop-up window kode. Erstattet af jQuery
+
+function OpenWinExe(url,title,variables) {
+  popupWin = window.open(url,title,variables);
+  popupWin.focus();
+  return popupWin;
+}
+
+function PopWinxy(url,title,h,w,x,y) {
+  return OpenWinExe(url,title,'scrollbars=1,resizable=yes,height=' + h + ',width=' + w +',left=' + x + ',top=' + y + '');
+}
+
+function PopWin(url,title,h,w) {
+  if (arguments.length < 3) w = 400;
+  if (arguments.length < 2) h = 500;
+  x = (myWidth - w) / 2;
+  return PopWinxy(url,title,h,w,x,1);
+}
+
+// gammel pop-up window kode slut.
+
+
+// ********* Hjælpetekster popup: ************
+
+function getObj(name) {
+  if (document.getElementById) {
+    this.obj = document.getElementById(name);
+  } else if (document.all) {
+    this.obj = document.all[name];
+  } else if (document.layers) {
+    this.obj = document.layers[name];
+  }
+  return this.obj;
+}
+
+function showObject(elementID) {
+  var MyObj = getObj(elementID);
+  if ( !MyObj ) 
+    return;
+  if ( MyObj.className == "hideObject" ) {
+    MyObj.className = '';
+  } else {
+    var c = MyObj.className.length;
+    if ( MyObj.className.substring(c-11,c) == " hideObject" )
+      MyObj.className = MyObj.className.substring(0,c-11);
+  }
+}
+
+function hideObject(elementID) {
+  var MyObj = getObj(elementID);
+  if ( !MyObj ) 
+    return;
+  if ( MyObj.className == "hideObject" )
+    return;
+  var c = MyObj.className.length;
+  if ( MyObj.className.substring(c-11,c) == " hideObject" )
+    return;
+  if ( !MyObj.className )
+    MyObj.className = "hideObject";
+  else
+    MyObj.className = MyObj.className + " hideObject";
+}
+
+function showInfo(obj,id) {
+  hideInfo(); // luk åbne info-elementer
+  var newX = findPosX(obj); // infoknap position
+  if ( newX + 270 > myWidth ) // myWidth sat i init();
+    newX = newX-270;
+  var newY = findPosY(obj);
+
+  var objID = 'info_' + id;
+  var MyObj = getObj(objID);
+  if ( !MyObj ) 
+    return;
+  showObject(objID);
+//  MyObj.style.top = newY+20+"px";
+//  MyObj.style.left = newX+30+"px";
+MyObj.style.top = newY+15+"px";
+MyObj.style.left = newX+"px";
+
+  // gem obj.title mens info pop-up vises
+  showInfoTitle = obj.title; // sæt tekst i buffer
+  obj.title = "";
+  
+  // skjul underliggende selects
+  var elementArray = document.getElementsByTagName("select");
+/*  for ( i in elementArray )
+    if ( elementArray[i].style )
+      elementArray[i].style.visibility = 'visible'; */
+  var newWidth = 300; // sat i css
+  newY = newY +30;
+  var newY2 = newY + MyObj.offsetHeight + 0;
+  var newX2 = newX + newWidth;
+
+// pjo commented this part out..??
+  /*if ( MyObj.offsetHeight ) {
+    for ( i in elementArray ) {
+      var posY  = findPosY(elementArray[i]);
+      var posX  = findPosX(elementArray[i]);
+      var posY2 = posY + elementArray[i].offsetHeight;
+      var posX2 = posX + elementArray[i].offsetWidth;
+      var boolY = ( posY > newY && posY < newY2 ) || ( posY2 > newY && posY2 < newY2 );
+      var boolX = ( posX > newX && posX < newX2 ) || ( posX2 > newX && posX2 < newX2 );
+      if ( boolY && boolX ) {
+        if ( elementArray[i].style ) 
+          elementArray[i].style.visibility = "hidden";
+      }
+    }
+  }
+ else {
+    for ( i in elementArray )
+      if ( elementArray[i].style ) 
+        elementArray[i].style.visibility = "hidden"; 
+  }*/
+
+  // sæt focus på "luk"
+  if ( !obj.id )
+    obj.id = "infoCallingLink"; // sæt ID, hvis null
+  var closelinks = MyObj.getElementsByTagName('a');
+  for ( i in closelinks )
+    closelinks[i].callingLink = obj.id; // extend <a> tags in objct w. calling link's ID
+  MyObj.callingLink = obj.id; // extend objct w. calling link's ID
+  if ( closelinks[0] )
+    closelinks[0].focus();
+
+  return false;
+}
+
+
+function hideInfo() {
+  if ( !(document.getElementById || document.all || document.layers) ) return false;
+  var elementArray = document.getElementsByTagName("div");
+  for ( i=0; i<elementArray.length; i++ ) {
+    if ( elementArray[i].className.substring(0,7) == "infoDiv" )
+      elementArray[i].className = "infoDiv hideObject"
+  }
+  return true;
+}
+
+
+function findPosX(obj) {
+  var curleft = 0;
+  if (obj.offsetParent) {
+    while (obj.offsetParent) {
+      curleft += obj.offsetLeft
+      obj = obj.offsetParent;
+    }
+  }
+  else if (obj.x)
+    curleft += obj.x;
+  return curleft;
+}
+
+
+function findPosY(obj) {
+  var curtop = 0;
+  if (obj.offsetParent) {
+    while (obj.offsetParent) {
+      curtop += obj.offsetTop
+      obj = obj.offsetParent;
+    }
+  }
+  else if (obj.y)
+    curtop += obj.y;
+  return curtop;
+}
+
+  function InfoClose_onClick(e) {
+    e = (e) ? e : ( (window.event) ? window.event : "");
+    if ( e ) {
+      var elem = (e.target) ? e.target : e.srcElement;
+      var parentDivId = getParentDivID(elem);
+      hideObject(parentDivId);
+
+      // sæt focus på calling link's ID
+      if ( !elem.callingLink )  elem = elem.parentNode; // return trigger <IMG> element, ikke <A>
+      var MyObj = getObj(elem.callingLink);
+      if ( MyObj ) 
+        MyObj.focus();
+      // pjo .. MyObj was not set
+      else
+  return;
+      if ( MyObj.id == 'infoCallingLink' ) 
+        MyObj.id = ''; // ryd op, så der ikke kommer dubletter af ID, sat i showInfo(obj,id)
+
+      // gem obj.title mens info pop-up vises
+      MyObj.title = showInfoTitle; // sæt tekst tilbage fra buffer
+      showInfoTitle = '';
+
+      // vis underliggende selects
+      var elementArray = document.getElementsByTagName("select");
+      for ( i in elementArray )
+        if ( elementArray[i].style )
+          elementArray[i].style.visibility = 'visible';
+      return false; 
+    }
+  }
+
+  // function InfoDiv_onClick(e) {
+  //   e = (e) ? e : ( (window.event) ? window.event : "");
+  //   if ( e ) {
+  //     var elem = (e.target) ? e.target : e.srcElement;
+  //     if ( !elem.callingLink ) {
+  //       var parentDivId = getParentDivID(elem);
+  //       hideObject(parentDivId);
+  //     }
+  // 
+  //     // sæt focus på calling link's ID
+  //     if ( !elem.callingLink )  elem = elem.parentNode; // return trigger <IMG> element, ikke <A>
+  //     var MyObj = getObj(elem.callingLink);
+  //     if ( MyObj ) {
+  //       MyObj.focus();
+  //       if ( MyObj.id == 'infoCallingLink' ) 
+  //         MyObj.id = ''; // ryd op, så der ikke kommer dubletter af ID, sat i showInfo(obj,id)
+  //     }
+  // 
+  //     // vis underliggende selects
+  //     var elementArray = document.getElementsByTagName("select");
+  //     for ( i in elementArray )
+  //       if ( elementArray[i].style )
+  //         elementArray[i].style.visibility = 'visible';
+  //     return false; 
+  //   }
+  // }
+
+  function getParentDivID(sourceElement) {
+    if ( !sourceElement ||
+         !sourceElement.parentNode ||
+         !sourceElement.parentNode.tagName ) return false;
+    if ( sourceElement.parentNode.tagName == 'DIV' )  return sourceElement.parentNode.id;
+    return getParentDivID(sourceElement.parentNode);
+  }
+
+  function voidLink_onMouseOver(e) {
+    window.status="Link"; return true; // window.status is deprecated
+  }
+
+  function InfoClose_onMouseOver(e) {
+    window.status="Luk"; return true; // window.status is deprecated
+  }
+
+  function InfoClose_onMouseOut(e) {
+    window.status=""; return true; // window.status is deprecated
+  }
+
+
+// ********* Skan: ************
+
+  function startSkan(reg, ret) {
+    popSkan = PopWinxy('skan.php?field1='+reg+'&result='+ret+'&term1='+escape(document.f[ret].value),'skan',588,750,2,2);
+  }
+
+
+// ********* Valideringsfunktioner: ************
+
+function checkObligatory(form, obl, alert_obl) {
+  for (var i = 0; i < obl.length; i++) {
+    for (var j = 0; j < form.length; j++) {
+      var elem = form.elements[j];
+      if (obl[i] == elem.name) {
+        if (elem.value.replace(/^( +)/g,"") == "") {
+          alert(alert_obl);
+          elem.value = "";
+          elem.focus();
+          return false;
+        } else {
+          j = form.length;
+        }
+      }
+    }
+  }
+  return true;
+}
+function isCpr(cpr) {
+  cpr = cpr.replace(/[\ \-]/g, "");
+  if (cpr.match("^[0-9]{10}$")) {
+    cprsum = (cpr.substr(0, 1) * 4) +
+             (cpr.substr(1, 1) * 3) +
+             (cpr.substr(2, 1) * 2) +
+             (cpr.substr(3, 1) * 7) +
+             (cpr.substr(4, 1) * 6) +
+             (cpr.substr(5, 1) * 5) +
+             (cpr.substr(6, 1) * 4) +
+             (cpr.substr(7, 1) * 3) +
+             (cpr.substr(8, 1) * 2) +
+             (cpr.substr(9, 1) * 1);
+  } else
+    cprsum = 1;
+
+  return (cprsum % 11 == 0);
+}
+
+function isEmail(str) {
+  // are regular expressions supported?
+  var supported = 0;
+  if (window.RegExp) {
+    var tempStr = "a";
+    var tempReg = new RegExp(tempStr);
+    if (tempReg.test(tempStr)) supported = 1;
+  }
+  if (!supported)
+    return (str.indexOf(".") > 2) && (str.indexOf("@") > 0);
+  var r1 = new RegExp("(@.*@)|(\\.\\.)|(@\\.)|(^\\.)");
+  var r2 = new RegExp("^[a-zA-Z0-9_\\-\\.]+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+  return (!r1.test(str) && r2.test(str));
+}
+
+function validate_loginform(email_field_value) {
+     if (document.userauth_loginform.username.value == "" || document.userauth_loginform.username.value == email_field_value) {
+        alert("Indtast email"); document.userauth_loginform.username.value=""; 
+        document.userauth_loginform.username.focus(); 
+        return false;
+     }
+     if (document.userauth_loginform.password.value == "") {
+        alert("Indtast adgangskode"); 
+        document.userauth_loginform.password.focus(); 
+        return false;
+     }
+
+     return true;
+}
+
+/* ************************************************************************ */
+
+function FocusFirst() {
+    // Based on http://www.codeproject.com/KB/scripting/FocusFirstInput.aspx
+    var bFound = false;
+    //for each form
+    for (var f = 1; f < document.forms.length; f++) { // vejviser er første formular
+          //for each form element
+          for (var i=0; i < document.forms[f].length; i++) {
+                el = document.forms[f][i]
+                if (el.disabled != true) {
+                      if (el.type != undefined) {
+                            switch (el.type.toLowerCase()) {
+                                  case "text" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "textarea" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "checkbox" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "radio" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "file" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "password" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "select-one" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                                  case "select-multiple" : try { el.focus(); bFound = true; } catch(e) { bFound = false; } break;
+                            } // switch el.type
+                      } //if (el.type != undefined)
+                } //if (el.disabled != true)
+                if (bFound == true) break;
+          } //for each form element
+          if (bFound == true) break;
+    } //for each form
+}
+
+function getURLParam(strParamName){
+  var strReturn = "";
+  var strHref = window.location.href;
+  if ( strHref.indexOf("?") > -1 ){
+    var strQueryString = strHref.substr(strHref.indexOf("?")).toLowerCase();
+    var aQueryString = strQueryString.split("&");
+    for ( var iParam = 0; iParam < aQueryString.length; iParam++ ){
+      if (
+aQueryString[iParam].indexOf(strParamName.toLowerCase() + "=") > -1 ){
+        var aParam = aQueryString[iParam].split("=");
+        strReturn = aParam[1];
+        break;
+      }
+    }
+  }
+  return unescape(strReturn);
+}
+
+

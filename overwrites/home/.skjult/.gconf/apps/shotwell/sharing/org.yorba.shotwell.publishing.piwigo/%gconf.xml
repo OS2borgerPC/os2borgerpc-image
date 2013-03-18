@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="username" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="url" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="remember-password" mtime="1323079141" type="bool" value="false"/>
+	<entry name="password" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="last-permission-level" mtime="1323079141" type="int" value="-1"/>
+	<entry name="last-category" mtime="1323079141" type="int" value="-1"/>
+</gconf>

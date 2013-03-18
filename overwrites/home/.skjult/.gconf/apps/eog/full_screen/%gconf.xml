@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="upscale" mtime="1323079142" type="bool" value="true"/>
+	<entry name="seconds" mtime="1323079142" type="int" value="5"/>
+	<entry name="loop" mtime="1323079142" type="bool" value="true"/>
+</gconf>

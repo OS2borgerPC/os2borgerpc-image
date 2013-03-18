@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="tabs_open_position" mtime="1323079141" type="string">
+		<stringvalue>after-current-tab</stringvalue>
+	</entry>
+	<entry name="show_hidden_files" mtime="1323079141" type="bool" value="false"/>
+</gconf>

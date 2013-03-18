@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="last_used_service" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="default_service" mtime="1323079141" type="int" value="1"/>
+</gconf>

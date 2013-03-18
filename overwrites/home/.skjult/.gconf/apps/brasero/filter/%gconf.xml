@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="replace_sym" mtime="1323079141" type="bool" value="true"/>
+	<entry name="broken_sym" mtime="1323079141" type="bool" value="true"/>
+</gconf>

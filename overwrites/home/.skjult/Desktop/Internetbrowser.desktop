@@ -1,0 +1,27 @@
+
+[Desktop Entry]
+Version=1.0
+Name=Firefox Web Browser
+Name[da]=Firefox - internetbrowser
+Comment=Browse the World Wide Web
+Comment[da]=Surf på internettet
+GenericName=Web Browser
+GenericName[da]=Webbrowser
+Exec=firefox %u
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=firefox
+Categories=GNOME;GTK;Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;
+StartupWMClass=Firefox
+StartupNotify=true
+X-Ayatana-Desktop-Shortcuts=NewWindow;
+
+Name[da_DK]=Internetbrowser
+
+[NewWindow Shortcut Group]
+Name=Open a New Window
+Name[da]=Åbn et nyt vindue
+Exec=firefox -new-window
+TargetEnvironment=Unity

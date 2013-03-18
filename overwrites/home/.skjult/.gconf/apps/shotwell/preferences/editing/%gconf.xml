@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="external_raw_editor" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="external_photo_editor" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+</gconf>

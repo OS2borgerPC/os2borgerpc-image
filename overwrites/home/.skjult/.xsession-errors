@@ -1,0 +1,149 @@
+Running X session wrapper
+Loading profile from /etc/profile
+Loading profile from /home/oem/.profile
+Loading resource: /etc/X11/Xresources/x11-common
+Loading X session script /etc/X11/Xsession.d/20x11-common_process-args
+Loading X session script /etc/X11/Xsession.d/30x11-common_xresources
+Loading X session script /etc/X11/Xsession.d/40x11-common_xsessionrc
+Loading X session script /etc/X11/Xsession.d/50_check_unity_support
+Loading X session script /etc/X11/Xsession.d/50x11-common_determine-startup
+Loading X session script /etc/X11/Xsession.d/52libcanberra-gtk3-module_add-to-gtk-modules
+Loading X session script /etc/X11/Xsession.d/52libcanberra-gtk-module_add-to-gtk-modules
+Loading X session script /etc/X11/Xsession.d/55gnome-session_gnomerc
+Loading X session script /etc/X11/Xsession.d/60x11-common_localhost
+Loading X session script /etc/X11/Xsession.d/60x11-common_xdg_path
+Loading X session script /etc/X11/Xsession.d/60xdg-user-dirs-update
+Loading X session script /etc/X11/Xsession.d/65compiz_profile-on-session
+Loading X session script /etc/X11/Xsession.d/70gconfd_path-on-session
+Loading X session script /etc/X11/Xsession.d/75dbus_dbus-launch
+Loading X session script /etc/X11/Xsession.d/80appmenu
+Loading X session script /etc/X11/Xsession.d/80appmenu-gtk3
+Loading X session script /etc/X11/Xsession.d/80im-switch
+Setting IM through im-switch for locale=da_DK.
+Start IM through /etc/X11/xinit/xinput.d/all_ALL linked to /etc/X11/xinit/xinput.d/default.
+Loading X session script /etc/X11/Xsession.d/90consolekit
+Loading X session script /etc/X11/Xsession.d/90qt-a11y
+Loading X session script /etc/X11/Xsession.d/90x11-common_ssh-agent
+Loading X session script /etc/X11/Xsession.d/99x11-common_start
+gnome-session[1291]: WARNING: Session 'ubuntu' runnable check failed: Afsluttede med kode 1
+GNOME_KEYRING_CONTROL=/tmp/keyring-OiXY8j
+SSH_AUTH_SOCK=/tmp/keyring-OiXY8j/ssh
+GNOME_KEYRING_CONTROL=/tmp/keyring-OiXY8j
+SSH_AUTH_SOCK=/tmp/keyring-OiXY8j/ssh
+GNOME_KEYRING_CONTROL=/tmp/keyring-OiXY8j
+SSH_AUTH_SOCK=/tmp/keyring-OiXY8j/ssh
+GNOME_KEYRING_CONTROL=/tmp/keyring-OiXY8j
+SSH_AUTH_SOCK=/tmp/keyring-OiXY8j/ssh
+GPG_AGENT_INFO=/tmp/keyring-OiXY8j/gpg:0:1
+
+(metacity:1364): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(metacity:1364): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(metacity:1364): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(metacity:1364): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(gnome-settings-daemon:1350): color-plugin-WARNING **: failed to get edid: unable to get EDID for output
+unity-2d-panel: [DEBUG] Scanning panel plugin directory "/usr/lib/unity-2d/plugins/panel" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-appindicator.so" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-appname.so" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-homebutton.so" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-indicator.so" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-legacytray.so" 
+unity-2d-panel: [DEBUG] Loading panel plugin: "/usr/lib/unity-2d/plugins/panel/libpanelplugin-separator.so" 
+unity-2d-panel: [DEBUG] Configured plugins list is: ("appname", "!legacytray", "indicator") 
+
+(polkit-gnome-authentication-agent-1:1386): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(polkit-gnome-authentication-agent-1:1386): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(polkit-gnome-authentication-agent-1:1386): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(canberra-gtk-play:1393): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(polkit-gnome-authentication-agent-1:1386): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(canberra-gtk-play:1393): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(canberra-gtk-play:1393): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(canberra-gtk-play:1393): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+unity-panel-service: no process found
+unity-2d-panel: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "F10" 
+** (gnome-fallback-mount-helper:1390): DEBUG: Starting automounting manager
+Initializing nautilus-gdu extension
+unity-2d-launcher: [DEBUG] bool KeyMonitor::registerEvents(): Could not open device:  Virtual core pointer 
+unity-2d-launcher: [DEBUG] bool KeyMonitor::registerEvents(): Could not open device:  Virtual core keyboard 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Alt+F1" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Alt+F2" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+0" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+0" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+1" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+1" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+2" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+2" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+3" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+3" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+4" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+4" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+5" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+5" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+6" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+6" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+7" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+7" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+8" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+8" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+9" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+Shift+9" 
+** (nautilus:1391): DEBUG: Syncdaemon not running, waiting for it to start in NameOwnerChanged
+unity-2d-panel: [WARNING] X Error: BadWindow (invalid Window parameter) 3
+  Major opcode: 20 (X_GetProperty)
+  Resource id:  0x1e00004
+unity-2d-launcher: [DEBUG] static void WindowImageProvider::activateComposite(): Server supports the Composite extension (ver 0.4)
+** Message: applet now removed from the notification area
+unity-2d-panel: [WARNING] X Error: BadWindow (invalid Window parameter) 3
+  Major opcode: 20 (X_GetProperty)
+  Resource id:  0x2200004
+** Message: using fallback from indicator to GtkStatusIcon
+** (gnome-fallback-mount-helper:1390): DEBUG: Found ConsoleKit session at path /org/freedesktop/ConsoleKit/Session2
+** (gnome-fallback-mount-helper:1390): DEBUG: ConsoleKit session is active 1
+** (gnome-fallback-mount-helper:1390): DEBUG: ScreenSaver name vanished
+** Message: moving back from GtkStatusIcon to indicator
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+S" 
+unity-2d-launcher: [DEBUG] virtual void Hotkey::connectNotify(const char*): Grabbing hotkey "Meta+T" 
+unity-2d-launcher: [WARNING] X Error: BadWindow (invalid Window parameter) 3
+  Major opcode: 18 (X_ChangeProperty)
+  Resource id:  0x0
+** (process:1500): DEBUG: Telepathy Indicator started
+unity-2d-launcher: [WARNING] void LauncherApplicationsList::onRemoteEntryUpdated(QString, QMap<QString, QVariant>): Application sent an update but we don't seem to have it in the launcher: "application://empathy.desktop" 
+unity-2d-launcher: [WARNING] void LauncherApplicationsList::onRemoteEntryUpdated(QString, QMap<QString, QVariant>): Application sent an update but we don't seem to have it in the launcher: "application://empathy.desktop" 
+Vindueshåndteringsadvarsel: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x3400012 (unity-2d-p)
+Vindueshåndteringsadvarsel: meta_window_activate called by a pager with a 0 timestamp; the pager needs to be fixed.
+
+** (process:1664): WARNING **: zeitgeist-datahub.vala:218: Unable to get name "org.gnome.zeitgeist.datahub" on the bus!
+
+(applet.py:1671): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(applet.py:1671): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(applet.py:1671): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+
+(applet.py:1671): Gtk-WARNING **: Kunne ikke finde temamotor i module_path: "pixmap",
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Xids" with signature "" on interface "org.ayatana.bamf.application" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Children" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Children" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Children" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Children" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "Name" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+unity-2d-launcher: [WARNING] QDBusError("org.freedesktop.DBus.Error.UnknownMethod", "Method "IsRunning" with signature "" on interface "org.ayatana.bamf.view" doesn't exist
+") 
+Vindueshåndteringsadvarsel: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x3400012 (unity-2d-p)
+Vindueshåndteringsadvarsel: meta_window_activate called by a pager with a 0 timestamp; the pager needs to be fixed.

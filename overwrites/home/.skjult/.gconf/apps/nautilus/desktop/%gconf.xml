@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="volumes_visible" mtime="1323079141" type="bool" value="false"/>
+	<entry name="trash_icon_visible" mtime="1323079141" type="bool" value="false"/>
+	<entry name="trash_icon_name" mtime="1323079141" type="string">
+		<stringvalue>Trash</stringvalue>
+	</entry>
+	<entry name="text_ellipsis_limit" mtime="1323079141" type="int" value="3"/>
+	<entry name="network_icon_visible" mtime="1323079141" type="bool" value="false"/>
+	<entry name="network_icon_name" mtime="1323079141" type="string">
+		<stringvalue>Network Servers</stringvalue>
+	</entry>
+	<entry name="home_icon_visible" mtime="1323079141" type="bool" value="false"/>
+	<entry name="home_icon_name" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="computer_icon_visible" mtime="1323079141" type="bool" value="false"/>
+	<entry name="computer_icon_name" mtime="1323079141" type="string">
+		<stringvalue>Computer</stringvalue>
+	</entry>
+</gconf>

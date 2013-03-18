@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="smart_home_end" mtime="1323079141" type="string">
+		<stringvalue>after</stringvalue>
+	</entry>
+</gconf>

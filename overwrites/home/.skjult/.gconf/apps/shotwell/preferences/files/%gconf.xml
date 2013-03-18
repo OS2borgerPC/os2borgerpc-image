@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="use_lowercase_filenames" mtime="1323079141" type="bool" value="false"/>
+	<entry name="raw_developer_default" mtime="1323079141" type="string">
+		<stringvalue>SHOTWELL</stringvalue>
+	</entry>
+	<entry name="import_dir" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="directory_pattern_custom" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="directory_pattern" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="commit_metadata" mtime="1323079141" type="bool" value="false"/>
+	<entry name="auto_import" mtime="1323079141" type="bool" value="false"/>
+</gconf>

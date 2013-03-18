@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="start_with_toolbar" mtime="1323079141" type="bool" value="true"/>
+	<entry name="start_with_status_bar" mtime="1323079141" type="bool" value="false"/>
+	<entry name="start_with_sidebar" mtime="1323079141" type="bool" value="true"/>
+	<entry name="start_with_location_bar" mtime="1323079141" type="bool" value="true"/>
+	<entry name="sidebar_width" mtime="1323079141" type="int" value="148"/>
+	<entry name="side_pane_view" mtime="1323079141" type="string">
+		<stringvalue>places</stringvalue>
+	</entry>
+	<entry name="navigation_window_saved_maximized" mtime="1323079141" type="bool" value="false"/>
+	<entry name="navigation_window_saved_geometry" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="desktop_font" mtime="1323079141" type="string">
+		<stringvalue>Ubuntu 11</stringvalue>
+	</entry>
+	<entry name="thumbnail_limit" mtime="1323079141" type="int" value="0"/>
+	<entry name="sort_directories_first" mtime="1323079141" type="bool" value="true"/>
+	<entry name="show_image_thumbnails" mtime="1323079141" type="string">
+		<stringvalue>local-only</stringvalue>
+	</entry>
+	<entry name="show_icon_text" mtime="1323079141" type="string">
+		<stringvalue>local-only</stringvalue>
+	</entry>
+	<entry name="show_directory_item_counts" mtime="1323079141" type="string">
+		<stringvalue>local-only</stringvalue>
+	</entry>
+	<entry name="show_advanced_permissions" mtime="1323079141" type="bool" value="false"/>
+	<entry name="mouse_use_extra_buttons" mtime="1323079141" type="bool" value="true"/>
+	<entry name="mouse_forward_button" mtime="1323079141" type="int" value="9"/>
+	<entry name="mouse_back_button" mtime="1323079141" type="int" value="8"/>
+	<entry name="install_mime_activation" mtime="1323079141" type="bool" value="true"/>
+	<entry name="executable_text_activation" mtime="1323079141" type="string">
+		<stringvalue>ask</stringvalue>
+	</entry>
+	<entry name="enable_delete" mtime="1323079141" type="bool" value="false"/>
+	<entry name="desktop_is_home_dir" mtime="1323079141" type="bool" value="false"/>
+	<entry name="default_folder_viewer" mtime="1323079141" type="string">
+		<stringvalue>icon-view</stringvalue>
+	</entry>
+	<entry name="date_format" mtime="1323079141" type="string">
+		<stringvalue>locale</stringvalue>
+	</entry>
+	<entry name="confirm_trash" mtime="1323079141" type="bool" value="true"/>
+	<entry name="click_policy" mtime="1323079141" type="string">
+		<stringvalue>double</stringvalue>
+	</entry>
+	<entry name="always_use_location_entry" mtime="1323079141" type="bool" value="false"/>
+	<entry name="always_use_browser" mtime="1323079141" type="bool" value="true"/>
+</gconf>

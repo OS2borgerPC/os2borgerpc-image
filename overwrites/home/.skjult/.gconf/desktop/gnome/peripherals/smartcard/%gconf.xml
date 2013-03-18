@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="removal_action" mtime="1323079141" type="string">
+		<stringvalue>none</stringvalue>
+	</entry>
+</gconf>

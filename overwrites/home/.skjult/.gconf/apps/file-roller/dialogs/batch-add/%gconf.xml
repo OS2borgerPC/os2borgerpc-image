@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="volume_size" mtime="1323079141" type="int" value="0"/>
+	<entry name="other_options" mtime="1323079141" type="bool" value="false"/>
+	<entry name="default_extension" mtime="1323079141" type="string">
+		<stringvalue>.tar.gz</stringvalue>
+	</entry>
+</gconf>

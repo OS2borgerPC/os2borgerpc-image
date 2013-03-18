@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="vertical_position" mtime="1323079141" type="int" value="40"/>
+	<entry name="xembed_onboard" mtime="1323079141" type="bool" value="false"/>
+	<entry name="horizontal_position" mtime="1323079141" type="int" value="40"/>
+	<entry name="width" mtime="1323079141" type="int" value="600"/>
+	<entry name="theme_filename" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="start_minimized" mtime="1323079141" type="bool" value="false"/>
+	<entry name="snippets2" mtime="1323079141" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>0:Onboard\nHome:https\://launchpad.net/onboard</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>1:Example:Create your macros here.</stringvalue>
+		</li>
+	</entry>
+	<entry name="use_status_icon" mtime="1323079141" type="bool" value="true"/>
+	<entry name="scanning_interval" mtime="1323079141" type="int" value="750"/>
+	<entry name="layout_filename" mtime="1323079141" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="height" mtime="1323079141" type="int" value="200"/>
+	<entry name="enable_scanning" mtime="1323079141" type="bool" value="false"/>
+</gconf>
