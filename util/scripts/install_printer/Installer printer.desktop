@@ -1,0 +1,8 @@
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/usr/bin/xterm -e "sudo /bin/bash \\"`dirname %k`/script.sh\\""
+Name=Installér printer
+Icon=/usr/share/pixmaps/debian-logo.png
