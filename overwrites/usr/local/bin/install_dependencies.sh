@@ -1,6 +1,11 @@
 
+# Find current directory
+
+DIR=$(dirname ${BASH_SOURCE[0]})
+
 # Install BIBOS specific dependencies
-DEPENDENCIES=( $(cat ./DEPENDENCIES) )
+DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
+
 
 PKGSTOINSTALL=""
 
@@ -33,7 +38,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # Step 2: Do the actual installation. Abort if it fails.
 
-    sudo apt-get -y install $PKGSTOINSTALL > install_log.txt
+    sudo apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
