@@ -19,18 +19,19 @@
 # When this is done, the image can be cloned and packed with Clonezilla
 # and/or be made available for Clonezilla network installation.
 
-# Fix permission problem to avoid irritating warning.
-sudo chmod 0440 /etc/sudoers.d/bibos
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 # Overwrite file tree.
 sudo "$DIR/do_overwrite.sh"
 
+# Fix permission problem to avoid irritating warning.
+sudo chmod 0440 /etc/sudoers.d/bibos
+
 # Install all necessary packages and dependencies
 /usr/local/bin/install_dependencies.sh
 
 # Setup default user
-sudo useradd user -m -p 12345 -U
+sudo useradd user -m -p 12345 -s /bin/bash -U
 sudo adduser user nopasswdlogin
 
 
