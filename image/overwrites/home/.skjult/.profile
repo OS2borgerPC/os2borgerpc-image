@@ -20,4 +20,5 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-/bin/bash $HOME/.besked.sh
+
+#/bin/bash $HOME/.besked.sh

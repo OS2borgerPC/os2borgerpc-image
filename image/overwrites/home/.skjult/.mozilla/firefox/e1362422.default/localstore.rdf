@@ -1,33 +1,16 @@
 <?xml version="1.0"?>
 <RDF:RDF xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#PersonalToolbar"
+                   collapsed="false" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDateAdded"
+                   ordinal="15" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul#main-window"
                    width="994"
                    height="690"
                    screenX="0"
                    screenY="31"
-                   sizemode="normal" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentKeyword"
-                   ordinal="11" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#PersonalToolbar"
-                   collapsed="false" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentUrl"
-                   ordinal="5" />
-  <RDF:Description RDF:about="chrome://browser/content/places/bookmarkProperties.xul#bookmarkproperties"
-                   screenX="149"
-                   screenY="119"
-                   width="402" />
-  <RDF:Description RDF:about="place:folder=TOOLBAR&amp;excludeItems=1&amp;expandQueries=0"
-                   NC:open="true" />
-  <RDF:Description RDF:about="chrome://browser/content/preferences/preferences.xul#BrowserPreferences"
-                   lastSelected="paneMain"
-                   screenX="313"
-                   screenY="125" />
-  <RDF:Description RDF:about="chrome://browser/content/places/bookmarkProperties.xul">
-    <NC:persist RDF:resource="chrome://browser/content/places/bookmarkProperties.xul#bookmarkproperties"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
-                   value="" />
+                   sizemode="maximized" />
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul">
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#placesContentTags"/>
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#placesContentUrl"/>
@@ -40,40 +23,86 @@
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#places"/>
     <NC:persist RDF:resource="chrome://browser/content/places/places.xul#placesContentTitle"/>
   </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentVisitCount"
-                   ordinal="9" />
-  <RDF:Description RDF:about="place:folder=BOOKMARKS_MENU&amp;excludeItems=1&amp;expandQueries=0"
-                   NC:open="true" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDate"
-                   ordinal="7"
-                   sortDirection="descending" />
-  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-box"
-                   sidebarcommand=""
-                   width=""
-                   src="" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentLastModified"
-                   ordinal="17" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#SanitizeDialog"
+                   screenX="277"
+                   screenY="303" />
+  <RDF:Description RDF:about="about:config">
+    <NC:persist RDF:resource="about:config#prefCol"/>
+    <NC:persist RDF:resource="about:config#lockCol"/>
+    <NC:persist RDF:resource="about:config#typeCol"/>
+    <NC:persist RDF:resource="about:config#valueCol"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul">
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#SanitizeDialog"/>
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#detailsExpander"/>
+    <NC:persist RDF:resource="chrome://browser/content/sanitize.xul#itemList"/>
+  </RDF:Description>
   <RDF:Description RDF:about="chrome://browser/content/places/places.xul#places"
                    width="700"
                    height="500"
                    sizemode="normal"
                    screenX="270"
                    screenY="181" />
-  <RDF:Description RDF:about="place:sort=4&amp;type=3"
-                   NC:open="true" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDateAdded"
-                   ordinal="15" />
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentTags"
-                   ordinal="3" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDate"
+                   ordinal="7"
+                   sortDirection="descending" />
   <RDF:Description RDF:about="chrome://browser/content/browser.xul">
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#main-window"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#PersonalToolbar"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-box"/>
     <NC:persist RDF:resource="chrome://browser/content/browser.xul#sidebar-title"/>
   </RDF:Description>
-  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDescription"
-                   ordinal="13" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentTags"
+                   ordinal="3" />
+  <RDF:Description RDF:about="chrome://browser/content/places/bookmarkProperties.xul#bookmarkproperties"
+                   screenX="149"
+                   screenY="119"
+                   width="444" />
+  <RDF:Description RDF:about="about:config#typeCol"
+                   ordinal="5" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentUrl"
+                   ordinal="5" />
+  <RDF:Description RDF:about="place:folder=TOOLBAR&amp;excludeItems=1&amp;expandQueries=0"
+                   NC:open="true" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentLastModified"
+                   ordinal="17" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#detailsExpander"
+                   class="expander-up" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/sanitize.xul#SanitizeDialog"
+                   screenX="104"
+                   screenY="164" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentKeyword"
+                   ordinal="11" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/preferences.xul#BrowserPreferences"
+                   screenX="173"
+                   screenY="99"
+                   lastSelected="paneSecurity" />
+  <RDF:Description RDF:about="about:config#prefCol"
+                   ordinal="1"
+                   sortDirection="ascending" />
+  <RDF:Description RDF:about="place:sort=4&amp;type=3"
+                   NC:open="true" />
+  <RDF:Description RDF:about="place:folder=BOOKMARKS_MENU&amp;excludeItems=1&amp;expandQueries=0"
+                   NC:open="true" />
+  <RDF:Description RDF:about="chrome://browser/content/places/bookmarkProperties.xul">
+    <NC:persist RDF:resource="chrome://browser/content/places/bookmarkProperties.xul#bookmarkproperties"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="about:config#lockCol"
+                   ordinal="3" />
+  <RDF:Description RDF:about="chrome://browser/content/sanitize.xul#itemList"
+                   collapsed="false" />
+  <RDF:Description RDF:about="chrome://browser/content/preferences/sanitize.xul">
+    <NC:persist RDF:resource="chrome://browser/content/preferences/sanitize.xul#SanitizeDialog"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="about:config#valueCol"
+                   ordinal="7" />
   <RDF:Description RDF:about="chrome://browser/content/preferences/preferences.xul">
     <NC:persist RDF:resource="chrome://browser/content/preferences/preferences.xul#BrowserPreferences"/>
   </RDF:Description>
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentDescription"
+                   ordinal="13" />
+  <RDF:Description RDF:about="chrome://browser/content/browser.xul#sidebar-title"
+                   value="" />
+  <RDF:Description RDF:about="chrome://browser/content/places/places.xul#placesContentVisitCount"
+                   ordinal="9" />
 </RDF:RDF>

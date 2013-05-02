@@ -9,20 +9,28 @@
  * For more information, see http://www.mozilla.org/unix/customizing.html#prefs
  */
 
-user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1324372646);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1324372646);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1324372646);
+user_pref("app.update.auto", false);
+user_pref("app.update.cert.checkAttributes", false);
+user_pref("app.update.cert.requireBuiltIn", false);
+user_pref("app.update.enabled", false);
+user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1366100392);
+user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1366100512);
+user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1366100632);
+user_pref("app.update.url", "");
 user_pref("browser.cache.disk.capacity", 1048576);
 user_pref("browser.cache.disk.smart_size.first_run", false);
-user_pref("browser.cache.disk.smart_size_cached_value", 317461);
+user_pref("browser.cache.disk.smart_size_cached_value", 367415);
 user_pref("browser.migration.version", 5);
 user_pref("browser.places.smartBookmarksVersion", 2);
 user_pref("browser.rights.3.shown", true);
+user_pref("browser.safebrowsing.enabled", false);
 user_pref("browser.startup.homepage", "http://www.aakb.dk/");
 user_pref("browser.startup.homepage_override.buildID", "20111115184056");
 user_pref("browser.startup.homepage_override.mstone", "rv:8.0");
+user_pref("browser.syncPromoViewsLeft", 4);
 user_pref("distribution.canonical.bookmarksProcessed", true);
-user_pref("extensions.blocklist.pingCountVersion", 0);
+user_pref("extensions.blocklist.pingCountTotal", 2);
+user_pref("extensions.blocklist.pingCountVersion", 2);
 user_pref("extensions.bootstrappedAddons", "{}");
 user_pref("extensions.databaseSchema", 6);
 user_pref("extensions.enabledAddons", "langpack-da@firefox.mozilla.org:8.0,globalmenu@ubuntu.com:2.0.1,ubufox@ubuntu.com:1.0,langpack-en-GB@firefox.mozilla.org:8.0,langpack-en-ZA@firefox.mozilla.org:8.0,{972ce4c6-7e08-4474-a285-3208198ce6fd}:8.0");
@@ -30,11 +38,20 @@ user_pref("extensions.installCache", "[{\"name\":\"app-global\",\"addons\":{\"la
 user_pref("extensions.lastAppVersion", "8.0");
 user_pref("extensions.lastPlatformVersion", "8.0");
 user_pref("extensions.pendingOperations", false);
+user_pref("idle.lastDailyNotification", 1366100782);
 user_pref("intl.charsetmenu.browser.cache", "ISO-8859-1, UTF-8");
 user_pref("network.cookie.prefsMigrated", true);
-user_pref("places.history.expiration.transient_current_max_pages", 95178);
+user_pref("places.database.lastMaintenance", 1366100782);
+user_pref("places.history.expiration.transient_current_max_pages", 87157);
 user_pref("pref.browser.homepage.disable_button.current_page", false);
+user_pref("privacy.clearOnShutdown.passwords", true);
+user_pref("privacy.sanitize.didShutdownSanitize", true);
 user_pref("privacy.sanitize.migrateFx3Prefs", true);
-user_pref("urlclassifier.keyupdatetime.https://sb-ssl.google.com/safebrowsing/newkey", 1326964530);
+user_pref("privacy.sanitize.sanitizeOnShutdown", true);
+user_pref("privacy.sanitize.timeSpan", 0);
+user_pref("signon.rememberSignons", false);
+user_pref("storage.vacuum.last.index", 0);
+user_pref("storage.vacuum.last.places.sqlite", 1366100782);
+user_pref("urlclassifier.keyupdatetime.https://sb-ssl.google.com/safebrowsing/newkey", 1368692607);
 user_pref("xpinstall.whitelist.add", "");
 user_pref("xpinstall.whitelist.add.36", "");
