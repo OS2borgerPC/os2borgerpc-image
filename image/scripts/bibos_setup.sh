@@ -28,7 +28,7 @@ sudo "$DIR/do_overwrite.sh"
 sudo chmod 0440 /etc/sudoers.d/bibos
 
 # Install all necessary packages and dependencies
-/usr/local/bin/install_dependencies.sh
+$DIR/install_dependencies.sh
 
 # Setup default user
 sudo useradd user -m -p 12345 -s /bin/bash -U

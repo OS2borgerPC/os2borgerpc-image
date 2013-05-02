@@ -7,6 +7,7 @@ else
     DESTINATION=$1
 fi
 
-cp -r overwrites/* $DESTINATION
+
+cp -r ../overwrites/* $DESTINATION
 
 
