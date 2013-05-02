@@ -2,7 +2,7 @@
 [Desktop Entry]
 Version=1.0
 Terminal=false
-Icon=libreoffice-impress
+Icon=libreoffice34-impress
 Type=Application
 Categories=Office;
 Exec=libreoffice --impress %U

@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Husk at gemme
+GenericName=Husk at gemme
+Exec=/home/.skjult/.besked.sh
+TryExec=/home/.skjult/.besked.sh
+Icon=/opt/bibos/icons/Advarsel.svg
+Terminal=false
+StartupNotify=false
+Name[da_DK]=Husk at gemme
+GenericName[da_DK.UTF-8]=Husk at gemme
