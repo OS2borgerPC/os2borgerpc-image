@@ -18,4 +18,4 @@ X-GNOME-Bugzilla-OtherBinaries=gimp-2.6
 StartupNotify=true
 MimeType=application/postscript;application/pdf;image/bmp;image/g3fax;image/gif;image/x-fits;image/pcx;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-psd;image/x-sgi;image/x-tga;image/x-xbitmap;image/x-xwindowdump;image/x-xcf;image/x-compressed-xcf;image/tiff;image/jpeg;image/x-psp;image/png;image/x-icon;image/x-xpixmap;image/svg+xml;image/x-wmf;
 X-Ubuntu-Gettext-Domain=gimp20
-Name[da_DK]=billedredigering
+Name[da_DK]=Billedredigering
