@@ -18,6 +18,7 @@ pushd /usr/share/xsessions > /dev/null
 mv gnome.desktop gnome.desktop.backup
 mv gnome-shell.desktop gnome-shell.desktop.backup
 mv ubuntu.desktop ubuntu.desktop.backup
+mv ubuntu-2d.desktop ubuntu-2d.desktop.backup
 popd > /dev/null
 
 # Now do the deed
