@@ -6,7 +6,6 @@
  * the changes will be overwritten when the application exits.
  *
  * To make a manual change to preferences, you can visit the URL about:config
- * For more information, see http://www.mozilla.org/unix/customizing.html#prefs
  */
 
 user_pref("app.update.auto", false);
@@ -20,24 +19,37 @@ user_pref("app.update.url", "");
 user_pref("browser.cache.disk.capacity", 1048576);
 user_pref("browser.cache.disk.smart_size.first_run", false);
 user_pref("browser.cache.disk.smart_size_cached_value", 367415);
-user_pref("browser.migration.version", 5);
+user_pref("browser.download.panel.firstSessionCompleted", true);
+user_pref("browser.migration.version", 9);
 user_pref("browser.places.smartBookmarksVersion", 2);
 user_pref("browser.rights.3.shown", true);
 user_pref("browser.safebrowsing.enabled", false);
 user_pref("browser.startup.homepage", "http://www.aakb.dk/");
-user_pref("browser.startup.homepage_override.buildID", "20111115184056");
-user_pref("browser.startup.homepage_override.mstone", "rv:8.0");
+user_pref("browser.startup.homepage_override.buildID", "20130329030832");
+user_pref("browser.startup.homepage_override.mstone", "20.0");
 user_pref("browser.syncPromoViewsLeft", 4);
+user_pref("datareporting.healthreport.nextDataSubmissionTime", "1367667164438");
+user_pref("datareporting.policy.firstRunTime", "1367580764438");
+user_pref("datareporting.sessions.current.activeTicks", 0);
+user_pref("datareporting.sessions.current.clean", true);
+user_pref("datareporting.sessions.current.firstPaint", 7695);
+user_pref("datareporting.sessions.current.main", 1850);
+user_pref("datareporting.sessions.current.sessionRestored", 11816);
+user_pref("datareporting.sessions.current.startTime", "1367580753567");
+user_pref("datareporting.sessions.current.totalTime", 16649);
 user_pref("distribution.canonical.bookmarksProcessed", true);
+user_pref("dom.w3c_touch_events.expose", false);
 user_pref("extensions.blocklist.pingCountTotal", 2);
-user_pref("extensions.blocklist.pingCountVersion", 2);
+user_pref("extensions.blocklist.pingCountVersion", -1);
 user_pref("extensions.bootstrappedAddons", "{}");
-user_pref("extensions.databaseSchema", 6);
-user_pref("extensions.enabledAddons", "langpack-da@firefox.mozilla.org:8.0,globalmenu@ubuntu.com:2.0.1,ubufox@ubuntu.com:1.0,langpack-en-GB@firefox.mozilla.org:8.0,langpack-en-ZA@firefox.mozilla.org:8.0,{972ce4c6-7e08-4474-a285-3208198ce6fd}:8.0");
-user_pref("extensions.installCache", "[{\"name\":\"app-global\",\"addons\":{\"langpack-da@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/langpack-da@firefox.mozilla.org.xpi\",\"mtime\":1321398357000},\"globalmenu@ubuntu.com\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/globalmenu@ubuntu.com\",\"mtime\":1322737525000},\"ubufox@ubuntu.com\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/ubufox@ubuntu.com\",\"mtime\":1322737608000},\"langpack-en-GB@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/langpack-en-GB@firefox.mozilla.org.xpi\",\"mtime\":1321398358000},\"langpack-en-ZA@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/langpack-en-ZA@firefox.mozilla.org.xpi\",\"mtime\":1321398358000},\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/usr/lib/firefox-8.0/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1322737530000}}}]");
-user_pref("extensions.lastAppVersion", "8.0");
-user_pref("extensions.lastPlatformVersion", "8.0");
+user_pref("extensions.databaseSchema", 14);
+user_pref("extensions.enabledAddons", "globalmenu%40ubuntu.com:3.9,langpack-en-GB%40firefox.mozilla.org:20.0,langpack-en-ZA%40firefox.mozilla.org:20.0,langpack-da%40firefox.mozilla.org:20.0,ubufox%40ubuntu.com:2.6,%7B972ce4c6-7e08-4474-a285-3208198ce6fd%7D:20.0");
+user_pref("extensions.installCache", "[{\"name\":\"app-system-share\",\"addons\":{\"ubufox@ubuntu.com\":{\"descriptor\":\"/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/ubufox@ubuntu.com\",\"mtime\":1360793368000}}},{\"name\":\"app-global\",\"addons\":{\"globalmenu@ubuntu.com\":{\"descriptor\":\"/usr/lib/firefox/extensions/globalmenu@ubuntu.com\",\"mtime\":1367578630000},\"langpack-en-GB@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/extensions/langpack-en-GB@firefox.mozilla.org.xpi\",\"mtime\":1364529883000},\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/usr/lib/firefox/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1367578632000},\"langpack-en-ZA@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/extensions/langpack-en-ZA@firefox.mozilla.org.xpi\",\"mtime\":1364529883000},\"langpack-da@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/extensions/langpack-da@firefox.mozilla.org.xpi\",\"mtime\":1364529877000}}}]");
+user_pref("extensions.lastAppVersion", "20.0");
+user_pref("extensions.lastPlatformVersion", "20.0");
 user_pref("extensions.pendingOperations", false);
+user_pref("gecko.buildID", "20130329030832");
+user_pref("gecko.mstone", "20.0");
 user_pref("idle.lastDailyNotification", 1366100782);
 user_pref("intl.charsetmenu.browser.cache", "ISO-8859-1, UTF-8");
 user_pref("network.cookie.prefsMigrated", true);
@@ -45,13 +57,14 @@ user_pref("places.database.lastMaintenance", 1366100782);
 user_pref("places.history.expiration.transient_current_max_pages", 87157);
 user_pref("pref.browser.homepage.disable_button.current_page", false);
 user_pref("privacy.clearOnShutdown.passwords", true);
-user_pref("privacy.sanitize.didShutdownSanitize", true);
 user_pref("privacy.sanitize.migrateFx3Prefs", true);
 user_pref("privacy.sanitize.sanitizeOnShutdown", true);
 user_pref("privacy.sanitize.timeSpan", 0);
 user_pref("signon.rememberSignons", false);
 user_pref("storage.vacuum.last.index", 0);
 user_pref("storage.vacuum.last.places.sqlite", 1366100782);
+user_pref("toolkit.startup.last_success", 1367580755);
 user_pref("urlclassifier.keyupdatetime.https://sb-ssl.google.com/safebrowsing/newkey", 1368692607);
 user_pref("xpinstall.whitelist.add", "");
+user_pref("xpinstall.whitelist.add.180", "");
 user_pref("xpinstall.whitelist.add.36", "");
