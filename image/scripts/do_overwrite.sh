@@ -9,9 +9,16 @@ fi
 
 
 # First, special handling of Gnome Control Center
-pushd /usr/bin/
+pushd /usr/bin/ > /dev/null
 cp gnome-control-center gnome-control-center.real
-popd
+popd > /dev/null
+
+# Then, disable all X sessions except one
+pushd /usr/share/xsessions > /dev/null
+mv gnome.desktop gnome.desktop.backup
+mv gnome-shell.desktop gnome-shell.desktop.backup
+mv ubuntu.desktop ubuntu.desktop.backup
+popd > /dev/null
 
 # Now do the deed
 cp -r ../overwrites/* $DESTINATION
