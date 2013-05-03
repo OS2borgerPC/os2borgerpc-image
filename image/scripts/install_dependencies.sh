@@ -38,8 +38,14 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # Step 2: Do the actual installation. Abort if it fails.
 
-    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    # Things to get rid of. Factor out to file if many turn up.
+    sudo apt-get -y remove --purge deja-dup
 
+    # upgrade
+    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    sudo apt-get -y dist-upgrade | tee /tmp/bibos_dist_upgrade_log.txt
+
+    # and install
     sudo apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
