@@ -32,6 +32,7 @@ $DIR/install_dependencies.sh
 
 # Setup default user
 sudo useradd user -m -p 12345 -s /bin/bash -U
+sudo chfn -f Publikum user
 sudo adduser user nopasswdlogin
 
 
