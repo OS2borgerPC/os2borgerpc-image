@@ -52,3 +52,10 @@ then
      sudo apt-get update  | zenity --progress --pulsate --text="Opdaterer pakker ..."
      sudo apt-get install skype  | zenity --progress --pulsate --text="Installerer Skype."
 fi
+
+if [[ $? -eq 0 ]]
+then
+    zenity --info --text="Skype er installeret!"
+else
+    zenity --error --text="Skype-installationen mislykkedes! Prøv eventuelt at\
+    installere den manuelt fra Ubuntu Software Center."
