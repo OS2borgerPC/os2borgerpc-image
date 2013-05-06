@@ -59,7 +59,7 @@ def EnableUserhomeCleanup(username):
 	# wich makes sure nothing is left behind when the computer starts up
 	# (see the script for more explanation)
 	# Firstly we prepare the .skjult folder, wich will be backuped from
-	PathToScript="/usr/local/bin/user-cleanup.bash"
+	PathToScript="/opt/bibos/bin/user-cleanup.bash"
 	
 	# Make a temporary copy, edit that, and move into place
 	shutil.copyfile(PathToScript,"/tmp/user-cleanup.bash")

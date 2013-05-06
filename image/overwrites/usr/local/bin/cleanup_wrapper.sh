@@ -7,5 +7,5 @@ if [ "$USER" == "" ]; then
 fi
 
 if [ "$USER" == "user" ]; then
-    sudo /usr/local/bin/user-cleanup.bash
+    sudo /opt/bibos/bin/user-cleanup.bash
 fi
