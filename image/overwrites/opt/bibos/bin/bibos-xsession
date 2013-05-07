@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Run standard X session
-gnome-session --session=ubuntu-2d
-
-# Clean up home directory
-/usr/local/bin/cleanup_wrapper.sh
-
