@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=bibos-postinstall
-Comment=bibos oem setup
-Icon=
-Exec=gksu /usr/local/bin/bibos-postinstall.py
-Terminal=false
-Type=Application
-NoDisplay=true
