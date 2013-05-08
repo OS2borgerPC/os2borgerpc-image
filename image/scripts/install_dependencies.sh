@@ -4,6 +4,10 @@
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 # Install BIBOS specific dependencies
+#           
+# The DEPENDENCIES file contains packages/programs
+# required by BibOS AND extra packages which are free dependencies
+# of Skype and MS Fonts - to shorten the postinstall process.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
 
