@@ -4,10 +4,9 @@
 
 USERNAME="user"
 
-if [ -d /home/$USERNAME ]; then
 
 	rm -fr /tmp/* /tmp/.??*
-	rm -r /home/$USERNAME
+	rm -rf /home/$USERNAME
         # Remove pending print jobs
         lprm -U $USERNAME
 	rsync -vaz /home/.skjult/ /home/$USERNAME/
@@ -17,5 +16,4 @@ if [ -d /home/$USERNAME ]; then
 	cp /home/.skjult/Desktop/* /home/$USERNAME/Desktop/
 	chown -R $USERNAME:$USERNAME /home/$USERNAME/Desktop
 	chmod +x /home/$USERNAME/Desktop/*
-fi
 

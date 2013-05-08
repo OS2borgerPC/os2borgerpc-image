@@ -14,7 +14,7 @@
 
 
 # Printer setup
-#sudo system-config-printer
+sudo system-config-printer
 
 
 # Proprietary stuff
@@ -43,8 +43,8 @@ if [[ $? -eq 0 ]]
 then
      ATTEMPTED_INSTALL=1
      sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-     sudo apt-get update  #| zenity --progress --pulsate --text="Opdaterer pakker ..."
-     sudo apt-get install skype # | zenity --progress --pulsate --text="Installerer Skype."
+     sudo apt-get update  
+     sudo apt-get install skype 
 fi
 
 if [[ ! -z $ATTEMPTED_INSTALL ]]

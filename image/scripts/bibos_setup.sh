@@ -30,6 +30,9 @@ sudo chmod 0440 /etc/sudoers.d/bibos
 # Install all necessary packages and dependencies
 $DIR/install_dependencies.sh
 
+# Clean .deb cache
+sudo apt-get clean
+
 # Setup default user
 sudo useradd user -m -p 12345 -s /bin/bash -U
 sudo chfn -f Publikum user
