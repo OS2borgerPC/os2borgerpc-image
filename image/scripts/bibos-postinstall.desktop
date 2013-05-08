@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=bibos-postinstall
+Comment=bibos oem setup
+Icon=
+Exec=gksudo "gnome-terminal --command=/opt/bibos/bin/bibos-postinstall.sh"
+Terminal=false
+Type=Application
+NoDisplay=true

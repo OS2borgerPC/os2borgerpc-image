@@ -32,14 +32,6 @@ then
 #        tee >(zenity --progress --pulsate)  > /tmp/install_log.txt
 
 
-else
-    zenity --info --text="YouTube-videoer vil muligvis ikke virke ordentligt.
-    Skriv selv 
-
-        sudo apt-get install ubuntu-restricted-extras 
-
-    i en terminal for at installere på et senere tidspunkt."
-    
 fi
 
 
@@ -313,3 +305,12 @@ fi
 
 
 
+# Delete desktop file from /etc/xdg/autostart
+sudo rm /etc/xdg/autostart/bibos-postinstall.desktop 
+# Copy finalize script to /opt/bibos/bin
+sudo rm /opt/bibos/bin/bibos-postinstall.sh 
+# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+sudo mv  /etc/lightdm/lightdm.backup /etc/lightdm/lightdm.conf
+
+
+zenity --info --text="Installationen er afsluttet."
