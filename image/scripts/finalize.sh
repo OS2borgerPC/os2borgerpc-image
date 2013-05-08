@@ -27,8 +27,9 @@ zenity --question  --text="Installér codecs og proprietære udvidelser, bl.a.  
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
-    sudo apt-get install ubuntu-restricted-extras | \
-        tee >(zenity --progress --pulsate)  > /tmp/install_log.txt
+    sudo apt-get install ubuntu-restricted-extras 
+# | \
+#        tee >(zenity --progress --pulsate)  > /tmp/install_log.txt
 
 
 else
@@ -50,8 +51,8 @@ if [[ $? -eq 0 ]]
 then
      ATTEMPTED_INSTALL=1
      sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-     sudo apt-get update  | zenity --progress --pulsate --text="Opdaterer pakker ..."
-     sudo apt-get install skype  | zenity --progress --pulsate --text="Installerer Skype."
+     sudo apt-get update  #| zenity --progress --pulsate --text="Opdaterer pakker ..."
+     sudo apt-get install skype # | zenity --progress --pulsate --text="Installerer Skype."
 fi
 
 if [[ ! -z $ATTEMPTED_INSTALL ]]
