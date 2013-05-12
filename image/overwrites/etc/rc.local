@@ -11,6 +11,6 @@
 #
 # By default this script does nothing.
 
-/opt/bibos/bin/user-cleanup.bash
+/usr/share/bibos/bin/user-cleanup.bash
 
 exit 0

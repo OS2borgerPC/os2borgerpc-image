@@ -1,2 +1,2 @@
-user ALL=NOPASSWD: /opt/bibos/bin/user-cleanup.bash
-superuser ALL=NOPASSWD: /opt/bibos/bin/user-cleanup.bash
+user ALL=NOPASSWD: /usr/share/bibos/bin/user-cleanup.bash
+superuser ALL=NOPASSWD: /usr/share/bibos/bin/user-cleanup.bash

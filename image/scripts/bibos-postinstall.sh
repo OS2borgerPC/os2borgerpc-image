@@ -307,8 +307,8 @@ fi
 
 # Delete desktop file from /etc/xdg/autostart
 sudo rm /etc/xdg/autostart/bibos-postinstall.desktop 
-# Copy finalize script to /opt/bibos/bin
-sudo rm /opt/bibos/bin/bibos-postinstall.sh 
+# Copy postinstall script to /usr/share/bibos/bin
+sudo rm /usr/share/bibos/bin/bibos-postinstall.sh 
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
 sudo mv  /etc/lightdm/lightdm.backup /etc/lightdm/lightdm.conf
 
