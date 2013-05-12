@@ -2,9 +2,12 @@
 
 INSTALLDIR=`dirname $0`
 
-echo "Setting up lpadmin group membership"
-adduser superuser lpadmin
-deluser user lpadmin
+# TODO: This is no longer necessary. Remove these lines once everything is
+# tested. Superuser will from now on be created before user and will always
+# be member of admin group. Also, the name "superuser" is no longer hard coded.
+#echo "Setting up lpadmin group membership"
+#adduser superuser lpadmin
+#deluser user lpadmin
 
 echo "Unpacking files"
 tar -C / -pxvzf "$INSTALLDIR/printer_files.tar.gz"

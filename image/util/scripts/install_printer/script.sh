@@ -7,9 +7,9 @@ read dummy
 
 echo ""
 
-echo "Setting up lpadmin group membership"
-adduser superuser lpadmin
-deluser user lpadmin
+#echo "Setting up lpadmin group membership"
+#adduser superuser lpadmin
+#deluser user lpadmin
 
 echo "Unpacking files"
 tar -C / -pxvzf "$INSTALLDIR/printer_files.tar.gz"
