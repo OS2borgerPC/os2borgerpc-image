@@ -19,8 +19,12 @@ sudo system-config-printer
 
 # Proprietary stuff
 
+# Ensure Internet connection 
+
+zenity --info --text="Du har brug for en forbindelse til Internettet for at fortsætte"      
 
 # 1. Codecs, Adobe Flash, etc.
+
 
 zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
 
@@ -28,10 +32,6 @@ if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
     sudo apt-get install ubuntu-restricted-extras 
-# | \
-#        tee >(zenity --progress --pulsate)  > /tmp/install_log.txt
-
-
 fi
 
 
