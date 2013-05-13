@@ -24,14 +24,9 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 # Overwrite file tree.
 sudo "$DIR/do_overwrite.sh"
 
-# Fix permission problem to avoid irritating warning.
-sudo chmod 0440 /etc/sudoers.d/bibos
 
 # Install all necessary packages and dependencies
 $DIR/install_dependencies.sh
-
-# Clean .deb cache
-sudo apt-get clean
 
 # Setup default user
 sudo useradd user -m -p 12345 -s /bin/bash -U

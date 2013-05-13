@@ -47,7 +47,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # upgrade
     sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
-    sudo apt-get -y dist-upgrade | tee /tmp/bibos_dist_upgrade_log.txt
 
     # and install
     sudo apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
@@ -59,5 +58,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "" 1>&2
         exit -1
     fi
+    # Clean .deb cache to save space
+    sudo apt-get clean
+    # We're done!
 fi
 
