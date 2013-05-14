@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 CD="${1:-bibos_base_image.iso}" ; shift
 
 # exit after any error:

@@ -1,10 +1,11 @@
-#/bin/bash
+#!/bin/bash
 CD="${1:-bibos_base_image.iso}" ; shift
 
 # exit after any error:
 set -e
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DIRNAME=$( dirname "${BASH_SOURCE[0]}" )
+DIR="$( cd "$DIRNAME" && pwd )"
 
 if [ ! -f "$CD" ]; then
     CD="${DIR}/images/$CD"
@@ -21,7 +22,10 @@ MNT_DIR=$( mktemp -d "${DIR}/bibos-clonezilla.XXXXXXXXXX" )
 chmod 0775 "${MNT_DIR}"
 
 # Make a link to the source CD we used
-ln -s "${CD}" "${MNT_DIR}/source-cd.iso"
+TMPDIR=$(dirname "$CD")
+TMPDIR=$(cd "$TMPDIR" && pwd)
+TMPFILE=$(basename $CD)
+ln -s "${TMPDIR}/${TMPFILE}" "${MNT_DIR}/source-cd.iso"
 
 CD_DIR="${MNT_DIR}/source-cd"
 CD_RW_DIR="${MNT_DIR}/cd-changes"
@@ -53,18 +57,19 @@ function mnt {
 # mount the CD image
 mnt "-t iso9660 $CD -o loop,ro" $CD_DIR
 
+# squashfs have issues between 64bit and 32bit systems, so avoid mounting it
+# for now. We should be able to make all our changes at the CD level.
 # mount compressed filesystem
-mnt "-t squashfs ${CD_DIR}/live/filesystem.squashfs -o ro,loop" "$RO_DIR"
+# mnt "-t squashfs  -o ro,loop ${CD_DIR}/live/filesystem.squashfs" "$RO_DIR"
 
 # create joined writable filesystem for the new CD
 mnt "-t aufs -o br:${CD_RW_DIR}/=rw:${CD_DIR}/=ro none" "$CD_UNI_DIR"
 
 # create joined writable filesystem for the new compressed squashfs filesystem
-mnt "-t aufs -o br:${RW_DIR}/=rw:${RO_DIR}/=ro none" "${UNI_DIR}"
+#mnt "-t aufs -o br:${RW_DIR}/=rw:${RO_DIR}/=ro none" "${UNI_DIR}"
 
 # Reset traps since everything went ok
 trap "" EXIT HUP TERM INT QUIT
 
-echo ">>> Filesystems ready to be changed"
+echo ">>> Filesystem ready to be changed"
 echo ">>>  cd: ${CD_UNI_DIR}"
-echo ">>>  clonezilla-filesystem: ${UNI_DIR}"

@@ -47,17 +47,17 @@ function mnt {
 mnt "-t iso9660 $CD -o loop,ro" $CD_DIR
 
 # mount compressed filesystem
-mnt "-t squashfs ${CD_DIR}/live/filesystem.squashfs -o ro,loop" "$RO_DIR"
+#mnt "-t squashfs ${CD_DIR}/live/filesystem.squashfs -o ro,loop" "$RO_DIR"
 
 # create joined writable filesystem for the new CD
 mnt "-t aufs -o br:${CD_RW_DIR}/=rw:${CD_DIR}/=ro none" "$CD_UNI_DIR"
 
 # create joined writable filesystem for the new compressed squashfs filesystem
-mnt "-t aufs -o br:${RW_DIR}/=rw:${RO_DIR}/=ro none" "${UNI_DIR}"
+#mnt "-t aufs -o br:${RW_DIR}/=rw:${RO_DIR}/=ro none" "${UNI_DIR}"
 
 # Reset traps since everything went ok
 trap "" EXIT HUP TERM INT QUIT
 
 echo ">>> Filesystems ready to be changed"
 echo ">>>  cd: ${CD_UNI_DIR}"
-echo ">>>  clonezilla-filesystem: ${CD_UNI_DIR}"
+#echo ">>>  clonezilla-filesystem: ${CD_UNI_DIR}"
