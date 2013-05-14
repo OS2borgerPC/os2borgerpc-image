@@ -1,2 +1,0 @@
-user ALL=NOPASSWD: /usr/local/bin/user-cleanup.bash
-superuser ALL=NOPASSWD: /usr/local/bin/user-cleanup.bash
