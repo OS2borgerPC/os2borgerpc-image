@@ -1,0 +1,4 @@
+Host *
+    User bibos-archive
+    IdentityFile /home/ssh/bibos-key
+    UserKnownHostsFile /home/ssh/known_hosts

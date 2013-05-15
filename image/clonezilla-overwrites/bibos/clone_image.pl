@@ -9,6 +9,8 @@ die "No disk device specified" unless($dev);
 
 die "Not a proper disk device $dev"
     unless(-e $dev and $dev =~ m!^/dev/[hs]d[a-z]$!);
+    
+my $image = $ARGV[1] || 'bibos';
 
 my $target = $dev . "1";
 $target =~ s!^/dev/!!;
@@ -27,6 +29,6 @@ system(
     '-k',               # Do NOT create a partition table on the target disk
     qw(-p true),        # Do nothing when done
     qw(restoreparts),   # Restore a partition
-    qw(bibos),          # Name of image to use
+    $image,             # Name of image to use
     $target             # Target device
 );

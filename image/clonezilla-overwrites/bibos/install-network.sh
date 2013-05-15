@@ -31,7 +31,13 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 
-sudo /usr/bin/perl /live/image/bibos/clone_image.pl $DEV
+IMAGE=`sudo /usr/bin/perl /live/image/bibos/select_image.pl`;
+if [ $? -ne 0 ]; then
+    echo "No image selected, exiting";
+    exit 1;
+fi
+
+sudo /usr/bin/perl /live/image/bibos/clone_image.pl $DEV $IMAGE
 
 sudo reboot
 
