@@ -307,11 +307,8 @@ fi
 
 # Delete desktop file from /etc/xdg/autostart
 sudo rm /etc/xdg/autostart/bibos-postinstall.desktop 
-# Copy postinstall script to /usr/share/bibos/bin
-sudo rm /usr/share/bibos/bin/bibos-postinstall.sh 
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
 sudo mv  /etc/lightdm/lightdm.backup /etc/lightdm/lightdm.conf
-sudo sed -i "s/autologin-user=superuser/autologin-user=user/" /etc/lightdm/lightdm.conf
 
 
 zenity --info --text="Installationen er afsluttet."
