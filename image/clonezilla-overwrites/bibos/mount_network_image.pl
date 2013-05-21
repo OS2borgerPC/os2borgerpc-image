@@ -4,6 +4,12 @@
 
 my $hostname = "web06.magenta-aps.dk";
 
+my $local_hostname = `sudo /live/image/bibos/find_bibos_server.pl`;
+if($local_hostname and $local_hostname =~ m!(\d+\.\d+\.\d+\.\d+)!) {
+    print STDERR "Using local server on $1\n";
+    $hostname = $1;
+}
+
 system(qw(cp -r /live/image/bibos/ssh /home/ssh));
 system('chmod 0400 /home/ssh/*');
 
