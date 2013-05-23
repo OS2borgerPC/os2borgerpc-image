@@ -30,4 +30,6 @@ fi
 
 sudo /usr/bin/perl /live/image/bibos/clone_image.pl $DEV $IMAGE
 
+sudo /usr/bin/perl /live/image/bibos/fix_swap.pl $DEV
+
 sudo reboot
