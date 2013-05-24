@@ -7,6 +7,8 @@ simple-scan
 xsane
 p7zip-full
 icedtea-plugin
+python-dev
+python-pip
 python-yaml
 libasound2
 libc6
@@ -22,6 +24,7 @@ libx11-6
 libxext6
 libxss1
 libxv1
+libyaml-dev
 libssl1.0.0
 cabextract 
 freepats
