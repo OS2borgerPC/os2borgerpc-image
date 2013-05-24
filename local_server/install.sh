@@ -77,4 +77,70 @@ if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
     update-rc.d bibos-broadcast-server defaults 98 02
 fi
 
-# TODO: Apache config
+# Install apache if it's not installed
+if [ ! -f /usr/sbin/apache2 ]; then
+    apt-get -y install apache2
+fi
+
+RESTART_APACHE="no"
+
+for mod in proxy_connect proxy_http proxy_ftp disk_cache; do
+    if [ ! -e "/etc/apache2/mods-enabled/${mod}.load" ]; then
+        a2enmod "$mod"
+        RESTART_APACHE="yes"
+    fi
+done
+
+if [ ! -f /etc/apache2/conf.d/bibos-proxy.conf ]; then
+    # Find proxy network and netmask
+    IP=`/sbin/ifconfig eth0 | grep "inet addr:" | sed 's/.*addr:\([0-9.]\+\).*/\1/'`
+    NETMASK=`/sbin/ifconfig eth0 | grep "inet addr:" | sed 's/.*Mask:\([0-9.]\+\).*/\1/'`
+    IP_ARR=""
+    IFS='.' read -ra IP_ARR <<< "$IP"
+    SN_ARR=""
+    IFS='.' read -ra SN_ARR <<< "$NETMASK"
+    NETWORK="$((${IP_ARR[0]} & ${SN_ARR[0]}))"
+    NETWORK="${NETWORK}.$((${IP_ARR[1]} & ${SN_ARR[1]}))"
+    NETWORK="${NETWORK}.$((${IP_ARR[2]} & ${SN_ARR[2]}))"
+    NETWORK="${NETWORK}.$((${IP_ARR[3]} & ${SN_ARR[3]}))"
+    
+    CONF_NETWORK=`get_bibos_config proxy_network 2>/dev/null`
+    if [ "$CONF_NETWORK" != "" ]; then
+        NETWORK="$CONF_NETWORK"
+    else
+        set_bibos_config proxy_network "$NETWORK"
+    fi
+    CONF_NETMASK=`get_bibos_config proxy_netmask 2>/dev/null`
+    if [ "$CONF_NETMASK" != "" ]; then
+        NETMASK="$CONF_NETMASK"
+    else
+        set_bibos_config proxy_netmask "$NETMASK"
+    fi
+
+    # Copy default configuration
+    cp "$DIR/etc/apache2/conf.d/bibos-proxy.conf" \
+        /etc/apache2/conf.d/bibos-proxy.conf
+
+    # Add allowed hosts
+    for host in \
+        "http://*.ubuntu.com/ubuntu/*" \
+        "http://pypi.python.org/*" \
+        "http://dk.archive.ubuntu.com/*" \
+        "http://bibos-admin.magenta-aps.dk/*" \
+        "http://bibos.web06.magenta-aps.dk/*" \
+    ; do
+        cat >> /etc/apache2/conf.d/bibos-proxy.conf <<EOT
+<Proxy ${host}>
+    Order deny,allow
+    Deny from all
+    Allow from ${NETWORK}/${NETMASK}
+</Proxy>
+
+EOT
+    RESTART_APACHE="yes"
+    done
+fi
+
+if [ "$RESTART_APACHE" == "yes" ]; then
+    /etc/init.d/apache2 restart
+fi
