@@ -310,5 +310,13 @@ sudo rm /etc/xdg/autostart/bibos-postinstall.desktop
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
 sudo mv  /etc/lightdm/lightdm.backup /etc/lightdm/lightdm.conf
 
+# Add bibos started requirement to lightdm upstart script
+grep "and started bibos" /etc/init/lightdm.conf > /dev/null
+if [ $? -ne 0 ]; then
+    cat /etc/init/lightdm.conf | \
+        perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
+        > /tmp/lightdm.conf.tmp
+    sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+fi
 
 zenity --info --text="Installationen er afsluttet."
