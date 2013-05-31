@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 MNT_DIR=$1; shift
 

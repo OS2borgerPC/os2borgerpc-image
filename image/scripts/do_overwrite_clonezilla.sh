@@ -11,4 +11,4 @@ fi
 
 
 # Now do the deed
-cp -r $DIR/../clonezilla-overwrites/* $DEST
+sudo cp -r $DIR/../clonezilla-overwrites/* $DEST

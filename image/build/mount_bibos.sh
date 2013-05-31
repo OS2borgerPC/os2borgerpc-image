@@ -52,7 +52,8 @@ function mnt {
 mnt "-t iso9660 $CD -o loop,ro" $CD_DIR
 
 echo "Generating HD loopback image"
-cat ${CD_DIR}/bibos-image/sda1.ext4-ptcl-img.gz.a* | gzip -d -c | \
+cat ${CD_DIR}/bibos-images/bibos_default/sda1.ext4-ptcl-img.gz.a* | \
+    gzip -d -c | \
     partclone.restore -C -s - -O "${HD_IMAGE}" --restore_raw_file
 
 echo "Mounting filesystems"

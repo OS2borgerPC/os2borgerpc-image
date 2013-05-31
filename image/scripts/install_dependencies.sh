@@ -60,6 +60,9 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     fi
     # Clean .deb cache to save space
     sudo apt-get clean
+
+    # Install python packages
+    sudo pip install bibos-utils
+
     # We're done!
 fi
-

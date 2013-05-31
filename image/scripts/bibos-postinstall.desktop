@@ -1,8 +1,11 @@
+
 [Desktop Entry]
 Name=bibos-postinstall
 Comment=bibos oem setup
-Icon=
+Icon=/usr/share/pixmaps/gksu-root-terminal.png
 Exec=gksudo "gnome-terminal --command=/usr/share/bibos/bin/bibos-postinstall.sh"
 Terminal=false
 Type=Application
-NoDisplay=true
+NoDisplay=false
+Name=Færdiggør BibOS installation
+Name[da_DK]=Færdiggør BibOS installation
