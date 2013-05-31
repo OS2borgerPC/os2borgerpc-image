@@ -12,10 +12,10 @@
 
 # The script should be run as a sudo-enabled user - not directly as root.
 
+zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
 
 # Printer setup
 sudo system-config-printer
-
 
 # Proprietary stuff
 
@@ -303,12 +303,11 @@ EOF
 sudo mv /tmp/google-chrome.desktop /home/.skjult/Desktop
 fi
 
+# Delete desktop file
+sudo rm /home/*/Skrivebord/bibos-postinstall.desktop
 
-
-# Delete desktop file from /etc/xdg/autostart
-sudo rm /etc/xdg/autostart/bibos-postinstall.desktop 
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo mv  /etc/lightdm/lightdm.backup /etc/lightdm/lightdm.conf
+sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
 
 # Add bibos started requirement to lightdm upstart script
 grep "and started bibos" /etc/init/lightdm.conf > /dev/null
@@ -318,5 +317,7 @@ if [ $? -ne 0 ]; then
         > /tmp/lightdm.conf.tmp
     sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
 fi
+
+sudo rm /etc/bibos/firstboot
 
 zenity --info --text="Installationen er afsluttet."

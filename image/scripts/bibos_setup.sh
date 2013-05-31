@@ -33,6 +33,4 @@ sudo useradd user -m -p 12345 -s /bin/bash -U
 sudo chfn -f Publikum user
 sudo adduser user nopasswdlogin
 
-
-
-
+sudo touch /etc/bibos/firstboot
