@@ -10,6 +10,7 @@ icedtea-plugin
 python-dev
 python-pip
 python-yaml
+libreoffice-l10n-ar
 libasound2
 libc6
 libgcc1 
