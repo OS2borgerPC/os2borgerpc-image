@@ -319,10 +319,11 @@ then
 
     if [[ -n "$NEWHOSTNAME" ]]
     then
-        sudo sed -i -e "s/$HOSTNAME/$NEWHOSTNAME/" /etc/hosts
         echo $NEWHOSTNAME > /tmp/newhostname
-        sudo cp $NEWHOSTNAME /etc/hostname
+        sudo cp /tmp/newhostname /etc/hostname
         sudo set_bibos_config hostname $NEWHOSTNAME
+        sudo hostname $NEWHOSTNAME
+        sudo sed -i -e "s/$HOSTNAME/$NEWHOSTNAME/" /etc/hosts
     else
         sudo set_bibos_config hostname $HOSTNAME
     fi
