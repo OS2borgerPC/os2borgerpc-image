@@ -62,7 +62,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     sudo apt-get clean
 
     # Install python packages
-    sudo pip install bibos-utils
+    sudo pip install bibos-client
 
     # We're done!
 fi
