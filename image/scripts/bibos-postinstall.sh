@@ -309,77 +309,37 @@ zenity --question  --text="Tilslut admin-systemet?"
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
-    # Get hold of config parameters, connect to admin system.
-    # The following config parameters are needed to finalize the
-    # installation:
-    # - hostname
-    #   TODO: Prompt user for new host name
-    echo "Indtast venligst et nyt navn for denne computer:"
-    read NEWHOSTNAME
-
-    if [[ -n "$NEWHOSTNAME" ]]
-    then
-        echo $NEWHOSTNAME > /tmp/newhostname
-        sudo cp /tmp/newhostname /etc/hostname
-        sudo set_bibos_config hostname $NEWHOSTNAME
-        sudo hostname $NEWHOSTNAME
-        sudo sed -i -e "s/$HOSTNAME/$NEWHOSTNAME/" /etc/hosts
-    else
-        sudo set_bibos_config hostname $HOSTNAME
-    fi
-    # - site
-    #   TODO: Get site from gateway, if none present prompt user
-    echo "Indtast ID for det site, computeren skal tilmeldes:"
-    read SITE
-    if [[ -n "$SITE" ]]
-    then
-        sudo set_bibos_config site $SITE
-    else
-        echo ""
-        echo "Computeren kan ikke registreres uden site - prøv igen."
-        exit 1
-    fi
-
-    # - distribution
-    #   TODO: Use preinstalled default if any, otherwise prompt user
-    
-    DISTRO=$(get_bibos_config distribution)
-    if [[ -z $DISTRO ]]
-    then
-        echo "Indtast ID for PC'ens distribution"
-        read DISTRO
-    fi
-    sudo set_bibos_config distribution $DISTRO
-    # - admin_url
-    #   TODO: Get from gateway, otherwise prompt user.
-    ADMIN_URL=http://bibos-admin.magenta-aps.dk
-    echo "Indtast admin-url hvis det ikke er $ADMIN_URL"
-    read NEW_ADMIN_URL
-    if [[ -n $NEW_ADMIN_URL ]]
-    then
-        ADMIN_URL=$NEW_ADMIN_URL
-    fi
-    sudo set_bibos_config admin_url $ADMIN_URL
-
-    # OK, we got the config. 
-    # Do the deed.
-    sudo bibos_register_in_admin
+    register_new_bibos_client.sh
 fi
-# Delete desktop file
-sudo rm /home/*/Skrivebord/bibos-postinstall.desktop
+    # Delete desktop file
 
-# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
-
-# Add bibos started requirement to lightdm upstart script
-grep "and started bibos" /etc/init/lightdm.conf > /dev/null
-if [ $? -ne 0 ]; then
-    cat /etc/init/lightdm.conf | \
-        perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
-        > /tmp/lightdm.conf.tmp
-    sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+DESKTOP_FILE=/home/$USER/Skrivebord/bibos-postinstall.desktop
+if [[ -f $DESKTOP_FILE ]]
+then
+    sudo rm $DESKTOP_FILE
 fi
 
-sudo rm /etc/bibos/firstboot
+if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+fi
+
+if [[ -f /etc/bibos/firstboot ]]
+then
+    # Add bibos started requirement to lightdm upstart script
+    # TODO-CA: What is this? 
+    grep "and started bibos" /etc/init/lightdm.conf > /dev/null
+    if [ $? -ne 0 ]; then
+        cat /etc/init/lightdm.conf | \
+            perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
+            > /tmp/lightdm.conf.tmp
+        sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+    fi
+    sudo rm /etc/bibos/firstboot
+else
+    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
+fi
+
 
 zenity --info --text="Installationen er afsluttet."
