@@ -4,7 +4,7 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,parentdir)
 from signal import SIGTERM
 from socket import AF_INET, SOCK_DGRAM
-from bibos_config import get_config
+from bibos_utils.bibos_config import get_config
 
 REPLY_MESSAGE = "BibOS-server:"
 PORT = 42420
