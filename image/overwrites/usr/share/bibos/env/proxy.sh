@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROXY_HOST=`get_bibos_config local_server_address 2>/dev/null`
+PROXY_HOST=`get_bibos_config gateway_address 2>/dev/null`
 if [ "$PROXY_HOST" != "" ]; then
     http_proxy="http://${PROXY_HOST}:80"
     https_proxy="$http_proxy"

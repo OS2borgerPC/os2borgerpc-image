@@ -144,3 +144,10 @@ fi
 if [ "$RESTART_APACHE" == "yes" ]; then
     /etc/init.d/apache2 restart
 fi
+
+ADMIN_URL=$(get_bibos_config admin_url)
+BIBOS_SITE=$(get_bibos_config site)
+SHARED_CONFIGURATION=/var/www/bibos.conf
+
+set_bibos_config admin_url "$ADMIN_URL" "$SHARED_CONFIGURATION"
+set_bibos_config site "$BIBOS_SITE" "$SHARED_CONFIGURATION"
