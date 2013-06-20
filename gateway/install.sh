@@ -19,7 +19,7 @@ done
 
 # Install apache if it's not installed
 if [ "$INSTALL_PACKAGES" != "" ]; then
-    apt-get -y install $install_packages
+    apt-get -y install $INSTALL_PACKAGES
 fi
 
 # Create bibos-archive user if it doesn't exist
