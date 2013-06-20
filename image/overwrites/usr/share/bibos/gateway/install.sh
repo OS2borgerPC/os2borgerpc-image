@@ -82,10 +82,6 @@ EOT
     echo "Done"
 fi
 
-if [ ! -d /usr/share/bibos/local_server ]; then
-    cp -r "$DIR/daemon/" "/usr/share/bibos/local_server/"
-fi
-
 if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
     cp $DIR/etc/init.d/bibos-broadcast-server /etc/init.d/
     update-rc.d bibos-broadcast-server defaults 98 02
