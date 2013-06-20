@@ -8,6 +8,20 @@ if [ "$WHO" != "root" ]; then
     exit 1;
 fi
 
+INSTALL_PACKAGES=""
+
+for pkg in openssh-server apache2 squid-deb-proxy; do
+    dpkg -l "$pkg" > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
+    fi
+done
+
+# Install apache if it's not installed
+if [ "$INSTALL_PACKAGES" != "" ]; then
+    apt-get -y install $install_packages
+fi
+
 # Create bibos-archive user if it doesn't exist
 grep "^bibos-archive:" /etc/passwd > /dev/null
 if [ $? -ne 0 ]; then
@@ -77,29 +91,14 @@ if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
     update-rc.d bibos-broadcast-server defaults 98 02
 fi
 
-INSTALL_PACKAGES=""
-
-
-for pkg in apache2 squid-deb-proxy; do
-    dpkg -l "$pkg" > /dev/null 2>&1
-    if [ $? -ne 0 ]; then
-        INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
-    fi
-done
-
-# Install apache if it's not installed
-if [ "$INSTALL_PACKAGES" != "" ]; then
-    apt-get -y install $install_packages
-fi
-
 # Overwrite squid configuration:
 cp -r $DIR/etc/squid-deb-proxy/ /etc/squid-deb-proxy/
 service squid-deb-proxy restart
 
 # Don't run the normal squid (it's an open proxy)
-grep "manual" /etc/init/squid3.override > /dev/null > 2>&1 || \
+grep "manual" /etc/init/squid3.override > /dev/null 2>&1 || \
     echo "manual" >> /etc/init/squid3.override
-service squid3 stop
+status squid3 | grep running && stop squid3
 
 ADMIN_URL=$(get_bibos_config admin_url)
 BIBOS_SITE=$(get_bibos_config site)
