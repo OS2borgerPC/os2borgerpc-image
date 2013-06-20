@@ -11,7 +11,7 @@ fi
 INSTALL_PACKAGES=""
 
 for pkg in openssh-server apache2 squid-deb-proxy; do
-    dpkg -l "$pkg" > /dev/null 2>&1
+    dpkg -l "$pkg"  2>&1 | grep '^ii' > /dev/null
     if [ $? -ne 0 ]; then
         INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
     fi
