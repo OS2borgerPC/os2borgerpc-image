@@ -15,7 +15,7 @@ set -e
 
 test -f /etc/default/rcS && . /etc/default/rcS
 
-DAEMON_SCRIPT=/usr/share/bibos/local_server/broadcast_server.py
+DAEMON_SCRIPT=/usr/share/bibos/gateway/daemon/broadcast_server.py
 
 case $1 in
 	start)

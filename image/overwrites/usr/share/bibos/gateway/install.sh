@@ -11,7 +11,7 @@ fi
 INSTALL_PACKAGES=""
 
 for pkg in openssh-server apache2 squid-deb-proxy; do
-    dpkg -l "$pkg" > /dev/null 2>&1
+    dpkg -l "$pkg"  2>&1 | grep '^ii' > /dev/null
     if [ $? -ne 0 ]; then
         INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
     fi
@@ -19,7 +19,7 @@ done
 
 # Install apache if it's not installed
 if [ "$INSTALL_PACKAGES" != "" ]; then
-    apt-get -y install $install_packages
+    apt-get -y install $INSTALL_PACKAGES
 fi
 
 # Create bibos-archive user if it doesn't exist
@@ -80,10 +80,6 @@ EOT
     rm $TMPFILE
     service ssh restart
     echo "Done"
-fi
-
-if [ ! -d /usr/share/bibos/local_server ]; then
-    cp -r "$DIR/daemon/" "/usr/share/bibos/local_server/"
 fi
 
 if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
