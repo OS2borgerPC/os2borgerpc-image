@@ -34,7 +34,7 @@ then
 fi
 
 
-# 2. Evil, despicable Microsofty Skype
+# 2. Skype
 
 zenity --question --text="Installér Skype?"
 
