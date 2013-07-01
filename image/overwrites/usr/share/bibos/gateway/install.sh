@@ -8,6 +8,20 @@ if [ "$WHO" != "root" ]; then
     exit 1;
 fi
 
+INSTALL_PACKAGES=""
+
+for pkg in openssh-server apache2 squid-deb-proxy; do
+    dpkg -l "$pkg"  2>&1 | grep '^ii' > /dev/null
+    if [ $? -ne 0 ]; then
+        INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
+    fi
+done
+
+# Install apache if it's not installed
+if [ "$INSTALL_PACKAGES" != "" ]; then
+    apt-get -y install $INSTALL_PACKAGES
+fi
+
 # Create bibos-archive user if it doesn't exist
 grep "^bibos-archive:" /etc/passwd > /dev/null
 if [ $? -ne 0 ]; then
@@ -68,79 +82,23 @@ EOT
     echo "Done"
 fi
 
-if [ ! -d /usr/share/bibos/local_server ]; then
-    cp -r "$DIR/daemon/" "/usr/share/bibos/local_server/"
-fi
-
 if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
     cp $DIR/etc/init.d/bibos-broadcast-server /etc/init.d/
     update-rc.d bibos-broadcast-server defaults 98 02
 fi
 
-# Install apache if it's not installed
-if [ ! -f /usr/sbin/apache2 ]; then
-    apt-get -y install apache2
-fi
+# Overwrite squid configuration:
+cp -r $DIR/etc/squid-deb-proxy/ /etc/squid-deb-proxy/
+service squid-deb-proxy restart
 
-RESTART_APACHE="no"
+# Don't run the normal squid (it's an open proxy)
+grep "manual" /etc/init/squid3.override > /dev/null 2>&1 || \
+    echo "manual" >> /etc/init/squid3.override
+status squid3 | grep running && stop squid3
 
-for mod in proxy_connect proxy_http proxy_ftp disk_cache; do
-    if [ ! -e "/etc/apache2/mods-enabled/${mod}.load" ]; then
-        a2enmod "$mod"
-        RESTART_APACHE="yes"
-    fi
-done
+ADMIN_URL=$(get_bibos_config admin_url)
+BIBOS_SITE=$(get_bibos_config site)
+SHARED_CONFIGURATION=/var/www/bibos.conf
 
-if [ ! -f /etc/apache2/conf.d/bibos-proxy.conf ]; then
-    # Find proxy network and netmask
-    IP=`/sbin/ifconfig eth0 | grep "inet addr:" | sed 's/.*addr:\([0-9.]\+\).*/\1/'`
-    NETMASK=`/sbin/ifconfig eth0 | grep "inet addr:" | sed 's/.*Mask:\([0-9.]\+\).*/\1/'`
-    IP_ARR=""
-    IFS='.' read -ra IP_ARR <<< "$IP"
-    SN_ARR=""
-    IFS='.' read -ra SN_ARR <<< "$NETMASK"
-    NETWORK="$((${IP_ARR[0]} & ${SN_ARR[0]}))"
-    NETWORK="${NETWORK}.$((${IP_ARR[1]} & ${SN_ARR[1]}))"
-    NETWORK="${NETWORK}.$((${IP_ARR[2]} & ${SN_ARR[2]}))"
-    NETWORK="${NETWORK}.$((${IP_ARR[3]} & ${SN_ARR[3]}))"
-    
-    CONF_NETWORK=`get_bibos_config proxy_network 2>/dev/null`
-    if [ "$CONF_NETWORK" != "" ]; then
-        NETWORK="$CONF_NETWORK"
-    else
-        set_bibos_config proxy_network "$NETWORK"
-    fi
-    CONF_NETMASK=`get_bibos_config proxy_netmask 2>/dev/null`
-    if [ "$CONF_NETMASK" != "" ]; then
-        NETMASK="$CONF_NETMASK"
-    else
-        set_bibos_config proxy_netmask "$NETMASK"
-    fi
-
-    # Copy default configuration
-    cp "$DIR/etc/apache2/conf.d/bibos-proxy.conf" \
-        /etc/apache2/conf.d/bibos-proxy.conf
-
-    # Add allowed hosts
-    for host in \
-        "http://*.ubuntu.com/ubuntu/*" \
-        "http://pypi.python.org/*" \
-        "http://dk.archive.ubuntu.com/*" \
-        "http://bibos-admin.magenta-aps.dk/*" \
-        "http://bibos.web06.magenta-aps.dk/*" \
-    ; do
-        cat >> /etc/apache2/conf.d/bibos-proxy.conf <<EOT
-<Proxy ${host}>
-    Order deny,allow
-    Deny from all
-    Allow from ${NETWORK}/${NETMASK}
-</Proxy>
-
-EOT
-    RESTART_APACHE="yes"
-    done
-fi
-
-if [ "$RESTART_APACHE" == "yes" ]; then
-    /etc/init.d/apache2 restart
-fi
+set_bibos_config admin_url "$ADMIN_URL" "$SHARED_CONFIGURATION"
+set_bibos_config site "$BIBOS_SITE" "$SHARED_CONFIGURATION"

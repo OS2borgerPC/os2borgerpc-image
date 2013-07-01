@@ -25,7 +25,6 @@ zenity --info --text="Du har brug for en forbindelse til Internettet for at fort
 
 # 1. Codecs, Adobe Flash, etc.
 
-
 zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
 
 if [[  $? -eq 0 ]]
@@ -35,7 +34,7 @@ then
 fi
 
 
-# 2. Evil, despicable Microsofty Skype
+# 2. Skype
 
 zenity --question --text="Installér Skype?"
 
@@ -303,21 +302,44 @@ EOF
 sudo mv /tmp/google-chrome.desktop /home/.skjult/Desktop
 fi
 
-# Delete desktop file
-sudo rm /home/*/Skrivebord/bibos-postinstall.desktop
+# 4. Register in admin system
 
-# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+zenity --question  --text="Tilslut admin-systemet?"
 
-# Add bibos started requirement to lightdm upstart script
-grep "and started bibos" /etc/init/lightdm.conf > /dev/null
-if [ $? -ne 0 ]; then
-    cat /etc/init/lightdm.conf | \
-        perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
-        > /tmp/lightdm.conf.tmp
-    sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+if [[  $? -eq 0 ]]
+then 
+    # User pressed "Yes"
+    register_new_bibos_client.sh
+fi
+    # Delete desktop file
+
+DESKTOP_FILE=/home/$USER/Skrivebord/bibos-postinstall.desktop
+if [[ -f $DESKTOP_FILE ]]
+then
+    sudo rm $DESKTOP_FILE
 fi
 
-sudo rm /etc/bibos/firstboot
+if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+fi
+
+if [[ -f /etc/bibos/firstboot ]]
+then
+    # Add bibos started requirement to lightdm upstart script
+    # TODO-CA: What is this? 
+    grep "and started bibos" /etc/init/lightdm.conf > /dev/null
+    if [ $? -ne 0 ]; then
+        cat /etc/init/lightdm.conf | \
+            perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
+            > /tmp/lightdm.conf.tmp
+        sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+    fi
+    sudo rm /etc/bibos/firstboot
+else
+    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
+fi
+
 
 zenity --info --text="Installationen er afsluttet."

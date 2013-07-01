@@ -4,7 +4,7 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,parentdir)
 from signal import SIGTERM
 from socket import AF_INET, SOCK_DGRAM
-from bibos_config import get_config
+from bibos_utils.bibos_config import get_config
 
 REPLY_MESSAGE = "BibOS-server:"
 PORT = 42420
@@ -173,9 +173,10 @@ class BibOSDaemon(Daemon):
         if len(self.args) > 0:
             server_ip = self.args[0]
         else:
-            server_ip = get_config('local_server_address')
-        if server_ip is None:
-            server_ip = find_lan_addresses()[0]
+            try:
+                server_ip = get_config('gateway_address')
+            except KeyError:
+                server_ip = find_lan_addresses()[0]
     
         if not server_ip:
             print >> sys.stderr, "Could not find LAN ip or no LAN ip specified"
