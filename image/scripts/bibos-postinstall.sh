@@ -30,6 +30,7 @@ zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
+    sudo apt-get update
     sudo apt-get install ubuntu-restricted-extras 
 fi
 
@@ -71,6 +72,11 @@ then
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
     sudo apt-get update
     sudo apt-get install google-chrome-stable
+    # Assuming everything went well, set Chrome as default browser.
+    if [ $(which google-chrome) ]
+    then
+        sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
+    fi
 
    # Install desktop icon
 
