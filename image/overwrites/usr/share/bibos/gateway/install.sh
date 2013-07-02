@@ -26,7 +26,7 @@ fi
 grep "^bibos-archive:" /etc/passwd > /dev/null
 if [ $? -ne 0 ]; then
     echo "Creating bibos-archive user..."
-    useradd -d /home/bibos-archive -m -s /bin/false bibos-archive
+    useradd -d /home/bibos-archive -m -s /bin/false -u 901 bibos-archive
     echo "Done"
 
     # Set up ssh stuff
