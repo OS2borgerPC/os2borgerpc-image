@@ -41,7 +41,7 @@ if [ $? -ne 0 ]; then
         chmod 0600 ~bibos-archive/.ssh/authorized_keys
     fi
 
-    cat ../image/clonezilla-overwrites/bibos/ssh/bibos-key.pub >> \
+    cat ${DIR}/bibos-key.pub >> \
         ~bibos-archive/.ssh/authorized_keys
     echo "Done"
 fi
