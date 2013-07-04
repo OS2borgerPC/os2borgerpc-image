@@ -10,7 +10,7 @@ fi
 
 INSTALL_PACKAGES=""
 
-for pkg in openssh-server apache2 squid-deb-proxy; do
+for pkg in openssh-server apache2 squid-deb-proxy sshfs; do
     dpkg -l "$pkg"  2>&1 | grep '^ii' > /dev/null
     if [ $? -ne 0 ]; then
         INSTALL_PACKAGES="${INSTALL_PACKAGES} $pkg"
@@ -41,7 +41,7 @@ if [ $? -ne 0 ]; then
         chmod 0600 ~bibos-archive/.ssh/authorized_keys
     fi
 
-    cat ${DIR}/bibos-key.pub >> \
+    cat ${DIR}/ssh/bibos-key.pub >> \
         ~bibos-archive/.ssh/authorized_keys
     echo "Done"
 fi
@@ -101,3 +101,13 @@ SHARED_CONFIGURATION=/var/www/bibos.conf
 
 set_bibos_config admin_url "$ADMIN_URL" "$SHARED_CONFIGURATION"
 set_bibos_config site "$BIBOS_SITE" "$SHARED_CONFIGURATION"
+
+echo "Do you want to synchronize the image/iso archive now? (J/n)?"
+read a;
+if [ "$a" == "y" -o "$a" == "j" -o "$a" == "" ]; then
+    /usr/share/bibos/gateway/rsync_archive.sh
+else
+    echo "You can synchronize later by running the /usr/share/bibos/gateway/rsync_archive.sh script as root"
+fi
+
+echo "Installation of gateway done"
