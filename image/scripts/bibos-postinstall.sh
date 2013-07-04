@@ -72,11 +72,25 @@ then
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
     sudo apt-get update
     sudo apt-get install google-chrome-stable
-    # Assuming everything went well, set Chrome as default browser.
-    if [ $(which google-chrome) ]
-    then
-        sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
-    fi
+
+# Make default browser globally
+sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
+
+# Make default browser for user
+cat << EOF > /tmp/mimeapps.list
+
+
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+
+EOF
+
+sudo mkdir -p /home/.skjult/.local/share/applications
+sudo mv /tmp/mimeapps.list /home/.skjult/.local/share/applications
 
    # Install desktop icon
 
