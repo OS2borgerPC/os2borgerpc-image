@@ -15,8 +15,20 @@ mkdir /tmp/archive-mnt
 sshfs ${ARCHIVE_HOST}:/archive/ /tmp/archive-mnt \
     -F /usr/share/bibos/gateway/ssh/config -o uid=0 -o gid=0
 
-rsync -va /tmp/archive-mnt/ /archive/
+rsync --ignore-existing -va /tmp/archive-mnt/iso/ /bibos-archive/archive/iso/
+
+for iso in /bibos-archive/archive/iso/*.iso; do
+    TARGETDIR=`basename "$iso"`
+    TARGETDIR=${TARGETDIR%.iso}
+    TARGETDIR="/bibos-archive/archive/hd/${TARGETDIR}"
+
+    if [ ! -e "$TARGETDIR" ]; then
+        echo "Unpacking $iso"
+	/usr/share/bibos/gateway/import_hd_from_iso.sh "$iso"
+    fi
+done
+
+rsync --ignore-existing -va /tmp/archive-mnt/hd/ /bibos-archive/archive/hd/
 
 umount /tmp/archive-mnt
 rmdir /tmp/archive-mnt
-

@@ -102,6 +102,9 @@ SHARED_CONFIGURATION=/var/www/bibos.conf
 set_bibos_config admin_url "$ADMIN_URL" "$SHARED_CONFIGURATION"
 set_bibos_config site "$BIBOS_SITE" "$SHARED_CONFIGURATION"
 
+# Fix ssh permissions
+chmod -R og-rw /usr/share/bibos/gateway/ssh/
+
 echo "Do you want to synchronize the image/iso archive now? (J/n)?"
 read a;
 if [ "$a" == "y" -o "$a" == "j" -o "$a" == "" ]; then
