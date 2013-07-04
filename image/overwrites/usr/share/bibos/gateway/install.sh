@@ -88,8 +88,7 @@ if [ ! -f /etc/init.d/bibos-broadcast-server ]; then
 fi
 
 # Overwrite squid configuration:
-cp -r $DIR/etc/squid-deb-proxy/ /etc/squid-deb-proxy/
-service squid-deb-proxy restart
+python "$DIR/update_proxy_config.py"
 
 # Don't run the normal squid (it's an open proxy)
 grep "manual" /etc/init/squid3.override > /dev/null 2>&1 || \
