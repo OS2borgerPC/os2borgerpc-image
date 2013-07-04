@@ -34,3 +34,7 @@ sudo chfn -f Publikum user
 sudo adduser user nopasswdlogin
 
 sudo touch /etc/bibos/firstboot
+
+# Prepare to run jobs
+sudo mkdir -p /var/lib/bibos/jobs
+

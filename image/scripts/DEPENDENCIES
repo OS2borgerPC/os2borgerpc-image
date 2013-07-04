@@ -94,3 +94,5 @@ libzbar0
 libzvbi-common 
 libzvbi0 
 tsconf 
+curl
+mailutils
