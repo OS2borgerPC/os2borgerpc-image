@@ -17,5 +17,5 @@ system(
     qw(sudo sshfs),
     "${hostname}:/archive/hd",
     qw(/home/partimag -F /home/ssh/config),
-    qw(-o uid=1 -o gid=1)
+    qw(-o uid=1000 -o gid=1000 -o allow_other)
 ) == 0 or die "Could not mount remote file system";

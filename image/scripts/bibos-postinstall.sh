@@ -10,6 +10,9 @@
 # 
 # This script REQUIRES AN INTERNET CONNECTION!
 
+# Get proxy-environment if needed
+source /usr/share/bibos/env/proxy.sh
+
 # The script should be run as a sudo-enabled user - not directly as root.
 
 zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
