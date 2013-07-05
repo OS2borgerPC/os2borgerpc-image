@@ -9,6 +9,7 @@ ResultActive=auth_admin_keep
 [NetworkManager2]
 Identity=unix-group:user
 Action=org.freedesktop.NetworkManager.enable-disable-network
-ResultAny=noResultInactive=noR
+ResultAny=no
+ResultInactive=no
 ResultActive=auth_admin_keep
 
