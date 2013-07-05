@@ -1,0 +1,14 @@
+[NetworkManager1]
+Identity=unix-group:user
+Action=org.freedesktop.NetworkManager.network-control
+ResultAny=no
+ResultInactive=no
+ResultActive=auth_admin_keep
+
+ 
+[NetworkManager2]
+Identity=unix-group:user
+Action=org.freedesktop.NetworkManager.enable-disable-network
+ResultAny=noResultInactive=noR
+ResultActive=auth_admin_keep
+
