@@ -8,6 +8,8 @@ xsane
 p7zip-full
 icedtea-plugin
 python-dev
+python-lockfile
+python-netifaces
 python-pip
 python-yaml
 libreoffice-l10n-ar
