@@ -32,3 +32,6 @@ rsync --ignore-existing -va /tmp/archive-mnt/hd/ /bibos-archive/archive/hd/
 
 umount /tmp/archive-mnt
 rmdir /tmp/archive-mnt
+
+# Ensure everybody can ready everything
+chmod -R +r /bibos-archive/archive/
