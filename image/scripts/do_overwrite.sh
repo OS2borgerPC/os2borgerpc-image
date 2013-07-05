@@ -25,4 +25,5 @@ popd > /dev/null
 # Now do the deed
 cp -r ../overwrites/* $DESTINATION
 
-
+# Permissions fixup
+chmod 0440 ${DESTINATION}etc/sudoers.d/keep_proxy
