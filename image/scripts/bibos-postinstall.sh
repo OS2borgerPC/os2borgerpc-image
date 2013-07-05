@@ -333,13 +333,6 @@ then
 else
     zenity --info --text="Kør 'register_new_bibos_client.sh' hvis du vil tilslutte senere"
 fi
-    # Delete desktop file
-
-DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
-if [[ -f $DESKTOP_FILE ]]
-then
-    sudo rm $DESKTOP_FILE
-fi
 
 if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
 then
@@ -365,3 +358,11 @@ fi
 
 
 zenity --info --text="Installationen er afsluttet."
+    
+# Delete desktop file
+
+DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
+if [[ -f $DESKTOP_FILE ]]
+then
+    sudo rm $DESKTOP_FILE
+fi
