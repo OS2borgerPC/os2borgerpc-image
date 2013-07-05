@@ -330,10 +330,12 @@ if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
     register_new_bibos_client.sh
+else
+    zenity --info --text="Kør 'register_new_bibos_client.sh' hvis du vil tilslutte senere"
 fi
     # Delete desktop file
 
-DESKTOP_FILE=/home/$USER/Skrivebord/bibos-postinstall.desktop
+DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
 then
     sudo rm $DESKTOP_FILE
