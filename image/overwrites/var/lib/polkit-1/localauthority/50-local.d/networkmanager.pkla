@@ -3,7 +3,7 @@ Identity=unix-group:user
 Action=org.freedesktop.NetworkManager.network-control
 ResultAny=no
 ResultInactive=no
-ResultActive=auth_admin_keep
+ResultActive=no
 
  
 [NetworkManager2]
@@ -11,5 +11,5 @@ Identity=unix-group:user
 Action=org.freedesktop.NetworkManager.enable-disable-network
 ResultAny=no
 ResultInactive=no
-ResultActive=auth_admin_keep
+ResultActive=no
 
