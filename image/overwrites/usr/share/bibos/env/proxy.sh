@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$http_proxy" != "" ]; then
+if [ "$http_proxy" == "" ]; then
     PROXY_HOST=$(bibos_find_gateway 2> /dev/null)
     if [ "$PROXY_HOST" != "" ]; then
         http_proxy="http://${PROXY_HOST}:8000"
