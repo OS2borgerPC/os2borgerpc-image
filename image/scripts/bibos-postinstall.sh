@@ -10,6 +10,9 @@
 # 
 # This script REQUIRES AN INTERNET CONNECTION!
 
+# Get proxy-environment if needed
+source /usr/share/bibos/env/proxy.sh
+
 # The script should be run as a sudo-enabled user - not directly as root.
 
 zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
@@ -31,7 +34,7 @@ if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
     sudo apt-get update
-    sudo apt-get install ubuntu-restricted-extras 
+    sudo apt-get -y install ubuntu-restricted-extras 
 fi
 
 
@@ -44,7 +47,7 @@ then
      ATTEMPTED_INSTALL=1
      sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
      sudo apt-get update  
-     sudo apt-get install skype 
+     sudo apt-get -y install skype 
 fi
 
 if [[ ! -z $ATTEMPTED_INSTALL ]]
@@ -71,7 +74,7 @@ then
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
     sudo apt-get update
-    sudo apt-get install google-chrome-stable
+    sudo apt-get -y install google-chrome-stable
 
 # Make default browser globally
 sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
@@ -333,13 +336,6 @@ then
 else
     zenity --info --text="Kør 'register_new_bibos_client.sh' hvis du vil tilslutte senere"
 fi
-    # Delete desktop file
-
-DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
-if [[ -f $DESKTOP_FILE ]]
-then
-    sudo rm $DESKTOP_FILE
-fi
 
 if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
 then
@@ -365,3 +361,11 @@ fi
 
 
 zenity --info --text="Installationen er afsluttet."
+    
+# Delete desktop file
+
+DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
+if [[ -f $DESKTOP_FILE ]]
+then
+    sudo rm $DESKTOP_FILE
+fi

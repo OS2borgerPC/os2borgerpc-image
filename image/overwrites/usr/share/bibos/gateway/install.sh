@@ -113,4 +113,7 @@ else
     echo "You can synchronize later by running the /usr/share/bibos/gateway/rsync_archive.sh script as root"
 fi
 
+# Start the broadcast server
+/etc/init.d/bibos-broadcast-server start
+
 echo "Installation of gateway done"
