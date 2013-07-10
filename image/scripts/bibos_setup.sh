@@ -37,4 +37,5 @@ sudo touch /etc/bibos/firstboot
 
 # Prepare to run jobs
 sudo mkdir -p /var/lib/bibos/jobs
+sudo chmod -R og-r /var/lib/bibos
 
