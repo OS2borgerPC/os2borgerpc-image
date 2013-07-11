@@ -7,7 +7,7 @@ fi
 
 ARCHIVE_HOST=`get_bibos_config archive_hostname 2>/dev/null`
 if [ "${ARCHIVE_HOST}" == "" ]; then
-    ARCHIVE_HOST="bibos.web06.magenta-aps.dk"
+    ARCHIVE_HOST="bibos-admin.magenta-aps.dk"
 fi
 
 mkdir /tmp/archive-mnt
