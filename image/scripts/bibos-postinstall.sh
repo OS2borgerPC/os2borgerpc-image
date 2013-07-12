@@ -10,6 +10,9 @@
 # 
 # This script REQUIRES AN INTERNET CONNECTION!
 
+# Get proxy-environment if needed
+source /usr/share/bibos/env/proxy.sh
+
 # The script should be run as a sudo-enabled user - not directly as root.
 
 zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
@@ -25,17 +28,17 @@ zenity --info --text="Du har brug for en forbindelse til Internettet for at fort
 
 # 1. Codecs, Adobe Flash, etc.
 
-
 zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
 
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
-    sudo apt-get install ubuntu-restricted-extras 
+    sudo apt-get update
+    sudo apt-get -y install ubuntu-restricted-extras 
 fi
 
 
-# 2. Evil, despicable Microsofty Skype
+# 2. Skype
 
 zenity --question --text="Installér Skype?"
 
@@ -44,7 +47,7 @@ then
      ATTEMPTED_INSTALL=1
      sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
      sudo apt-get update  
-     sudo apt-get install skype 
+     sudo apt-get -y install skype 
 fi
 
 if [[ ! -z $ATTEMPTED_INSTALL ]]
@@ -71,7 +74,26 @@ then
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
     sudo apt-get update
-    sudo apt-get install google-chrome-stable
+    sudo apt-get -y install google-chrome-stable
+
+# Make default browser globally
+sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
+
+# Make default browser for user
+cat << EOF > /tmp/mimeapps.list
+
+
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+
+EOF
+
+sudo mkdir -p /home/.skjult/.local/share/applications
+sudo mv /tmp/mimeapps.list /home/.skjult/.local/share/applications
 
    # Install desktop icon
 
@@ -303,21 +325,47 @@ EOF
 sudo mv /tmp/google-chrome.desktop /home/.skjult/Desktop
 fi
 
-# Delete desktop file
-sudo rm /home/*/Skrivebord/bibos-postinstall.desktop
+# 4. Register in admin system
 
-# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+zenity --question  --text="Tilslut admin-systemet?"
 
-# Add bibos started requirement to lightdm upstart script
-grep "and started bibos" /etc/init/lightdm.conf > /dev/null
-if [ $? -ne 0 ]; then
-    cat /etc/init/lightdm.conf | \
-        perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
-        > /tmp/lightdm.conf.tmp
-    sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+if [[  $? -eq 0 ]]
+then 
+    # User pressed "Yes"
+    register_new_bibos_client.sh
+else
+    zenity --info --text="Kør 'register_new_bibos_client.sh' hvis du vil tilslutte senere"
 fi
 
-sudo rm /etc/bibos/firstboot
+if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+fi
+
+if [[ -f /etc/bibos/firstboot ]]
+then
+    # Add bibos started requirement to lightdm upstart script
+    # TODO-CA: What is this? 
+    grep "and started bibos" /etc/init/lightdm.conf > /dev/null
+    if [ $? -ne 0 ]; then
+        cat /etc/init/lightdm.conf | \
+            perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
+            > /tmp/lightdm.conf.tmp
+        sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+    fi
+    sudo rm /etc/bibos/firstboot
+else
+    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
+fi
+
 
 zenity --info --text="Installationen er afsluttet."
+    
+# Delete desktop file
+
+DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
+if [[ -f $DESKTOP_FILE ]]
+then
+    sudo rm $DESKTOP_FILE
+fi

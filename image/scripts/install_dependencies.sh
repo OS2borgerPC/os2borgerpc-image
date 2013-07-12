@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Find current directory
 
@@ -13,9 +14,21 @@ DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
 PKGSTOINSTALL=""
 
+dpkg -l | grep "^ii" > /tmp/installed-package-list.txt
+
+
+grep -w "ii  deja-dup" /tmp/installed-package-list.txt > /dev/null
+if [ $? -eq 0 ]; then
+   # Things to get rid of. Factor out to file if many turn up.
+    sudo apt-get -y remove --purge deja-dup
+fi
+
+
+
 for  package in "${DEPENDENCIES[@]}"
 do
-    if [[ ! `dpkg -l | grep -w "ii  $package "` ]]; then
+    grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
+    if [[ $? -ne 0 ]]; then
         PKGSTOINSTALL=$PKGSTOINSTALL" "$package
     fi
 done
@@ -42,9 +55,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # Step 2: Do the actual installation. Abort if it fails.
 
-    # Things to get rid of. Factor out to file if many turn up.
-    sudo apt-get -y remove --purge deja-dup
-
     # upgrade
     sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
 
@@ -61,8 +71,9 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     # Clean .deb cache to save space
     sudo apt-get clean
 
-    # Install python packages
-    sudo pip install bibos-utils
-
-    # We're done!
 fi
+
+# Install python packages
+sudo pip install bibos-client
+
+# We're done!
