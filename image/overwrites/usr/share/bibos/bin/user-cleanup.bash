@@ -8,7 +8,8 @@ USERNAME="user"
 	rm -fr /tmp/* /tmp/.??*
 	rm -rf /home/$USERNAME
         # Remove pending print jobs
-        lprm -U $USERNAME
+        lprm -
+        # Restore $HOME
 	rsync -vaz /home/.skjult/ /home/$USERNAME/
 	chown -R $USERNAME:$USERNAME /home/$USERNAME
 
