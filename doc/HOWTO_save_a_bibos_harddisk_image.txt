@@ -1,0 +1,14 @@
+Guide to saving an image of a harddisk prepared for BibOS installation
+
+To save a harddisk for use in creating a BibOS install iso download a
+clonezilla iso from http://clonezilla.org/ and boot it on the machine with
+the harddisk.
+Then follow the guide at
+http://clonezilla.org/fine-print-live-doc.php?path=./clonezilla-live/doc/01_Save_disk_image/
+but choose to save a single partition instead of the whole disk. The partition
+you want to save is the main partition you installed Ubuntu on and is probably
+called sda1.
+
+Once the harddisk image is saved it can be used to create a new ISO by
+following the guide to create a BibOS CD at
+http://bibos-admin.magenta-aps.dk/doc/HOWTOBuild_BibOS_CD_from_clonezilla_image.txt

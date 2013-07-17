@@ -5,10 +5,12 @@ DIR=$( cd "$DIRNAME" && pwd )
 
 DEST="$1"
 if [ -z $DEST -o ! -f "$DEST/Clonezilla-Live-Version" ]; then
-    echo "You must specify a clonezilla filesystem as destination"
-    exit 1;
+    DEST=${DEST}/cd-unified
+    if [ "$DEST" == "/cd-unified" -o ! -f "$DEST/Clonezilla-Live-Version" ]; then
+        echo "You must specify a clonezilla filesystem as destination"
+        exit 1;
+    fi
 fi
-
 
 # Now do the deed
 sudo cp -r $DIR/../clonezilla-overwrites/* $DEST
