@@ -1,0 +1,13 @@
+* Version 2.0.2, July 12, 2013
+
+New in this version:
+
+- BibOS 2 moves from alpha to beta
+- Lots of changes to the default user setup
+- Completely new postinstall script 
+- Proxy Internet connection through local gateway
+- Connect to BibOS Admin system.
+- Network install works.
+
+
+

@@ -2,7 +2,7 @@
 
 # TODO: find hostname of local server, if present
 
-my $hostname = "web06.magenta-aps.dk";
+my $hostname = "bibos-admin.magenta-aps.dk";
 
 my $local_hostname = `sudo /live/image/bibos/find_bibos_server.pl`;
 if($local_hostname and $local_hostname =~ m!(\d+\.\d+\.\d+\.\d+)!) {
