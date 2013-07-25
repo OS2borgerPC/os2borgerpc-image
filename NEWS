@@ -1,3 +1,17 @@
+* Version 2.0.2.1, July 25, 2013
+
+New in this version:
+
+- Make CloneZilla build scripts easier to use, add CloneZilla documentation.
+- Delete *all* print jobs on logout, cf. ticket #8457.
+- Relabel "Login" button to "Start", cf. ticket #8372.
+- Do not hardcode position of desktop icons to allow new shotcuts, cf. #7749.
+- Add more detailed licensing information, including Creative Commons license
+  for documentation.
+- Prompt the user before rebooting so there is time to remove the installation
+  image, cf. ticket #8496.
+
+
 * Version 2.0.2, July 12, 2013
 
 New in this version:
