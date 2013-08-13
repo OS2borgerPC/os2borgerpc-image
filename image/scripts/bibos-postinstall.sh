@@ -359,6 +359,15 @@ else
     zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
 fi
 
+# 5. Upgrade system
+
+zenity --info --text="Systemet vil nu opgradere og installere de seneste sikkerhedsopdateringer."
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo apt-get -y autoremove
+sudo apt-get -y clean
 
 zenity --info --text="Installationen er afsluttet."
     
