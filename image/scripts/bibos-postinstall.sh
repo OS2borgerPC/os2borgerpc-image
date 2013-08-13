@@ -363,6 +363,7 @@ fi
 
 zenity --info --text="Systemet vil nu opgradere og installere de seneste sikkerhedsopdateringer."
 
+sudo dpkg-reconfigure grub-pc
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
