@@ -57,8 +57,6 @@ user_pref("extensions.bootstrappedAddons", "{\"langpack-en-GB@firefox.mozilla.or
 user_pref("extensions.databaseSchema", 14);
 user_pref("extensions.enabledAddons", "ubufox%40ubuntu.com:2.7,%7B972ce4c6-7e08-4474-a285-3208198ce6fd%7D:23.0");
 user_pref("extensions.installCache", "[{\"name\":\"app-system-share\",\"addons\":{\"ubufox@ubuntu.com\":{\"descriptor\":\"/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/ubufox@ubuntu.com\",\"mtime\":1376394635000,\"rdfTime\":1375741724000}}},{\"name\":\"app-global\",\"addons\":{\"langpack-da@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/browser/extensions/langpack-da@firefox.mozilla.org.xpi\",\"mtime\":1375570709000},\"langpack-en-ZA@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/browser/extensions/langpack-en-ZA@firefox.mozilla.org.xpi\",\"mtime\":1375570715000},\"{972ce4c6-7e08-4474-a285-3208198ce6fd}\":{\"descriptor\":\"/usr/lib/firefox/browser/extensions/{972ce4c6-7e08-4474-a285-3208198ce6fd}\",\"mtime\":1376394588000,\"rdfTime\":1375569018000},\"langpack-en-GB@firefox.mozilla.org\":{\"descriptor\":\"/usr/lib/firefox/browser/extensions/langpack-en-GB@firefox.mozilla.org.xpi\",\"mtime\":1375570715000}}}]");
-user_pref("extensions.lastAppVersion", "23.0");
-user_pref("extensions.lastPlatformVersion", "23.0");
 user_pref("extensions.pendingOperations", false);
 user_pref("gecko.buildID", "20130803215302");
 user_pref("gecko.mstone", "23.0");
