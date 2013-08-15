@@ -12,9 +12,7 @@ if [ "$XDG_DESKTOP_DIR" == "" ]; then
     XDG_DESKTOP_DIR="$HOME/Skrivebord"
 fi
 
-# Copy desktop file to /etc/xdg/autostart
-sudo cp bibos-postinstall.desktop "${XDG_DESKTOP_DIR}/"
-sudo chown $USER "${XDG_DESKTOP_DIR}/bibos-postinstall.desktop"
+cp script-data/finalize/*.desktop "${XDG_DESKTOP_DIR}/"
 # Copy finalize script to /usr/share/bibos/bin
 sudo cp bibos-postinstall.sh /usr/share/bibos/bin
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
