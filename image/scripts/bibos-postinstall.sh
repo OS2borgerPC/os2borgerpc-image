@@ -13,12 +13,11 @@
 # Get proxy-environment if needed
 source /usr/share/bibos/env/proxy.sh
 
-# The script should be run as a sudo-enabled user - not directly as root.
 
 zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
 
 # Printer setup
-sudo system-config-printer
+system-config-printer
 
 # Proprietary stuff
 
@@ -33,8 +32,8 @@ zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
-    sudo apt-get update
-    sudo apt-get -y install ubuntu-restricted-extras 
+    apt-get update
+    apt-get -y install ubuntu-restricted-extras 
 fi
 
 
@@ -45,9 +44,9 @@ zenity --question --text="Installér Skype?"
 if [[ $? -eq 0 ]]
 then
      ATTEMPTED_INSTALL=1
-     sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-     sudo apt-get update  
-     sudo apt-get -y install skype 
+     add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+     apt-get update  
+     apt-get -y install skype 
 fi
 
 if [[ ! -z $ATTEMPTED_INSTALL ]]
@@ -71,13 +70,13 @@ then
     # Install it.
     # Follow procedure described here:
     # http://www.howopensource.com/2011/10/install-google-chrome-in-ubuntu-11-10-11-04-10-10-10-04/
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    sudo apt-get update
-    sudo apt-get -y install google-chrome-stable
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+    apt-get update
+    apt-get -y install google-chrome-stable
 
 # Make default browser globally
-sudo update-alternatives --set x-www-browser /usr/bin/google-chrome
+update-alternatives --set x-www-browser /usr/bin/google-chrome
 
 # Make default browser for user
 cat << EOF > /tmp/mimeapps.list
@@ -92,8 +91,8 @@ x-scheme-handler/unknown=google-chrome.desktop
 
 EOF
 
-sudo mkdir -p /home/.skjult/.local/share/applications
-sudo mv /tmp/mimeapps.list /home/.skjult/.local/share/applications
+mkdir -p /home/.skjult/.local/share/applications
+mv /tmp/mimeapps.list /home/.skjult/.local/share/applications
 
    # Install desktop icon
 
@@ -322,10 +321,28 @@ Exec=/opt/google/chrome/google-chrome --incognito
 TargetEnvironment=Unity
 EOF
 
-sudo mv /tmp/google-chrome.desktop /home/.skjult/Desktop
+mv /tmp/google-chrome.desktop /home/.skjult/Desktop
 fi
 
-# 4. Register in admin system
+
+# 4. Upgrade system
+
+zenity --info --text="Systemet vil nu opdatere opstartsprogrammet."
+
+dpkg-reconfigure grub-pc
+
+zenity --question --text="Ønsker du at opgradere systemet og installere de nyeste sikkerhedsopdateringer?"
+
+if [[  $? -eq 0 ]]
+then 
+    apt-get -y update
+    apt-get -y upgrade
+    apt-get -y dist-upgrade
+    apt-get -y autoremove
+    apt-get -y clean
+fi 
+
+# 5. Register in admin system
 
 zenity --question  --text="Tilslut admin-systemet?"
 
@@ -340,7 +357,7 @@ fi
 if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
 then
     # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-    sudo mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+    mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
 fi
 
 if [[ -f /etc/bibos/firstboot ]]
@@ -352,9 +369,9 @@ then
         cat /etc/init/lightdm.conf | \
             perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
             > /tmp/lightdm.conf.tmp
-        sudo mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
+        mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
     fi
-    sudo rm /etc/bibos/firstboot
+    rm /etc/bibos/firstboot
 else
     zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
 fi
@@ -367,5 +384,5 @@ zenity --info --text="Installationen er afsluttet."
 DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
 then
-    sudo rm $DESKTOP_FILE
+    rm $DESKTOP_FILE
 fi
