@@ -1,15 +1,35 @@
+* Version 2.0.2.2, August 16, 2013
+
+New in this version:
+
+- Include BibOS version in configuration for PC
+- Reconfigure grub and let user choose to update PC during postinstall, cf.
+  ticket #8630.
+- Change a number of defaults on the image, cf. ticket #8638. These include:
+  * Chrome is now available in Launcher if installed
+  * Chrome shortcut renamed
+  * Firefox shortcut removed from desktop
+  * Downloads are sent to the user's desktop, not "Hentninger" or other
+    specific directory
+  * Shortcuts to the BibOS admin system and registration in the admin system
+    are added to the superuser's desktop
+  * autolog is installed by default
+  * startup sound (drumbeat) is not played by default
+- Fix Firefox settings so it won't check for add-on compatibility
+- Updated documentation 
+
 * Version 2.0.2.1, July 25, 2013
 
 New in this version:
 
-- Make CloneZilla build scripts easier to use, add CloneZilla documentation.
-- Delete *all* print jobs on logout, cf. ticket #8457.
-- Relabel "Login" button to "Start", cf. ticket #8372.
-- Do not hardcode position of desktop icons to allow new shotcuts, cf. #7749.
+- Make CloneZilla build scripts easier to use, add CloneZilla documentation
+- Delete *all* print jobs on logout, cf. ticket #8457
+- Relabel "Login" button to "Start", cf. ticket #8372
+- Do not hardcode position of desktop icons to allow new shotcuts, cf. #7749
 - Add more detailed licensing information, including Creative Commons license
-  for documentation.
+  for documentation
 - Prompt the user before rebooting so there is time to remove the installation
-  image, cf. ticket #8496.
+  image, cf. ticket #8496
 
 
 * Version 2.0.2, July 12, 2013
