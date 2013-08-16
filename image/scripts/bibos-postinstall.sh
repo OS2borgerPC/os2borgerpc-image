@@ -327,14 +327,20 @@ fi
 
 # 4. Upgrade system
 
-zenity --info --text="Systemet vil nu opgradere og installere de seneste sikkerhedsopdateringer."
+zenity --info --text="Systemet vil nu opdatere opstartsprogrammet."
 
 dpkg-reconfigure grub-pc
-apt-get -y update
-apt-get -y upgrade
-apt-get -y dist-upgrade
-apt-get -y autoremove
-apt-get -y clean
+
+zenity --question --text="Ønsker du at opgradere systemet og installere de nyeste sikkerhedsopdateringer?"
+
+if [[  $? -eq 0 ]]
+then 
+    apt-get -y update
+    apt-get -y upgrade
+    apt-get -y dist-upgrade
+    apt-get -y autoremove
+    apt-get -y clean
+fi 
 
 # 5. Register in admin system
 
