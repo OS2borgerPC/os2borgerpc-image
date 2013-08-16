@@ -38,6 +38,9 @@ Creating a new BibOS image from scratch
     ./bibos_setup.sh
 
     # Wait - this will update, upgrade and install a lot of packages
+    # When prompted about Postfix configuration, please choose "local only".
+    # This will enable error mails to root while not introducing any potential
+    # security holes.
 
     # Reboot to complete installation process
 

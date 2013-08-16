@@ -98,3 +98,4 @@ libzvbi0
 tsconf 
 curl
 mailutils
+autolog
