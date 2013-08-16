@@ -39,3 +39,6 @@ sudo touch /etc/bibos/firstboot
 sudo mkdir -p /var/lib/bibos/jobs
 sudo chmod -R og-r /var/lib/bibos
 
+# Set version in configuration
+VERSION=$(cat ../../VERSION)
+sudo set_bibos_config bibos_version "$VERSION"
