@@ -31,7 +31,7 @@ Creating a new BibOS image from scratch
 
     # Go to the scripts folder:
 
-    cd bibos/image/scripts
+    cd bibos_image/image/scripts
 
     # Create standard BibOS setup:
 
