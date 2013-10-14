@@ -42,3 +42,6 @@ sudo chmod -R og-r /var/lib/bibos
 # Set version in configuration
 VERSION=$(cat ../../VERSION)
 sudo set_bibos_config bibos_version "$VERSION"
+
+# Do not check for updates or run update-manager
+sudo rm /etc/xdg/autostart/update-notifier.desktop
