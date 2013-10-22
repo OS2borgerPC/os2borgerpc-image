@@ -56,7 +56,7 @@ else
             sed -i -e "/lukker/d" $USERCRON
         fi
         # Assume the parameters are already validated as integers.
-        echo "$MINUTES $HOURS * * * /usr/sbin/shutdown now" >> $TCRON
+        echo "$MINUTES $HOURS * * * /sbin/shutdown -P now" >> $TCRON
         crontab $TCRON
 
         MINM5P60=$(expr $(expr $MINUTES - 5) + 60)
