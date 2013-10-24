@@ -3,6 +3,7 @@
 
 New in this version:
 
+- First production ready release.
 - Make sure postinstall script does not fail due to APT locking. Prevent
   apt-check from running in the background - there's no need for UpdateManager
   to launch all of a sudden (ticket #9101).
@@ -21,6 +22,7 @@ New in this version:
 - Power settings turned off monitor at login screen (ticket #7875).
 - BibOS specific admin scripts moved from the bibos_admin repository to
   admin_scripts/ in this repository.
+- New boot image on install disk.
 
 
 
