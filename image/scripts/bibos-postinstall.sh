@@ -130,8 +130,6 @@ EOF
 mv /tmp/google-chrome.desktop /home/.skjult/Desktop
 fi
 
-sudo cp -r /usr/share/bibos/script-data/chrome-install/.config/dconf /home/.skjult/.config
-
 
 # 4. Upgrade system
 
