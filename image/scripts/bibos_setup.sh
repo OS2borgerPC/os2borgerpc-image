@@ -42,3 +42,19 @@ sudo chmod -R og-r /var/lib/bibos
 # Set version in configuration
 VERSION=$(cat ../../VERSION)
 sudo set_bibos_config bibos_version "$VERSION"
+
+# Do not check for updates or run update-manager
+sudo rm /etc/xdg/autostart/update-notifier.desktop
+
+# Do not show user backgrounds in Unity greeter
+
+OVERRIDE_FILE=com.canonical.unity-greeter.gschema.override
+cat << EOF > /tmp/$OVERRIDE_FILE
+[com.canonical.unity-greeter]
+draw-user-backgrounds = false
+play-ready-sound = false
+
+EOF
+
+sudo mv /tmp/$OVERRIDE_FILE /usr/share/glib-2.0/schemas
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
