@@ -8,7 +8,13 @@ USERNAME="user"
 	rm -fr /tmp/* /tmp/.??*
 	rm -rf /home/$USERNAME
         # Remove pending print jobs
-        lprm -
+        PRINTERS=$(lpstat -p | grep printer | awk '{ print $2; }')
+
+        for PRINTER in $PRINTERS
+        do
+            lprm -P $PRINTER -
+        done
+ 
         # Restore $HOME
 	rsync -vaz /home/.skjult/ /home/$USERNAME/
 	chown -R $USERNAME:$USERNAME /home/$USERNAME

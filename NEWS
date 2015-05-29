@@ -1,3 +1,14 @@
+* Version 2.2.0, May 29, 2015
+
+New in this version:
+
+- Create new image to include the latest updates, including the upgrade
+  to the latest point release, Ubuntu 12.0.4.5.
+- Remove "Husk at gemme" icon from desktop.
+- Include print job removal patch on image.
+- Include latest bibos_client by default.
+
+
 * Version 2.1.0.1, October 25, 2013
 
 
