@@ -14,11 +14,6 @@
 source /usr/share/bibos/env/proxy.sh
 
 
-zenity --info --text="Konfigurér printere i den efterfølgende dialog\nLuk dialogen for at fortsætte installationen"
-
-# Printer setup
-system-config-printer
-
 # Proprietary stuff
 
 # Ensure Internet connection 
@@ -35,101 +30,6 @@ then
     apt-get update
     apt-get -y install ubuntu-restricted-extras 
 fi
-
-
-# 2. Skype
-
-zenity --question --text="Installér Skype?"
-
-if [[ $? -eq 0 ]]
-then
-     ATTEMPTED_INSTALL=1
-     add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-     apt-get update  
-     apt-get -y install skype 
-fi
-
-if [[ ! -z $ATTEMPTED_INSTALL ]]
-then
-
-    if [[ $? -eq 0 ]]
-    then
-        zenity --info --text="Skype er installeret!"
-    else
-        zenity --error --text="Skype-installationen mislykkedes! Prøv eventuelt at\
-            installere den manuelt fra Ubuntu Software Center."
-    fi
-fi
-
-# 3. Google Chrome (real deal, no Chromium)
-
-zenity --question --text="Installér Google Chrome?"
-
-if [[ $? -eq 0 ]] 
-then
-    # Install it.
-    # Follow procedure described here:
-    # http://www.howopensource.com/2011/10/install-google-chrome-in-ubuntu-11-10-11-04-10-10-10-04/
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    apt-get update
-    apt-get -y install google-chrome-stable
-
-# Make default browser globally
-update-alternatives --set x-www-browser /usr/bin/google-chrome
-
-# Make default browser for user
-cat << EOF > /tmp/mimeapps.list
-
-
-[Default Applications]
-text/html=google-chrome.desktop
-x-scheme-handler/http=google-chrome.desktop
-x-scheme-handler/https=google-chrome.desktop
-x-scheme-handler/about=google-chrome.desktop
-x-scheme-handler/unknown=google-chrome.desktop
-
-EOF
-
-mkdir -p /home/.skjult/.local/share/applications
-mv /tmp/mimeapps.list /home/.skjult/.local/share/applications
-
-   # Install desktop icon
-
-cat << EOF > /tmp/google-chrome.desktop
-[Desktop Entry]
-Version=1.0
-Name=Chrome Internetbrowser
-# Gnome and KDE 3 uses Comment.
-Comment=Access the Internet
-Comment[ar]=الدخول إلى الإنترنت
-Comment[da]=Få adgang til internettet
-Exec=/opt/google/chrome/google-chrome %U
-Terminal=false
-Icon=google-chrome
-Type=Application
-Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml_xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
-X-Ayatana-Desktop-Shortcuts=NewWindow;NewIncognito
-
-[NewWindow Shortcut Group]
-Name=New Window
-Name[ar]=نافذة جديدة
-Name[da]=Nyt vindue
-Exec=/opt/google/chrome/google-chrome
-TargetEnvironment=Unity
-
-[NewIncognito Shortcut Group]
-Name=New Incognito Window
-Name[ar]=نافذة جديدة للتصفح المتخفي
-Name[da]=Nyt inkognitovindue
-Exec=/opt/google/chrome/google-chrome --incognito
-TargetEnvironment=Unity
-EOF
-
-mv /tmp/google-chrome.desktop /home/.skjult/Desktop
-fi
-
 
 # 4. Upgrade system
 
