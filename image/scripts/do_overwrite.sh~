@@ -10,7 +10,7 @@ fi
 
 # First, special handling of Gnome Control Center
 pushd /usr/bin/ > /dev/null
-cp unity-control-center unity-control-center.real
+cp gnome-control-center gnome-control-center.real
 popd > /dev/null
 
 # Then, disable all X sessions except one
