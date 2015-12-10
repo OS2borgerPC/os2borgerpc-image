@@ -3,6 +3,6 @@ greeter-session=unity-greeter
 user-session=ubuntu-2d
 session-cleanup-script=/usr/share/bibos/bin/user-cleanup.bash
 allow-guest=false
-autologin-user-timeout=1
+autologin-user-timeout=10
 autologin-user=user
 display-setup-script=/usr/share/bibos/bin/xset.sh
