@@ -5,4 +5,5 @@ session-cleanup-script=/usr/share/bibos/bin/user-cleanup.bash
 allow-guest=false
 autologin-user-timeout=10
 autologin-user=user
+xserver-allow-tcp=true
 display-setup-script=/usr/share/bibos/bin/xset.sh
