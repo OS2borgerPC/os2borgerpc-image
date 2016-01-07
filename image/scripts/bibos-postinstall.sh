@@ -36,8 +36,7 @@ then
     mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
 fi
 
-if [[ -f /etc/bibos/firstboot ]]
-then
+
     # Add bibos started requirement to lightdm upstart script
     # TODO-CA: What is this? 
     grep "and started bibos" /etc/init/lightdm.conf > /dev/null
@@ -47,10 +46,6 @@ then
             > /tmp/lightdm.conf.tmp
         mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
     fi
-    rm /etc/bibos/firstboot
-else
-    echo "Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
-fi
 
 echo "Installationen er afsluttet."
     
