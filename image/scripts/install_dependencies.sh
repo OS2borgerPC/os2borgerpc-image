@@ -36,8 +36,6 @@ done
 if [ "$PKGSTOINSTALL" != "" ]; then
     echo  -n "Some dependencies are missing."
     echo " The following packages will be installed: $PKGSTOINSTALL" 
-    echo -n "Press ENTER to continue, CTRL-C to abort."
-    read ENTER
     
     # Step 1: Check for valid APT repositories.
 
