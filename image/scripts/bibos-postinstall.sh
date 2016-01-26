@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # This file will finalize the BibOS installation by installing the things which
 # could not be preinstalled on the BibOS image. 
