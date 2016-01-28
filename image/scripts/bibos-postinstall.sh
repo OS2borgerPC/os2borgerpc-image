@@ -87,7 +87,7 @@ zenity --info --text="Installationen er afsluttet."
     
 # Delete desktop file
 
-$USERNAME=whoami
+USERNAME=$(whoami)
 
 DESKTOP_FILE=/home/$USERNAME/Skrivebord/bibos-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
