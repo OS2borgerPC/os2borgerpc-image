@@ -1,5 +1,4 @@
 gksu
-lsb-release
 python-dev
 python-lockfile
 python-netifaces
