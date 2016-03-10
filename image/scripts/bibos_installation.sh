@@ -18,6 +18,8 @@
 
 # Update package list and install git
 
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+
 sudo apt-get update
 
 sudo apt-get -y install git
@@ -49,6 +51,8 @@ cd image/scripts
 # Finalize the image
 
 ./finalize.sh
+
+gsettings set org.gnome.desktop.screensaver lock-enabled true
 
 # Now reboot.
 
