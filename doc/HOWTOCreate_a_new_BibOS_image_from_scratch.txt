@@ -1,7 +1,8 @@
 Creating a new BibOS image from scratch
 
     Start installing a vanilla Ubuntu system - Ubuntu 12.04 in the
-    present example. Install on a virtual or physical machine
+    present example. Install on a virtual or physical machine 
+    (BibOS also supports Ubuntu 14.04).
 
     Select the correct target language for installation - Danish if your
     users want to work in Danish.
@@ -16,48 +17,27 @@ Creating a new BibOS image from scratch
     Think about whether to select the option to encrypt the superuser's
     $HOME directory (current recommendation: Do NOT do this)
 
-    Let the installation run its course - this may take some time
+    To install bibos you need bibos_installation.sh file. Copy it to
+    the superusers /home folder.
 
-    Reboot the computer when prompted and log in with the user name and
-    password you specified
+    If this installation is for a clonezilla image open the 
+    bibos_installation.sh and remove the reboot command at line 59.
 
-    In a terminal, 
+    Open a terminal,
+
+    # Change execution rigths for the installation file. 
     
-    sudo apt-get install git
+    sudo chmod +x bibos_installation.sh
 
-    # Grab the source code:
+    # Start the installation:
+ 
+    ./bibos_installation.sh	
 
-    git clone https://github.com/magenta-aps/bibos_image.git
+    Now the system is ready to be cloned as a Clonezilla image or 
+    to be connected to the admin system.
 
-    # Go to the scripts folder:
+    When the system is rebooted the system will log in as superuser so
+    the "Færdiggør bibos installation" can be executed. 	 
 
-    cd bibos_image/image/scripts
-
-    # Create standard BibOS setup:
-
-    ./bibos_setup.sh
-
-    # Wait - this will update, upgrade and install a lot of packages
-    # When prompted about Postfix configuration, please choose "local only".
-    # This will enable error mails to root while not introducing any potential
-    # security holes.
-
-    # Reboot to complete installation process
-
-    Perform necessary manual configuration - prepare the installation so
-    everything is ready the way our customer wants
-
-    When done, go to the scripts folder and finalize the image:
-
-    cd bibos/image/scripts
-    ./finalize.sh
-
-
-    This will force the postinstall script to execute automatically next
-    time the system is booted.
-
-After executing finalize, the system is ready for cloning and inclusion
-in a CloneZilla image.
-
-Boot up the system with a CloneZilla live CD and clone an image, e.g. to
-your own /home/partimag using SSHFS.
+    If it is for a CloneZilla image, boot up the system with a CloneZilla
+    live CD and clone an image, e.g. to your own /home/partimag using SSHFS.
