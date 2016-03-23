@@ -36,8 +36,6 @@ done
 if [ "$PKGSTOINSTALL" != "" ]; then
     echo  -n "Some dependencies are missing."
     echo " The following packages will be installed: $PKGSTOINSTALL" 
-    echo -n "Press ENTER to continue, CTRL-C to abort."
-    read ENTER
     
     # Step 1: Check for valid APT repositories.
 
@@ -59,7 +57,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
 
     # and install
-    sudo apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2

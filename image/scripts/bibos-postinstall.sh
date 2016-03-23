@@ -20,17 +20,6 @@ source /usr/share/bibos/env/proxy.sh
 
 zenity --info --text="Du har brug for en forbindelse til Internettet for at fortsætte"      
 
-# 1. Codecs, Adobe Flash, etc.
-
-zenity --question  --text="Installér Adobe Flash og Microsoft fonts?"
-
-if [[  $? -eq 0 ]]
-then 
-    # User pressed "Yes"
-    apt-get update
-    apt-get -y install ubuntu-restricted-extras 
-fi
-
 # 4. Upgrade system
 
 zenity --info --text="Systemet vil nu opdatere opstartsprogrammet."
@@ -87,7 +76,9 @@ zenity --info --text="Installationen er afsluttet."
     
 # Delete desktop file
 
-DESKTOP_FILE=/home/superuser/Skrivebord/bibos-postinstall.desktop
+USERNAME=$(whoami)
+
+DESKTOP_FILE=/home/$USERNAME/Skrivebord/bibos-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
 then
     rm $DESKTOP_FILE

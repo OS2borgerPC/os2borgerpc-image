@@ -10,7 +10,10 @@ fi
 
 # First, special handling of Gnome Control Center
 pushd /usr/bin/ > /dev/null
+#Try gnome (ubuntu 12)
 cp gnome-control-center gnome-control-center.real
+#Try unity (ubuntu 14)
+cp unity-control-center unity-control-center.real
 popd > /dev/null
 
 # Then, disable all X sessions except one
