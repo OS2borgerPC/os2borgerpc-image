@@ -11,15 +11,15 @@ directories and explain which functions they fulfil.  BibOS installation
 Setup
 
 The main installation script is image/scripts/bibos_setup.sh. This
-script will take a fresh Ubuntu 12.04 installation and convert it to a
-BibOS system.
+script will take a fresh Ubuntu 12.04 or 14.04 installation and convert 
+it to a BibOS system.
 
 To do this, it will take the following steps:
 
     Invoke the script do_overwrite.sh. At present, do_overwrite installs
-    our gnome-control-center hack (so audience users are unable to
-    access system settings) and then performs the overwrite as indicated
-    by the following pseudocode:
+    our gnome-control-center hack or for Ubuntu 14.04 unity-control-center
+    hack (so audience users are unable to access system settings) and then 
+    performs the overwrite as indicated by the following pseudocode:
 
     DESTINATION='/'
     cp -r ../overwrites/* $DESTINATION
@@ -67,11 +67,8 @@ script. At present, this script will perform the following steps:
 
     Set up printers, invoking the system-config-printer command
 
-    Install proprietary software. Presently, this includes Microsoft
-    fonts, Adobe Flash plugin, Skype and Google Chrome. A desktop icon
-    for Google Chrome is also added Cleanup - the postinstall script and
-    icon is removed, and the original /etc/lightdm/lighdm.conf is
-    reinstated
+    Cleanup - the postinstall script and icon is removed, and the 
+    original /etc/lightdm/lighdm.conf is reinstated.
 
 If the customers wish to connect to Landscape or (as they will!) our
 own, upcoming admin system, this should be done in this script.  The

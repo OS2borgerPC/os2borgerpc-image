@@ -1,3 +1,15 @@
+* Version 2.3.0, March 22, 2016
+
+New in this version:
+
+- The bibos installation now supports Ubuntu 12.04 and Ubuntu 14.04.
+- Added new bibos_installation.sh script. It automates the bibos installation 
+  process. After the script has been executed the user only needs to run
+  "Færdiggør BibOS installationen".
+- Dependency list has been on a diet. It only contains the necessary packages 
+  for the bibos client to run.
+- Removed gimp icon from Desktop as we do not install gimp.
+
 * Version 2.2.0, May 29, 2015
 
 New in this version:
