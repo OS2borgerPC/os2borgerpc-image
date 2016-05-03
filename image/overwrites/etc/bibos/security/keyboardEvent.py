@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-import syslog_tail
 import csv_writer
-from bibos_utils.bibos_config import BibOSConfig
+import syslog_read
 
 # Get lines from syslog
 lines = syslog_read.read(30)
