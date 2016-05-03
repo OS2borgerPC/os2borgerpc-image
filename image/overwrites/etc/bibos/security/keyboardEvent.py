@@ -6,20 +6,16 @@ import csv_writer
 from bibos_utils.bibos_config import BibOSConfig
 
 # Get lines from syslog
-lines = syslog_tail.get_syslog_tail(10)
+lines = syslog_read.read(30)
 
 # Ignore if not a keyboard event
 if(lines.partition('keyboard')[2] == ""):
         sys.exit()
 
-# securityEventCode, Name, PC, Tec sum, Raw data
+# securityEventCode, Tec sum, Raw data
 csv_data = []
 # securityEventCode
 csv_data.append("KEYBOARD")
-# Name
-csv_data.append("Keyboard added")
-# PC
-csv_data.append(BibOSConfig().get_value("hostname"))
 
 # Ignore first argument
 for i in range(1, len(sys.argv)):
