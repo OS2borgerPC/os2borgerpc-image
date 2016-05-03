@@ -8,7 +8,7 @@ def write_data(data):
     if(len(data) == 0):
         return
 
-    line = datetime.now().strftime('%Y%m%d%H%M')
+    line = datetime.now().strftime('%Y%m%d%H%M') + ','
     line += ','.join(data)
 
     csvfile = open("/etc/bibos/security/securityevent.csv", "a")
