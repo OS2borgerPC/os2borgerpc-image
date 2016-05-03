@@ -13,12 +13,12 @@ def get_syslog_tail(numberOflines):
         if bufsize > fsize:
             bufsize = fsize-1
         data = []
-        while True:
+        while len(data) >= numberOflines or f.tell() == 0:
             syslog_iter += 1
             f.seek(fsize-bufsize*syslog_iter)
-            data.extend(f.readlines())
-            if len(data) >= numberOflines or f.tell() == 0:
-                lines += str(''.join(data[-numberOflines:]))
-                break
+            data.extend(reversed(f.readlines()))
+	    if len(data) >= numberOflines or f.tell() == 0:
+	    	lines += str(''.join(data[-numberOflines:]))            
+		break
 
     return lines
