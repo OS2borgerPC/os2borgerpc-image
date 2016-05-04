@@ -15,7 +15,7 @@ def read(sec):
         for line in reversed(f.readlines()):
             date_object = datetime.strptime(str(year) + ' ' + line[:15],
                                             '%Y %b  %d %H:%M:%S')
-            # Detect lines from within the last 10 seconds
+            # Detect lines from within the last x seconds
             if (datetime.now() - timedelta(seconds=sec)) <= date_object:
                 data = line + data
 
