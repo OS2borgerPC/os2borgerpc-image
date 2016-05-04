@@ -7,15 +7,13 @@ import syslog_read
 # Get lines from syslog
 lines = syslog_read.read(30)
 
-print "lines: "+lines
-
 # Ignore if not a keyboard event
 if(lines.partition('keyboard')[2] == ""):
         sys.exit()
 
 # securityEventCode, Tec sum, Raw data
 csv_data = []
-# securityEventCode
+# securityEventCode (security problem id)
 csv_data.append("KEYBOARD")
 
 # Ignore first argument
