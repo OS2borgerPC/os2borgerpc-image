@@ -30,3 +30,4 @@ cp -r ../overwrites/* $DESTINATION
 
 # Permissions fixup
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
+chmod gu+x ${DESTINATION}etc/bibos/security/keyboardEvent.py
