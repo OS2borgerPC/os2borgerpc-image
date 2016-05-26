@@ -6,8 +6,7 @@ from datetime import timedelta
 # Syslog is by Ubuntu default rotated daily
 
 
-def read(sec):
-    fname = "/var/log/syslog"
+def read(sec, fname):    
     data = ""
     year = date.today().year
 
