@@ -2,11 +2,11 @@
 
 import sys
 import csv_writer
-import syslog_read
+import log_read
 
 # Get lines from syslog
 fname = "/var/log/syslog"
-lines = syslog_read.read(30, fname)
+lines = log_read.read(300, fname)
 
 # Ignore if not a keyboard event
 if(lines.partition('keyboard')[2] == ""):
