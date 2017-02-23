@@ -32,10 +32,6 @@ git clone https://github.com/magenta-aps/bibos_image.git
 
 cd bibos_image
 
-# Change to the correct branch
-
-git checkout ubuntu14
-
 # Fetch changes
 
 git fetch
