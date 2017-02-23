@@ -14,6 +14,18 @@
 source /usr/share/bibos/env/proxy.sh
 
 
+USERNAME=''
+
+for USER in $(users)
+do
+	if [[ $USER != 'user' ]]
+	then
+		USERNAME=$USER
+	fi
+done
+
+# We need to have access to the X server in order for zenity dialogs to be shown.
+export XAUTHORITY=/home/$USERNAME/.Xauthority
 # Proprietary stuff
 
 # Ensure Internet connection 
@@ -75,8 +87,6 @@ fi
 zenity --info --text="Installationen er afsluttet."
     
 # Delete desktop file
-
-USERNAME=$(whoami)
 
 DESKTOP_FILE=/home/$USERNAME/Skrivebord/bibos-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
