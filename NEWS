@@ -1,3 +1,10 @@
+* Version 2.4.0, February 23, 2017
+
+New in this version:
+
+- The bibos installation now supports Ubuntu 16.04.
+- The 'Publikum' user now only has Desktop folder present in nautilus panel.
+
 * Version 2.3.0, March 22, 2016
 
 New in this version:
