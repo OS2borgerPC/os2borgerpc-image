@@ -44,7 +44,7 @@ sudo mkdir -p "$HIDDEN_DIR"/.cache/unity
 sudo cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
 
 # Disable hibernation and sleep for user Borger
-sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 
 # Make now first boot
 sudo touch /etc/bibos/firstboot
