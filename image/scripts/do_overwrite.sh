@@ -37,5 +37,6 @@ then
     chmod o-x $BLUETOOTH_INDICATOR_PATH
 fi
 
-chwon root:adm /usr/bin/unity-control-center
-chmod g+rx /usr/bin/unity-control-center
+chown root:adm /usr/bin/unity-control-center
+chmod o-x /usr/bin/unity-control-center
+chmod g+rx, o-x /usr/bin/unity-control-center
