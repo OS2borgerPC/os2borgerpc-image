@@ -33,6 +33,20 @@ sudo useradd user -m -p 12345 -s /bin/bash -U
 sudo chfn -f Borger user
 sudo adduser user nopasswdlogin
 
+# Disable showing shortcuts UI for user Borger
+HOME=/home/user/
+HIDDEN_DIR=/home/.skjult
+sudo mkdir -p "$HOME"/.cache/unity
+sudo touch "$HOME"/.cache/unity/first_run.stamp
+
+sudo mkdir -p "$HIDDEN_DIR"/.cache/unity
+
+sudo cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
+
+# Disable hibernation and sleep for user Borger
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+# Make now first boot
 sudo touch /etc/bibos/firstboot
 
 # Prepare to run jobs
