@@ -1,3 +1,12 @@
+* Version 2.4.1, June 6, 2017
+
+New in this version:
+
+- The OS2BorgerPC "Publikum" user is now called "Borger".
+- The name bibos has been changed to OS2BorgerPC, every where it could be found.
+- Ubuntu settings is now completely locked for user "Borger".
+- Bluetooth applet is removed from top bar for user "Borger". 
+
 * Version 2.4.0, February 23, 2017
 
 New in this version:
