@@ -1,6 +1,6 @@
 [SeatDefaults]
 greeter-session=unity-greeter
-user-session=ubuntu-2d
+user-session=ubuntu
 session-cleanup-script=/usr/share/bibos/bin/user-cleanup.bash
 allow-guest=false
 autologin-user-timeout=10
