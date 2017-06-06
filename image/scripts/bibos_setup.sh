@@ -30,9 +30,20 @@ $DIR/install_dependencies.sh
 
 # Setup default user
 sudo useradd user -m -p 12345 -s /bin/bash -U
-sudo chfn -f Publikum user
+sudo chfn -f Borger user
 sudo adduser user nopasswdlogin
 
+# Disable showing shortcuts UI for user Borger
+HOME=/home/user/
+HIDDEN_DIR=/home/.skjult
+sudo mkdir -p "$HOME"/.cache/unity
+sudo touch "$HOME"/.cache/unity/first_run.stamp
+
+sudo mkdir -p "$HIDDEN_DIR"/.cache/unity
+
+sudo cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
+
+# Make now first boot
 sudo touch /etc/bibos/firstboot
 
 # Prepare to run jobs

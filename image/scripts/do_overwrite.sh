@@ -30,3 +30,13 @@ cp -r ../overwrites/* $DESTINATION
 
 # Permissions fixup
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
+# Remove Bluetooth indicator applet from Borger user
+BLUETOOTH_INDICATOR_PATH=$(find /usr/lib -name 'indicator-bluetooth-service')
+if [ ! -z "$BLUETOOTH_INDICATOR_PATH" ]
+then
+    chmod o-x $BLUETOOTH_INDICATOR_PATH
+fi
+
+chown root:adm /usr/bin/unity-control-center
+chmod o-x /usr/bin/unity-control-center
+chmod g+rx,o-x /usr/bin/unity-control-center
