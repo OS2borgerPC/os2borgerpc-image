@@ -36,10 +36,6 @@ cd bibos_image
 
 git fetch
 
-# Switch branch - Only for testing purposes.
-
-git checkout feature/18082_change_user_name
-
 # Go to the script folder
 
 cd image/scripts
