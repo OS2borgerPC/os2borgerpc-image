@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#================================================================
+# HEADER
+#================================================================
+#% SYNOPSIS
+#+    ${SCRIPT_NAME} [-hv] [-o[file]] args ...
+#%
+#% DESCRIPTION
+#%    This is a script template
+#%    to start any good shell script.
+#%
+#================================================================
+#- IMPLEMENTATION
+#-    version         ${SCRIPT_NAME} (magenta.dk) 0.0.1
+#-    author          ${NAME}
+#-    copyright       Copyright 2017, Magenta Aps"
+#-    license         GNU General Public License
+#-    email           ${EMAIL}
+#-
+#================================================================
+#  HISTORY
+#     2017/06/10 : danni : Script creation
+#
+#================================================================
+# END_OF_HEADER
+#================================================================
