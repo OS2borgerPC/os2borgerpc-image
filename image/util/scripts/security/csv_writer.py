@@ -7,7 +7,7 @@ Script for OS2BorgerPC security system.
 from datetime import datetime
 
 __author__ = "Danni Als"
-__copyright__ = "Copyright 2017, OS2BorgerPC"
+__copyright__ = "Copyright 2017, Magenta Aps"
 __credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
 __license__ = "GPL"
 __version__ = "0.0.1"
