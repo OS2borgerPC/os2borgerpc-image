@@ -43,6 +43,3 @@ try:
 except Exception as e:
     print "An error occurred: " + str(e)
     sys.exit(1)
-
-
-
