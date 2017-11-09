@@ -91,6 +91,9 @@ then
 		# echo 'Running zenity...' >> \$LOG_DIR
 		zenity --warning --text="$DIALOG_TEXT" --ok-label="$BUTTON_TEXT" --display=\$USER_DISPLAY
 		echo 'Dialog shown' >> \$FILE
+		if [ $? = 0 ] ; then
+			rm \$FILE
+		fi
 	fi
 fi
 
