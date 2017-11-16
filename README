@@ -28,7 +28,7 @@ A couple of HOWTOs:
 Creating a new BibOS image from scratch
 =======================================
 
-    Start installing a vanilla Ubuntu system - Ubuntu 12.04 in the
+    Start installing a vanilla Ubuntu system - Ubuntu 16.04 in the
     present example. Install on a virtual or physical machine
 
     Select the correct target language for installation - Danish if
