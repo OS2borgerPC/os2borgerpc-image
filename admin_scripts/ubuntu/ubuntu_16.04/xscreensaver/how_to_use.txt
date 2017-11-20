@@ -1,0 +1,14 @@
+Først lidt info omkring xscreensaver:
+xscreensaver er et program som udvider Ubuntus egen screensaver funktionalitet. Programmet findes fordi Ubuntus egen screensaver funktionalitet stor set ikke kan andet end at vise en sort skærm.
+
+- For at installere xscreensaver skal i først køre scriptet:
+    xsreensaver_enable.sh
+
+- Herefter skal xscreensavers default settings oprettes i .skjult folderen:
+    create_default_settings_for_xscreensaver.sh
+
+- Nu er xscreensaver klar til brug. Hvis i ønsker at ændre tiden til xscreensaveren skal vises kan i køre følgende script:
+    change_time_for_xscreensaver.sh
+
+- Hvis i ønsker at ændre teksten på xscreensaveren kan i køre følgende script:
+    change_text_for_xscreensaver.sh
