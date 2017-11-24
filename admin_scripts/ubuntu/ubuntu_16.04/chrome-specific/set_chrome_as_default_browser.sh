@@ -10,7 +10,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         set_chrome_as_default_browser (magenta.dk) 0.0.1
+#-    version         set_chrome_as_default_browser (magenta.dk) 0.0.2
 #-    author          Danni Als
 #-    copyright       Copyright 2017, Magenta Aps"
 #-    license         GNU General Public License
@@ -19,12 +19,15 @@
 #================================================================
 #  HISTORY
 #     2017/24/11 : danni : Script creation
+#     2017/24/11 : danni : Now checks if Chrome is installed.
 #
 #================================================================
 # END_OF_HEADER
 #================================================================
 
-if [ $(google-chrome --version) -ne 0 ]
+CHROME_VERSION=$(google-chrome --version)
+
+if [ -z "$CHROME_VERSION" ]
 then
     echo 'Google Chrome is not installed.'
     exit -1
