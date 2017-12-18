@@ -18,8 +18,9 @@
 #-
 #================================================================
 #  HISTORY
-#     2017/24/11 : danni : Script creation
+#     2017/18/12 : danni : Now creates a mimeapps.list file in .skjult setting chrome to default browser.
 #     2017/24/11 : danni : Now checks if Chrome is installed.
+#     2017/24/11 : danni : Script creation
 #
 #================================================================
 # END_OF_HEADER
@@ -33,9 +34,17 @@ then
     exit -1
 fi
 
-AS_USER=user
+MIMEAPPS=/home/.skjult/.config/mimeapps.list
 
-su - $AS_USER -s /bin/bash -c 'xdg-settings set default-web-browser google-chrome.desktop'
 
-HIDDEN_DIR=/home/.skjult
-cp /home/user/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
+cat <<EOT >> "$MIMEAPPS"
+[Default Applications]
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+text/html=google-chrome.desktop
+
+[Added Associations]
+x-scheme-handler/http=google-chrome.desktop;
+x-scheme-handler/https=google-chrome.desktop;
+text/html=google-chrome.desktop;
+EOT
