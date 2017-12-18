@@ -22,6 +22,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/18/12 : danni : Removes xscreensaver if present.
 #     2017/02/11 : danni : Script creation
 #
 #================================================================
@@ -32,6 +33,16 @@ if [ $# -ne 1 ]
 then
     echo "This job takes exactly one parameter."
     exit -1
+fi
+
+
+# Disables xscreensaver if present.
+SCREENSAVER_FILE="/home/.skjult/.xscreensaver"
+
+if [ -f $SCREENSAVER_FILE ]
+then
+    rm $SCREENSAVER_FILE
+    echo 'Old .xscreensaver file found. It has been deleted.'
 fi
 
 TIME=$1
