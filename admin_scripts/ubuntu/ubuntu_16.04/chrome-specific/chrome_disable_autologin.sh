@@ -18,6 +18,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/19/12 : danni : Added checks to if file is present, or autologin is already disabled.
 #     2017/19/12 : danni : Script creation.
 #
 #================================================================
@@ -26,9 +27,13 @@
 
 CHROME_PREFERENCE_FILE='/home/.skjult/.config/google-chrome/Default/Preferences'
 
-if [ ! -f $LOCAL_CHROME_FILE  ]
+if [ ! -f $CHROME_PREFERENCE_FILE  ]
 then
     echo 'File does not exists. Is Google Chrome installed?'
+    exit -1
+elif [ grep -Fxq 'credentials_enable_autosignin' $CHROME_PREFERENCE_FILE ]
+then
+    echo 'Autologin is already disabled.'
     exit -1
 fi
 
