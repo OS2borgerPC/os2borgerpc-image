@@ -18,7 +18,8 @@
 #-
 #================================================================
 #  HISTORY
-#     2017/19/12 : danni : Now copies global chrome config into .skjult and adds password-store.
+#     2017/19/12 : danni : If old desktop file is present, it is removed.
+#     2017/19/12 : danni : Now copies global chrome desktop file into .skjult and adds password-store.
 #     2017/24/11 : danni : Script creation
 #
 #================================================================
