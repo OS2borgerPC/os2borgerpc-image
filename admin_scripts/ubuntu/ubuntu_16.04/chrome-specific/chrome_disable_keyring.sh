@@ -27,8 +27,16 @@
 
 LOCAL_PATH='/home/.skjult/.local/share/applications/'
 
+LOCAL_CHROME_FILE="$LOCAL_PATH" + 'google-chrome.desktop'
+
+if [ -f $LOCAL_CHROME_FILE  ]
+then
+    rm $LOCAL_CHROME_FILE
+    echo 'Old .xscreensaver file found. It has been deleted.'
+fi
+
 cp /usr/share/applications/google-chrome.desktop $LOCAL_PATH
 
-sed '/%U/ a \--password-store=basic' "$LOCAL_PATH" + 'google-chrome.desktop'
+sed '/%U/ a \--password-store=basic' $LOCAL_CHROME_FILE
 
 exit 0
