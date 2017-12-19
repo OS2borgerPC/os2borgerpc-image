@@ -19,6 +19,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/24/11 : danni : Instead of copy first, we do sed on global file and stream the edit into local file.
 #     2017/19/12 : danni : If local path does not exists applications is created.
 #     2017/19/12 : danni : If old desktop file is present, it is removed.
 #     2017/19/12 : danni : Now copies global chrome desktop file into .skjult and adds password-store.
@@ -44,9 +45,9 @@ then
     echo "$LOCAL_PATH is created."
 fi
 
-cp /usr/share/applications/google-chrome.desktop $LOCAL_PATH
+GLOBAL_CHROME='/usr/share/applications/google-chrome.desktop'
 
-sed '/%U/ a --password-store=basic' $LOCAL_CHROME_FILE
+sed '/%U/s/$/ --password-store=basic/' $GLOBAL_CHROME >> $LOCAL_CHROME_FILE
 
 echo 'Password store is set to basic.'
 
