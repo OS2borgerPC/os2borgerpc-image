@@ -38,7 +38,7 @@ then
     exit -1
 fi
 
-sed -i '/countryid_at_install/s/$/\n   \"credentials_enable_autosignin\":false,\n    \"credentials_enable_service\":false,/' $CHROME_PREFERENCE_FILE
+sed -i '/countryid_at_install/s/$/\n   \"credentials_enable_autosignin\":false,\n   \"credentials_enable_service\":false,/' $CHROME_PREFERENCE_FILE
 
 echo 'Autologin is disabled.'
 
