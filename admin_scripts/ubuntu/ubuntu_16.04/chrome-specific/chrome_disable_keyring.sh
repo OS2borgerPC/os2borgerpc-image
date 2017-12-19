@@ -3,14 +3,15 @@
 # HEADER
 #================================================================
 #% SYNOPSIS
-#+    disable_keyring
+#+    chrome_disable_keyring
 #%
 #% DESCRIPTION
-#%    This is script sets Google Chromes default keyring.
+#%    This script copies Google Chromes desktop file to /home/.skjult,
+#%    and disables keyring question.
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         disable_keyring (magenta.dk) 0.0.1
+#-    version         chrome_disable_keyring (magenta.dk) 0.0.4
 #-    author          Danni Als
 #-    copyright       Copyright 2017, Magenta Aps"
 #-    license         GNU General Public License
@@ -33,8 +34,6 @@ CHROME_DESKTOP='google-chrome.desktop'
 
 LOCAL_CHROME_FILE="$LOCAL_PATH$CHROME_DESKTOP"
 
-echo $LOCAL_CHROME_FILE
-
 if [ -f $LOCAL_CHROME_FILE  ]
 then
     rm $LOCAL_CHROME_FILE
@@ -47,6 +46,8 @@ fi
 
 cp /usr/share/applications/google-chrome.desktop $LOCAL_PATH
 
-sed '/%U/ a \--password-store=basic' $LOCAL_CHROME_FILE
+sed '/%U/ a --password-store=basic' $LOCAL_CHROME_FILE
+
+echo 'Password store is set to basic.'
 
 exit 0
