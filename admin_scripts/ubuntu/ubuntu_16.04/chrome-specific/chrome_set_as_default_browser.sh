@@ -3,14 +3,14 @@
 # HEADER
 #================================================================
 #% SYNOPSIS
-#+    set_chrome_as_default_browser
+#+    chrome_set_as_default_browser
 #%
 #% DESCRIPTION
-#%    This is script sets chrome as default browser.
+#%    This is script sets Google Chrome as default browser.
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         set_chrome_as_default_browser (magenta.dk) 0.0.2
+#-    version         chrome_set_as_default_browser (magenta.dk) 0.0.4
 #-    author          Danni Als
 #-    copyright       Copyright 2017, Magenta Aps"
 #-    license         GNU General Public License
@@ -18,6 +18,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/19/12 : danni : Renamed file so it starts with chrome.
 #     2017/18/12 : danni : Now creates a mimeapps.list file in .skjult setting chrome to default browser.
 #     2017/24/11 : danni : Now checks if Chrome is installed.
 #     2017/24/11 : danni : Script creation
