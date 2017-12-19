@@ -18,6 +18,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/19/12 : danni : If local path does not exists applications is created.
 #     2017/19/12 : danni : If old desktop file is present, it is removed.
 #     2017/19/12 : danni : Now copies global chrome desktop file into .skjult and adds password-store.
 #     2017/24/11 : danni : Script creation
@@ -28,12 +29,20 @@
 
 LOCAL_PATH='/home/.skjult/.local/share/applications/'
 
-LOCAL_CHROME_FILE="$LOCAL_PATH" + 'google-chrome.desktop'
+CHROME_DESKTOP='google-chrome.desktop'
+
+LOCAL_CHROME_FILE="$LOCAL_PATH$CHROME_DESKTOP"
+
+echo $LOCAL_CHROME_FILE
 
 if [ -f $LOCAL_CHROME_FILE  ]
 then
     rm $LOCAL_CHROME_FILE
-    echo 'Old .xscreensaver file found. It has been deleted.'
+    echo 'Old google-chrome.desktop file found. It has been deleted.'
+elif [ ! -d "$LOCAL_PATH" ]
+then
+    mkdir $LOCAL_PATH
+    echo "$LOCAL_PATH is created."
 fi
 
 cp /usr/share/applications/google-chrome.desktop $LOCAL_PATH
