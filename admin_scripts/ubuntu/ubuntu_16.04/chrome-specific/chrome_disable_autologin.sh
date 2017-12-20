@@ -18,6 +18,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2017/19/12 : danni : Bug - sometimes Preference file contained ': value' other times it contained ':value'. Now file is restructured before we edit the file, so it is the same every time.
 #     2017/19/12 : danni : Modified sed command, so new line and spaces matches the rest of the file.
 #     2017/19/12 : danni : Added checks to if file is present, or autologin is already disabled.
 #     2017/19/12 : danni : Script creation.
@@ -38,7 +39,9 @@ then
     exit -1
 fi
 
-sed -i '/countryid_at_install/s/$/\n   \"credentials_enable_autosignin\":false,\n   \"credentials_enable_service\":false,/' $CHROME_PREFERENCE_FILE
+# Standalize Preference file
+sed -i 's/\:\s/\:/g' $CHROME_PREFERENCE_FILE
+sed -i 's/\"countryid_at_install\"\:[0-9]*\,/&   \"credentials_enable_autosignin\":false, \"credentials_enable_service\":false,/' $CHROME_PREFERENCE_FILE
 
 echo 'Autologin is disabled.'
 
