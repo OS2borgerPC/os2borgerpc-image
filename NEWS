@@ -1,3 +1,7 @@
+* 2.4.1.2, January 2, 2018
+
+- Installation now adds the security folder and necessary security files. 
+
 * 2.4.1.1, June 6, 2017
 
 - bibos_installtion.sh was using deleted testing branch as base for installation. This is now removed.
