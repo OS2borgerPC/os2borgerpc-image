@@ -12,7 +12,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2017, Magenta Aps"
 __credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
 __license__ = "GPL"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __maintainer__ = "Danni Als"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -36,13 +36,13 @@ lines = log_read.read(300, fname)
 
 # Ignore if not a keyboard event
 if (lines.partition('keyboard')[2] == "" and
-    lines.partition('Keyboard')[2] == ""):
-        sys.exit()
+        lines.partition('Keyboard')[2] == ""):
+            sys.exit()
 
 # securityEventCode, Tec sum, Raw data
 csv_data = []
 # securityEventCode (security problem id)
-csv_data.append("secAabyRule")
+csv_data.append("%SECURITY_PROBLEM_UID%")
 
 # find keyword
 # select text from keyword until end of line
@@ -52,6 +52,10 @@ if after_keyword != "":
     if(len(splittet_lines) > 0):
         # Tec sum
         csv_data.append("'" + splittet_lines[0] + "'")
+    else:
+        sys.exit()
+else:
+    sys.exit()
 
 lines = lines.replace('\n', ' ').replace('\r', '').replace(',', '')
 
