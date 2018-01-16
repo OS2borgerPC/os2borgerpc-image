@@ -21,12 +21,17 @@
 #================================================================
 #  HISTORY
 #     2017/06/10 : danni : Script creation
+#     2018/16/01 : danni : Security dir is deleted if it already exists.
 #
 #================================================================
 # END_OF_HEADER
 #================================================================
 
 SECURITY_SCRIPT_HOME=/etc/bibos/security
+
+if [ -d "$SECURITY_SCRIPT_HOME" ];then
+  rm -R $SECURITY_SCRIPT_HOME
+fi
 
 mkdir -p $SECURITY_SCRIPT_HOME
 
