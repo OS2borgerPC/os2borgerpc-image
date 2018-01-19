@@ -35,8 +35,7 @@ lines = log_read.read(300, fname)
 
 
 # Ignore if not a keyboard event
-if (lines.partition('keyboard')[2] == "" and
-        lines.partition('Keyboard')[2] == ""):
+if (lines.partition('keyboard')[2] == "" and lines.partition('Keyboard')[2] == ""):
             sys.exit()
 
 # securityEventCode, Tec sum, Raw data
