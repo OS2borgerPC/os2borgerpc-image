@@ -29,7 +29,7 @@ if lines.partition('sudo:')[2] == "":
 # securityEventCode, Tec sum, Raw data
 csv_data = []
 # securityEventCode (security problem id)
-csv_data.append("SUDOEVENT")
+csv_data.append("%SECURITY_PROBLEM_UID%")
 
 # find keyword
 # select text from auth.log until end of line
@@ -39,6 +39,11 @@ if after_keyword != "":
     if(len(splittet_lines) > 0):
         # Tec sum
         csv_data.append("'" + splittet_lines[0] + "'")
+    else:
+        sys.exit()
+else:
+    sys.exit()
+
 
 lines = lines.replace('\n', ' ').replace('\r', '').replace(',', '')
 
