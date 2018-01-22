@@ -30,9 +30,9 @@ then
     exit -1
 fi
 
-add-apt-repository ppa:princh/experimental
+add-apt-repository -y ppa:princh/experimental
 apt-get update
-apt-get install princh
+apt-get install -y princh
 
 HIDDEN_DIR=/home/.skjult
 
