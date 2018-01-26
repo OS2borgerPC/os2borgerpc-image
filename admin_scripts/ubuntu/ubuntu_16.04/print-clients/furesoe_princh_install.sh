@@ -18,10 +18,16 @@
 #-
 #================================================================
 #  HISTORY
+<<<<<<< HEAD
 #     2018/19/01 : danni   : Script creation
 #     2018/22/01 : danni   : Added -y to add-apt and apt-get install.
 #     2018/22/01 : danni   : Now checks if HIDDEN _DIR exists.
 #     2018/26/01 : andreas : Checks if princh is allready installed
+=======
+#     2018/19/01 : danni : Script creation
+#     2018/22/01 : danni : Added -y to add-apt and apt-get install.
+#     2018/22/01 : danni : Now checks if HIDDEN _DIR exists.
+>>>>>>> 5a59b527e518d536e59be920074367d82020ec53
 #
 #================================================================
 # END_OF_HEADER
@@ -33,6 +39,7 @@ then
     exit -1
 fi
 
+<<<<<<< HEAD
 if [ "dpkg -l | grep princh" == "" ]
 then
         add-apt-repository -y ppa:princh/experimental
@@ -48,9 +55,29 @@ then
 fi
 
 ln -sf /usr/share/applications/com-princh-print-daemon.desktop $AUTOSTART_DIR
+=======
+apt-add-repository -y ppa:princh/experimental
+apt-get update
+apt-get install -y princh
+
+echo 'Princh is installed.'
+
+HIDDEN_DIR=/home/.skjult/.config/autostart/
+
+if [ ! -d "$HIDDEN_DIR" ];then
+    echo 'Creating dir autostart.'
+    mkdir -p $HIDDEN_DIR
+fi
+
+ln -s /usr/share/applications/com-princh-print-daemon.desktop "$HIDDEN_DIR"
+
+ls "$HIDDEN_DIR"
+>>>>>>> 5a59b527e518d536e59be920074367d82020ec53
 
 PRINTER_NAME=$1
 PRINTER_ID=$2
 DESCRIPTION=$3
 
-lpadmin -p $PRINTER_NAME -v princh:$PRINTER_ID -D "$DESCRIPTION" -E -P /usr/share/ppd/princh/princh.ppd
+lpadmin -p "$PRINTER_NAME" -v princh:$PRINTER_ID -D "$DESCRIPTION" -E -P /usr/share/ppd/princh/princh.ppd
+
+exit 0
