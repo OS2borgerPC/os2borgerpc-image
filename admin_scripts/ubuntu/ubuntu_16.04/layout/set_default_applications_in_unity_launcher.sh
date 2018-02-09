@@ -23,8 +23,9 @@
 #-
 #================================================================
 #  HISTORY
-#     2017/22/11 : danni : Script creation
-#     2017/23/11 : danni : User Unity Launcher should not contain amazon, ubuntu software and security copy.
+#     2017/22/11 : danni     : Script creation
+#     2017/23/11 : danni     : User Unity Launcher should not contain amazon, ubuntu software and security copy.
+#     2018/07/02 : andreasnn : Remove Amazon and other webapps
 #
 #================================================================
 # END_OF_HEADER
@@ -49,24 +50,8 @@ else
     su - $AS_USER -s /bin/bash -c 'dbus-launch --exit-with-session /usr/bin/gsettings set com.canonical.Unity.Launcher favorites '\"'['\''application://nautilus-home.desktop'\'', '\''application://firefox.desktop'\'', '\''application://google-chrome.desktop'\'', '\''application://libreoffice-writer.desktop'\'', '\''application://libreoffice-calc.desktop'\'', '\''application://libreoffice-impress.desktop'\'', '\''unity://running-apps'\'', '\''unity://expo-icon'\'', '\''unity://devices'\'']'\"''
 fi
 
+# Remove Amazon and other webapps
+# The package is not a Unity dependency
+apt -y purge unity-webapps-common
 
-APPS_DIR=/home/$AS_USER/.local/share/applications
-AMAZON=ubuntu-amazon-default.desktop
-
-mkdir -p $APPS_DIR
-
-# Fix problem with Amazon icon still displaying in the launcher
-cat <<EOF > $APPS_DIR/$AMAZON
-[Desktop Entry]
-Name=Amazon
-Type=Application
-Icon=amazon-store
-Exec=unity-webapps-runner --amazon --app-id=ubuntu-amazon-default
-NoDisplay=true
-EOF
-
-chown $AS_USER:$AS_USER $APPS_DIR/$AMAZON
-
-
-cp $APPS_DIR/$AMAZON $HIDDEN_DIR/.local/share/applications
 cp /home/$AS_USER/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
