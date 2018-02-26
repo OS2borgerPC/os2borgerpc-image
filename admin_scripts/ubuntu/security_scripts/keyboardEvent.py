@@ -13,7 +13,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2017, Magenta Aps"
 __credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
 __license__ = "GPL"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __maintainer__ = "Danni Als"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -76,7 +76,7 @@ if after_keyword != "":
 else:
     sys.exit()
 
-lines = lines[-500:]
+lines = lines[-2000:]
 
 lines = lines.replace('\n', ' ').replace('\r', '').replace(',', '')
 
