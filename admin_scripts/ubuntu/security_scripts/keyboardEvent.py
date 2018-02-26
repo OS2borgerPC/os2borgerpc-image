@@ -13,7 +13,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2017, Magenta Aps"
 __credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
 __license__ = "GPL"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __maintainer__ = "Danni Als"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -33,11 +33,11 @@ except IOError:
 
 last_security_check = datetime.strptime(now, '%Y%m%d%H%M')
 last_check = check_file.read()
+check_file.close()
+
 if last_check:
     last_security_check = (
         datetime.strptime(last_check, '%Y%m%d%H%M'))
-
-check_file.close()
 
 delta = datetime.strptime(now, '%Y%m%d%H%M') - last_security_check
 
@@ -75,6 +75,8 @@ if after_keyword != "":
         sys.exit()
 else:
     sys.exit()
+
+lines = lines[-500:]
 
 lines = lines.replace('\n', ' ').replace('\r', '').replace(',', '')
 
