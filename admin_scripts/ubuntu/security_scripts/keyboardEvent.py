@@ -13,7 +13,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2017, Magenta Aps"
 __credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
 __license__ = "GPL"
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __maintainer__ = "Danni Als"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -76,11 +76,11 @@ if after_keyword != "":
 else:
     sys.exit()
 
-lines = lines[-20000:]
+log_data = before_keyword[-1000:] + keyword + after_keyword[:1000]
 
-lines = lines.replace('\n', ' ').replace('\r', '').replace(',', '')
+log_data = log_data.replace('\n', ' ').replace('\r', '').replace(',', '')
 
 # Raw data
-csv_data.append("'" + lines + "'")
+csv_data.append("'" + log_data + "'")
 
 csv_writer.write_data(csv_data)
