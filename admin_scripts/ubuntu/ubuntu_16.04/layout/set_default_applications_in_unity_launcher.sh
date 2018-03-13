@@ -51,7 +51,11 @@ else
 fi
 
 # Remove Amazon and other webapps
+
 # The package is not a Unity dependency
-apt -y purge unity-webapps-common
+# apt -y purge unity-webapps-common
+
+# Removing the package could give problems, depending on the installation method, so:
+mv /usr/share/applications/ubuntu-amazon-default.desktop /usr/share/applications/ubuntu-amazon-default.desktop.org
 
 cp /home/$AS_USER/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
