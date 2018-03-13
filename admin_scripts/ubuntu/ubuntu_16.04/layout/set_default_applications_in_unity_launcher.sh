@@ -50,6 +50,9 @@ else
     su - $AS_USER -s /bin/bash -c 'dbus-launch --exit-with-session /usr/bin/gsettings set com.canonical.Unity.Launcher favorites '\"'['\''application://nautilus-home.desktop'\'', '\''application://firefox.desktop'\'', '\''application://google-chrome.desktop'\'', '\''application://libreoffice-writer.desktop'\'', '\''application://libreoffice-calc.desktop'\'', '\''application://libreoffice-impress.desktop'\'', '\''unity://running-apps'\'', '\''unity://expo-icon'\'', '\''unity://devices'\'']'\"''
 fi
 
+cp /home/$AS_USER/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
+
+
 # Remove Amazon and other webapps
 
 # The package is not a Unity dependency
@@ -57,5 +60,3 @@ fi
 
 # Removing the package could give problems, depending on the installation method, so:
 mv /usr/share/applications/ubuntu-amazon-default.desktop /usr/share/applications/ubuntu-amazon-default.desktop.org
-
-cp /home/$AS_USER/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
