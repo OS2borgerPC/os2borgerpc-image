@@ -1,55 +1,30 @@
 #!/usr/bin/env bash
 
-#if [ $# -ne 3 ]
-#then
-#    echo "This job takes exactly three parameters."
-#    exit -1
-#fi
+set -e
 
-printer_name=$1
+
+# Vars
+# Replace space with underscore and remove æøå
+printer_name=`echo $1 | tr ' ' '_' | tr -dc '[:print:]'`
 printer_conn=$2
-printer_id=$3
-printer_descr=$4
+printer_loc=$3
+# Remove æøå
+printer_descr=`echo $4 | tr -dc '[:print:]'`
 printer_driver=$5
 
-if [ $printer_conn == "princh" ]
+
+# Define conncetion type for the printer
+if [ `echo $printer_conn | grep 1` ]
 then
-    princh_check=`dpkg -l | grep princh`
+    printer_conn="socket://"
 
-    if [ ! -n "$check_princh" ]
-    then
-        add-apt-repository -y ppa:princh/experimental
-        apt-get update
-        apt-get install -y princh
-    fi
-
-    princh_autostart_dir=/home/.skjult/.config/autostart
-
-    if [ ! -d "$princh_autostart_dir" ]
-    then
-        mkdir -p $princh_autostart_dir
-    fi
-
-    ln -sf /usr/share/applications/com-princh-print-daemon.desktop $princh_autostart_dir
-
-elif [ $printer_conn == "net" ]
+elif [ `echo $printer_conn | grep 2` ]
 then
-    $printer_conn="socket://"
-elif [ $printer_conn == "usb" ]
-then
-    $printer_conn="usb://"
+    printer_conn="usb://"
+else
+    echo "Forbindelsestypen findes ikke"
+    exit 1
 fi
 
-# Define driver type
-
-if [ $printer_driver == "Nej" ]
-then
-    read -p "Hvad er navnet på printeren?" printer
-    lpinfo -v | grep "$printer"
-    read -p "Indtast den ønskede printdriver" printer
-    lpadmin -p $printer_name -v $printer_conn$printer_id -D $printer_descr -E -m $printer
-elif [ $printer_driver == "Ja"
-then
-    echo "Hvor er print-driveren plcaeret?"
-    lpadmin -p $printer_name -v $printer_conn$printer_id -D $printer_descr -E -P
-fi
+# Execute command with user defined vars
+lpadmin -p $printer_name -v $printer_conn$printer_loc -D "$printer_descr" -E -P $printer_driver
