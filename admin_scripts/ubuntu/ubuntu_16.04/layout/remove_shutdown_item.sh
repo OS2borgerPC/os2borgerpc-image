@@ -2,8 +2,9 @@
 
 
 user=user
-dconf_dir=/home/user/.cache/dconf
-
+dconf_cache_dir=/home/$user/.cache/dconf
+dconf_dir=/home/$user/.config/dconf
+dconf_dir_hidden=/home/.skjult/.config/dconf
 
 if [ ! -d "$dconf_dir" ]
 then
@@ -13,4 +14,4 @@ fi
 
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
 
-cp -R $dconf_dir /home/.skjult/.cache
+mv $dconf_dir $dconf_dir_hidden
