@@ -3,7 +3,7 @@
 set -e
 
 
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
     echo "Dette script skal bruge to parametre: brugernavn og hjemmeside"
     exit -1
@@ -33,6 +33,8 @@ if [ ! -d "$autostart_dir" ]
 then
     mkdir -p $autostart_dir
 fi
+
+rm -f $autostart_dir/*chrome*
 
 cat <<CHROME-DESKTOP > $autostart_dir/chrome.desktop
 [Desktop Entry]
