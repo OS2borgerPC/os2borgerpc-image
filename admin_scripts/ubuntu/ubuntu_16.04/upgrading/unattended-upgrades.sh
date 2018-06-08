@@ -34,7 +34,8 @@ then
         if [ "$check_general_updates" ]
         then
             sed -i 's/\/\/\t"${distro_id}:${distro_codename}-updates"/\t"${distro_id}:${distro_codename}-updates"/g' $unattended_upgrades_conf
-        
+            sed -i 's/\/\/Unattended-Upgrade::MinimalSteps "true"/Unattended-Upgrade::MinimalSteps "true/g' /etc/apt/apt.conf.d/50unattended-upgrades
+
             if [ $? ]
             then
                 echo "Generelle opdateringer er nu blevet aktiveret"
