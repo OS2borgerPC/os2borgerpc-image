@@ -11,19 +11,16 @@ if [ ! $check_unattended_package ]
 then
 
     # Just make a simple backup
-    cp $unattended_upgrades_conf $unattended_upgrades_conf.orig
+    if [ ! -e $unattended_upgrades_conf.orig ]
+    then
+        cp $unattended_upgrades_conf $unattended_upgrades_conf.orig
+    fi
 
     # Activate security updates if they aren't
     if [ "$check_sec_updates" ]
     then
         sed -i 's/\/\/\t"${distro_id}:${distro_codename}-security"/\t"${distro_id}:${distro_codename}-security"/g' $unattended_upgrades_conf
-        
-        if [ $? ]
-        then
-            echo "Sikkerhedsopdateringer er nu blevet aktiveret"
-        else
-            echo "Der opstod en fejl ved aktivering af sikkerhedsopdateringer"
-        fi
+        echo "Sikkerhedsopdateringer er nu blevet aktiveret"
     else
         echo "Sikkerhedsopdateringer er allerede aktiveret"
     fi
@@ -34,25 +31,19 @@ then
         if [ "$check_general_updates" ]
         then
             sed -i 's/\/\/\t"${distro_id}:${distro_codename}-updates"/\t"${distro_id}:${distro_codename}-updates"/g' $unattended_upgrades_conf
-            sed -i 's/\/\/Unattended-Upgrade::MinimalSteps "true"/Unattended-Upgrade::MinimalSteps "true/g' /etc/apt/apt.conf.d/50unattended-upgrades
-
-            if [ $? ]
-            then
-                echo "Generelle opdateringer er nu blevet aktiveret"
-            else
-                echo "Der opstod en fejl ved aktivering af generelle opdateringer"
-            fi
+            sed -i 's/\/\/Unattended-Upgrade::MinimalSteps "true"/Unattended-Upgrade::MinimalSteps "true"/g' /etc/apt/apt.conf.d/50unattended-upgrades
+            echo "Generelle opdateringer er nu blevet aktiveret"
         else
             echo "Generelle opdateringer er allerede aktiveret"
         fi
     else
-        if [ ! "$check_general_updates" ]
+	    if [ ! "$check_general_updates" ]
         then
-            echo "Generelle opdateringer er allerede aktiveret"
+	        echo "Generelle opdateringer er allerede aktiveret"
         else
             echo "Generelle opdateringer blev ikke aktiveret"
         fi
-    fi
+	fi
 
 else
     echo "Programmet for automatiske opdateringer er ikke installeret på computeren"
