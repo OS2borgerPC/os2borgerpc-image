@@ -2,16 +2,22 @@
 
 
 user=user
-dconf_cache_dir=/home/$user/.cache/dconf
 dconf_dir=/home/$user/.config/dconf
+dconf_dir_cache=/home/$user/.cache/dconf
 dconf_dir_hidden=/home/.skjult/.config/dconf
 
-if [ ! -d "$dconf_dir" ]
+if [ ! -d "$dconf_dir_cache" ]
 then
-    mkdir -p $dconf_dir
-    chown -R $user:$user $dconf_dir
+    mkdir -p $dconf_dir_cache
 fi
+
+chown $user:$user $dconf_dir_cache
 
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
 
-mv $dconf_dir $dconf_dir_hidden
+if [ ! -d "$dconf_dir_hidden" ]
+then
+    mkdir -p $dconf_dir_hidden
+fi
+
+cp $dconf_dir/$user $dconf_dir_hidden/$user
