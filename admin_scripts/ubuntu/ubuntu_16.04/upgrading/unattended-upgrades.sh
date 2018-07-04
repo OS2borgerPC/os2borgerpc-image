@@ -4,11 +4,21 @@
 general_updates=$1
 check_unattended_package=`dpkg -s unattended-upgrades | grep "is not installed"`
 unattended_upgrades_conf=/etc/apt/apt.conf.d/50unattended-upgrades
-check_sec_updates=`cat $unattended_upgrades_conf | grep $'\/\/\t"${distro_id}:${distro_codename}-security";'`
-check_general_updates=`cat $unattended_upgrades_conf | grep $'\/\/\t"${distro_id}:${distro_codename}-updates";'`
+auto_upgrades_conf=/etc/apt/apt.conf.d/20auto-upgrades
+check_auto_upgrades=`grep 'Unattended-Upgrade "0";' $auto_upgrades_conf`
+check_sec_updates=`grep $'\/\/\t"${distro_id}:${distro_codename}-security";' $unattended_upgrades_conf`
+check_general_updates=`grep $'\/\/\t"${distro_id}:${distro_codename}-updates";' $unattended_upgrades_conf`
 
+# Overall, check if package is installed
 if [ ! $check_unattended_package ]
 then
+
+    # Check and activate auto upgrades
+    if [ "$check_auto_upgrades" ]
+    then
+        cp $auto_upgrades_conf $auto_upgrades_conf.orig
+        echo "$check_auto_upgrades" | sed 's/0/1/g' > $auto_upgrades_conf
+    fi
 
     # Just make a simple backup
     if [ ! -e $unattended_upgrades_conf.orig ]
@@ -37,13 +47,13 @@ then
             echo "Generelle opdateringer er allerede aktiveret"
         fi
     else
-	    if [ ! "$check_general_updates" ]
+        if [ ! "$check_general_updates" ]
         then
 	        echo "Generelle opdateringer er allerede aktiveret"
         else
             echo "Generelle opdateringer blev ikke aktiveret"
         fi
-	fi
+    fi
 
 else
     echo "Programmet for automatiske opdateringer er ikke installeret på computeren"
