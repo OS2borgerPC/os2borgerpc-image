@@ -17,7 +17,7 @@ chown $user:$user $dconf_dir_cache
 
 # Run gsettings for disabling shutdown item
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
-
+su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-logout-restart-shutdown true"
 
 # Make sure dconf dir exists in hidden user
 if [ ! -d "$dconf_dir_hidden" ]
