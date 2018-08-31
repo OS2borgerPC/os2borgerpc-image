@@ -1,5 +1,31 @@
 #!/usr/bin/env bash
-
+#================================================================
+# HEADER
+#================================================================
+#% SYNOPSIS
+#+    remove_shutdown_item.sh
+#%
+#% DESCRIPTION
+#%    This script disables shutdown options from the settings
+#%    menu in Ubuntu 16.04 for user user.
+#%
+#================================================================
+#- IMPLEMENTATION
+#-    version         remove_shutdown_item (magenta.dk) 0.0.1
+#-    author          Andreas Natanel
+#-    copyright       Copyright 2018, Magenta Aps"
+#-    license         GNU General Public License
+#-    email           ann@magenta.dk
+#-
+#================================================================
+#  HISTORY
+#     2018/11/06 : andreas : Script creation
+#     2018/09/07 : danni : The script could not connect to dbus
+#     when user was logged in. This should be fixed now.
+#
+#================================================================
+# END_OF_HEADER
+#================================================================
 
 user=user
 dconf_dir=/home/$user/.config/dconf
@@ -14,6 +40,17 @@ then
 fi
 
 chown $user:$user $dconf_dir_cache
+
+user_logged_in=$(who | cut -f 1 -d ' ' | sort | uniq | grep $user)
+
+set -e
+
+if [ $user_logged_in ]
+then
+    # Run gsettings with X.
+    export DISPLAY=:0.0
+    export XAUTHORITY=/home/$user/.Xauthority
+fi
 
 # Run gsettings for disabling shutdown item
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
