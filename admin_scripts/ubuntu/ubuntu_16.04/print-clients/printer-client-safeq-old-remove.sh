@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 
 
 old_safeq_files=(
@@ -18,27 +18,14 @@ old_safeq_files=(
 "/var/log/cups/sqclient_backend.log"
 )
 
-err=0
+# Stop CUPSD
+service cups stop
 
-# Remove the old safeq client
+# Remove the old safeq client, but not the ppd files in the /opt folder (bibos_safeq_install_2.sh)
 for file in "${old_safeq_files[@]}"
 do
     rm -frv $file
-
-    if [ ! $? -eq 0 ]
-    then
-        err=1
-    fi
 done
 
-# Install the new safeq client
-if [ $err = 0 ]
-then
-    echo "Success, går i gang med installation af ny SafeQ klient:"
-    dpkg -i ysoft-client_4.1_amd64.deb
-    dpkg -i libcrafter_0.0.2_amd64.deb
-    apt-get -fy install
-    dpkg -i ysoft-client_4.1_amd64.deb
-else
-    echo "Der opstod en fejl ved fjernelse af den gamle SafeQ klient"
-fi
+# Start CUPSD again
+service cups start
