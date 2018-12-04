@@ -27,6 +27,7 @@
 #     2017/23/11 : danni     : User Unity Launcher should not contain amazon, ubuntu software and security copy.
 #     2018/07/02 : andreasnn : Remove Amazon and other webapps
 #     2018/04/12 : danni     : Remove gnome Software
+#     2018/04/12 : danni     : Grep for user also macthed superuser. Now it shoud only match user.
 #
 #================================================================
 # END_OF_HEADER
@@ -39,7 +40,7 @@ set -e
 AS_USER=user
 HIDDEN_DIR=/home/.skjult
 
-USER_LOGGED_IN=$(who | cut -f 1 -d ' ' | sort | uniq | grep $AS_USER)
+USER_LOGGED_IN=$(who | cut -f 1 -d ' ' | sort | uniq | grep -W $AS_USER)
 
 if [ $USER_LOGGED_IN ]
 then
