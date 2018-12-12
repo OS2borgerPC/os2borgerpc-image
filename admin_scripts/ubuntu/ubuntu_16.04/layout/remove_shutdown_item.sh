@@ -22,6 +22,8 @@
 #     2018/11/06 : andreas : Script creation
 #     2018/09/07 : danni : The script could not connect to dbus
 #     when user was logged in. This should be fixed now.
+#     2018/12/12 : danni : restart menuitem was not removed.
+#     Wrong gsetting was used. Now fixed.
 #
 #================================================================
 # END_OF_HEADER
@@ -54,7 +56,7 @@ fi
 
 # Run gsettings for disabling shutdown item
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
-su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-logout-restart-shutdown true"
+su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-restart-menuitem true"
 
 # Make sure dconf dir exists in hidden user
 if [ ! -d "$dconf_dir_hidden" ]
