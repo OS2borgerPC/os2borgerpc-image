@@ -1,21 +1,44 @@
 #!/usr/bin/env bash
+#================================================================
+# HEADER
+#================================================================
+#% SYNOPSIS
+#+    shutdown_at_time.sh
+#%
+#% DESCRIPTION
+#%    This is a script to make a OS2BorgerPC machine shutdown at a certain time.
+#%    Synopsis:
+#%
+#%      shutdown_at_time.sh <hours> <minutes>
+#%
+#%    to enable shutdown mechanism.
+#%
+#%      shutdown_at_time.sh --off
+#%
+#%    to disable.
+#%
+#%    We'll suppose the user only wants to have regular shutdown once a day
+#%    as specified by the <hours> and <minutes> parameters. Thus, any line in
+#%    crontab already specifying a shutdown will be deleted before a new one is
+#%    inserted.
+#%
+#================================================================
+#- IMPLEMENTATION
+#-    version         shutdown_at_time.sh (magenta.dk) 0.0.1
+#-    author          Danni Als
+#-    copyright       Copyright 2018, Magenta Aps"
+#-    license         GNU General Public License
+#-    email           danni@magenta.dk
+#-
+#================================================================
+#  HISTORY
+#     2018/12/12 : danni : Script creation - based on an already existing script.
+#
+#================================================================
+# END_OF_HEADER
+#================================================================
 
-# This is a script to make a BibOS machine shutdown at a certain time.
-#
-# Synopsis: 
-#     
-#    shutdown_at_time.sh <hours> <minutes> 
-# 
-# to enable shutdown mechanism.
-#
-#    shutdown_at_time.sh --off  
-#
-# to disable.
-#
-# We'll suppose the user only wants to have regular shutdown once a day
-# as specified by the <hours> and <minutes> parameters. Thus, any line in
-# crontab already specifying a shutdown will be deleted before a new one is
-# inserted.
+
 
 TCRON=/tmp/oldcron
 USERCRON=/tmp/usercron
