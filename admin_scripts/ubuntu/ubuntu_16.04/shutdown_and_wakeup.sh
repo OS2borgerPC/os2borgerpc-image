@@ -35,6 +35,8 @@
 #================================================================
 #  HISTORY
 #     2018/12/12 : danni : Script creation - based on shutdown_at_time.sh
+#     2018/12/12 : danni : Changed paramter count from 2 to 3.
+#     Corrected sed delete regex.
 #
 #================================================================
 # END_OF_HEADER
@@ -53,7 +55,7 @@ then
 
     if [ -f $TCRON ]
     then
-        sed -i -e "/\/usr/sbin/rtcwake/d" $TCRON
+        sed -i -e "/\/rtcwake/d" $TCRON
         crontab $TCRON
     fi
 
@@ -65,15 +67,15 @@ then
 
 else
 
-    if [ $# == 2 ]
+    if [ $# == 3 ]
     then
         HOURS=$1
         MINUTES=$2
-        SECONDS_TO_WAKEUP=3600*$3
+        SECONDS_TO_WAKEUP=$(expr 3600 \* $3)
         # We still remove shutdown lines, if any
         if [ -f $TCRON ]
         then
-            sed -i -e "/\/usr/sbin/rtcwake/d" $TCRON
+            sed -i -e "/\/rtcwake/d" $TCRON
         fi
         if [ -f $USERCRON ]
         then
