@@ -1,5 +1,12 @@
 #!/bin/sh
 
+# Newer versions of Clonezilla use a different mountpoint for the disk; emulate
+# the old one if it couldn't be found
+if [ ! -d /live/image/ ]; then
+    sudo mkdir -p /live
+    sudo ln --symbolic /lib/live/mount/medium /live/image
+fi
+
 sudo dhclient -v eth0
 if [ $? -ne 0 ]; then
     echo "Could get an IP address, exiting";

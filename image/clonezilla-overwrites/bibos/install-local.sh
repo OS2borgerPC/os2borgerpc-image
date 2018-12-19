@@ -1,6 +1,13 @@
 #!/bin/bash
 
-mkdir /home/partimag/
+# Newer versions of Clonezilla use a different mountpoint for the disk; emulate
+# the old one if it couldn't be found
+if [ ! -d /live/image/ ]; then
+    sudo mkdir -p /live
+    sudo ln --symbolic /lib/live/mount/medium /live/image
+fi
+
+sudo mkdir -p /home/partimag/
 sudo mount --bind /live/image/bibos-images /home/partimag/
 
 DEV=`sudo /usr/bin/perl /live/image/bibos/find_disk.pl`
