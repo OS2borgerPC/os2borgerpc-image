@@ -98,18 +98,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="274.08509"
-     inkscape:cy="250.25578"
+     inkscape:zoom="5.6"
+     inkscape:cx="560.58966"
+     inkscape:cy="-3.8531184"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g894"
      showgrid="false"
      units="px"
-     inkscape:window-width="1247"
-     inkscape:window-height="1383"
-     inkscape:window-x="3233"
+     inkscape:window-width="2493"
+     inkscape:window-height="1385"
+     inkscape:window-x="1987"
      inkscape:window-y="27"
-     inkscape:window-maximized="0" />
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -118,7 +118,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -212,5 +212,70 @@
          id="tspan5066"
          style="font-weight:normal;stroke-width:0.54488814">www.os2.eu/produkt/os2borgerpc</tspan>
     </text>
+    <g
+       id="g878">
+      <rect
+         y="292.5307"
+         x="164.86404"
+         height="3.9401393"
+         width="3.9401393"
+         id="rect860"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.30640638;stroke-miterlimit:4;stroke-dasharray:none" />
+      <text
+         id="text858"
+         y="295.77716"
+         x="166.28345"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.64684105px;line-height:1.25;font-family:'Irianis ADF Std';-inkscape-font-specification:'Irianis ADF Std';letter-spacing:0px;word-spacing:0px;fill:#2ea836;fill-opacity:1;stroke:none;stroke-width:0.09117103"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:Montserrat;fill:#2ea836;fill-opacity:1;stroke-width:0.09117103"
+           y="295.77716"
+           x="166.28345"
+           id="tspan856"
+           sodipodi:role="line">I</tspan></text>
+    </g>
+    <g
+       id="g886"
+       transform="translate(0.83521727,7.7508163)">
+      <rect
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.30640638;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect880"
+         width="3.9401393"
+         height="3.9401393"
+         x="164.86404"
+         y="292.5307" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.64684105px;line-height:1.25;font-family:'Irianis ADF Std';-inkscape-font-specification:'Irianis ADF Std';letter-spacing:0px;word-spacing:0px;fill:#2ea836;fill-opacity:1;stroke:none;stroke-width:0.09117103"
+         x="165.49573"
+         y="295.77716"
+         id="text884"><tspan
+           sodipodi:role="line"
+           id="tspan882"
+           x="165.49573"
+           y="295.77716"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:Montserrat;fill:#2ea836;fill-opacity:1;stroke-width:0.09117103">G</tspan></text>
+    </g>
+    <g
+       transform="translate(7.9512684,2.6726953)"
+       id="g894">
+      <rect
+         y="292.5307"
+         x="164.86404"
+         height="3.9401393"
+         width="3.9401393"
+         id="rect888"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.30640638;stroke-miterlimit:4;stroke-dasharray:none" />
+      <text
+         id="text892"
+         y="295.77716"
+         x="165.71271"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.64684105px;line-height:1.25;font-family:'Irianis ADF Std';-inkscape-font-specification:'Irianis ADF Std';letter-spacing:0px;word-spacing:0px;fill:#2ea836;fill-opacity:1;stroke:none;stroke-width:0.09117103"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Montserrat;-inkscape-font-specification:Montserrat;fill:#2ea836;fill-opacity:1;stroke-width:0.09117103"
+           y="295.77716"
+           x="165.71271"
+           id="tspan890"
+           sodipodi:role="line">S</tspan></text>
+    </g>
   </g>
 </svg>
