@@ -8,11 +8,13 @@ my $dev = $ARGV[0];
 die "No disk device specified" unless($dev);
 
 die "Not a proper disk device $dev"
-    unless(-e $dev and $dev =~ m!^/dev/[hs]d[a-z]$!);
+    unless(-e $dev and $dev =~ m!^/dev/([hs]d[a-z]|nvme[0-9]n[0-9])$!);
     
 my $image = $ARGV[1] || 'bibos';
 
-my $target = $dev . "1";
+# NVMe disk partions get an extra "p" between the disk name and the partition
+# number
+my $target = $dev . ($dev =~ m!^/dev/nvme! ? "p1" : "1");
 $target =~ s!^/dev/!!;
 
 system(

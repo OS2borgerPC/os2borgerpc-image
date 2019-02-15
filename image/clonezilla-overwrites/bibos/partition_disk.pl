@@ -12,7 +12,7 @@ my $dev = $ARGV[0];
 die "No disk device specified" unless($dev);
 
 die "Not a proper disk device $dev"
-    unless(-e $dev and $dev =~ m!^/dev/[hs]d[a-z]$!);
+    unless(-e $dev and $dev =~ m!^/dev/([hs]d[a-z]|nvme[0-9]n[0-9])$!);
 
 my $swapsize = $ARGV[1];
 die "No swap size specified" unless($swapsize);
@@ -42,13 +42,7 @@ while(1) {
 print STDERR "\nRemoving old partitions on $dev\n";
 
 my $empty_disk = <<EOT;
-# partition table of /dev/sda
-unit: sectors
-
-/dev/sda1 : start=        0, size=        0, Id= 0
-/dev/sda2 : start=        0, size=        0, Id= 0
-/dev/sda3 : start=        0, size=        0, Id= 0
-/dev/sda4 : start=        0, size=        0, Id= 0
+label: mbr
 EOT
 
 open(PIPE, "|/sbin/sfdisk -L -q $dev >&2");

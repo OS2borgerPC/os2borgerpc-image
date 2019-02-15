@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my @devices = glob('/dev/[h,s]d[a-z]');
+my @devices = glob('/dev/[h,s]d[a-z] /dev/nvme[0-9]n[0-9]');
 
 if(@devices < 1) {
     exit 1;
