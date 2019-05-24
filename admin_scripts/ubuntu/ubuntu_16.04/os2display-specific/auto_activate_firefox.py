@@ -1,4 +1,18 @@
 #!/usr/bin/env python
+
+"""
+Script for activating an OS2display screen. Arguments: [url, activation_code]
+"""
+
+__author__ = "Danni Als"
+__copyright__ = "Copyright 2019, Magenta Aps"
+__credits__ = ["Allan Grauenkjaer"]
+__license__ = "GPL"
+__version__ = "0.1.0"
+__maintainer__ = "Magenta"
+__email__ = "danni@magenta.dk"
+__status__ = "Production"
+
 import os
 import sys
 import subprocess
