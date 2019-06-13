@@ -3,7 +3,7 @@
 # HEADER
 #================================================================
 #% SYNOPSIS
-#+    chrome_autostart - args[fullscreen(Ja/Nej)]
+#+    chrome_autostart - args[fullscreen(Ja/Nej/Fjernj)]
 #%
 #% DESCRIPTION
 #%    This script sets Google Chrome to autostart in fullscreen or normal screen size.
