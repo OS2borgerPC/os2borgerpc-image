@@ -18,6 +18,7 @@
 #-
 #================================================================
 #  HISTORY
+#     2019/14/06 : danni : Removed password-store popup.
 #     2019/13/06 : danni : Added possibility to remove autostart file.
 #     2019/13/06 : danni : Script creation
 #
@@ -25,7 +26,7 @@
 # END_OF_HEADER
 #================================================================
 
-autostart_text="[Desktop Entry]\nType=Application\nExec=google-chrome --full-screen\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName[en_US]=Chrome\nName=Chrome\nComment[en_US]=run the Google-chrome webbrowser at startup\nComment=run the Google-chrome webbrowser at startup\nName[en]=Chrome\n"
+autostart_text="[Desktop Entry]\nType=Application\nExec=google-chrome-stable --password-store=basic --full-screen\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName[en_US]=Chrome\nName=Chrome\nComment[en_US]=run the Google-chrome webbrowser at startup\nComment=run the Google-chrome webbrowser at startup\nName[en]=Chrome\n"
 desktop_file="/home/.skjult/.config/autostart/chrome.desktop"
 
 if [ "$1" == "Nej" ]
