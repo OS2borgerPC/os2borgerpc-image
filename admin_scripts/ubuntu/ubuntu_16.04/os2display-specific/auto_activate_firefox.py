@@ -8,7 +8,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2019, Magenta Aps"
 __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __maintainer__ = "Magenta"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -110,8 +110,8 @@ if db_path:
         print('webappsstore2 table has been updated.')
 
     cursor.execute("SELECT * FROM webappsstore2 WHERE key='indholdskanalen_token'")
+    reverse_url = url[::-1].replace('//:sptth','')
     if not len(cursor.fetchall()):
-        reverse_url = url[::-1].replace('//:sptth','')
         print('Reverse url used as key: {}'.format(reverse_url))
         cursor.execute("INSERT INTO webappsstore2 VALUES ('','{}.:https:443','{}.:https:443','indholdskanalen_token','{}')".format(reverse_url, reverse_url, token))
         conn.commit()
@@ -120,10 +120,10 @@ if db_path:
         conn.commit()
         print('Token and UUID has been inserted.')
     else:
-        cursor.execute("UPDATE webappsstore2 SET value = '{}' WHERE key='indholdskanalen_token'".format(token))
+        cursor.execute("UPDATE webappsstore2 SET originKey = '{}', scope = '{}', value = '{}' WHERE key='indholdskanalen_token'".format(reverse_url, reverse_url, token))
         conn.commit()
 
-        cursor.execute("UPDATE webappsstore2 SET value = '{}' WHERE key='indholdskanalen_uuid'".format(uuid))
+        cursor.execute("UPDATE webappsstore2 SET originKey = '{}', scope = '{}', value = '{}' WHERE key='indholdskanalen_uuid'".format(reverse_url + '_', reverse_url, uuid))
         conn.commit()
         print('Token and UUID has been updated.')
     conn.close()
