@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 """
-Script for activating an OS2display screen. Arguments: [url, activation_code]
+Script for activating an OS2display screen on Mozilla Firefox. Arguments: [url, activation_code]
 """
 
 __author__ = "Danni Als"
 __copyright__ = "Copyright 2019, Magenta Aps"
 __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __maintainer__ = "Magenta"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -76,7 +76,12 @@ try:
 except:
     print('No alert.')
 
-wait.until(expected.visibility_of_element_located((By.CLASS_NAME, 'default--full-screen')))
+try:
+    wait.until(expected.visibility_of_element_located((By.CLASS_NAME, 'default--full-screen')))
+except:
+    text = browser.findElement(By.className('log--inner is-error').getText())
+    print('Exception occured while waiting for OS2display screen: {}'.format(text))
+    sys.exit(1)
 
 token = browser.execute_script("return localStorage.getItem('indholdskanalen_token')")
 uuid = browser.execute_script("return localStorage.getItem('indholdskanalen_uuid')")
@@ -120,10 +125,10 @@ if db_path:
         conn.commit()
         print('Token and UUID has been inserted.')
     else:
-        cursor.execute("UPDATE webappsstore2 SET originKey = '{}', scope = '{}', value = '{}' WHERE key='indholdskanalen_token'".format(reverse_url, reverse_url, token))
+        cursor.execute("UPDATE webappsstore2 SET originKey = '{}.:https:443', scope = '{}.:https:443', value = '{}' WHERE key='indholdskanalen_token'".format(reverse_url, reverse_url, token))
         conn.commit()
 
-        cursor.execute("UPDATE webappsstore2 SET originKey = '{}', scope = '{}', value = '{}' WHERE key='indholdskanalen_uuid'".format(reverse_url + '_', reverse_url, uuid))
+        cursor.execute("UPDATE webappsstore2 SET originKey = '{}.:https:443', scope = '{}.:https:443', value = '{}' WHERE key='indholdskanalen_uuid'".format(reverse_url + '_', reverse_url, uuid))
         conn.commit()
         print('Token and UUID has been updated.')
     conn.close()
