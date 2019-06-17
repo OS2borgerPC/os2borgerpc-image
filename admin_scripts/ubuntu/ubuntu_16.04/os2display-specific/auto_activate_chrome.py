@@ -8,7 +8,7 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2019, Magenta Aps"
 __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 __maintainer__ = "Magenta"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -17,6 +17,7 @@ import os
 import sys
 import stat
 import subprocess
+from urlparse import urlparse
 
 subprocess.call([sys.executable, "-m", "pip", "install", 'wget'])
 subprocess.call([sys.executable, "-m", "pip", "install", 'selenium'])
@@ -107,9 +108,12 @@ db_name = 'leveldb/'
 db_path += db_name
 print('Connecting to leveldb db_path: {}'.format(db_path))
 
+parsed_url = urlparse(url)
+url_key = parsed_url.scheme + '://' + parsed_url.netloc
+
 db = plyvel.DB(db_path, create_if_missing=True)
-db.put(str('_' + url + '\x00\x01indholdskanalen_uuid'), str('\x01' + uuid))
-db.put(str('_' + url + '\x00\x01indholdskanalen_token'), str('\x01' + token))
+db.put(str('_' + url_key + '\x00\x01indholdskanalen_uuid'), str('\x01' + uuid))
+db.put(str('_' + url_key + '\x00\x01indholdskanalen_token'), str('\x01' + token))
 
 db.close()
 
