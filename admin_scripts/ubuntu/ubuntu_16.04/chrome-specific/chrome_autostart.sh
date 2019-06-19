@@ -10,7 +10,7 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         chrome_autostart (magenta.dk) 0.0.2
+#-    version         chrome_autostart (magenta.dk) 0.0.4
 #-    author          Danni Als
 #-    copyright       Copyright 2019, Magenta Aps"
 #-    license         GNU General Public License
@@ -18,6 +18,8 @@
 #-
 #================================================================
 #  HISTORY
+#     2019/19/06 : danni : Changed exit -1 to exit 0 which is the correct exit status to use here.
+#     2019/19/06 : danni : Added exit -1 after remove autostart has been completed.
 #     2019/14/06 : danni : Changed command --full-screen to --start-fullscreen.
 #     2019/14/06 : danni : Removed password-store popup.
 #     2019/13/06 : danni : Added possibility to remove autostart file.
@@ -38,6 +40,7 @@ then
     echo "removing chrome from autostart"
     rm "$desktop_file"
     echo "Done."
+    exit 0
 fi
 
 echo "Adding chrome to autostart"
