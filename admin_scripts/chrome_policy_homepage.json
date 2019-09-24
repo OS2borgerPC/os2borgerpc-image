@@ -1,0 +1,12 @@
+{
+  "name": "Chrome - Startside for Google Chrome",
+  "description": "Ændrer startside for Google Chrome.\n\nDette script kan køres uden at have installeret Google Chrome.\nDette script træder i kraft med det samme og kræver ikke logout.\n\nUdarbejdet af Alexander Faithfull <af@magenta.dk>.",
+  "parameters": [
+    {
+      "name": "URL",
+      "type": "string",
+      "required": false,
+      "description": "startsidens URL; hvis ikke den er givet, bliver den eksisterende startside fjernet"
+    }
+  ]
+}
