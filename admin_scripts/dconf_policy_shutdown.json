@@ -1,0 +1,12 @@
+ {
+  "name": "Desktop - Fjern \"Luk ned\" og \"Genstart\" fra sessionmenuen",
+  "description": "Fjerner de menu-funktioner, som genstarter og lukker ned computeren.\n\nUdarbejdet af Alexander Faithfull <af@magenta.dk>.",
+  "parameters": [
+    {
+      "name": "Aktivér?",
+      "type": "string",
+      "required": false,
+      "description": "menu-funktioner bliver bragt tilbage hvis dette parameter er tøm eller ordet 'false'"
+    }
+  ]
+}
