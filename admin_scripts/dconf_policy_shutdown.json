@@ -6,7 +6,7 @@
       "name": "Aktivér?",
       "type": "string",
       "required": false,
-      "description": "menu-funktioner bliver bragt tilbage hvis dette parameter er tøm eller ordet 'false'"
+      "description": "menu-funktioner bliver bragt tilbage hvis dette parameter er tomt eller ordet 'false'"
     }
   ]
 }
