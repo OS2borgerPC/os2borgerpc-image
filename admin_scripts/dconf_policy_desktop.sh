@@ -44,11 +44,14 @@ else
         mkdir "`dirname "$POLICY_LOCK"`"
     fi
 
+    # dconf does not, by default, require the use of a system database, so
+    # add one (called "os2borgerpc") to store our system-wide settings in
     cat > "/etc/dconf/profile/user" <<END
 user-db:user
 system-db:os2borgerpc
 END
 
+    # Copy the new desktop background into the appropriate folder
     LOCAL_PATH="/usr/share/backgrounds/`basename "$1"`"
     cp "$1" "$LOCAL_PATH"
 
@@ -62,10 +65,14 @@ END
     # by changing the folder's modification timestamp
     touch "`dirname "$POLICY"`"
 
+    # Tell the system that the values of the dconf keys we've just set can no
+    # longer be overridden by the user
     cat > "$POLICY_LOCK" <<END
 /org/gnome/desktop/background/picture-uri
 /org/gnome/desktop/background/picture-options
 END
 fi
 
+# Incorporate all of the text files we've just created into the system's dconf
+# databases
 dconf update
