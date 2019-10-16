@@ -31,6 +31,7 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update > /dev/null
+apt-get -yf install # Attempt to fix broken or interrupted installations
 apt-get -y upgrade
 apt-get -y dist-upgrade
 apt-get -y autoremove
