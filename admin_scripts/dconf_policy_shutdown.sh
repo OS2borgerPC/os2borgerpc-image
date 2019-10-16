@@ -46,6 +46,8 @@ else
         mkdir "`dirname "$POLICY_LOCK"`"
     fi
 
+    # dconf does not, by default, require the use of a system database, so
+    # add one (called "os2borgerpc") to store our system-wide settings in
     cat > "/etc/dconf/profile/user" <<END
 user-db:user
 system-db:os2borgerpc
@@ -61,10 +63,14 @@ END
     # by changing the folder's modification timestamp
     touch "`dirname "$POLICY"`"
 
+    # Tell the system that the values of the dconf keys we've just set can no
+    # longer be overridden by the user
     cat > "$POLICY_LOCK" <<END
 /apps/indicator-session/suppress-restart-menuitem
 /apps/indicator-session/suppress-shutdown-menuitem
 END
 fi
 
+# Incorporate all of the text files we've just created into the system's dconf
+# databases
 dconf update
