@@ -63,7 +63,6 @@ def file_device(device_name):
     return (device_name, device_name)
 
 
-size_expr = re.compile(r"^(?P<count>\d+)((?P<unit>[KMGTP])(iB)?)?$")
 def valid_size(size):
     count = Size.from_string(size)
     if count is not None:

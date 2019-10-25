@@ -3,6 +3,7 @@ from    enum        import Enum
 from    math        import ceil, floor
 
 
+size_expr = re.compile(r"^(?P<count>\d+)((?P<unit>[KMGTP])(iB)?)?$")
 class Size(Enum):
     B = 1
     KiB = B * 1024
@@ -25,8 +26,6 @@ class Size(Enum):
             return "{0}TiB".format(size / Size.TiB.value)
         else:
             return "{0}PiB".format(size / Size.PiB.value)
-
-    size_expr = re.compile(r"^(?P<count>\d+)((?P<unit>[KMGTP])(iB)?)?$")
 
     @staticmethod
     def from_string(size):
