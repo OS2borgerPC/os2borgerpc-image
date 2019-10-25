@@ -23,9 +23,7 @@ def warn(*msgs):
 
 def die(code, *msgs):
     warn(*msgs)
-    if not args.headless:
-        warn("(exiting)")
-        input()
+    prompt("(press Enter to quit)")
     exit(code)
 
 
