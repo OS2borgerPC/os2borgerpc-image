@@ -42,9 +42,9 @@ print(len(sys.argv))
 
 if len(sys.argv) == 3:
     url = sys.argv[1]
-    print(url)
+    print('URL: {}'.format(url))
     activation_code = sys.argv[2]
-    print(activation_code)
+    print('Aktiveringskode: {}'.format(activation_code))
 else:
     print('Mangler input parametre.')
     sys.exit(1)
@@ -76,28 +76,28 @@ extracted_filename = 'chromedriver'
 extracted_filepath = os.path.join(system_path, extracted_filename)
 
 # download gecko and setup
-#if not os.path.isfile(zip_path):
-try:
-    for fl in glob.glob(system_path + '/*chromedriver_linux64.zip'):
-        os.remove(fl)
-    for fl1 in glob.glob(system_path + '/chromedriver'):
-        os.remove(fl1)
-except OSError:
-    pass
+if not os.path.isfile(zip_path):
+    try:
+        for fl in glob.glob(system_path + '/*chromedriver_linux64.zip'):
+            os.remove(fl)
+        for fl1 in glob.glob(system_path + '/chromedriver'):
+            os.remove(fl1)
+    except OSError:
+        pass
 
-chromedriver_url = 'https://chromedriver.storage.googleapis.com/' + driver_version + '/chromedriver_linux64.zip'
-wget.download(chromedriver_url, zip_path)
+    chromedriver_url = 'https://chromedriver.storage.googleapis.com/' + driver_version + '/chromedriver_linux64.zip'
+    wget.download(chromedriver_url, zip_path)
 
-with zipfile.ZipFile(zip_path, 'r') as z:
-    z.extractall(system_path)
+    with zipfile.ZipFile(zip_path, 'r') as z:
+        z.extractall(system_path)
 
-os.chmod(extracted_filepath, stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IXOTH)
+    os.chmod(extracted_filepath, stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IXOTH)
 
-print('Chromedriver downloaded and extracted to path: {}'.format(
-    extracted_filepath)
-)
-# else:
-#     print('Chromedriver {} is already setup.'.format(driver_version))
+    print('Chromedriver downloaded and extracted to path: {}'.format(
+        extracted_filepath)
+    )
+else:
+     print('Chromedriver {} is already setup.'.format(driver_version))
 
 # start chrome headless
 opts = Options()
