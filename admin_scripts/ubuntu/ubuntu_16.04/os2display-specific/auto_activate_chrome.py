@@ -8,12 +8,13 @@ __author__ = "Danni Als"
 __copyright__ = "Copyright 2019, Magenta Aps"
 __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
-__version__ = "0.1.2"
+__version__ = "0.2.0"
 __maintainer__ = "Magenta"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
 
 import os
+import glob
 import sys
 import stat
 import subprocess
@@ -35,6 +36,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as expected
+from selenium.common.exceptions import InvalidArgumentException
 
 print(len(sys.argv))
 
@@ -47,23 +49,56 @@ else:
     print('Mangler input parametre.')
     sys.exit(1)
 
+# get chrome version
+chrome_version = os.popen('google-chrome --version').read()
+# String returned is always 'Google Chrome xx.x.xxxx.xx'
+chrome_version = chrome_version.split(' ')
+chrome_version = chrome_version[2].split('.')[0]
+print('Chrome version installed: {}'.format(chrome_version))
+if chrome_version == '74':
+    driver_version = '74.0.3729.6'
+elif chrome_version == '75':
+    driver_version = '75.0.3770.140'
+elif chrome_version =='76':
+    driver_version = '76.0.3809.126'
+elif chrome_version == '77':
+    driver_version = '77.0.3865.40'
+elif chrome_version == '78':
+    driver_version = '78.0.3904.70'
+else:
+    print('Chrome version not supported.')
+    sys.exit(1)
+
 system_path = '/usr/local/bin'
-zipfile_name = 'chromedriver_linux64.zip'
+zipfile_name = driver_version + 'chromedriver_linux64.zip'
+zip_path = os.path.join(system_path, zipfile_name)
 extracted_filename = 'chromedriver'
+extracted_filepath = os.path.join(system_path, extracted_filename)
 
 # download gecko and setup
-if not os.path.isfile(os.path.join(system_path, extracted_filename)):
-    chromedriver_url = 'https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip'
-    wget.download(chromedriver_url, os.path.join(system_path, zipfile_name))
+#if not os.path.isfile(zip_path):
+try:
+    for fl in glob.glob(system_path + '/*chromedriver_linux64.zip'):
+        os.remove(fl)
+    for fl1 in glob.glob(system_path + '/chromedriver'):
+        os.remove(fl1)
+except OSError:
+    pass
 
-    with zipfile.ZipFile(os.path.join(system_path, zipfile_name), 'r') as z:
-        z.extractall(system_path)
+chromedriver_url = 'https://chromedriver.storage.googleapis.com/' + driver_version + '/chromedriver_linux64.zip'
+wget.download(chromedriver_url, zip_path)
 
-    os.chmod(os.path.join(system_path, extracted_filename), stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IXOTH)
+with zipfile.ZipFile(zip_path, 'r') as z:
+    z.extractall(system_path)
 
-    print('Chromedriver downloaded and extracted to path: {}'.format(system_path))
-else:
-    print('Chromedriver is already setup.')
+os.chmod(extracted_filepath, stat.S_IRWXU | stat.S_IXGRP | stat.S_IRGRP | stat.S_IXOTH)
+
+print('Chromedriver downloaded and extracted to path: {}'.format(
+    extracted_filepath)
+)
+# else:
+#     print('Chromedriver {} is already setup.'.format(driver_version))
+
 # start chrome headless
 opts = Options()
 # opts.set_headless()
@@ -71,9 +106,15 @@ opts.add_argument('--headless')
 opts.add_argument('--no-sandbox')
 opts.add_argument('--disable-dev-shm-usage')
 # assert opts.headless  # Operating in headless mode
-browser = Chrome(chrome_options=opts, executable_path=os.path.join(system_path, extracted_filename))
+browser = Chrome(chrome_options=opts, executable_path=extracted_filepath)
 wait = WebDriverWait(browser, timeout=10)
-browser.get('' + url)
+try:
+    browser.get(url)
+except InvalidArgumentException as iae:
+    print('Invalid argument given: {} of type {}'.format(url, type(url)))
+    print(iae.message)
+    sys.exit(1)
+
 print('Chrome browser opened headless with url: {}'.format(url))
 wait.until(expected.visibility_of_element_located((By.TAG_NAME, 'input'))).send_keys('' + activation_code + Keys.ENTER)
 
@@ -87,7 +128,7 @@ except:
 try:
     wait.until(expected.visibility_of_element_located((By.CLASS_NAME, 'default--full-screen')))
 except:
-    text = browser.findElement(By.className('log--inner is-error').getText())
+    text = browser.find_element_by_name('log--inner is-error').getText()
     print('Exception occured while waiting for OS2display screen: {}'.format(text))
     sys.exit(1)
 
