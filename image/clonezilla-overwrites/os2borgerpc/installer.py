@@ -35,7 +35,7 @@ def valid_image_dir(path):
     partitions_file = image_path.joinpath("parts")
     if not partitions_file.exists():
         raise argparse.ArgumentTypeError(
-                "'{0}' does not contain a partition list".format(path))            
+                "'{0}' does not contain a partition list".format(path))
     result = []
     for partition in partitions_file.open("rt").read().split():
         matched_files = list(image_path.glob(partition + ".*"))
@@ -208,28 +208,27 @@ def main():
     args = parser.parse_args()
 
     print("""
-      ███                     ████                                              
-   █  ███  █      █████████  ██████                                             
-  ███ ███ ███    ███████████    ███                                             
- ████████ ████   ███████████   ███                                              
-█████ ███ █████  ███     ██   ███                                               
-████  ███  ████  ████        ██████                                             
-████  ███   ████ ██████      ██████                                             
-███         ████ █████████                                                      
+      ███                     ████
+   █  ███  █      █████████  ██████
+  ███ ███ ███    ███████████    ███
+ ████████ ████   ███████████   ███
+█████ ███ █████  ███     ██   ███
+████  ███  ████  ████        ██████
+████  ███   ████ ██████      ██████
+███         ████ █████████
 ███         ████  █████████   ██                                  ██████   █████
 ███         ████    ████████  ██                                  ███████ ██████
 ████        ████       █████  ██████  ████  ███ █████   ████  ███ ██  ██████  ██
-████       ████  ██      ███  ██████ ██████ ██████████ ██████ ██████  █████     
-██████    █████  ████   ████  ██  ██ ██  ██ ██  ██  ██ ██  ██ ██  █████████     
+████       ████  ██      ███  ██████ ██████ ██████████ ██████ ██████  █████
+██████    █████  ████   ████  ██  ██ ██  ██ ██  ██  ██ ██  ██ ██  █████████
  █████████████  ████████████  ██  █████  ██ ██  ██  ██ ██████ ██  ██████ ███   █
   ███████████    ███████████  ██████ ██████ ██  ██████ ███    ██  ██     ███████
     ████████      ████████    ██████  ████  ██      ██  █████ ██  ██      ██████
-                                                ██ ███                          
-                                                 ████                           
+                                                ██ ███
+                                                 ████
 
 OS2borgerPC installer v2.0.0
-Copyright © 2019 Magenta ApS. Some rights reserved; see the licence for more
-information.""")
+""")
 
     if not args.swap:
         print("swap size not specified, using RAM size")
@@ -239,19 +238,28 @@ information.""")
     print("swap size is {0} bytes".format(args.swap))
 
     if not args.target_device:
+        # No target device has been specified. In headless mode, this is a
+        # fatal error: even if there is only one candidate disk, we refuse to
+        # write anything to it unless we're explicitly told to
         if args.headless:
-            die(1, "running in headless mode, but no target device was specified")
+            die(1, "running in headless mode,"
+                    " but no target device was specified")
+        # Find all the system's fixed disks
         candidates = \
             [node["name"] for node in lsblk.values()
                     if node["type"] == "disk" and not is_node_removable(node)]
         if len(candidates) == 0:
+            # If there aren't any, then print all the disks we found and give
+            # up
             warn("no candidate disks (out of {0})".format(len(lsblk)))
             for name, node in lsblk.items():
                 warn(name, node["type"], node["rm"])
             die(2, "no candidate disks detected")
         elif len(candidates) == 1:
+            # If there was only one fixed disk, then it's our only candidate!
             target = candidates[0]
         else:
+            # Otherwise, ask the user to pick one
             for idx, device in enumerate(candidates, 1):
                 print("[{0}] {1} ({2})".format(idx, device,
                         Size.to_string(int(lsblk[device]["size"]))))
@@ -289,10 +297,12 @@ information.""")
         # at the end of the disk.)
         nd = DiskAbstraction(sector_size, sector_count)
 
-        # (On a GPT disk, GRUB needs an extra partition to store the so-called
-        # "stage 1.5"; in the old days, this would have gone into the space
-        # between the MBR and the first partition, but that's where the GPT
-        # lives now.)
+        # On a GPT disk, booting GRUB on a system without EFI requires an
+        # extra partition to store the so-called "stage 1.5"; in the old days,
+        # this would have gone into the space between the MBR and the first
+        # partition, but that's where the GPT lives now. We unconditionally
+        # create this partition, because it's only a megabyte and it's harmless
+        # on EFI systems
         nd.add_at_start(
                 "bios_bp",
                 Size.MiB.value / sector_size,
@@ -344,8 +354,8 @@ information.""")
         die(7, "everything after this point requires real devices")
 
     disk_structure = get_sfdisk(device_path)
-    # (Hide GRUB's BIOS boot partition from the rest of the script -- nothing
-    # else cares about it.)
+    # Hide GRUB's BIOS boot partition from the rest of the script -- nothing
+    # else needs to care about it!
     disk_partitions = disk_structure["partitions"][1:]
 
     if not args.skip_restoring:
