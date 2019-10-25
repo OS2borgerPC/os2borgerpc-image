@@ -84,7 +84,8 @@ def get_device_properties(device):
     else:
         die(3, "no such device or file '{0}'".format(device_name))
     if device_size % sector_size:
-        die(3, "device size {0} is not evenly divisible by sector size {1}".format(device_size, sector_size))
+        die(3, "device size {0} is not evenly divisible by"
+                " sector size {1}".format(device_size, sector_size))
     return (sector_size, int(device_size / sector_size))
 
 
@@ -125,6 +126,7 @@ def is_node_removable(node):
 
 def prompt(prefix="? ", intro=None):
     if not args.headless:
+        print(intro)
         try:
             return input(prefix)
         except EOFError:
@@ -134,21 +136,31 @@ def prompt(prefix="? ", intro=None):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+            description="Installs the OS2borgerPC environment.")
     
     input_group = parser.add_argument_group("Input")
     input_group.add_argument(
             "--image-dir",
+            help="the path to the folder containing Clonezilla"
+                    " partition snapshots to restore",
             type=valid_image_dir,
             required=True)
 
     installation_group = parser.add_argument_group("Installation")
     installation_group.add_argument(
             "--target-device",
+            help="the device name (without '/dev/') of the disk onto which"
+                    " OS2borgerPC should be installed; by default, the only"
+                    " fixed disk in the machine (if there's more than one,"
+                    " the user will be prompted to choose)",
             type=valid_device,
             required=False)
     installation_group.add_argument(
             "--swap",
+            help="the desired size of the swap partition (in bytes;"
+                    " the suffixes K[iB], M[iB], G[iB], T[iB] and P[iB]) are"
+                    " also supported); by default, the size of system RAM",
             type=valid_size,
             required=False)
     installation_group.add_argument(
@@ -159,27 +171,36 @@ def main():
             required=False)
     installation_group.add_argument(
             "--force-bootloader",
+            help="force the installation of a particular bootloader onto the"
+                    " target device; by default, an EFI bootloader will be"
+                    " installed if and only if the machine has booted in EFI"
+                    " mode",
             choices=('efi', 'mbr', ),
             dest="bootloader",
             default=None)
     installation_group.add_argument(
             "--skip-partitioning",
+            help="don't create a new partition table",
             action="store_true")
     installation_group.add_argument(
             "--skip-restoring",
+            help="don't restore the disk partitions",
             action="store_true")
     installation_group.add_argument(
             "--skip-resizing",
+            help="don't resize the root filesystem to fill its partition",
             action="store_true")
     installation_group.add_argument(
             "--skip-bootloader",
+            help="don't install a bootloader",
             action="store_true")
     installation_group.add_argument(
             "--partclone-log",
+            help="put the Partclone log file somewhere else",
             default="/var/log/partclone.log")
     installation_group.add_argument(
             "--headless",
-            help="Never prompt for confirmation during the installation"
+            help="never prompt for confirmation during the installation"
                     " process (DANGEROUS)",
             action="store_true")
 
@@ -206,7 +227,7 @@ def main():
                                                 ██ ███                          
                                                  ████                           
 
-OS2borgerPC installation environment v2.0.0
+OS2borgerPC installer v2.0.0
 Copyright © 2019 Magenta ApS. Some rights reserved; see the licence for more
 information.""")
 
@@ -231,10 +252,14 @@ information.""")
         elif len(candidates) == 1:
             target = candidates[0]
         else:
-            for idx, device in enumerate(candidates):
-                print("[{0}] {1}".format(idx, device))
+            for idx, device in enumerate(candidates, 1):
+                print("[{0}] {1} ({2})".format(idx, device,
+                        Size.to_string(int(lsblk[device]["size"]))))
             try:
-                target = candidates[int(input("Select a device: "))]
+                choice = prompt(
+                        intro="Select a target device for installation:",
+                        prefix="[1-{0}] ".format(len(candidates)))
+                target = candidates[int(choice) - 1]
             except (ValueError, IndexError):
                 die(4, "not a valid device number")
         args.target_device = valid_device(target)
@@ -416,7 +441,7 @@ information.""")
     else:
         print("Skipped bootloader installation.")
 
-    print("All done!")
+    print("Installation completed.")
     prompt("Press Enter to restart.")
 
     subprocess.run(["systemctl", "reboot", "-i"])
