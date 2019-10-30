@@ -19,39 +19,16 @@
 #================================================================
 #  HISTORY
 #     2017/06/10 : danni : Added header
+#     2019/30/10 : danni : Simplified removal of the three files
 #
 #================================================================
 # END_OF_HEADER
 #================================================================
 
-CALCDESKTOP="/home/.skjult/Desktop/calc.desktop"
+set -e
 
-if [ -f $CALCDESKTOP ]
-then
-    rm -f "/home/.skjult/Desktop/calc.desktop"
-else
-    echo "File does not exist"
-    exit -1
-fi
-
-WRITERDESKTOP="/home/.skjult/Desktop/writer.desktop"
-
-if [ -f $WRITERDESKTOP ]
-then
-    rm -f "/home/.skjult/Desktop/writer.desktop"
-else
-    echo "File does not exist"
-    exit -1
-fi
-
-IMPRESSDESKTOP="/home/.skjult/Desktop/impress.desktop"
-
-if [ -f $IMPRESSDESKTOP ]
-then
-    rm -f "/home/.skjult/Desktop/impress.desktop"
-else
-    echo "File does not exist"
-    exit -1
-fi
+rm "/home/.skjult/Desktop/calc.desktop"
+rm "/home/.skjult/Desktop/writer.desktop"
+rm "/home/.skjult/Desktop/impress.desktop"
 
 exit 0
