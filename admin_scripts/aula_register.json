@@ -1,0 +1,18 @@
+{
+  "name": "Aula - Registrer kommegå skærm (Chrome)",
+  "description": "Registrerer ny kommegå skærm.\n\nDette script kræver at Google Chrome er installeret. Dette script kræver også at borger logger ud og ind igen.\n\nUdarbejdet af Danni Als <danni@magenta.dk>.",
+  "parameters": [
+    {
+      "name": "URL",
+      "type": "string",
+      "required": false,
+      "description": "Aula kommegå URL; hvis ikke den er givet, er default uddannelse.aula.dk/kommegaa/#/registrer"
+    },
+    {
+      "name": "Registreringskode",
+      "type": "string",
+      "required": true,
+      "description": "Aula registreringskode; hvis ikke den er givet, kan skærmen ikke registreres."
+    }
+  ]
+}
