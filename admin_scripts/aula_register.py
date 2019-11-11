@@ -9,9 +9,9 @@
 #% DESCRIPTION
 #%    This script registers a Aula "kommegaa" screen.
 #%
-#%    It takes one optional parameter: the url for the registration to take place.
-#%    If it is not provided the aula default register url is used.
-#%    It takes one mandatory parameter: the register code needed to activate the "kommegaa" screen.
+#%    It takes two mandatory parameters:
+#%      * The url for the registration to take place.
+#%      * The register code needed to activate the "kommegaa" screen.
 #%
 #================================================================
 #- IMPLEMENTATION
@@ -24,6 +24,7 @@
 #================================================================
 #  HISTORY
 #     2019/10/28 : af : Script created
+#     2019/11/11 : af : The scripts now tries to detect if the Google Chrome cookies table is out of date.
 #
 #================================================================
 # END_OF_HEADER
@@ -41,6 +42,7 @@ subprocess.call([sys.executable, "-m", "pip", "install", 'selenium'])
 
 print('Installed wget and selenium.')
 
+import wget
 import zipfile
 import sqlite3
 
@@ -54,19 +56,20 @@ from selenium.common.exceptions import InvalidArgumentException
 
 if len(sys.argv) == 3:
     url = sys.argv[1]
-    print('URL: {}'.format(url))
+    print('Aula registration URL: {}'.format(url))
     register_code = sys.argv[2]
-    print('Registreringsskode: {}'.format(register_code))
+    print('Registration code: {}'.format(register_code))
     try:
         int(register_code)
     except ValueError:
-        print('Registeringskode er ikke et tal.')
+        print('Registration code is not a number.')
+        print('Registration code is of type {}'.format(type(register_code)))
         sys.exit(1)
     if len(register_code) != 8:
-        print('Registeringskode har ikke den korrekte længde.')
+        print('Registration code does not have the correct lenght.')
         sys.exit(1)
 else:
-    print('Der mangler en eller flere input parametre.')
+    print('One or more parameters are missing.')
     sys.exit(1)
 
 # get chrome version
@@ -136,19 +139,19 @@ except InvalidArgumentException as iae:
     sys.exit(1)
 
 print('Chrome browser opened headless with url: {}'.format(url))
-register_code_list = list(register_code)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__11'))).send_keys('' + register_code_list[0] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__12'))).send_keys('' + register_code_list[1] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__13'))).send_keys('' + register_code_list[2] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__14'))).send_keys('' + register_code_list[3] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__15'))).send_keys('' + register_code_list[4] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__16'))).send_keys('' + register_code_list[5] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__17'))).send_keys('' + register_code_list[6] + Keys.ENTER)
-wait.until(expected.visibility_of_element_located((By.id, '__BVID__18'))).send_keys('' + register_code_list[7] + Keys.ENTER)
+register_code_list = list(str(register_code))
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__11'))).send_keys('' + register_code_list[0] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__12'))).send_keys('' + register_code_list[1] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__13'))).send_keys('' + register_code_list[2] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__14'))).send_keys('' + register_code_list[3] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__15'))).send_keys('' + register_code_list[4] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__16'))).send_keys('' + register_code_list[5] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__17'))).send_keys('' + register_code_list[6] + Keys.ENTER)
+wait.until(expected.visibility_of_element_located((By.ID, '__BVID__18'))).send_keys('' + register_code_list[7] + Keys.ENTER)
 
 try:
     wait.until(expected.visibility_of_element_located((By.CLASS_NAME, 'aula-presence-overview')))
-except:
+except Exception:
     print('Aula presence overview did not show up. Check that the register code is correct and valid: {}'.format(register_code))
     sys.exit(1)
 
