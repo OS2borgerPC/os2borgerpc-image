@@ -33,6 +33,7 @@ import os
 import glob
 import sys
 import stat
+import datetime
 import subprocess
 
 subprocess.call([sys.executable, "-m", "pip", "install", 'wget'])
@@ -51,15 +52,21 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.common.exceptions import InvalidArgumentException
 
-print(len(sys.argv))
-
-if len(sys.argv) == 3: # TODO: One parameter is optional...
+if len(sys.argv) == 3:
     url = sys.argv[1]
     print('URL: {}'.format(url))
     register_code = sys.argv[2]
     print('Registreringsskode: {}'.format(register_code))
+    try:
+        int(register_code)
+    except ValueError:
+        print('Registeringskode er ikke et tal.')
+        sys.exit(1)
+    if len(register_code) != 8:
+        print('Registeringskode har ikke den korrekte længde.')
+        sys.exit(1)
 else:
-    print('Mangler input parametre.')
+    print('Der mangler en eller flere input parametre.')
     sys.exit(1)
 
 # get chrome version
@@ -148,18 +155,39 @@ except:
 cookies_list = browser.get_cookies()
 print('Cookies {}'.format(cookies_list))
 
-chrome_db_path = '/home/danni/.config/google-chrome/Default/Cookies'
+browser.close()
+print('Google Chrome headless browser closed.')
 
-conn = sqlite3.connect(chrome_db_path)
+chrome_db_path = '/home/.skjult/.config/google-chrome/Default/Cookies'
+conn = None
+try:
+    conn = sqlite3.connect(chrome_db_path)
+except Error as e:
+    print('DB connection could not be established on path {}'.format(chrome_db_path))
+    sys.exit(1)
+
 cursor = conn.cursor()
 
-# TODO: Check table struture.
-cursor.execute("SELECT host_key FROM cookies WHERE host_key LIKE '%aula%'")
-
-if len(cursor.fetchall()) > 1:
-    # Remove old cookies.
-    cursor.execute("DELETE FROM cookies WHERE host_key LIKE '%aula%'")
+# .skjult can contain old cookies table with old table structure.
+cursor.execute("SELECT sql FROM sqlite_master WHERE name='cookies'")
+rows = cursor.fetchall()
+# Try to detect old cookies table structure...
+if 'is_secure' not in rows[0][0]:
+    # if cookies table is out of date drop it and create it with new structure.
+    print('Updating cookies table...')
+    cursor.execute("DROP TABLE main.cookies")
     conn.commit()
+    cursor.execute("CREATE TABLE cookies(creation_utc INTEGER NOT NULL,host_key TEXT NOT NULL,name TEXT NOT NULL,value TEXT NOT NULL,path TEXT NOT NULL,expires_utc INTEGER NOT NULL,is_secure INTEGER NOT NULL,is_httponly INTEGER NOT NULL,last_access_utc INTEGER NOT NULL,has_expires INTEGER NOT NULL DEFAULT 1,is_persistent INTEGER NOT NULL DEFAULT 1,priority INTEGER NOT NULL DEFAULT 1,encrypted_value BLOB DEFAULT '',samesite INTEGER NOT NULL DEFAULT -1,UNIQUE (host_key, name, path))")
+    conn.commit()
+    print('Cookies table has been updated.')
+else:
+    # if table is up to date look for old aula cookies.
+    cursor.execute("SELECT host_key FROM cookies WHERE host_key LIKE '%aula%'")
+
+    if len(cursor.fetchall()) > 1:
+        # Remove old cookies.
+        cursor.execute("DELETE FROM cookies WHERE host_key LIKE '%aula%'")
+        conn.commit()
 
 for cookie in cookies_list:
     # Timedelta since epoch to now.
