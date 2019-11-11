@@ -9,9 +9,10 @@
 #% DESCRIPTION
 #%    This script registers a Aula "kommegaa" screen.
 #%
-#%    It takes two mandatory parameters:
+#%    It takes three mandatory parameters:
 #%      * The url for the registration to take place.
 #%      * The register code needed to activate the "kommegaa" screen.
+#%      * Should the cookies table be deleted and restored (Ja/Nej)
 #%
 #================================================================
 #- IMPLEMENTATION
@@ -23,8 +24,9 @@
 #-
 #================================================================
 #  HISTORY
-#     2019/10/28 : af : Script created
-#     2019/11/11 : af : The scripts now tries to detect if the Google Chrome cookies table is out of date.
+#     2019/10/28 : da : Script created
+#     2019/11/11 : da : The scripts now tries to detect if the Google Chrome cookies table is out of date.
+#     2019/11/11 : da : Added the option to completely reset cookie store.
 #
 #================================================================
 # END_OF_HEADER
@@ -54,7 +56,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as expected
 from selenium.common.exceptions import InvalidArgumentException
 
-if len(sys.argv) == 3:
+if len(sys.argv) == 4:
     url = sys.argv[1]
     print('Aula registration URL: {}'.format(url))
     register_code = sys.argv[2]
@@ -68,6 +70,9 @@ if len(sys.argv) == 3:
     if len(register_code) != 8:
         print('Registration code does not have the correct lenght.')
         sys.exit(1)
+
+    # Option for HARD reset of cookies table.
+    hard_reset_cookies = sys.argv[3]
 else:
     print('One or more parameters are missing.')
     sys.exit(1)
@@ -122,12 +127,18 @@ if not os.path.isfile(zip_path):
 else:
     print('Chromedriver {} is already setup.'.format(driver_version))
 
+user_dir = '/home/.skjult/.config/google-chrome/'
+
+if hard_reset_cookies == 'Ja':
+    os.remove(user_dir + '/Default/Cookies')
+
 # start chrome headless
 opts = Options()
 # opts.set_headless()
 opts.add_argument('--headless')
 opts.add_argument('--no-sandbox')
 opts.add_argument('--disable-dev-shm-usage')
+opts.add_argument('user-data-dir=' + user_dir)
 # assert opts.headless  # Operating in headless mode
 browser = Chrome(chrome_options=opts, executable_path=extracted_filepath)
 wait = WebDriverWait(browser, timeout=10)
@@ -161,7 +172,7 @@ print('Cookies {}'.format(cookies_list))
 browser.close()
 print('Google Chrome headless browser closed.')
 
-chrome_db_path = '/home/.skjult/.config/google-chrome/Default/Cookies'
+chrome_db_path = user_dir + '/Default/Cookies'
 conn = None
 try:
     conn = sqlite3.connect(chrome_db_path)
@@ -171,26 +182,15 @@ except Error as e:
 
 cursor = conn.cursor()
 
-# .skjult can contain old cookies table with old table structure.
-cursor.execute("SELECT sql FROM sqlite_master WHERE name='cookies'")
-rows = cursor.fetchall()
-# Try to detect old cookies table structure...
-if 'is_secure' not in rows[0][0]:
-    # if cookies table is out of date drop it and create it with new structure.
-    print('Updating cookies table...')
-    cursor.execute("DROP TABLE main.cookies")
-    conn.commit()
-    cursor.execute("CREATE TABLE cookies(creation_utc INTEGER NOT NULL,host_key TEXT NOT NULL,name TEXT NOT NULL,value TEXT NOT NULL,path TEXT NOT NULL,expires_utc INTEGER NOT NULL,is_secure INTEGER NOT NULL,is_httponly INTEGER NOT NULL,last_access_utc INTEGER NOT NULL,has_expires INTEGER NOT NULL DEFAULT 1,is_persistent INTEGER NOT NULL DEFAULT 1,priority INTEGER NOT NULL DEFAULT 1,encrypted_value BLOB DEFAULT '',samesite INTEGER NOT NULL DEFAULT -1,UNIQUE (host_key, name, path))")
-    conn.commit()
-    print('Cookies table has been updated.')
-else:
-    # if table is up to date look for old aula cookies.
+# look for old aula cookies and remove if present.
+if hard_reset_cookies == 'Nej':
     cursor.execute("SELECT host_key FROM cookies WHERE host_key LIKE '%aula%'")
 
     if len(cursor.fetchall()) > 1:
         # Remove old cookies.
         cursor.execute("DELETE FROM cookies WHERE host_key LIKE '%aula%'")
         conn.commit()
+        print('Old aula cookies removed.')
 
 for cookie in cookies_list:
     # Timedelta since epoch to now.
