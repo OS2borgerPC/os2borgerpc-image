@@ -1,0 +1,24 @@
+{
+  "name": "Aula - Registrer kommegå skærm (Chrome)",
+  "description": "Registrerer ny kommegå skærm.\n\nDette script kræver at Google Chrome er installeret. Dette script kræver også at borger logger ud og ind igen.\n\nUdarbejdet af Danni Als <danni@magenta.dk>.",
+  "parameters": [
+    {
+      "name": "Registrerings-URL",
+      "type": "string",
+      "required": false,
+      "description": "Aula kommegå URL; hvis ikke den er givet, er default uddannelse.aula.dk/kommegaa/#/registrer"
+    },
+    {
+      "name": "Registreringskode",
+      "type": "integer",
+      "required": true,
+      "description": "Aula 8-cifrede registreringskode; hvis ikke den er givet, kan skærmen ikke registreres."
+    },
+    {
+      "name": "Nulstil cookies tabellen",
+      "type": "string",
+      "required": true,
+      "description": "Forventer argumenterne \"Ja\" eller \"Nej\". OS2borgerPC imaget kommer med en forældet Google Chrome cookies tabel. Derfor skal det være muligt at kunne fjerne denne, således at man igen kan gemme cookies for user user."
+    }
+  ]
+}
