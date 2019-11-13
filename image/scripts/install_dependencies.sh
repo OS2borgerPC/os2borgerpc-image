@@ -79,4 +79,20 @@ fi
 # Install python packages
 sudo pip install bibos-client
 
+CONF="/etc/apt/apt.conf.d/90os2borgerpc-automatic-upgrades"
+
+if ! dpkg -s unattended-upgrades > /dev/null 2>&1; then
+    sudo apt-get -y install unattended-upgrades
+fi
+    cat > "$CONF" <<END
+APT::Periodic::Enable "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::Update-Package-Lists "1";
+#clear Unattended-Upgrade::Allowed-Origins;
+Unattended-Upgrade::Allowed-Origins {
+    "\${distro_id}:\${distro_codename}-security"
+    ; "\${distro_id}ESM:\${distro_codename}"
+};
+
 # We're done!
+END
