@@ -55,11 +55,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     fi
 
     # Step 2: Do the actual installation. Abort if it fails.
-
-    # upgrade
-    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
-    sudo apt-get -y dist-upgrade | tee /tmp/bibos_upgrade_log.txt
-
     # and install
     sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
     RETVAL=$?
@@ -70,6 +65,11 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "" 1>&2
         exit -1
     fi
+
+    # upgrade
+    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    sudo apt-get -y dist-upgrade | tee /tmp/bibos_upgrade_log.txt
+
     # Clean .deb cache to save space
     sudo apt-get -y autoremove
     sudo apt-get -y clean
@@ -77,7 +77,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 fi
 
 # Install python packages
-sudo pip install bibos-client
+pip install --upgrade bibos-utils bibos-client
 
 # Enable security updates to be automatically installed
 CONF="/etc/apt/apt.conf.d/90os2borgerpc-automatic-upgrades"
