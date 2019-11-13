@@ -23,6 +23,11 @@ if [ $? -eq 0 ]; then
     sudo apt-get -y remove --purge deja-dup
 fi
 
+# Remove amazon and update notifier
+sudo apt-get -y remvoe --purge --autoremove unity-webapps-*
+sudo apt-get -y remove --purge --autoremove update-notifer
+
+
 for  package in "${DEPENDENCIES[@]}"
 do
     grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
