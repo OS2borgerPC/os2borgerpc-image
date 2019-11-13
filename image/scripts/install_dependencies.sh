@@ -79,6 +79,7 @@ fi
 # Install python packages
 sudo pip install bibos-client
 
+# Enable security updates to be automatically installed
 CONF="/etc/apt/apt.conf.d/90os2borgerpc-automatic-upgrades"
 
 if ! dpkg -s unattended-upgrades > /dev/null 2>&1; then
@@ -96,3 +97,6 @@ Unattended-Upgrade::Allowed-Origins {
 
 # We're done!
 END
+
+# Install English language package
+sudo apt-get -y install language-pack-en language-pack-gnome-en
