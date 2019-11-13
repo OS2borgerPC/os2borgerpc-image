@@ -4,10 +4,10 @@
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 
-# Install BIBOS specific dependencies
+# Install OS2borgerPC specific dependencies
 #           
 # The DEPENDENCIES file contains packages/programs
-# required by BibOS AND extra packages which are free dependencies
+# required by OS2borgerPC AND extra packages which are free dependencies
 # of Skype and MS Fonts - to shorten the postinstall process.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
@@ -54,10 +54,10 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     # Step 2: Do the actual installation. Abort if it fails.
 
     # upgrade
-    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    sudo apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 
     # and install
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/os2borgerpc_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
@@ -72,6 +72,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 fi
 
 # Install python packages
-sudo pip install bibos-client
+sudo pip install os2borgerpc-client
 
 # We're done!

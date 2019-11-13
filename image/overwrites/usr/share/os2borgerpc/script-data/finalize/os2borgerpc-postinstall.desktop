@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Name=os2borgerpc-postinstall
+Comment=os2borgerpc oem setup
+Icon=/usr/share/pixmaps/gksu-root-terminal.png
+Exec=gksudo "gnome-terminal --command=/usr/share/os2borgerpc/bin/postinstall.sh"
+Terminal=false
+Type=Application
+NoDisplay=false
+Name=Færdiggør OS2BorgerPC installation
+Name[da_DK]=Færdiggør OS2BorgerPC installation

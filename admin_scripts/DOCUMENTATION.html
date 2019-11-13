@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
-<title>Bibos Admin: Dokumentation af globale scripts</title>
+<title>OS2borgerPC Admin: Dokumentation af globale scripts</title>
 <style type="text/css">
 
 /*
@@ -311,17 +311,17 @@ ul.auto-toc {
 </head>
 <body>
 <div class="document" id="bibos-admin-dokumentation-af-globale-scripts">
-<h1 class="title">Bibos Admin: Dokumentation af globale scripts</h1>
+<h1 class="title">OS2borgerPC Admin: Dokumentation af globale scripts</h1>
 
 <div class="section" id="indledning">
 <h1>Indledning</h1>
 <p>Denne fil indeholder dokumentation for de globale scripts til
-BibOSAdmin-interfacet, der leveres sammen med selve systemet.</p>
+OS2borgerPC Admin-interfacet, der leveres sammen med selve systemet.</p>
 <p>For hvert område indeholder dokumentet en omtale af de scripts, der findes; en
 specifikation af de parametre, de tager; og en bemærkning om, hvilke ting man
 skal passe på, når man kører scriptet.</p>
 <p>De her beskrevne scrips er alle lagt ind som globale scripts på admin-sitet og
-kildekoden til dem kan findes her: <a class="reference external" href="https://bibos-admin.magenta-aps.dk/scripts">https://bibos-admin.magenta-aps.dk/scripts</a></p>
+kildekoden til dem kan findes her: <a class="reference external" href="https://os2borgerpc.magenta-aps.dk/scripts">https://os2borgerpc.magenta-aps.dk/scripts</a></p>
 <p>Alle scripts, der vedrører publikumsbrugerens opsætning, kan først forventes at
 få effekt, når brugeren er logget ud og logget ind igen efter kørslen.</p>
 </div>
@@ -377,7 +377,7 @@ upload_googlechrome_bookmarks.sh</dd>
 </dd>
 </dl>
 <p>For at bruge disse scripts er det nødvendigt at finde ud af, hvor Firefox og
-Chrome gemmer bogmærkerne henne. På en BibOS-maskine er det (ud fra brugerens
+Chrome gemmer bogmærkerne henne. På en OS2borgerPC-maskine er det (ud fra brugerens
 hjemmemappe) er det i .mozilla/firefox/e1362422.default/ for Firefox og
 .config/google-chrome/Default/ for Google Chrome. Hvis du arbejder på en
 Linux-maskine vil de ligge noget i retning af samme sted; på Windows og Mac kan
@@ -463,7 +463,7 @@ kan skrive det to gange.</li>
 <p>Da publikumsbrugeren logger ind automatisk, er det normalt ikke nødvendigt at
 sætte et password for denne bruger.</p>
 <p>Det er derimod <em>meget vigtigt</em> at skifte fra standard-passwordet til et andet,
-så snart en BibOS-maskine er færdiginstalleret. Passwords vises p.t. i klartekst,
+så snart en OS2borgerPC-maskine er færdiginstalleret. Passwords vises p.t. i klartekst,
 når man indtaster dem. Pas derfor på ikke at blive kigget over skulderen e.l.</p>
 <p>Ligger i &quot;Globale Scripts&quot; under navnet &quot;Skift password for bruger&quot; hhv. &quot;Skift
 password for superbruger&quot;.</p>
@@ -564,7 +564,7 @@ diagnistics/fail.sh</dd>
 </dl>
 <p>Disse er mest beregnet til fejlfinding.</p>
 <p>&quot;env.sh&quot; lister de environment-variabler, der er tilgængelige for et
-BibOS-script.</p>
+OS2borgerPC-script.</p>
 <p>&quot;fail.sh&quot; er et script, der altid fejler, hvilket kan være nyttigt, hvis man
 gerne vil teste håndteringen af fejlede jobs.</p>
 </div>

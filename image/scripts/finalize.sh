@@ -13,10 +13,10 @@ if [ "$XDG_DESKTOP_DIR" == "" ]; then
 fi
 
 cp script-data/finalize/*.desktop "${XDG_DESKTOP_DIR}/"
-# Copy finalize script to /usr/share/bibos/bin
-sudo cp bibos-postinstall.sh /usr/share/bibos/bin
+# Copy finalize script to /usr/share/os2borgerpc/bin
+sudo cp postinstall.sh /usr/share/os2borgerpc/bin
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo cp /etc/lightdm/lightdm.conf.bibos_firstboot /etc/lightdm/lightdm.conf
+sudo cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
 sudo sed -i "s/autologin-user=[a-zA-Z0-9]\+/autologin-user=$USER/" /etc/lightdm/lightdm.conf
 # The PostInstall script should clean up, i.e. reverse all these changes.
 

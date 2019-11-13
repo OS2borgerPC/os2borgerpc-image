@@ -3,8 +3,8 @@
 ## Check out the code
 
 ```sh
-git clone https://github.com/magenta-aps/bibos_image.git
-cd bibos_image
+git clone https://github.com/magenta-aps/os2borgerpc_image.git
+cd os2borgerpc_image
 ```
 
 ## Download a stable Clonezilla live archive
@@ -23,10 +23,10 @@ unzip path/to/clonezilla-live.zip -d OS2borgerPC_2019-02-13_M/
 ./image/scripts/do_overwrite_clonezilla.sh OS2borgerPC_2019-02-13_M/
 ```
 
-## Copy the OS2borgerPC hard disk image files to the `bibos-images/bibos_default/` directory
+## Copy the OS2borgerPC hard disk image files to the `os2borgerpc-images/os2borgerpc_default/` directory
 
 ```sh
-cp -r /path/to/image/* OS2borgerPC_2019-02-13_M/bibos-images/bibos_default/
+cp -r /path/to/image/* OS2borgerPC_2019-02-13_M/os2borgerpc-images/os2borgerpc_default/
 ```
 
 ## Create an ISO image from it

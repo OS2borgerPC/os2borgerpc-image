@@ -1,5 +1,5 @@
 =============================================
-Bibos Admin: Dokumentation af globale scripts
+OS2borgerPC Admin: Dokumentation af globale scripts
 =============================================
 
 
@@ -8,7 +8,7 @@ Indledning
 ==========
 
 Denne fil indeholder dokumentation for de globale scripts til
-BibOSAdmin-interfacet, der leveres sammen med selve systemet.
+OS2borgerPC Admin-interfacet, der leveres sammen med selve systemet.
 
 
 For hvert område indeholder dokumentet en omtale af de scripts, der findes; en
@@ -16,7 +16,7 @@ specifikation af de parametre, de tager; og en bemærkning om, hvilke ting man
 skal passe på, når man kører scriptet.
 
 De her beskrevne scrips er alle lagt ind som globale scripts på admin-sitet og
-kildekoden til dem kan findes her: https://bibos-admin.magenta-aps.dk/scripts
+kildekoden til dem kan findes her: https://os2borgerpc.magenta-aps.dk/scripts
 
 Alle scripts, der vedrører publikumsbrugerens opsætning, kan først forventes at
 få effekt, når brugeren er logget ud og logget ind igen efter kørslen.
@@ -74,7 +74,7 @@ Skifte browserbogmærker
     * bookmark_file - en fil, der indeholder de ønskede bogmærker.
 
 For at bruge disse scripts er det nødvendigt at finde ud af, hvor Firefox og
-Chrome gemmer bogmærkerne henne. På en BibOS-maskine er det (ud fra brugerens
+Chrome gemmer bogmærkerne henne. På en OS2borgerPC-maskine er det (ud fra brugerens
 hjemmemappe) er det i .mozilla/firefox/e1362422.default/ for Firefox og
 .config/google-chrome/Default/ for Google Chrome. Hvis du arbejder på en
 Linux-maskine vil de ligge noget i retning af samme sted; på Windows og Mac kan
@@ -165,7 +165,7 @@ Da publikumsbrugeren logger ind automatisk, er det normalt ikke nødvendigt at
 sætte et password for denne bruger.
 
 Det er derimod *meget vigtigt* at skifte fra standard-passwordet til et andet,
-så snart en BibOS-maskine er færdiginstalleret. Passwords vises p.t. i klartekst,
+så snart en OS2borgerPC-maskine er færdiginstalleret. Passwords vises p.t. i klartekst,
 når man indtaster dem. Pas derfor på ikke at blive kigget over skulderen e.l. 
 
 Ligger i "Globale Scripts" under navnet "Skift password for bruger" hhv. "Skift
@@ -292,7 +292,7 @@ Diagnostiske scripts
 Disse er mest beregnet til fejlfinding. 
 
 "env.sh" lister de environment-variabler, der er tilgængelige for et
-BibOS-script.
+OS2borgerPC-script.
 
 "fail.sh" er et script, der altid fejler, hvilket kan være nyttigt, hvis man
 gerne vil teste håndteringen af fejlede jobs.

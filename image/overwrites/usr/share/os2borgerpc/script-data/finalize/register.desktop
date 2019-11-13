@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Tilmeld adminsystem
+Comment=os2borgerpc oem setup
+Icon=terminal
+Exec=gksudo "gnome-terminal --command=/usr/local/bin/register_new_os2borgerpc_client.sh"
+Terminal=false
+Type=Application
+NoDisplay=false
+Name=Tilmeld adminsystem
+Name[da_DK]=Tilmeld adminsystem
+Comment[da_DK.UTF-8]=tilmeld adminsystem

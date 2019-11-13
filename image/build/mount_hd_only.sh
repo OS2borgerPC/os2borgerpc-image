@@ -13,13 +13,13 @@ DIRNAME=$( dirname "${BASH_SOURCE[0]}")
 DIR="$( cd "$DIRNAME" && pwd )"
 
 if [ ! -d "$IMAGE_DIR" -o ! -f "${IMAGE_DIR}/sda1.ext4-ptcl-img.gz.aa" ]; then
-    echo "$IMAGE_DIR does not seem to be a BibOS hd image"
+    echo "$IMAGE_DIR does not seem to be a OS2borgerPC hd image"
     exit 1
 fi
 
 which partclone.restore
 
-MNT_DIR=$( mktemp -d "${DIR}/bibos-hd-image.XXXXXXXXXX" )
+MNT_DIR=$( mktemp -d "${DIR}/os2borgerpc-hd-image.XXXXXXXXXX" )
 chmod 0775 "${MNT_DIR}"
 
 HD_IMAGE="${MNT_DIR}/hd_loopback_image.img"
@@ -55,4 +55,4 @@ mnt "-t ext4 ${HD_IMAGE} -o loop" "$FS_DIR"
 trap "" EXIT HUP TERM INT QUIT
 
 echo ">>> Filesystems ready to be changed"
-echo ">>>  bibos-filesystem: ${FS_DIR}"
+echo ">>>  os2borgerpc-filesystem: ${FS_DIR}"

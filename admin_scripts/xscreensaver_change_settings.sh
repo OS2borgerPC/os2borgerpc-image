@@ -1,7 +1,7 @@
 #!/usr/bin/env bash 
 
 # This is a very simple script to change the audience user's screensaver
-# settings on a BibOS machine.
+# settings on a OS2borgerPC machine.
 #
 # Instructions:
 #    - Configure the screensaver as you want it on an existing machine

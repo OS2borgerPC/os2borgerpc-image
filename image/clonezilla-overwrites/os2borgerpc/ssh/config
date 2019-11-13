@@ -1,0 +1,5 @@
+Host *
+    User os2borgerpc-archive
+    IdentityFile /home/ssh/os2borgerpc-key
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no

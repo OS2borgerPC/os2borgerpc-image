@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 
-# This script will place a shortcut on the desktop of a BibOS machine.
+# This script will place a shortcut on the desktop of a OS2borgerPC machine.
 #
 # Instructions:
 #    - Create a shortcut by whatever means necessary. 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 
-# This script will change the superuser password on a BibOS machine.
+# This script will change the superuser password on a OS2borgerPC machine.
 
 
 # Expect exactly two input parameters

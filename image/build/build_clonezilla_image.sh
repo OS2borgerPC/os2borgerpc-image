@@ -34,7 +34,7 @@ ISOFILE=$(mktemp -u "${DIR}/image-XXXXXXXXXX.iso")
 
 echo "Creating ISO image $ISOFILE"
 genisoimage \
-    -V "BibOS install image" \
+    -V "OS2borgerPC install image" \
     -r -cache-inodes -J -l \
     -b isolinux/isolinux.bin \
     -c isolinux/boot.cat \

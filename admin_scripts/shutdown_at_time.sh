@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This is a script to make a BibOS machine shutdown at a certain time.
+# This is a script to make a OS2borgerPC machine shutdown at a certain time.
 #
 # Synopsis: 
 #     
