@@ -23,8 +23,6 @@ if [ $? -eq 0 ]; then
     sudo apt-get -y remove --purge deja-dup
 fi
 
-
-
 for  package in "${DEPENDENCIES[@]}"
 do
     grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
@@ -55,6 +53,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # upgrade
     sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    sudo apt-get -y dist-upgrade | tee /tmp/bibos_upgrade_log.txt
 
     # and install
     sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
@@ -67,7 +66,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         exit -1
     fi
     # Clean .deb cache to save space
-    sudo apt-get clean
+    sudo apt-get -y autoremove
+    sudo apt-get -y clean
 
 fi
 
