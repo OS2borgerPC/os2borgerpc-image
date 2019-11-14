@@ -25,14 +25,14 @@
 #-
 #================================================================
 #  HISTORY
-#     2019/11/12 : af : Script created
-#     2019/11/14 : af : Changed tactics. Instead of trying to connect to the X-server from root, we now rotate screen upon user login.
+#     2019/11/12 : da : Script created
+#     2019/11/14 : da : Changed tactics. Instead of trying to connect to the X-server from root, we now rotate screen upon user login.
 #
 #================================================================
 # END_OF_HEADER
 #================================================================
 
-set -e
+set -xe
 
 if [ "$1" != "normal" -a "$1" != "right" -a "$1" != "left" ]; then
     echo "Wrong rotation command given: $1"
@@ -41,19 +41,12 @@ fi
 
 AUTOSTART_FOLDER=/home/.skjult/.config/autostart/
 
-if [ ! -d $AUTOSTART_FOLDER ]; then
-    mkdir $AUTOSTART_FOLDER
-    echo "$AUTOSTART_FOLDER created..."
-fi
+mkdir -p $AUTOSTART_FOLDER
 
 ROTATE_SCREEN_FILE=rotate_screen.sh
 ROTATE_SCREEN_FILE_COMPLETE_PATH="$AUTOSTART_FOLDER$ROTATE_SCREEN_FILE"
 
-if [ -f $ROTATE_SCREEN_FILE_COMPLETE_PATH ]; then
-    rm $ROTATE_SCREEN_FILE_COMPLETE_PATH
-    echo "$ROTATE_SCREEN_FILE_COMPLETE_PATH deleted..."
-fi
-cat <<EOT >> "$ROTATE_SCREEN_FILE_COMPLETE_PATH"
+cat <<EOT > "$ROTATE_SCREEN_FILE_COMPLETE_PATH"
 #!/bin/bash
 
 active_monitors=\$(xrandr --listactivemonitors | grep -oE ' (e?)DP-[0-9](-?[0-9]?)(-?[0-9]?)')
@@ -65,15 +58,13 @@ EOT
 
 chmod +x $ROTATE_SCREEN_FILE_COMPLETE_PATH
 
-echo "$ROTATE_SCREEN_FILE_COMPLETE_PATH created with rotation $1"
+echo "$ROTATE_SCREEN_FILE_COMPLETE_PATH created/updated with rotation $1"
 
 DESKTOP_FILENAME=rotate_screen.desktop
 DESKTOPFILE_COMPLETE_PATH="$AUTOSTART_FOLDER$DESKTOP_FILENAME"
 if [ -f $DESKTOPFILE_COMPLETE_PATH ]; then
   exit 0
 fi
-
-#xrandr --output DP-1 --rotate $1
 
 cat <<EOT >> "$DESKTOPFILE_COMPLETE_PATH"
 [Desktop Entry]
