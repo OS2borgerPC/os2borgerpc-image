@@ -39,52 +39,56 @@ if [ "$1" != "normal" -a "$1" != "right" -a "$1" != "left" ]; then
     exit -1
 fi
 
-# Testing....
-#w
-#
-#USER_LOGGED_IN=$(who | cut -f 1 -d ' ' | sort | uniq | grep user)
-#echo "User logged in $USER_LOGGED_IN"
-#
-#export DISPLAY=:0.0
-#export XAUTHORITY=/home/user/.Xauthority
-
-# xdpyinfo
-
-#xrandr -q
-# Testing....
-
-#active_monitors=$(xrandr --listactivemonitors | grep -oE ' (e?)DP-[0-9](-?[0-9]?)(-?[0-9]?)')
-#
-#active_monitors_array=($active_monitors)
-#
-#echo -e "${#active_monitors_array[@]} Active monitors found:\n${active_monitors}"
-#
-#echo "Rotating monitor named: ${active_monitors_array[0]}"
-#
-#xrandr --output ${active_monitors_array[0]} --rotate $1
 AUTOSTART_FOLDER=/home/.skjult/.config/autostart/
-FILENAME=rotate_screen.desktop
-COMPLETE_PATH="$AUTOSTART_FOLDER$FILENAME"
-if [ -f $COMPLETE_PATH ]; then
-    rm $COMPLETE_PATH
-    echo "$COMPLETE_PATH deleted..."
-fi
+
 if [ ! -d $AUTOSTART_FOLDER ]; then
     mkdir $AUTOSTART_FOLDER
     echo "$AUTOSTART_FOLDER created..."
 fi
 
-cat <<EOT >> "$COMPLETE_PATH"
+ROTATE_SCREEN_FILE=rotate_screen.sh
+ROTATE_SCREEN_FILE_COMPLETE_PATH="$AUTOSTART_FOLDER$ROTATE_SCREEN_FILE"
+
+if [ -f $ROTATE_SCREEN_FILE_COMPLETE_PATH ]; then
+    rm $ROTATE_SCREEN_FILE_COMPLETE_PATH
+    echo "$ROTATE_SCREEN_FILE_COMPLETE_PATH deleted..."
+fi
+cat <<EOT >> "$ROTATE_SCREEN_FILE_COMPLETE_PATH"
+#!/bin/bash
+
+active_monitors=\$(xrandr --listactivemonitors | grep -oE ' (e?)DP-[0-9](-?[0-9]?)(-?[0-9]?)')
+
+active_monitors_array=(\$active_monitors)
+
+xrandr --output \${active_monitors_array[0]} --rotate $1
+EOT
+
+chmod +x $ROTATE_SCREEN_FILE_COMPLETE_PATH
+
+echo "$ROTATE_SCREEN_FILE_COMPLETE_PATH created with rotation $1"
+
+DESKTOP_FILENAME=rotate_screen.desktop
+DESKTOPFILE_COMPLETE_PATH="$AUTOSTART_FOLDER$DESKTOP_FILENAME"
+if [ -f $DESKTOPFILE_COMPLETE_PATH ]; then
+  exit 0
+fi
+
+#xrandr --output DP-1 --rotate $1
+
+cat <<EOT >> "$DESKTOPFILE_COMPLETE_PATH"
 [Desktop Entry]
 Type=Application
-Exec=xrandr --output DP-1 --rotate $1
+Exec=$ROTATE_SCREEN_FILE_COMPLETE_PATH
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
 Name[en_US]=rotate screen
 Name=rotate screen
-Comment[en_US]=Rotates DP-1 $1
-Comment=Rotates DP-1 $1
+Comment[en_US]=Rotates Primary monitor $1
+Comment=Rotates Primary monitor $1
 EOT
-echo "$COMPLETE_PATH created with rotation $1"
+
+chmod +x $DESKTOPFILE_COMPLETE_PATH
+
+echo "$DESKTOPFILE_COMPLETE_PATH created..."
 exit 0
