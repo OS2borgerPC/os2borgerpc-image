@@ -198,10 +198,13 @@ for cookie in cookies_list:
     # Creation time in milliseconds from epoch (Google chrome needs this).
     creation_utc = int((epoch_delta).total_seconds() * 1e6)
     # Experation is 1 year into the future.
-    expires_utc = int((epoch_delta + datetime.timedelta(days=365)).total_seconds() * 1e6)
+    # expires_utc = int((epoch_delta + datetime.timedelta(days=365)).total_seconds() * 1e6)
     # Example of a cookie insert
     # insert into cookies (creation_utc, host_key, name, value, path, expires_utc, is_secure, is_httponly, last_access_utc, has_expires, is_persistent, priority, encrypted_value, samesite)  values (13217424586631416, 'uddannelse.aula.dk', 'Csrfp-Token', '', '/', 0, 1, 0, 13217424586631416, 0, 0, 1, '833a0a025e2bc7539c3289980099d738', -1)
-    cursor.execute("INSERT INTO cookies (creation_utc, host_key, name, value, path, expires_utc, is_secure, is_httponly, last_access_utc, has_expires, is_persistent, priority, encrypted_value) VALUES ({}, '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, '{}')".format(creation_utc, cookie.get('domain'), cookie.get('name'), 'd' ,cookie.get('path'), expires_utc, int(cookie.get('secure')), int(cookie.get('httpOnly')), creation_utc, 1, 1, 1, cookie.get('value')))
+    has_expires = 1
+    if cookie.get('name') == 'PHPSESSID':
+        has_expires = 0
+    cursor.execute("INSERT INTO cookies (creation_utc, host_key, name, value, path, expires_utc, is_secure, is_httponly, last_access_utc, has_expires, is_persistent, priority, encrypted_value) VALUES ({}, '{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, {}, '{}')".format(creation_utc, cookie.get('domain'), cookie.get('name'), 'd' ,cookie.get('path'), 0, int(cookie.get('secure')), int(cookie.get('httpOnly')), creation_utc, has_expires, 1, 1, cookie.get('value')))
     conn.commit()
     print('Cookie with name {} stored in cookie db.'.format(cookie.get('name')))
 
