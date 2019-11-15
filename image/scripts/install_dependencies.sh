@@ -24,7 +24,7 @@ if [ $? -eq 0 ]; then
 fi
 
 # Remove amazon and update notifier
-sudo apt-get -y remvoe --purge --autoremove unity-webapps-*
+sudo apt-get -y remove --purge --autoremove unity-webapps-*
 sudo apt-get -y remove --purge --autoremove update-notifer
 
 
