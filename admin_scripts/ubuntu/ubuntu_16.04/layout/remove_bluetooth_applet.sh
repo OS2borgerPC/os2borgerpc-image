@@ -24,9 +24,13 @@
 # END_OF_HEADER
 #================================================================
 
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+
 # Remove Bluetooth indicator applet from Borger user
-BLUETOOTH_INDICATOR_PATH=$(find /usr/lib -name 'indicator-bluetooth-service')
-if [ ! -z "$BLUETOOTH_INDICATOR_PATH" ]
-then
-    chmod o-x $BLUETOOTH_INDICATOR_PATH
-fi
+apt-get update > /dev/null
+apt-get -y remove indicator-bluetooth
+apt-get -y autoremove
+apt-get -y clean
+
