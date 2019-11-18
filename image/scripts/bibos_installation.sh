@@ -36,8 +36,6 @@ cd bibos_image
 
 git fetch
 
-git checkout feature/20219_script_cleanup
-
 # Go to the script folder
 
 cd image/scripts
