@@ -50,6 +50,11 @@ sudo touch /etc/bibos/firstboot
 sudo mkdir -p /var/lib/bibos/jobs
 sudo chmod -R og-r /var/lib/bibos
 
+# Prepare to run security events
+SECURITY_DIR=/etc/bibos/security/
+sudo mkdir -p /etc/bibos/security/
+sudo cp -R "$DIR"/script-data/security/* "$SECURITY_DIR"
+
 # Set version in configuration
 VERSION=$(cat ../../VERSION)
 sudo set_bibos_config bibos_version "$VERSION"
