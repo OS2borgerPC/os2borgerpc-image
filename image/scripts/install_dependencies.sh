@@ -81,8 +81,7 @@ fi
 pip install --upgrade bibos-utils bibos-client
 
 # Setup unattended upgrades
-DIR=$(dirname $(dirname $(dirname $(realpath $0 ))))
-"$DIR"/admin-scripts/image_core/apt_periodic_crontrol.sh security
+"$DIR/../../admin_scripts/apt_periodic_control.sh" security
 
 # Install English language package
 apt-get -y install language-pack-en language-pack-gnome-en
