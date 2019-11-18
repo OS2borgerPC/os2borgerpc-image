@@ -40,3 +40,4 @@ fi
 chown root:adm /usr/bin/unity-control-center
 chmod o-x /usr/bin/unity-control-center
 chmod g+rx,o-x /usr/bin/unity-control-center
+

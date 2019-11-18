@@ -26,7 +26,7 @@ sudo apt-get -y install git
 
 # Grab the source code
 
-git clone https://github.com/magenta-aps/bibos_image.git
+git clone https://github.com/OS2borgerPC/bibos_image.git
 
 # Go to the bibos_image folder
 
