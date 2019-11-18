@@ -1,0 +1,9 @@
+The system was prepared by Magenta Aps: See http://www.magenta-aps.dk
+
+All code is made available under Version 3 of the GNU General Public
+License - see the LICENSE and COPYRIGHT files for details.
+
+This directory contains security scripts for the OS2BorgerPC security system. 
+Each script needs to be uploaded to the OS2BorgerPC administration website and associated with a security rule.
+
+

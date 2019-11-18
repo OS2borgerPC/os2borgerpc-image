@@ -3,7 +3,6 @@
 # Disable Gnome screensaver, install A LOT of graphic screensavers,
 # enable screensaver for user by default.
 
-
 apt-get -y remove gnome-screensaver
 apt-get -y install xscreensaver xscreensaver-data xscreensaver-gl
 
