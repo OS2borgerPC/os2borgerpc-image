@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive
-
 # Find current directory
 
 DIR=$(dirname ${BASH_SOURCE[0]})

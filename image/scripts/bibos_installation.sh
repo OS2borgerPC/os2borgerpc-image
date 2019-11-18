@@ -17,6 +17,7 @@
 # user, add scripts, whatever. 
 
 # Update package list and install git
+export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
