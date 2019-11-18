@@ -60,3 +60,6 @@ set_bibos_config bibos_version "$VERSION"
 
 mv /tmp/$OVERRIDE_FILE /usr/share/glib-2.0/schemas
 glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+# Securing grub
+"$DIR/../../admin_scripts/image_core/grub_set_password.py" $(pwgen -N 1 -s 12)
