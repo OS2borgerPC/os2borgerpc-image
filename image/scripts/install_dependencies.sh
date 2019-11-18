@@ -29,7 +29,6 @@ fi
 apt-get -y remove --purge --autoremove unity-webapps-*
 apt-get -y remove --purge --autoremove update-notifer
 
-
 for  package in "${DEPENDENCIES[@]}"
 do
     grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
