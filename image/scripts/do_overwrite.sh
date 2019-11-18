@@ -25,6 +25,8 @@ chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
 DIR=$(dirname $(realpath $0 ))
 "$DIR/../../admin_scripts/image_core/remove_bluetooth_applet.sh"
 
+"$DIR/../../admin_scripts/image_core/dconf_policy_desktop.sh" "$DIR/../graphics/production-green.png"
+
 chown root:adm /usr/bin/unity-control-center
 chmod o-x /usr/bin/unity-control-center
 chmod g+rx,o-x /usr/bin/unity-control-center
