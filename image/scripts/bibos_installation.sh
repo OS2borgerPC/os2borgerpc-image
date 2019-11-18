@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup the configuration we know to be necessary for this 
-# computer to be "BibOS ready".
+# computer to be "OS2borgerPC ready".
 
 # Will execute the following steps:
 # * Get the latest code from git
@@ -10,7 +10,7 @@
 # * Create and setup user "user"
 #
 # The machine will now be a fully functional and standardized 
-# BibOS computer.
+# OS2borgerPC computer.
 #
 # After running this script on a fresh Ubuntu install, you can
 # customize it to your heart's content - change the wallpaper of the default
@@ -18,19 +18,17 @@
 
 # Update package list and install git
 
-gsettings set org.gnome.desktop.screensaver lock-enabled false
+apt-get update
 
-sudo apt-get update
-
-sudo apt-get -y install git
+apt-get -y install git
 
 # Grab the source code
 
-git clone https://github.com/OS2borgerPC/bibos_image.git
+git clone https://github.com/OS2borgerPC/image.git
 
-# Go to the bibos_image folder
+# Go to the image folder
 
-cd bibos_image
+cd image
 
 # Fetch changes
 
@@ -40,7 +38,7 @@ git fetch
 
 cd image/scripts
 
-# Create standard BibOS setup
+# Create standard OS2borgerPC setup
 
 ./bibos_setup.sh
 
@@ -48,9 +46,7 @@ cd image/scripts
 
 ./finalize.sh
 
-gsettings set org.gnome.desktop.screensaver lock-enabled true
-
 # Now reboot.
 
-sudo reboot
+reboot
 
