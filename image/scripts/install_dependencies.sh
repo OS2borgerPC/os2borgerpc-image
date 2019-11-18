@@ -11,11 +11,9 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 # of Skype and MS Fonts - to shorten the postinstall process.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
-
 PKGSTOINSTALL=""
 
 dpkg -l | grep "^ii" > /tmp/installed-package-list.txt
-
 
 grep -w "ii  deja-dup" /tmp/installed-package-list.txt > /dev/null
 if [ $? -eq 0 ]; then
@@ -72,7 +70,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     # Clean .deb cache to save space
     apt-get -y autoremove
     apt-get -y clean
-
 fi
 
 # Install python packages
