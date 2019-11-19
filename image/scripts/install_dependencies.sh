@@ -4,26 +4,26 @@
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 
-# Install BIBOS specific dependencies
+# Install OS2bogerPC specific dependencies
 #           
 # The DEPENDENCIES file contains packages/programs
-# required by BibOS AND extra packages which are free dependencies
+# required by OS2borgerPC AND extra packages which are free dependencies
 # of Skype and MS Fonts - to shorten the postinstall process.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
-
 
 PKGSTOINSTALL=""
 
 dpkg -l | grep "^ii" > /tmp/installed-package-list.txt
 
-
 grep -w "ii  deja-dup" /tmp/installed-package-list.txt > /dev/null
 if [ $? -eq 0 ]; then
    # Things to get rid of. Factor out to file if many turn up.
-    sudo apt-get -y remove --purge deja-dup
+   apt-get -y remove --purge deja-dup
 fi
 
-
+# Remove amazon and update notifier
+apt-get -y remove --purge --autoremove unity-webapps-*
+apt-get -y remove --purge --autoremove update-notifier
 
 for  package in "${DEPENDENCIES[@]}"
 do
@@ -39,7 +39,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     
     # Step 1: Check for valid APT repositories.
 
-    sudo apt-get update &> /dev/null
+    apt-get update &> /dev/null
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
@@ -52,12 +52,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     fi
 
     # Step 2: Do the actual installation. Abort if it fails.
-
-    # upgrade
-    sudo apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
-
     # and install
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
+    apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
@@ -66,12 +62,21 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "" 1>&2
         exit -1
     fi
-    # Clean .deb cache to save space
-    sudo apt-get clean
 
+    # upgrade
+    apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
+    apt-get -y dist-upgrade | tee /tmp/bibos_upgrade_log.txt
+
+    # Clean .deb cache to save space
+    apt-get -y autoremove
+    apt-get -y clean
 fi
 
 # Install python packages
-sudo pip install bibos-client
+pip install --upgrade bibos-utils bibos-client
 
-# We're done!
+# Setup unattended upgrades
+"$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security
+
+# Install English language package
+apt-get -y install language-pack-en language-pack-gnome-en

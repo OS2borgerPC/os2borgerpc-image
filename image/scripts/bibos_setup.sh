@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Setup the configuration we know to be necessary for this 
-# computer to be "BibOS ready".
+# computer to be "OS2borgerPC ready".
 
 # Will execute the following steps:
 # * Overwrite file structure
@@ -9,7 +9,7 @@
 # * Create and setup user "user"
 #
 # The machine will now be a fully functional and standardized 
-# BibOS computer which is not, however, registered with the admin 
+# OS2borgerPC computer which is not, however, registered with the admin
 # system nor endowed with local settings such as printers, etc.
 #
 # After running this script on a fresh Ubuntu install, you can
@@ -22,55 +22,44 @@
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 # Overwrite file tree.
-sudo "$DIR/do_overwrite.sh"
-
+"$DIR/do_overwrite.sh"
 
 # Install all necessary packages and dependencies
 $DIR/install_dependencies.sh
 
 # Setup default user
-sudo useradd user -m -p 12345 -s /bin/bash -U
-sudo chfn -f Borger user
-sudo adduser user nopasswdlogin
+useradd user -m -p 12345 -s /bin/bash -U
+chfn -f Borger user
+adduser user nopasswdlogin
 
 # Disable showing shortcuts UI for user Borger
 HOME=/home/user/
 HIDDEN_DIR=/home/.skjult
-sudo mkdir -p "$HOME"/.cache/unity
-sudo touch "$HOME"/.cache/unity/first_run.stamp
+mkdir -p "$HOME"/.cache/unity
+touch "$HOME"/.cache/unity/first_run.stamp
 
-sudo mkdir -p "$HIDDEN_DIR"/.cache/unity
+mkdir -p "$HIDDEN_DIR"/.cache/unity
 
-sudo cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
+cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
 
 # Make now first boot
-sudo touch /etc/bibos/firstboot
+touch /etc/bibos/firstboot
 
 # Prepare to run jobs
-sudo mkdir -p /var/lib/bibos/jobs
-sudo chmod -R og-r /var/lib/bibos
+mkdir -p /var/lib/bibos/jobs
+chmod -R og-r /var/lib/bibos
 
 # Prepare to run security events
 SECURITY_DIR=/etc/bibos/security/
-sudo mkdir -p /etc/bibos/security/
-sudo cp -R "$DIR"/script-data/security/* "$SECURITY_DIR"
-
-# Set version in configuration
-VERSION=$(cat ../../VERSION)
-sudo set_bibos_config bibos_version "$VERSION"
-
-# Do not check for updates or run update-manager
-sudo rm /etc/xdg/autostart/update-notifier.desktop
+mkdir -p /etc/bibos/security/
+cp -R "$DIR"/../overwrites/usr/share/bibos/script-data/security/* "$SECURITY_DIR"
 
 # Do not show user backgrounds in Unity greeter
+"$DIR/../../admin_scripts/image_core/dconf_policy_greeter.sh" false
 
-OVERRIDE_FILE=com.canonical.unity-greeter.gschema.override
-cat << EOF > /tmp/$OVERRIDE_FILE
-[com.canonical.unity-greeter]
-draw-user-backgrounds = false
-play-ready-sound = false
+# Set version in configuration
+VERSION=$(cat "$DIR"/../../VERSION)
+set_bibos_config bibos_version "$VERSION"
 
-EOF
-
-sudo mv /tmp/$OVERRIDE_FILE /usr/share/glib-2.0/schemas
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas/
+# Securing grub
+"$DIR/../../admin_scripts/image_core/grub_set_password.py" $(pwgen -N 1 -s 12)
