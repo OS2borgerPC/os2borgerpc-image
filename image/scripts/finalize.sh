@@ -3,6 +3,7 @@
 DIR=$(dirname $(realpath $0 ))
 
 cp "$DIR"/../overwrites/usr/share/bibos/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
+
 # Copy finalize script to /usr/share/bibos/bin
 cp "$DIR/bibos-postinstall.sh" /usr/share/bibos/bin
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
