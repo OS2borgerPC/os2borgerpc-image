@@ -54,6 +54,9 @@ SECURITY_DIR=/etc/bibos/security/
 mkdir -p /etc/bibos/security/
 cp -R "$DIR"/../overwrites/usr/share/bibos/script-data/security/* "$SECURITY_DIR"
 
+# Do not show user backgrounds in Unity greeter
+"$DIR/../../admin_scripts/image_core/dconf_policy_greeter.sh" false
+
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
 set_bibos_config bibos_version "$VERSION"
