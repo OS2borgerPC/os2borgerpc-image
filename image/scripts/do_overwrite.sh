@@ -17,7 +17,7 @@ popd > /dev/null
 
 # Now do the deed
 DIR=$(dirname $(realpath $0 ))
-cp -r "$DIR/../overwrites/*" $DESTINATION
+cp -r "$DIR"/../overwrites/* $DESTINATION
 
 # Permissions fixup
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
