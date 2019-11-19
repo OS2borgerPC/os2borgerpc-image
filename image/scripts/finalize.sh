@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$USER" == "root" ]; then
-	echo "Please do not run this script as root, run it as the superuser instead."
-	exit 1
-fi
+USER=superuser
 
 if [ -f ~/.config/user-dirs.dirs ]; then
     source ~/.config/user-dirs.dirs
