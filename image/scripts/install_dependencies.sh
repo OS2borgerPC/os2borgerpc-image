@@ -23,7 +23,7 @@ fi
 
 # Remove amazon and update notifier
 apt-get -y remove --purge --autoremove unity-webapps-*
-apt-get -y remove --purge --autoremove update-notifer
+apt-get -y remove --purge --autoremove update-notifier
 
 for  package in "${DEPENDENCIES[@]}"
 do
