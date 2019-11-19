@@ -26,15 +26,16 @@ apt-get -y install git
 # Grab the source code
 git clone https://github.com/OS2borgerPC/image.git
 
+pushd image/
+
 # Fetch latest changes...
-DIR=$(dirname $(realpath $0 ))
-git --git-dir "$DIR"/image/.git fetch
+git fetch
 
 # Create standard OS2borgerPC setup
-"$DIR"/image/scripts/bibos_setup.sh
+image/scripts/bibos_setup.sh
 
 # Finalize the image
-"$DIR"/image/scripts/finalize.sh
+image/scripts/finalize.sh
 
 # Now reboot.
 reboot
