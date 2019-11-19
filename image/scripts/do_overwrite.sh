@@ -16,13 +16,13 @@ cp unity-control-center unity-control-center.real
 popd > /dev/null
 
 # Now do the deed
-cp -r ../overwrites/* $DESTINATION
+DIR=$(dirname $(realpath $0 ))
+cp -r "$DIR/../overwrites/*" $DESTINATION
 
 # Permissions fixup
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
 
 # Remove Bluetooth indicator applet from Borger user
-DIR=$(dirname $(realpath $0 ))
 "$DIR/../../admin_scripts/image_core/remove_bluetooth_applet.sh"
 
 "$DIR/../../admin_scripts/image_core/dconf_policy_desktop.sh" "$DIR/../graphics/production-green.png"
