@@ -41,7 +41,7 @@ set -e
 AS_USER=user
 HIDDEN_DIR=/home/.skjult
 
-USER_LOGGED_IN=$(who | cut -f 1 -d ' ' | sort | uniq | grep -W $AS_USER)
+USER_LOGGED_IN=$(who | cut -f 1 -d ' ' | sort | uniq | grep -w $AS_USER)
 
 if [ $USER_LOGGED_IN ]
 then
