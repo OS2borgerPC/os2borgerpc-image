@@ -28,6 +28,7 @@
 #     2018/07/02 : andreasnn : Remove Amazon and other webapps
 #     2018/04/12 : danni     : Remove gnome Software
 #     2018/04/12 : danni     : Grep for user also macthed superuser. Now it shoud only match user.
+#     2019/20/12 : danni     : Removed amazon icon specifc code.
 #
 #================================================================
 # END_OF_HEADER
@@ -54,12 +55,7 @@ fi
 
 cp /home/$AS_USER/.config/dconf/$AS_USER $HIDDEN_DIR/.config/dconf/
 
-
-# Remove Amazon and other webapps
-
-# The package is not a Unity dependency
-# apt -y purge unity-webapps-common
+# Amazon package is now removed completely from the os2borgerpc-image. So no need to remove it here.
 
 # Removing the package could give problems, depending on the installation method, so:
-mv /usr/share/applications/ubuntu-amazon-default.desktop /usr/share/applications/ubuntu-amazon-default.desktop.org
 mv /usr/share/applications/org.gnome.Software.desktop /usr/share/applications/org.gnome.Software.desktop.org
