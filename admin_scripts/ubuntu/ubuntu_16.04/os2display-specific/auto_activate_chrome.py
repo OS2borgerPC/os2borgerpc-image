@@ -128,9 +128,8 @@ except:
 try:
     wait.until(expected.visibility_of_element_located((By.CLASS_NAME, 'default--full-screen')))
 except:
-    text = browser.find_element_by_name('log--inner is-error').getText()
-    print('Exception occured while waiting for OS2display screen: {}'.format(text))
-    sys.exit(1)
+
+    print('Exception occured while waiting for OS2display screen.')
 
 token = browser.execute_script("return localStorage.getItem('indholdskanalen_token')")
 uuid = browser.execute_script("return localStorage.getItem('indholdskanalen_uuid')")
