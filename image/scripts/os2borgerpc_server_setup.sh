@@ -2,10 +2,17 @@
 
 # Setup the OS2BorgerPC client on an Ubuntu Server
 
+DIR=$(dirname ${BASH_SOURCE[0]})
+
+# Avoid script stopping because it wants user input.
+export DEBIAN_FRONTEND=noninteractive
+
+# Install all necessary packages and dependencies
+$DIR/install_dependencies.sh OS2DISPLAY_DEPENDENCIES
+
 # Setup default user
 useradd user -m -p 12345 -s /bin/bash -U
 chfn -f Borger user
-adduser user nopasswdlogin
 
 # Autologin default user
 
