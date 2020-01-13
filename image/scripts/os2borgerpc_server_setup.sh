@@ -21,7 +21,7 @@ mkdir -p /etc/systemd/system/getty@tty1.service.d
 cat << EOF > /etc/systemd/system/getty@tty1.service.d/override.conf
 [Service]
 ExecStart=
-ExecStart=-/sbin/agetty --noissue --autologin myusername %I $TERM
+ExecStart=-/sbin/agetty --noissue --autologin user %I $TERM
 Type=idle
 EOF
 
@@ -47,6 +47,13 @@ set_bibos_config bibos_version "$VERSION"
 # Now do a minimal install of Chromium, make it autostart and set it up
 # with OS2Display.
 
-# TODO!!!
+apt install xinit chromium-browser
+
+cat << EOF > /home/user/.xinitrc
+#!/bin/sh
+
+exec chromium-browser --kiosk
+EOF
 
 
+echo "startx" >> /home/user/.profile
