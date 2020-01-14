@@ -10,24 +10,6 @@ export DEBIAN_FRONTEND=noninteractive
 # Install all necessary packages and dependencies
 $DIR/install_dependencies.sh OS2DISPLAY_DEPENDENCIES
 
-# Setup default user
-useradd user -m -p 12345 -s /bin/bash -U
-chfn -f Borger user
-
-# Autologin default user
-
-mkdir -p /etc/systemd/system/getty@tty1.service.d
-
-cat << EOF > /etc/systemd/system/getty@tty1.service.d/override.conf
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty --noissue --autologin user %I $TERM
-Type=idle
-EOF
-
-# Make now first boot
-touch /etc/bibos/firstboot
-
 # Prepare to run jobs
 mkdir -p /var/lib/bibos/jobs
 chmod -R og-r /var/lib/bibos
@@ -43,10 +25,30 @@ set_bibos_config bibos_version "$VERSION"
 # Securing grub
 "$DIR/../../admin_scripts/image_core/grub_set_password.py" $(pwgen -N 1 -s 12)
 
+#  Connect to the admin system
+
+register_new_bibos_client.sh
+
+exit
 # All of the above is general "BorgerPC on a server" setup.
 # Now do a minimal install of Chromium, make it autostart and set it up
 # with OS2Display.
 
+
+# Setup default user
+useradd user -m -p 12345 -s /bin/bash -U
+chfn -f Borger user
+
+# Autologin default user
+
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+
+cat << EOF > /etc/systemd/system/getty@tty1.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin user %I $TERM
+Type=idle
+EOF
 apt install xinit chromium-browser
 
 cat << EOF > /home/user/.xinitrc
