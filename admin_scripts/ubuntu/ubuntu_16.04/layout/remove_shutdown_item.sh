@@ -56,7 +56,7 @@ fi
 
 # Run gsettings for disabling shutdown item
 su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
-su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-restart-menuitem true"
+su - $user -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-logout-restart-shutdown true"
 
 # Make sure dconf dir exists in hidden user
 if [ ! -d "$dconf_dir_hidden" ]
@@ -76,3 +76,4 @@ fi
 
 # Run gsettings command on lightdm user, so that shutdown item is disabled in the Unity Greeter
 su - lightdm -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-shutdown-menuitem true"
+su - lightdm -s /bin/bash -c "dbus-launch --exit-with-session gsettings set com.canonical.indicator.session suppress-logout-restart-shutdown true"
