@@ -6,7 +6,7 @@
       "name": "Aktivér?",
       "type": "string",
       "required": false,
-      "description": "system-tjenesten vil blive fjernet, hvis dette parameter er tomt eller ordet 'falsk'"
+      "description": "system-tjenesten vil blive fjernet, hvis denne parameter er tomt eller ordet 'falsk'"
     }
   ]
 }

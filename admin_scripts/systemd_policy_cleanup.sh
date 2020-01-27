@@ -19,7 +19,7 @@
 #-    version         systemd_policy_cleanup.sh (magenta.dk) 1.0.0
 #-    author          Alexander Faithfull
 #-    copyright       Copyright 2019, 2020 Magenta ApS
-#-    license         GNU General Public License
+#-    license         GNU General Public License, version 3 or later
 #-    email           af@magenta.dk
 #-
 #================================================================
