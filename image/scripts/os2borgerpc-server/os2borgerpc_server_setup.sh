@@ -8,8 +8,8 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 export DEBIAN_FRONTEND=noninteractive
 
 # Install all necessary packages and dependencies
-$DIR/install_dependencies.sh OS2DISPLAY_DEPENDENCIES
-
+$DIR/../install_dependencies.sh os2borgerpc-server/OS2DISPLAY_DEPENDENCIES
+exit
 # Prepare to run jobs
 mkdir -p /var/lib/bibos/jobs
 chmod -R og-r /var/lib/bibos

@@ -9,9 +9,9 @@
 IMAGE=/tmp/image_install
 # Get the main install scripts
 git clone https://github.com/os2borgerpc/image $IMAGE
-pushd $IMAGE/image/scripts
+pushd $IMAGE/image/scripts/os2borgerpc-server
 
-sudo ./os2display_server_setup.sh
+sudo ./os2borgerpc_server_setup.sh
 popd
 rm -rf $IMAGE
 
