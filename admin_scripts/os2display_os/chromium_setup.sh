@@ -26,6 +26,12 @@ cat << EOF > /home/chrome/.xinitrc
 
 sleep $TIME
 
+sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' /home/chrome/.config/chromium/Default/Preferences
+
+sed -i 's/"exit_type":"Crashed"/"exit_type":"None"/' /home/chrome/.config/chromium/Default/Preferences
+
+sed -i 's/"restore_on_startup":[0-9]/"restore_on_startup":0/' /home/chrome/.config/chromium/Default/Preferences
+
 exec chromium-browser --kiosk $URL --full-screen --password-store=basic --autoplay-policy=no-user-gesture-required --disable-translate --enable-offline-auto-reload
 EOF
 
