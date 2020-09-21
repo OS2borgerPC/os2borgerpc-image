@@ -21,10 +21,6 @@ if [ $? -eq 0 ]; then
    apt-get -y remove --purge deja-dup
 fi
 
-# Remove amazon and update notifier
-apt-get -y remove --purge --autoremove unity-webapps-*
-apt-get -y remove --purge --autoremove update-notifier
-
 for  package in "${DEPENDENCIES[@]}"
 do
     grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
@@ -72,8 +68,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     apt-get -y clean
 fi
 
-# Install python packages
-pip install --upgrade bibos-utils bibos-client
+# TODO: Look into this later. Install python packages
+# pip install --upgrade bibos-utils bibos-client
 
 # Setup unattended upgrades
 "$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security
