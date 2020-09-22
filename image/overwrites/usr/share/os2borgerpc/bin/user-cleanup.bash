@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# TODO: Maybe use a more standardized method than ".skjult".
 #this script cleans up the users home directory
 
 USERNAME="user"

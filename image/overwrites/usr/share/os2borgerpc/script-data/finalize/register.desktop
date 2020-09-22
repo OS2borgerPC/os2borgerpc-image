@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Tilmeld adminsystem
-Comment=bibos oem setup
+Comment=os2borgerpc oem setup
 Icon=terminal
-Exec=gksudo "gnome-terminal --command=/usr/local/bin/register_new_bibos_client.sh"
-Terminal=false
+Exec="gnome-terminal --command=sudo /usr/local/bin/register_new_bibos_client.sh"
+Terminal=true
 Type=Application
 NoDisplay=false
 Name=Tilmeld adminsystem
