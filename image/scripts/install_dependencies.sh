@@ -49,7 +49,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 
     # Step 2: Do the actual installation. Abort if it fails.
     # and install
-    apt-get -y install $PKGSTOINSTALL | tee /tmp/bibos_install_log.txt
+    apt-get -y install $PKGSTOINSTALL | tee /tmp/os2borgerpc_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
@@ -60,8 +60,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     fi
 
     # upgrade
-    apt-get -y upgrade | tee /tmp/bibos_upgrade_log.txt
-    apt-get -y dist-upgrade | tee /tmp/bibos_upgrade_log.txt
+    apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
+    apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 
     # Clean .deb cache to save space
     apt-get -y autoremove
@@ -69,7 +69,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 fi
 
 # TODO: Look into this later. Install python packages
-# pip install --upgrade bibos-utils bibos-client
+# pip install --upgrade os2borgerpc-utils os2borgerpc-client
 
 # Setup unattended upgrades
 "$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security

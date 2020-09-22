@@ -43,23 +43,23 @@ mkdir -p "$HIDDEN_DIR"/.cache/unity
 cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
 
 # Make now first boot
-touch /etc/bibos/firstboot
+touch /etc/os2borgerpc/firstboot
 
 # Prepare to run jobs
-mkdir -p /var/lib/bibos/jobs
-chmod -R og-r /var/lib/bibos
+mkdir -p /var/lib/os2borgerpc/jobs
+chmod -R og-r /var/lib/os2borgerpc
 
 # Prepare to run security events
-SECURITY_DIR=/etc/bibos/security/
-mkdir -p /etc/bibos/security/
-cp -R "$DIR"/../overwrites/usr/share/bibos/script-data/security/* "$SECURITY_DIR"
+SECURITY_DIR=/etc/os2borgerpc/security/
+mkdir -p /etc/os2borgerpc/security/
+cp -R "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/security/* "$SECURITY_DIR"
 
 # Do not show user backgrounds in Unity greeter
 "$DIR/../../admin_scripts/image_core/dconf_policy_greeter.sh" false
 
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
-set_bibos_config bibos_version "$VERSION"
+set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
 # Securing grub
 "$DIR/../../admin_scripts/image_core/grub_set_password.py" $(pwgen -N 1 -s 12)

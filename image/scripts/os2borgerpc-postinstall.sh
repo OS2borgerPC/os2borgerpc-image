@@ -11,7 +11,7 @@
 # This script REQUIRES AN INTERNET CONNECTION!
 
 # Get proxy-environment if needed
-source /usr/share/bibos/env/proxy.sh
+source /usr/share/os2borgerpc/env/proxy.sh
 
 
 USERNAME=''
@@ -56,31 +56,31 @@ zenity --question  --text="Tilslut admin-systemet?"
 if [[  $? -eq 0 ]]
 then 
     # User pressed "Yes"
-    register_new_bibos_client.sh
+    register_new_os2borgerpc_client.sh
 else
-    zenity --info --text="Kør 'register_new_bibos_client.sh' hvis du vil tilslutte senere"
+    zenity --info --text="Kør 'register_new_os2borgerpc_client.sh' hvis du vil tilslutte senere"
 fi
 
-if [[ -f /etc/lightdm/lightdm.conf.bibos ]]
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
 then
     # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-    mv /etc/lightdm/lightdm.conf.bibos /etc/lightdm/lightdm.conf
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
 fi
 
-if [[ -f /etc/bibos/firstboot ]]
+if [[ -f /etc/os2borgerpc/firstboot ]]
 then
-    # Add bibos started requirement to lightdm upstart script
+    # Add os2borgerpc started requirement to lightdm upstart script
     # TODO-CA: What is this? 
-    grep "and started bibos" /etc/init/lightdm.conf > /dev/null
+    grep "and started os2borgerpc" /etc/init/lightdm.conf > /dev/null
     if [ $? -ne 0 ]; then
         cat /etc/init/lightdm.conf | \
-            perl -ne 's/and started dbus/and started dbus\n           and started bibos/;print' \
+            perl -ne 's/and started dbus/and started dbus\n           and started os2borgerpc/;print' \
             > /tmp/lightdm.conf.tmp
         mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
     fi
-    rm /etc/bibos/firstboot
+    rm /etc/os2borgerpc/firstboot
 else
-    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/bibos/firstboot' og kør scriptet igen, hvis dette er en fejl."
+    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/os2borgerpc/firstboot' og kør scriptet igen, hvis dette er en fejl."
 fi
 
 
@@ -88,7 +88,7 @@ zenity --info --text="Installationen er afsluttet."
     
 # Delete desktop file
 
-DESKTOP_FILE=/home/$USERNAME/Skrivebord/bibos-postinstall.desktop
+DESKTOP_FILE=/home/$USERNAME/Skrivebord/os2borgerpc-postinstall.desktop
 if [[ -f $DESKTOP_FILE ]]
 then
     rm $DESKTOP_FILE

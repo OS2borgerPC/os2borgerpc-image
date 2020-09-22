@@ -32,7 +32,7 @@ pushd image/
 git fetch
 
 # Create standard OS2borgerPC setup
-image/scripts/bibos_setup.sh
+image/scripts/os2borgerpc_setup.sh
 
 # Finalize the image
 image/scripts/finalize.sh
