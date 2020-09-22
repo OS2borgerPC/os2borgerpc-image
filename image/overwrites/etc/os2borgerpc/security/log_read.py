@@ -12,7 +12,7 @@ def read(sec, fname):
 
     with open(fname) as f:
         for line in reversed(f.readlines()):
-	    line = str(line.replace('\0', ''))
+            line = str(line.replace('\0', ''))
             date_object = datetime.strptime(str(year) + ' ' + line[:15],
                                             '%Y %b  %d %H:%M:%S')
             # Detect lines from within the last x seconds
