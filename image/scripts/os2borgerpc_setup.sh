@@ -32,16 +32,6 @@ useradd user -m -p 12345 -s /bin/bash -U
 chfn -f Borger user
 adduser user nopasswdlogin
 
-# Disable showing shortcuts UI for user Borger
-HOME=/home/user/
-HIDDEN_DIR=/home/.skjult
-mkdir -p "$HOME"/.cache/unity
-touch "$HOME"/.cache/unity/first_run.stamp
-
-mkdir -p "$HIDDEN_DIR"/.cache/unity
-
-cp "$HOME"/.cache/unity/first_run.stamp "$HIDDEN_DIR"/.cache/unity/first_run.stamp
-
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
 
@@ -54,8 +44,6 @@ SECURITY_DIR=/etc/os2borgerpc/security/
 mkdir -p /etc/os2borgerpc/security/
 cp -R "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/security/* "$SECURITY_DIR"
 
-# Do not show user backgrounds in Unity greeter
-"$DIR/../../admin_scripts/image_core/dconf_policy_greeter.sh" false
 
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
