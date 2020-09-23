@@ -2,10 +2,10 @@
 
 # This file will finalize the BibOS installation by installing the things which
 # could not be preinstalled on the BibOS image. 
-# This includes:
+# This currently includes:
 #
-# * Printer and other hardware setup
-# * Proprietary packages which we're not allowed to distribute
+# * System upgrade.
+# * Grub configuration (may be necessary for some disk configurations).
 # * Registration to admin system.
 # 
 # This script REQUIRES AN INTERNET CONNECTION!
@@ -66,23 +66,6 @@ then
     # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
     mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
 fi
-
-if [[ -f /etc/os2borgerpc/firstboot ]]
-then
-    # Add os2borgerpc started requirement to lightdm upstart script
-    # TODO-CA: What is this? 
-    grep "and started os2borgerpc" /etc/init/lightdm.conf > /dev/null
-    if [ $? -ne 0 ]; then
-        cat /etc/init/lightdm.conf | \
-            perl -ne 's/and started dbus/and started dbus\n           and started os2borgerpc/;print' \
-            > /tmp/lightdm.conf.tmp
-        mv /tmp/lightdm.conf.tmp /etc/init/lightdm.conf
-    fi
-    rm /etc/os2borgerpc/firstboot
-else
-    zenity --warning --text="Dette er ikke en nyinstalleret BIBOS-maskine - opstarten ændres ikke.\n Lav en 'touch /etc/os2borgerpc/firstboot' og kør scriptet igen, hvis dette er en fejl."
-fi
-
 
 zenity --info --text="Installationen er afsluttet."
     
