@@ -7,13 +7,13 @@
 #WaylandEnable=false
 
 # Enabling automatic login
-#  AutomaticLoginEnable = true
-#  AutomaticLogin = user1
+AutomaticLoginEnable = true
+AutomaticLogin = user
 
 # Enabling timed login
-#  TimedLoginEnable = true
-#  TimedLogin = user1
-#  TimedLoginDelay = 10
+TimedLoginEnable = true
+TimedLogin = user
+TimedLoginDelay = 10
 
 [security]
 
