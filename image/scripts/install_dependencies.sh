@@ -68,8 +68,8 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     apt-get -y clean
 fi
 
-# TODO: Look into this later. Install python packages
-# pip install --upgrade os2borgerpc-utils os2borgerpc-client
+# TODO: Uncomment when package is on PyPI.
+# pip install -e os2borgerpc-client
 
 # Setup unattended upgrades
 "$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security

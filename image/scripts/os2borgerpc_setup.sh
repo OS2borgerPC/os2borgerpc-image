@@ -39,6 +39,11 @@ touch /etc/os2borgerpc/firstboot
 mkdir -p /var/lib/os2borgerpc/jobs
 chmod -R og-r /var/lib/os2borgerpc
 
+# Switch display manager to LightDM.
+DEBIAN_FRONTEND=noninteractive apt -y install lightdm
+echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
+apt -y remove gdm3
+
 # Prepare to run security events
 SECURITY_DIR=/etc/os2borgerpc/security/
 mkdir -p /etc/os2borgerpc/security/
