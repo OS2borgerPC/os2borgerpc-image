@@ -28,7 +28,7 @@ def write_data(data):
     line = datetime.now().strftime('%Y%m%d%H%M') + ','
     line += ','.join(data)
 
-    csvfile = open("/etc/bibos/security/securityevent.csv", "a")
+    csvfile = open("/etc/os2borgerpc/security/securityevent.csv", "a")
     csvfile.write(line + '\n')
 
     csvfile.close()

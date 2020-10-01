@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=os2borgerpc-postinstall
 Comment=os2borgerpc oem setup
-Exec="gnome-terminal --command=sudo /usr/share/bibos/bin/bibos-postinstall.sh"
+Exec="gnome-terminal --command=sudo /usr/share/os2borgerpc/bin/os2borgerpc-postinstall.sh"
 Terminal=true
 Type=Application
 NoDisplay=false

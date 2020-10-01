@@ -2,7 +2,7 @@
 Name=Tilmeld adminsystem
 Comment=os2borgerpc oem setup
 Icon=terminal
-Exec="gnome-terminal --command=sudo /usr/local/bin/register_new_bibos_client.sh"
+Exec="gnome-terminal --command=sudo /usr/local/bin/register_new_os2borgerpc_client.sh"
 Terminal=true
 Type=Application
 NoDisplay=false
