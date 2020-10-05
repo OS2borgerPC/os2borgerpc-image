@@ -22,5 +22,7 @@ chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
 # Remove Bluetooth indicator applet from Borger user
 "$DIR/../../admin_scripts/image_core/remove_bluetooth_applet.sh"
 
-"$DIR/../../admin_scripts/image_core/dconf_policy_desktop.sh" "$DIR/../graphics/production-green.png"
-
+# This is not necessary, as these settings are now in overwrites.
+# "$DIR/../../admin_scripts/image_core/dconf_policy_desktop.sh" "$DIR/../graphics/production-green.png"
+# Instead just
+dconf update
