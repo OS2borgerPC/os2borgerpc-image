@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="user_name" mtime="1323079141" type="string">
-		<stringvalue></stringvalue>
-	</entry>
-	<entry name="auth_token" mtime="1323079141" type="string">
-		<stringvalue></stringvalue>
-	</entry>
-</gconf>

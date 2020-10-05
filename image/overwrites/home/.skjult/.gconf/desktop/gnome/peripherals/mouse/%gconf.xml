@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="locate_pointer" mtime="1323079141" type="bool" value="false"/>
-	<entry name="left_handed" mtime="1323079141" type="bool" value="false"/>
-	<entry name="drag_threshold" mtime="1323079141" type="int" value="8"/>
-	<entry name="double_click" mtime="1323079141" type="int" value="400"/>
-	<entry name="motion_threshold" mtime="1323079141" type="int" value="-1"/>
-	<entry name="motion_acceleration" mtime="1323079141" type="float" value="-1"/>
-</gconf>
