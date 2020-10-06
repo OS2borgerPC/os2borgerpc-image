@@ -1,6 +1,8 @@
 [Desktop Entry]
-Encoding=UTF-8
-Name=Adgang til adminsystem
-Type=Link
-Icon=browser
-URL=https://bibos-admin.magenta-aps.dk/
+Name=OS2borgerPC Admin
+Comment=Gå til admin-systemet
+Exec=firefox https://bibos-admin.magenta-aps.dk
+Icon=firefox
+Type=Application
+Terminal=false
+X-Desktop-File-Install-Version=0.24

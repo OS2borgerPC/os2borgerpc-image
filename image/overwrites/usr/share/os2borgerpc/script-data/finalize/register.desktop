@@ -1,11 +1,9 @@
 [Desktop Entry]
-Name=Tilmeld adminsystem
-Comment=os2borgerpc oem setup
-Icon=terminal
-Exec="gnome-terminal --command=sudo /usr/local/bin/register_new_os2borgerpc_client.sh"
-Terminal=true
+Name=Registrer i OS2borgerPC Admin
+Comment=Registrer i admin-systemet
+Exec=sudo /usr/local/bin/register_new_os2borgerpc_client.sh
+Icon=org.gnome.Terminal
 Type=Application
-NoDisplay=false
-Name=Tilmeld adminsystem
-Name[da_DK]=Tilmeld adminsystem
-Comment[da_DK.UTF-8]=tilmeld adminsystem
+Categories=Utility;Documentation;ConsoleOnly;
+Terminal=true
+X-Desktop-File-Install-Version=0.24
