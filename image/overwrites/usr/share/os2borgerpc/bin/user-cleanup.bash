@@ -19,9 +19,3 @@ USERNAME="user"
         # Restore $HOME
 	rsync -vaz /home/.skjult/ /home/$USERNAME/
 	chown -R $USERNAME:$USERNAME /home/$USERNAME
-
-	# copy desktop icons
-	cp /home/.skjult/Desktop/* /home/$USERNAME/Desktop/
-	chown -R $USERNAME:$USERNAME /home/$USERNAME/Desktop
-	chmod +x /home/$USERNAME/Desktop/*
-
