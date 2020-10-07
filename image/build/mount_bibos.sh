@@ -1,5 +1,5 @@
 #!/bin/bash
-CD="${1:-bibos_base_image.iso}" ; shift
+CD="${1:-os2borgerpc_base_image.iso}" ; shift
 
 # exit after any error:
 set -e
@@ -17,7 +17,7 @@ fi
 
 which mksquashfs partclone.restore
 
-MNT_DIR=$( mktemp -d "${DIR}/bibos-image.XXXXXXXXXX" )
+MNT_DIR=$( mktemp -d "${DIR}/os2borgerpc-image.XXXXXXXXXX" )
 chmod 0775 "${MNT_DIR}"
 
 # Make a link to the source CD we used
@@ -52,7 +52,7 @@ function mnt {
 mnt "-t iso9660 $CD -o loop,ro" $CD_DIR
 
 echo "Generating HD loopback image"
-cat ${CD_DIR}/bibos-images/bibos_default/sda1.ext4-ptcl-img.gz.a* | \
+cat ${CD_DIR}/os2borgerpc-images/os2borgerpc_default/sda1.ext4-ptcl-img.gz.a* | \
     gzip -d -c | \
     partclone.restore -C -s - -O "${HD_IMAGE}" --restore_raw_file
 
@@ -67,4 +67,4 @@ trap "" EXIT HUP TERM INT QUIT
 
 echo ">>> Filesystems ready to be changed"
 echo ">>>  cd: ${CD_UNI_DIR}"
-echo ">>>  bibos-filesystem: ${FS_DIR}"
+echo ">>>  os2borgerpc-filesystem: ${FS_DIR}"
