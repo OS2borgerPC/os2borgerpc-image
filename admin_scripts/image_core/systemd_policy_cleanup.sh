@@ -57,9 +57,9 @@ Description=OS2borgerPC user directory cleanup
 
 [Service]
 Type=oneshot
-ExecStart=/usr/share/bibos/bin/user-cleanup.bash
+ExecStart=/usr/share/os2borgerpc/bin/user-cleanup.bash
 RemainAfterExit=yes
-ExecStop=/usr/share/bibos/bin/user-cleanup.bash
+ExecStop=/usr/share/os2borgerpc/bin/user-cleanup.bash
 
 [Install]
 WantedBy=multi-user.target
