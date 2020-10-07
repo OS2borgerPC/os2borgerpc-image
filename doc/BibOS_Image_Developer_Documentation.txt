@@ -17,9 +17,9 @@ it to a BibOS system.
 To do this, it will take the following steps:
 
     Invoke the script do_overwrite.sh. At present, do_overwrite installs
-    our gnome-control-center hack (so audience users are unable to access
-    system settings) and then performs the overwrite as indicated by the
-    following pseudocode:
+    our gnome-control-center hack or for Ubuntu 14.04 unity-control-center
+    hack (so audience users are unable to access system settings) and then 
+    performs the overwrite as indicated by the following pseudocode:
 
     DESTINATION='/'
     cp -r ../overwrites/* $DESTINATION
@@ -108,12 +108,24 @@ replaced with the contents of .skjult.
 
 /etc is currently only used to control login and user cleanup.
 
-User login is controlled by /etc/gdm3/custom.conf. This file has a
-number of settings that control the X session. 
-
-#TODO: Update this for GDM3
+User login is controlled by /etc/lightdm/lightdm.conf. This file has a
+number of settings that control the X session. This file could, e.g.,
 look as follows:
 
+[SeatDefaults]
+greeter-session=unity-greeter
+user-session=ubuntu-2d
+session-cleanup-script=/usr/share/bibos/bin/user-cleanup.bash
+allow-guest=false
+autologin-user-timeout=0
+autologin-user=user
+
+This specifies that:
+
+    ubuntu-2d, i.e., no 3D effects, is used for the user interface
+    The user cleanup script is called on each logout
+    Guest login is not allowed
+    The audience user user will be automatically logged in.
 
 If the customer wishes to change any of this so that e.g. user is
 required to supply a password, this file is where such changes should be
