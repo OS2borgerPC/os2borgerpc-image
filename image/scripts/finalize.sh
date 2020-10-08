@@ -6,4 +6,8 @@ cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/h
 
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
 cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
-# The PostInstall script should clean up, i.e. reverse the changes to LightDM configuration.
+# The PostInstall script will switch to the "normal" lightdm.conf for
+# os2borgerpc, ensuring cleanup of user's directory.
+
+# Setup cleanup script in systemd.
+"$DIR/../../admin_scripts/image_core/systemd_policy_cleanup.sh" 1
