@@ -47,13 +47,13 @@ apt-get install -y xprintidle
 TEMP=$(crontab -l | grep "inactive_logout.sh")
 if [[ -z "$TEMP" ]]
 then
-	line="* * * * * /usr/share/bibos/bin/inactive_logout.sh"
+	line="* * * * * /usr/share/os2borgerpc/bin/inactive_logout.sh"
 	(crontab -l -u root; echo "$line") | crontab -u root -
 fi
 
 
 # New auto_logout file
-cat << EOF > /usr/share/bibos/bin/inactive_logout.sh
+cat << EOF > /usr/share/os2borgerpc/bin/inactive_logout.sh
 #!/usr/bin/env bash
 
 # If the user is inactive for too long, a dialog will appear, warning the user that the session will end.
@@ -67,9 +67,9 @@ export DISPLAY=\$USER_DISPLAY
 
 su - user -s /bin/bash -c 'xhost +localhost'
 
-FILE=/usr/share/bibos/bin/dialogshown.txt
+FILE=/usr/share/os2borgerpc/bin/dialogshown.txt
 
-# LOG_DIR=/usr/share/bibos/bin/inactive_logout.log
+# LOG_DIR=/usr/share/os2borgerpc/bin/inactive_logout.log
 NEW_LOGOUT_TIME=$( expr $LOGOUT_TIME "*" 60 "*" 1000)
 # echo \$NEW_LOGOUT_TIME \$(xprintidle) >> \$LOG_DIR
 
@@ -101,4 +101,4 @@ exit 0
 
 EOF
 
-chmod +x /usr/share/bibos/bin/inactive_logout.sh
+chmod +x /usr/share/os2borgerpc/bin/inactive_logout.sh

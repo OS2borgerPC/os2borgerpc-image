@@ -14,7 +14,7 @@ then
 fi
 
 NEW_WARNING=$1
-TARGET_PATH="/usr/share/bibos/icons/Advarsel.svg"
+TARGET_PATH="/usr/share/os2borgerpc/icons/Advarsel.svg"
 
 
 if [ -f $NEW_WARNING ]

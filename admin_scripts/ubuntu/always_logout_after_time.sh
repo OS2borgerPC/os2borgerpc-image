@@ -11,7 +11,7 @@ fi
 if [[ ($1 == "--disable") || ($1 == "0") ]]
 then
     # Clean up
-    rm -f /usr/share/bibos/bin/auto_logout.sh
+    rm -f /usr/share/os2borgerpc/bin/auto_logout.sh
     rm -f /home/.skjult/.config/autostart/auto_logout.sh.desktop
     QUEUED_JOBS=$(atq)
     if [[ $QUEUED_JOBS ]]
@@ -22,7 +22,7 @@ then
 
 fi
 
-cat << EOF > /usr/share/bibos/bin/auto_logout.sh
+cat << EOF > /usr/share/os2borgerpc/bin/auto_logout.sh
 #!/usr/bin/env bash
 
 atrm \$(atq | awk '{ print \$1; } ')
@@ -44,7 +44,7 @@ exit 0
 
 EOF
 
-chmod +x /usr/share/bibos/bin/auto_logout.sh
+chmod +x /usr/share/os2borgerpc/bin/auto_logout.sh
 
 mkdir -p /home/.skjult/.config/autostart
 
@@ -52,7 +52,7 @@ cat << EOF > /home/.skjult/.config/autostart/auto_logout.sh.desktop
 
 [Desktop Entry]
 Type=Application
-Exec=/usr/share/bibos/bin/auto_logout.sh
+Exec=/usr/share/os2borgerpc/bin/auto_logout.sh
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

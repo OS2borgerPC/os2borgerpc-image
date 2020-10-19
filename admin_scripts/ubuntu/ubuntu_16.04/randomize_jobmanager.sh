@@ -6,7 +6,7 @@
 #+    randomize_jobmanager args $(interval in minutes)
 #%
 #% DESCRIPTION
-#%    This script sets the cron.d/bibos_jobmanager job to execute
+#%    This script sets the cron.d/os2borgerpc_jobmanager job to execute
 #%    at a random startup time with a certain interval.
 #%    So if the interval is 5 minutes, the jobmanager could run at
 #%    1, 6, 11...56 every hour, instead of 0, 5, 10 ...55.
@@ -56,7 +56,7 @@ do
 done
 echo "$CRON_COMMAND"
 
-CRON_PATH=/etc/cron.d/bibos-jobmanager
+CRON_PATH=/etc/cron.d/os2borgerpc-jobmanager
 
 rm $CRON_PATH
 
