@@ -8,6 +8,17 @@ then
     exit -1
 fi
 
+
+# Install at
+dpkg -l at 2>1 > /dev/null
+HAS_AT=$?
+
+if [[ $HAS_AT == 1 ]]
+then
+    apt-get update
+    apt-get install -y at
+fi
+
 if [[ ($1 == "--disable") || ($1 == "0") ]]
 then
     # Clean up
