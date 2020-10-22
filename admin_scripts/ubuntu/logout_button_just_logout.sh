@@ -8,7 +8,7 @@
 # After the script is run, the audience user must log out and log in again for
 # it to take effekt.
 
-cat << EOF > /home/.skjult/Desktop/Logout.desktop
+cat << EOF > /home/.skjult/Skrivebord/Logout.desktop
 
 [Desktop Entry]
 Version=1.0
