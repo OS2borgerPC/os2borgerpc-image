@@ -35,7 +35,7 @@ then
 fi
 
 
-cp $DESKTOP_FILE /home/.skjult/Desktop
+cp $DESKTOP_FILE /home/.skjult/Skrivebord
 
 exit 0
 
