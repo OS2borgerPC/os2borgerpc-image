@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 """
-Script for activating an OS2display screen on Google Chrome. Arguments: [url, activation_code]
+Activates an OS2display screen and runs Chromium in fullscreen. Arguments: [url, activation_code]
+The script is based on: image/admin_scripts/ubuntu/ubuntu_16.04/os2display-specific/auto_activate_chrome.py
 """
 
-__author__ = "Danni Als"
-__copyright__ = "Copyright 2019, Magenta Aps"
+__author__ = "Danni Als", "Heini L. ovason"
+__copyright__ = "Copyright 2020, Magenta Aps"
 __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
 __version__ = "0.2.0"
@@ -20,11 +21,12 @@ import stat
 import subprocess
 from urlparse import urlparse
 
-subprocess.call([sys.executable, "-m", "pip", "install", 'wget'])
-subprocess.call([sys.executable, "-m", "pip", "install", 'selenium'])
-subprocess.call([sys.executable, "-m", "pip", "install", 'plyvel'])
 
-print('Installed wget and selenium.')
+subprocess.call([sys.executable, "-m", "pip", "install", 'wget==3.2'])
+subprocess.call([sys.executable, "-m", "pip", "install", 'selenium==3.141.0'])
+subprocess.call([sys.executable, "-m", "pip", "install", 'plyvel==1.0.2'])
+
+print('Installed wget, selenium, and plyvel installed.')
 
 import wget
 import plyvel
