@@ -51,26 +51,17 @@ else:
     print('Mangler input parametre.')
     sys.exit(1)
 
-# get chrome version
-chrome_version = os.popen('google-chrome --version').read()
-# String returned is always 'Google Chrome xx.x.xxxx.xx'
-chrome_version = chrome_version.split(' ')
-chrome_version = chrome_version[2].split('.')[0]
-print('Chrome version installed: {}'.format(chrome_version))
-if chrome_version == '74':
-    driver_version = '74.0.3729.6'
-elif chrome_version == '75':
-    driver_version = '75.0.3770.140'
-elif chrome_version =='76':
-    driver_version = '76.0.3809.126'
-elif chrome_version == '77':
-    driver_version = '77.0.3865.40'
-elif chrome_version == '78':
-    driver_version = '78.0.3904.70'
-elif chrome_version == '79':
-    driver_version = '79.0.3945.36'
+# Returned string --> 'Chromimum xx.x.xxxx.xx Built on Ubuntu , running on Ubuntu xx.xx'
+chromium_version = os.popen('chromium-browser --version').read()
+chromium_version = chromium_version.split(' ')
+chromium_version = chromium_version[1]
+if chromium_version.split('.')[0] == '86':
+    driver_version = '86.0.4240.22'
+    print('Supported Chromium version installed: {}'.format(chromium_version))   
+    print('Chromedriver reference needed: {}'.format(driver_version))
 else:
-    print('Chrome version not supported.')
+    print('No supported Chromium version installed.')
+    print('Supported Chromium versions are listed in the current script.')
     sys.exit(1)
 
 system_path = '/usr/local/bin'
@@ -91,6 +82,7 @@ if not os.path.isfile(zip_path):
 
     chromedriver_url = 'https://chromedriver.storage.googleapis.com/' + driver_version + '/chromedriver_linux64.zip'
     wget.download(chromedriver_url, zip_path)
+    print('Driver download complete.')
 
     with zipfile.ZipFile(zip_path, 'r') as z:
         z.extractall(system_path)
@@ -119,7 +111,7 @@ except InvalidArgumentException as iae:
     print(iae.message)
     sys.exit(1)
 
-print('Chrome browser opened headless with url: {}'.format(url))
+print('Chromium browser opened headless with url: {}'.format(url))
 wait.until(expected.visibility_of_element_located((By.TAG_NAME, 'input'))).send_keys('' + activation_code + Keys.ENTER)
 
 try:
@@ -142,7 +134,7 @@ print('Token: {}'.format(token))
 print('UUID: {}'.format(uuid))
 
 browser.close()
-print('Chrome headless browser closed.')
+print('Chromium headless browser closed.')
 
 db_path = '/home/.skjult/.config/google-chrome/Default/Local Storage/'
 if not os.path.exists(db_path):
