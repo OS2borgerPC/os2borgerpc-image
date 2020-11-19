@@ -35,17 +35,13 @@ set -x
 
 POLICY="/etc/opt/chrome/policies/managed/os2borgerpc-login.json"
 
-if [ "$1" = "" ]; then
-    rm -f "$POLICY"
-else
-    if [ ! -d "`dirname "$POLICY"`" ]; then
-        mkdir -p "`dirname "$POLICY"`"
-    fi
+if [ ! -d "`dirname "$POLICY"`" ]; then
+    mkdir -p "`dirname "$POLICY"`"
+fi
 
-    cat > "$POLICY" <<END
+cat > "$POLICY" <<END
 {
     "BrowserSignin": 0,
     "PasswordManagerEnabled": false
 }
 END
-fi
