@@ -11,7 +11,7 @@ __credits__ = ["Allan Grauenkjaer"]
 __license__ = "GPL"
 __version__ = "0.2.0"
 __maintainer__ = "Magenta"
-__email__ = "danni@magenta.dk"
+__email__ = "danni@magenta.dk", "heini@magenta.dk"
 __status__ = "Production"
 
 import os
