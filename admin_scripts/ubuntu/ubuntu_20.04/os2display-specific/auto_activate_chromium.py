@@ -136,7 +136,7 @@ print('UUID: {}'.format(uuid))
 browser.close()
 print('Chromium headless browser closed.')
 
-db_path = '/home/.skjult/.config/google-chrome/Default/Local Storage/'
+db_path = '/home/chrome/.config/chromium/Default/Local Storage/'
 if not os.path.exists(db_path):
     os.mkdir(db_path)
 
