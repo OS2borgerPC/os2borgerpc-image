@@ -21,7 +21,6 @@ import stat
 import subprocess
 from urlparse import urlparse
 
-
 subprocess.call([sys.executable, "-m", "pip", "install", 'wget==3.2'])
 subprocess.call([sys.executable, "-m", "pip", "install", 'selenium==3.141.0'])
 subprocess.call([sys.executable, "-m", "pip", "install", 'plyvel==1.0.2'])
@@ -135,6 +134,11 @@ print('UUID: {}'.format(uuid))
 
 browser.close()
 print('Chromium headless browser closed.')
+
+# Making sure all instances of Chromium are shut down,
+# or leveldb will be inaccessible to plyvel
+os.system("pkill -o chromium")
+os.system("sleep 5")
 
 db_path = '/home/chrome/.config/chromium/Default/Local Storage/'
 if not os.path.exists(db_path):
