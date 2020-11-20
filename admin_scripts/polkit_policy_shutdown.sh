@@ -46,7 +46,7 @@ else
     cat > "$POLICY" <<END
 [Restrict system shutdown]
 Identity=unix-user:user;unix-user:lightdm
-Action=org.freedesktop.login1.hibernate*;org.freedesktop.login1.power-off*;org.freedesktop.login1.reboot*;org.freedesktop.login1.suspend*;org.freedesktop.login1.lock-sessions
+Action=org.freedesktop.login1.hibernate*;org.freedesktop.login1.power-off*;org.freedesktop.login1.reboot*;org.freedesktop.login1.suspend*;org.freedesktop.login1.lock-sessions;org.freedesktop.login1.set-reboot*
 ResultAny=no
 ResultActive=no
 ResultInactive=no
