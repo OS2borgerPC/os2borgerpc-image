@@ -1,1 +1,0 @@
-ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", RUN+="/etc/os2borgerpc/security/keyboardEvent.py 'input:'"
