@@ -11,3 +11,11 @@ cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
 
 # Setup cleanup script in systemd.
 "$DIR/../../admin_scripts/image_core/systemd_policy_cleanup.sh" 1
+
+
+# Automatic login for user, not superuser.
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+fi
