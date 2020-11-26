@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Afslut OS2borgerPC installation
-Comment=Afslut OS2borgerPC installation
-Exec=sudo /usr/share/os2borgerpc/bin/os2borgerpc-postinstall.sh
-Icon=org.gnome.Terminal
-Type=Application
-Categories=Utility;Documentation;ConsoleOnly;
-Terminal=true
-X-Desktop-File-Install-Version=0.24
