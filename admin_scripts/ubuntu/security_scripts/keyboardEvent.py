@@ -5,15 +5,15 @@ Security Script for finding USB keyboard attachment events happened within the l
 """
 
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 import csv_writer
 import log_read
 
 __author__ = "Danni Als"
-__copyright__ = "Copyright 2017, Magenta Aps"
-__credits__ = ["Carsten Agger", "Dennis Borup Jakobsens"]
+__copyright__ = "Copyright 2017-2020 Magenta ApS"
+__credits__ = ["Carsten Agger", "Dennis Borup Jakobsens", "Alexander Faithfull"]
 __license__ = "GPL"
-__version__ = "0.1.4"
+__version__ = "0.1.5"
 __maintainer__ = "Danni Als"
 __email__ = "danni@magenta.dk"
 __status__ = "Production"
@@ -22,34 +22,23 @@ __status__ = "Production"
 # Get lines from syslog
 fname = "/var/log/syslog"
 
-now = datetime.now().strftime('%Y%m%d%H%M')
-
+now = datetime.now()
+last_security_check = now - timedelta(seconds=86400)
 try:
-    check_file = open("/etc/bibos/security/lastcheck.txt", "r")
+    with open("/etc/bibos/security/lastcheck.txt", "r") as fp:
+        timestamp = fp.read()
+        if timestamp:
+            last_security_check = datetime.strptime(timestamp, "%Y%m%d%H%M")
 except IOError:
-    # File does not exists, so we create it.
-    os.mknod("/etc/bibos/security/lastcheck.txt")
-    check_file = open("/etc/bibos/security/lastcheck.txt", "r")
+    pass
 
-last_security_check = datetime.strptime(now, '%Y%m%d%H%M')
-last_check = check_file.read()
-check_file.close()
-
-if last_check:
-    last_security_check = (
-        datetime.strptime(last_check, '%Y%m%d%H%M'))
-
-delta = datetime.strptime(now, '%Y%m%d%H%M') - last_security_check
-
-delta_ms = int(delta.total_seconds())
+delta_sec = int((now - last_security_check).total_seconds())
 
 lines = ''
-# If last security check is 24 hours old, we raise an error.
-if delta_ms < 86400:
-    lines = log_read.read(delta_ms, fname)
+if delta_sec <= 86400:
+    lines = log_read.read(delta_sec, fname)
 else:
-    # No need to delete last_security_check file from here, as the bibos_client should handle this.
-    raise ValueError('Last security check has not been performed for the last 24 hours.')
+    raise ValueError("No security check in the last 24 hours.")
 
 if lines.partition('Power Button')[2] != "":
     sys.exit()

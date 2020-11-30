@@ -4,12 +4,11 @@
 # HEADER
 #================================================================
 #% SYNOPSIS
-#+    polkit_policy_shutdown.sh [ENFORCE]
+#+    systemd_policy_cleanup.sh [ENFORCE]
 #%
 #% DESCRIPTION
-#%    This script installs a mandatory PolicyKit policy that prevents the
-#%    "user" or "lightdm" users from sleeping, hibernating, restarting or
-#%    shutting down the system.
+#%    This script installs a systemd unit that resets the contents of "user"'s
+#%    home directory at system startup and shutdown time.
 #%
 #%    It takes one optional parameter: whether or not to enforce this policy.
 #%    If this parameter is missing, empty, "false", or "falsk", the policy will
@@ -17,10 +16,10 @@
 #%
 #================================================================
 #- IMPLEMENTATION
-#-    version         polkit_policy_shutdown.sh (magenta.dk) 1.0.0
+#-    version         systemd_policy_cleanup.sh (magenta.dk) 1.0.0
 #-    author          Alexander Faithfull
 #-    copyright       Copyright 2019, 2020 Magenta ApS
-#-    license         GNU General Public License
+#-    license         GNU General Public License, version 3 or later
 #-    email           af@magenta.dk
 #-
 #================================================================
@@ -34,25 +33,44 @@
 
 set -x
 
-POLICY="/etc/polkit-1/localauthority/90-mandatory.d/10-os2borgerpc-no-user-shutdown.pkla"
+POLICY="/etc/systemd/system/os2borgerpc-cleanup.service"
+UNIT="`basename "$POLICY"`"
 
 if [ "$1" = "" -o "$1" = "false" -o "$1" = "falsk" ]; then
-    rm -f "$POLICY"
+    if [ -f "$POLICY" ]; then
+        systemctl stop "$UNIT" || true
+        systemctl disable "$UNIT" || true
+        rm -f "$POLICY"
+    else
+        # If the unit file didn't exist, then it can't have been enabled, so we
+        # just stop here
+        exit 0
+    fi
 else
     if [ ! -d "`dirname "$POLICY"`" ]; then
         mkdir "`dirname "$POLICY"`"
     fi
 
     cat > "$POLICY" <<END
-[Restrict system shutdown]
-Identity=unix-user:user;unix-user:lightdm
-Action=org.freedesktop.login1.hibernate*;org.freedesktop.login1.power-off*;org.freedesktop.login1.reboot*;org.freedesktop.login1.suspend*;org.freedesktop.login1.lock-sessions;org.freedesktop.login1.set-reboot*
-ResultAny=no
-ResultActive=no
-ResultInactive=no
+[Unit]
+Description=OS2borgerPC user directory cleanup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/bibos/bin/user-cleanup.bash
+RemainAfterExit=yes
+ExecStop=/usr/share/bibos/bin/user-cleanup.bash
+
+[Install]
+WantedBy=multi-user.target
 END
 fi
 
-# PolicyKit is supposed to monitor the /etc/polkit-1/localauthority folder, but
-# err on the side of caution and restart the service
-systemctl restart polkitd.service || systemctl restart polkit.service
+# Tell systemd about this change in the unit file set
+systemctl daemon-reload
+systemctl reset-failed
+
+if [ -f "$POLICY" ]; then
+    systemctl enable "$UNIT"
+    systemctl start "$UNIT"
+fi

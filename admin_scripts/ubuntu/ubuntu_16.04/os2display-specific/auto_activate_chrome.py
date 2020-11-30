@@ -65,6 +65,8 @@ elif chrome_version == '77':
     driver_version = '77.0.3865.40'
 elif chrome_version == '78':
     driver_version = '78.0.3904.70'
+elif chrome_version == '79':
+    driver_version = '79.0.3945.36'
 else:
     print('Chrome version not supported.')
     sys.exit(1)

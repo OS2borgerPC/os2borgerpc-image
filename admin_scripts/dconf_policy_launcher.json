@@ -1,0 +1,12 @@
+ {
+  "name": "Desktop - Skjul venstre menu",
+  "description": "Skjuler den venstre menu, indtil brugeren bringer markøren til skærmens venstre side.\n\nUdarbejdet af Alexander Faithfull <af@magenta.dk>.",
+  "parameters": [
+    {
+      "name": "Aktivér?",
+      "type": "string",
+      "required": false,
+      "description": "menu bliver vist som sædvanligt hvis dette parameter er tomt eller ordet 'falsk'"
+    }
+  ]
+}

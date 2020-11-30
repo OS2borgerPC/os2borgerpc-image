@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Find current directory
+
 DIR=$(dirname ${BASH_SOURCE[0]})
 
 # Install OS2bogerPC specific dependencies
@@ -8,17 +9,21 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 # The DEPENDENCIES file contains packages/programs
 # required by OS2borgerPC AND extra packages which are free dependencies
 # of Skype and MS Fonts - to shorten the postinstall process.
-
-if [ $# == 0 ]
-then
-    DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
-else
-    DEPENDENCIES=( $(cat "$DIR/$1") )
-fi
+DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
 PKGSTOINSTALL=""
 
 dpkg -l | grep "^ii" > /tmp/installed-package-list.txt
+
+grep -w "ii  deja-dup" /tmp/installed-package-list.txt > /dev/null
+if [ $? -eq 0 ]; then
+   # Things to get rid of. Factor out to file if many turn up.
+   apt-get -y remove --purge deja-dup
+fi
+
+# Remove amazon and update notifier
+apt-get -y remove --purge --autoremove unity-webapps-*
+apt-get -y remove --purge --autoremove update-notifier
 
 for  package in "${DEPENDENCIES[@]}"
 do
@@ -65,23 +70,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     # Clean .deb cache to save space
     apt-get -y autoremove
     apt-get -y clean
-fi
-
-
-# Things to get rid of. Factor out to file if many turn up.
-grep -w "ii  deja-dup" /tmp/installed-package-list.txt > /dev/null
-if [ $? -eq 0 ]; then
-   apt-get -y remove --purge deja-dup
-fi
-
-# Remove amazon and update notifier if installed.
-grep "ii  unity-webapps" /tmp/installed-package-list.txt > /dev/null
-if [ $? -eq 0 ]; then
-    apt-get -y remove --purge --autoremove unity-webapps-*
-fi
-grep -w "ii  update-notifier\s" /tmp/installed-package-list.txt > /dev/null
-if [ $? -eq 0 ]; then
-    apt-get -y remove --purge --autoremove update-notifier
 fi
 
 # Install python packages
