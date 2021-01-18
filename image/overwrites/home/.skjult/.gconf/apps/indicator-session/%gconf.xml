@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="suppress_shutdown_menuitem" mtime="1323079142" type="bool" value="false"/>
-	<entry name="suppress_restart_menuitem" mtime="1323079142" type="bool" value="false"/>
-	<entry name="suppress_logout_restart_shutdown" mtime="1323079142" type="bool" value="false"/>
-	<entry name="suppress_logout_menuitem" mtime="1323079142" type="bool" value="false"/>
-</gconf>

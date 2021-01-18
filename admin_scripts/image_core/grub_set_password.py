@@ -101,7 +101,7 @@ def main():
     # remain in place, or the system will become unbootable without the
     # password), instruct dpkg(1) to leave it alone!
     diversion = run(["dpkg-divert", "--add", "/etc/grub.d/10_linux"])
-    if diversion.returncode is not 0:
+    if diversion.returncode != 0:
         print("diversion failed")
         exit(1)
 
@@ -112,14 +112,14 @@ def main():
                     "/etc/grub.d/10_linux"],
             input=diff, stdout=DEVNULL, stderr=DEVNULL,
             universal_newlines=True)
-    if already_applied.returncode is not 0:
+    if already_applied.returncode != 0:
         # If we haven't, then patch it now
         print("patching /etc/grub.d/10_linux")
         application = run(
                 ["patch", "--silent", "--force", "/etc/grub.d/10_linux"],
                 input=diff,
                 universal_newlines=True)
-        if application.returncode is not 0:
+        if application.returncode != 0:
             print("patch failed")
             exit(1)
     else:
@@ -156,7 +156,7 @@ def main():
     # Finally, having done all of that, run update-grub(1) to generate a new
     # grub.cfg
     result = run(["update-grub"])
-    if result.returncode is not 0:
+    if result.returncode != 0:
         print("update-grub failed")
         exit(1)
 

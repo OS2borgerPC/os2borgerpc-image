@@ -21,7 +21,7 @@ old_safeq_files=(
 # Stop CUPSD
 service cups stop
 
-# Remove the old safeq client, but not the ppd files in the /opt folder (bibos_safeq_install_2.sh)
+# Remove the old safeq client, but not the ppd files in the /opt folder (os2borgerpc_safeq_install_2.sh)
 for file in "${old_safeq_files[@]}"
 do
     rm -frv $file

@@ -8,11 +8,11 @@ then
 fi
 
 FILENAME=$1
-FILEPATH="/home/.skjult/Desktop/$FILENAME"
+FILEPATH="/home/.skjult/Skrivebord/$FILENAME"
 
 if [ -f $FILEPATH ]
 then
-    rm -f "/home/.skjult/Desktop/$FILENAME"
+    rm -f "/home/.skjult/Skrivebord/$FILENAME"
 else
     echo "File does not exist"
     exit -1

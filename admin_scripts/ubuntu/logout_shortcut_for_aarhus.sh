@@ -8,7 +8,7 @@
 # After the script is run, the audience user must log out and log in again for
 # it to take effekt.
 
-cat << EOF > /home/.skjult/Desktop/Logout.desktop
+cat << EOF > /home/.skjult/Skrivebord/Logout.desktop
 
 [Desktop Entry]
 Version=1.0
@@ -22,7 +22,7 @@ EOF
 
 NWA_LOGOUT_STRING="https://nhs.aarhuskommune.dk/nwa_auth/action/logout"
 
-USER_CLEANUP_FILE="/usr/share/bibos/bin/user-cleanup.bash"
+USER_CLEANUP_FILE="/usr/share/os2borgerpc/bin/user-cleanup.bash"
 echo "curl $NWA_LOGOUT_STRING &> /dev/null &" >> $USER_CLEANUP_FILE 
 
 exit 0

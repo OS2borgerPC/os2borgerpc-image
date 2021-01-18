@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="picture_filename" mtime="1323079142" type="string">
-		<stringvalue>file:///usr/share/backgrounds/warty-final-ubuntu.png</stringvalue>
-	</entry>
-</gconf>

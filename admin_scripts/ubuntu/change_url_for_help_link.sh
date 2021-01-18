@@ -11,7 +11,7 @@ then
     # Don't care if people supply too many parameters.
 fi
 
-cat << EOF > /home/.skjult/Desktop/Help.desktop
+cat << EOF > /home/.skjult/Skrivebord/Help.desktop
 
 [Desktop Entry]
 Version=1.0

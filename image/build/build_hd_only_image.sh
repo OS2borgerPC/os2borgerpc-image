@@ -16,7 +16,7 @@ if [ ! -f "$FS_IMG" ]; then
     exit 1;
 fi
 
-TARGET_DIR=$( mktemp -d "${DIR}/images/bibos-hd-image.XXXXXXXXXX" )
+TARGET_DIR=$( mktemp -d "${DIR}/images/os2borgerpc-hd-image.XXXXXXXXXX" )
 
 set -e
 

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="raw_flag" mtime="1323079141" type="bool" value="false"/>
-	<entry name="minbug_value" mtime="1323079141" type="int" value="0"/>
-	<entry name="immed_flag" mtime="1323079141" type="bool" value="false"/>
-	<entry name="dao_flag" mtime="1323079141" type="bool" value="false"/>
-	<entry name="checksum_image" mtime="1323079141" type="int" value="0"/>
-	<entry name="checksum_files" mtime="1323079141" type="int" value="0"/>
-</gconf>

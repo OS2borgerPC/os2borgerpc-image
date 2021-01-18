@@ -1,0 +1,4 @@
+{
+  "name": "Chrome - deaktiver autologin Google Chrome",
+  "description": "Deaktiverer autologin og 'husk password' for Google Chrome.\n\nDette script kan køres uden at have installeret Google Chrome.\n\nUdarbejdet af Carsten Agger <carstena@magenta.dk>."
+}

@@ -19,7 +19,7 @@ fi
 
 which partclone.restore
 
-MNT_DIR=$( mktemp -d "${DIR}/bibos-hd-image.XXXXXXXXXX" )
+MNT_DIR=$( mktemp -d "${DIR}/os2borgerpc-hd-image.XXXXXXXXXX" )
 chmod 0775 "${MNT_DIR}"
 
 HD_IMAGE="${MNT_DIR}/hd_loopback_image.img"
@@ -55,4 +55,4 @@ mnt "-t ext4 ${HD_IMAGE} -o loop" "$FS_DIR"
 trap "" EXIT HUP TERM INT QUIT
 
 echo ">>> Filesystems ready to be changed"
-echo ">>>  bibos-filesystem: ${FS_DIR}"
+echo ">>>  os2borgerpc-filesystem: ${FS_DIR}"

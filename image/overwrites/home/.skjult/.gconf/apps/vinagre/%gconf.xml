@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="show_accels" mtime="1323079141" type="bool" value="false"/>
-	<entry name="shared_flag" mtime="1323079141" type="bool" value="true"/>
-	<entry name="history_size" mtime="1323079141" type="int" value="15"/>
-	<entry name="always_show_tabs" mtime="1323079141" type="bool" value="false"/>
-	<entry name="always_enable_listening" mtime="1323079141" type="bool" value="false"/>
-</gconf>

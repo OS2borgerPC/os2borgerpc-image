@@ -25,7 +25,7 @@ fname = "/var/log/syslog"
 now = datetime.now()
 last_security_check = now - timedelta(seconds=86400)
 try:
-    with open("/etc/bibos/security/lastcheck.txt", "r") as fp:
+    with open("/etc/os2borgerpc/security/lastcheck.txt", "r") as fp:
         timestamp = fp.read()
         if timestamp:
             last_security_check = datetime.strptime(timestamp, "%Y%m%d%H%M")

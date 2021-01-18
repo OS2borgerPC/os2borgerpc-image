@@ -2,11 +2,20 @@
 
 DIR=$(dirname $(realpath $0 ))
 
-cp "$DIR"/../overwrites/usr/share/bibos/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
+cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
-# Copy finalize script to /usr/share/bibos/bin
-cp "$DIR/bibos-postinstall.sh" /usr/share/bibos/bin
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-cp /etc/lightdm/lightdm.conf.bibos_firstboot /etc/lightdm/lightdm.conf
-sed -i "s/autologin-user=[a-zA-Z0-9]\+/autologin-user=superuser/" /etc/lightdm/lightdm.conf
-# The PostInstall script should clean up, i.e. reverse all these changes.
+cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
+# The PostInstall script will switch to the "normal" lightdm.conf for
+# os2borgerpc, ensuring cleanup of user's directory.
+
+# Setup cleanup script in systemd.
+"$DIR/../../admin_scripts/image_core/systemd_policy_cleanup.sh" 1
+
+
+# Automatic login for user, not superuser.
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+fi

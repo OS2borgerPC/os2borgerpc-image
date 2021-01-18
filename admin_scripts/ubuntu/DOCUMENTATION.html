@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
-<title>Bibos Admin: Dokumentation af globale scripts</title>
+<meta name="generator" content="Docutils 0.16: http://docutils.sourceforge.net/" />
+<title>OS2borgerPC Admin: Dokumentation af globale scripts</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Id: $Id: html4css1.css 7952 2016-07-26 18:15:59Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -37,6 +37,14 @@ table.borderless td, table.borderless th {
 .hidden {
   display: none }
 
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
 a.toc-backref {
   text-decoration: none ;
   color: black }
@@ -46,6 +54,10 @@ blockquote.epigraph {
 
 dl.docutils dd {
   margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
 
 /* Uncomment (and remove this text!) to get bold-faced definition list terms
 dl.docutils dt {
@@ -73,7 +85,7 @@ div.tip p.admonition-title {
 
 div.attention p.admonition-title, div.caution p.admonition-title,
 div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title {
+div.warning p.admonition-title, .code .error {
   color: red ;
   font-weight: bold ;
   font-family: sans-serif }
@@ -157,18 +169,23 @@ h2.subtitle {
 hr.docutils {
   width: 75% }
 
-img.align-left, .figure.align-left, object.align-left {
+img.align-left, .figure.align-left, object.align-left, table.align-left {
   clear: left ;
   float: left ;
   margin-right: 1em }
 
-img.align-right, .figure.align-right, object.align-right {
+img.align-right, .figure.align-right, object.align-right, table.align-right {
   clear: right ;
   float: right ;
   margin-left: 1em }
 
 img.align-center, .figure.align-center, object.align-center {
   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
   margin-left: auto;
   margin-right: auto;
 }
@@ -185,10 +202,19 @@ img.align-center, .figure.align-center, object.align-center {
 
 /* reset inner alignment in figures */
 div.align-right {
-  text-align: left }
+  text-align: inherit }
 
 /* div.align-center * { */
 /*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
 
 ol.simple, ul.simple {
   margin-bottom: 1em }
@@ -245,9 +271,18 @@ pre.address {
   margin-top: 0 ;
   font: inherit }
 
-pre.literal-block, pre.doctest-block {
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
   margin-left: 2em ;
   margin-right: 2em }
+
+pre.code .ln { color: grey; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
 
 span.classifier {
   font-family: sans-serif ;
@@ -300,6 +335,21 @@ table.docutils th.field-name, table.docinfo th.docinfo-name {
   white-space: nowrap ;
   padding-left: 0 }
 
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
 h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
 h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
   font-size: 100% }
@@ -310,20 +360,21 @@ ul.auto-toc {
 </style>
 </head>
 <body>
-<div class="document" id="bibos-admin-dokumentation-af-globale-scripts">
-<h1 class="title">Bibos Admin: Dokumentation af globale scripts</h1>
+<div class="document" id="os2borgerpc-admin-dokumentation-af-globale-scripts">
+<h1 class="title">OS2borgerPC Admin: Dokumentation af globale scripts</h1>
 
 <div class="section" id="indledning">
 <h1>Indledning</h1>
 <p>Denne fil indeholder dokumentation for de globale scripts til
-BibOSAdmin-interfacet, der leveres sammen med selve systemet.</p>
-<p>For hvert område indeholder dokumentet en omtale af de scripts, der findes; en
-specifikation af de parametre, de tager; og en bemærkning om, hvilke ting man
-skal passe på, når man kører scriptet.</p>
-<p>De her beskrevne scrips er alle lagt ind som globale scripts på admin-sitet og
-kildekoden til dem kan findes her: <a class="reference external" href="https://bibos-admin.magenta-aps.dk/scripts">https://bibos-admin.magenta-aps.dk/scripts</a></p>
-<p>Alle scripts, der vedrører publikumsbrugerens opsætning, kan først forventes at
-få effekt, når brugeren er logget ud og logget ind igen efter kørslen.</p>
+OS2borgerPC Admin-systemet, som man får adgang til ved login.</p>
+<p>For hvert område indeholder dokumentet en omtale af de scripts, der
+findes; en specifikation af de parametre, de tager; og en bemærkning om,
+hvilke ting man skal passe på, når man kører scriptet.</p>
+<p>De her beskrevne scrips er alle lagt ind som globale scripts på
+admin-sitet.</p>
+<p>Alle scripts, der vedrører publikumsbrugerens opsætning, kan først
+forventes at få effekt, når brugeren er logget ud og logget ind igen
+efter kørslen.</p>
 </div>
 <div class="section" id="automatisk-opdatering">
 <h1>Automatisk opdatering</h1>
@@ -333,19 +384,20 @@ få effekt, når brugeren er logget ud og logget ind igen efter kørslen.</p>
 <dt><em>Parametre:</em></dt>
 <dd><ul class="first last simple">
 <li>interval - antal dage mellem checks, 0 for at slå fra</li>
-<li>distribution - &quot;all&quot; for alle, &quot;security&quot; for kun sikkerhedsopdateringer og
-&quot;pass&quot; for ingen ændring.</li>
+<li>distribution - &quot;all&quot; for alle, &quot;security&quot; for kun
+sikkerhedsopdateringer og &quot;pass&quot; for ingen ændring.</li>
 </ul>
 </dd>
 </dl>
 <p>Det er muligt at indstille, at en computer selv skal hente og installere
 opdateringer uden om admin-systemet.</p>
-<p>Der er to parametre, der kan skrues på her: Om den automatiske installation
-skal være slået til eller fra, og om den skal hente alle opdateringer eller kun
-sikkerhedsopdateringer. Hvis parametrene ikke indeholder det, der er
-specificeret herover, vil scriptet fejle eller ikke have nogen effekt.</p>
-<p>Scriptet kan findes som globalt script på admin-sitet
-under navnet &quot;Automatiske opdateringer&quot;.</p>
+<p>Der er to parametre, der kan skrues på her: Om den automatiske
+installation skal være slået til eller fra, og om den skal hente alle
+opdateringer eller kun sikkerhedsopdateringer. Hvis parametrene ikke
+indeholder det, der er specificeret herover, vil scriptet fejle eller
+ikke have nogen effekt.</p>
+<p>Scriptet kan findes som globalt script på admin-sitet under navnet
+&quot;Automatiske opdateringer&quot;.</p>
 </div>
 <div class="section" id="skifte-browserstartside">
 <h1>Skifte browserstartside</h1>
@@ -361,8 +413,8 @@ change_chrome_startpage.py</dd>
 </dl>
 <p>Der foretages ingen validering af, at URL'en angiver en gyldig
 hjemmeside-adresse, eller at adressen eksisterer.</p>
-<p>De to scripts kan findes som hhv. &quot;Startside for Google Chrome&quot; og &quot;Startside
-for Mozilla Firefox&quot; under &quot;Globale Scripts&quot;.</p>
+<p>De to scripts kan findes som hhv. &quot;Startside for Google Chrome&quot; og
+&quot;Startside for Mozilla Firefox&quot; under &quot;Globale Scripts&quot;.</p>
 </div>
 <div class="section" id="skifte-browserbogmaerker">
 <h1>Skifte browserbogmærker</h1>
@@ -376,23 +428,25 @@ upload_googlechrome_bookmarks.sh</dd>
 </ul>
 </dd>
 </dl>
-<p>For at bruge disse scripts er det nødvendigt at finde ud af, hvor Firefox og
-Chrome gemmer bogmærkerne henne. På en BibOS-maskine er det (ud fra brugerens
-hjemmemappe) er det i .mozilla/firefox/e1362422.default/ for Firefox og
-.config/google-chrome/Default/ for Google Chrome. Hvis du arbejder på en
-Linux-maskine vil de ligge noget i retning af samme sted; på Windows og Mac kan
-de ligge andre steder.</p>
-<p>For begge browseres vedkommende gælder, at du på én maskine skal tilpasse
-bogmærkerne, så de er, præcis som du ønsker det, og (vigtigt!) lukke browseren.
-Herefter skal du for Firefox' vedkommende køre Firefox-scriptet med den <em>nyeste</em>
-fil i &quot;bookmarkbackups&quot;-mappen som parameter. Hvis det er Google Chrome, du
-ønsker at give nye bogmærker, skal du køre Chrome-scriptet med filen
-&quot;Bookmarks&quot; i Default-mappen som parameter.</p>
-<p>Begge scripts vil kun virke hvis den fil, man angiver som parameter, faktisk
-eksisterer, men der foretages ingen validering af, at den indeholder noget
-fornuftigt.</p>
-<p>De to scripts ligger i &quot;Global Scripts&quot; under navnet &quot;Bogmærker for Firefox&quot;
-hhv &quot;Bogmærker for Google Chrome&quot;.</p>
+<p>For at bruge disse scripts er det nødvendigt at finde ud af, hvor
+Firefox og Chrome gemmer bogmærkerne henne. På en OS2borgerPC-maskine er
+det (ud fra brugerens hjemmemappe)  i
+<tt class="docutils literal">.mozilla/firefox/e1362422.default/</tt> for Firefox og
+<tt class="docutils literal"><span class="pre">.config/google-chrome/Default/</span></tt>, for Google Chrome.  Hvis du arbejder
+på en Linux-maskine vil de ligge noget i retning af samme sted; på
+Windows og Mac kan de ligge andre steder.</p>
+<p>For begge browseres vedkommende gælder, at du på én maskine skal
+tilpasse bogmærkerne, så de er, præcis som du ønsker det, og (vigtigt!)
+lukke browseren.  Herefter skal du for Firefox' vedkommende køre
+Firefox-scriptet med den <em>nyeste</em> fil i &quot;bookmarkbackups&quot;-mappen som
+parameter. Hvis det er Google Chrome, du ønsker at give nye bogmærker,
+skal du køre Chrome-scriptet med filen &quot;Bookmarks&quot; i Default-mappen som
+parameter.</p>
+<p>Begge scripts vil kun virke hvis den fil, man angiver som parameter,
+faktisk eksisterer, men der foretages ingen validering af, at den
+indeholder noget fornuftigt.</p>
+<p>De to scripts ligger i &quot;Global Scripts&quot; under navnet &quot;Bogmærker for
+Firefox&quot; hhv &quot;Bogmærker for Google Chrome&quot;.</p>
 </div>
 <div class="section" id="skifte-skrivebordsbaggrund">
 <h1>Skifte skrivebordsbaggrund</h1>
@@ -408,7 +462,8 @@ baggrund.</li>
 </dl>
 <p>Dette er lige ud ad landevejen. Der foretages ingen validering af, at
 den fil, der gives med, faktisk er en billedfil.</p>
-<p>I &quot;Global Scripts&quot; ligger dette script under navnet &quot;Skift baggrundsbillede&quot;.</p>
+<p>I &quot;Global Scripts&quot; ligger dette script under navnet &quot;Skift
+baggrundsbillede&quot;.</p>
 </div>
 <div class="section" id="aendre-tekst-i-infoboks-pa-skrivebordet">
 <h1>Ændre tekst i infoboks på skrivebordet</h1>
@@ -421,11 +476,11 @@ den fil, der gives med, faktisk er en billedfil.</p>
 </ul>
 </dd>
 </dl>
-<p>Dette script udskifter grundlæggende den nuværende advarsel med en anden, der
-uploades som billedfil. Det er altså op til brugeren/biblioteket selv at
-generere en billedfil.</p>
-<p>Der foretages ingen validering af, at den medsendte fil faktisk indeholder et
-billede, der vil se fornuftigt ud på skrivebordet.</p>
+<p>Dette script udskifter grundlæggende den nuværende advarsel med en
+anden, der uploades som billedfil. Det er altså op til
+brugeren/biblioteket selv at generere en billedfil.</p>
+<p>Der foretages ingen validering af, at den medsendte fil faktisk
+indeholder et billede, der vil se fornuftigt ud på skrivebordet.</p>
 <p>Ligger i &quot;Globale Scripts&quot; som &quot;Skift infoboks på skrivebordet&quot;.</p>
 </div>
 <div class="section" id="aendre-url-til-hjaelp-pa-skrivebordet">
@@ -440,8 +495,8 @@ billede, der vil se fornuftigt ud på skrivebordet.</p>
 </dd>
 </dl>
 <p>Igen lige ud ad landevejen - send en URL med som parameter, og linket på
-skrivebordet vil pege på en ny &quot;hjælpe&quot;-URL. Der foretages ingen validering af,
-at den medsendte parameter faktisk er en gyldig URL.</p>
+skrivebordet vil pege på en ny &quot;hjælpe&quot;-URL. Der foretages ingen
+validering af, at den medsendte parameter faktisk er en gyldig URL.</p>
 <p>Scriptet ligger i &quot;Globale Scripts&quot; under navnet &quot;Ændre hjælpe-ikon på
 skrivebord&quot;.</p>
 </div>
@@ -456,17 +511,18 @@ change_user_password.sh</dd>
 <blockquote>
 <ul class="simple">
 <li>password</li>
-<li>passwordigen - det nye password og en gentagelse, for at sikre at brugeren
-kan skrive det to gange.</li>
+<li>passwordigen - det nye password og en gentagelse, for at sikre at
+brugeren kan skrive det to gange.</li>
 </ul>
 </blockquote>
-<p>Da publikumsbrugeren logger ind automatisk, er det normalt ikke nødvendigt at
-sætte et password for denne bruger.</p>
-<p>Det er derimod <em>meget vigtigt</em> at skifte fra standard-passwordet til et andet,
-så snart en BibOS-maskine er færdiginstalleret. Passwords vises p.t. i klartekst,
-når man indtaster dem. Pas derfor på ikke at blive kigget over skulderen e.l.</p>
-<p>Ligger i &quot;Globale Scripts&quot; under navnet &quot;Skift password for bruger&quot; hhv. &quot;Skift
-password for superbruger&quot;.</p>
+<p>Da publikumsbrugeren logger ind automatisk, er det normalt ikke
+nødvendigt at sætte et password for denne bruger.</p>
+<p>Det er derimod <em>meget vigtigt</em> at skifte fra standard-passwordet til et
+andet, så snart en OS2borgerPC-maskine er færdiginstalleret. Passwords
+vises p.t. i klartekst, når man indtaster dem. Pas derfor på ikke at
+blive kigget over skulderen e.l.</p>
+<p>Ligger i &quot;Globale Scripts&quot; under navnet &quot;Skift password for bruger&quot; hhv.
+&quot;Skift password for superbruger&quot;.</p>
 </div>
 <div class="section" id="oprette-nye-genveje-pa-skrivebordet">
 <h1>Oprette nye genveje på skrivebordet</h1>
@@ -476,9 +532,9 @@ password for superbruger&quot;.</p>
 <dt><em>Parametre:</em></dt>
 <dd>shortcut_file - en fil, der skal anbringes på skrivebordet.</dd>
 </dl>
-<p>Dette script gør dybest set ikke andet end at anbringe den fil, der uploades,
-på brugerens skrivebord. Hvis du ønsker en decideret genvej (en .desktop-fil),
-er det nødvendigt at fremstille den først.</p>
+<p>Dette script gør dybest set ikke andet end at anbringe den fil, der
+uploades, på brugerens skrivebord. Hvis du ønsker en decideret genvej
+(en .desktop-fil), er det nødvendigt at fremstille den først.</p>
 <p>Ligger i &quot;Globale Scripts&quot; under navnet &quot;Genvej til skrivebord&quot;.</p>
 </div>
 <div class="section" id="mulighed-for-at-aktivere-automatisk-nedlukning-logoff">
@@ -490,17 +546,19 @@ logout_after_time.sh</dd>
 <dt><em>Parametre:</em></dt>
 <dd>minutes - det antal minutter efter hvilket brugeren skal smides af.</dd>
 </dl>
-<p>Disse to scripts virker lidt forskelligt. <em>always_logout_after_time.sh</em> logger
-brugeren ud X minutter efter hver login - hvor X er det antal minutter, der er
-specificeret som parameter. Hvis X er større end 5, varskos brugeren 5 minutter
-før.</p>
-<p><em>logout_after_time.sh</em> smider brugeren af én gang X minutter efter, at scriptet
-er kørt. I dette tilfælde sker det ved at computeren genstartes.</p>
-<p>NB: Brugeren har ingen mulighed for at undgå udlogningen eller nedlogningen.</p>
-<p>Scriptet til fast udlogning (ikke engangsscriptet) bliver dog nulstillet, hvis
-brugeren logger ud og logger ind igen.</p>
-<p>De to scripts kan findes under &quot;Globale Scripts&quot; som &quot;Log altid ud efter X
-minutter&quot; hhv &quot;Smid bruger af efter X minutter&quot;.</p>
+<p>Disse to scripts virker lidt forskelligt. <em>always_logout_after_time.sh</em>
+logger brugeren ud X minutter efter hver login - hvor X er det antal
+minutter, der er specificeret som parameter. Hvis X er større end 5,
+varskos brugeren 5 minutter før.</p>
+<p><em>logout_after_time.sh</em> smider brugeren af én gang X minutter efter, at
+scriptet er kørt. I dette tilfælde sker det ved at computeren
+genstartes.</p>
+<p>NB: Brugeren har ingen mulighed for at undgå udlogningen eller
+nedlogningen.</p>
+<p>Scriptet til fast udlogning (ikke engangsscriptet) bliver dog
+nulstillet, hvis brugeren logger ud og logger ind igen.</p>
+<p>De to scripts kan findes under &quot;Globale Scripts&quot; som &quot;Log altid ud efter
+X minutter&quot; hhv &quot;Smid bruger af efter X minutter&quot;.</p>
 </div>
 <div class="section" id="log-ud">
 <h1>Log ud</h1>
@@ -511,12 +569,13 @@ logout_shortcut_for_aarhus.sh</dd>
 <dt><em>Parametre:</em></dt>
 <dd>ingen</dd>
 </dl>
-<p>Det første af disse scripts anbringer en &quot;Log Ud&quot;-knap på skrivebordet. Det
-eneste, den gør, er at logge ud.</p>
+<p>Det første af disse scripts anbringer en &quot;Log Ud&quot;-knap på skrivebordet.
+Det eneste, den gør, er at logge ud.</p>
 <p>Det andet script er Aarhus-specifikt; det anbringer en &quot;Log ud&quot;-knap på
-skrivebordet og sørger for, at brugeren altid logges af Internettet ved logout.</p>
-<p>Findes under &quot;Globale Scripts&quot; som hhv. &quot;Logout-knap&quot; og &quot;Logout-knap til
-Aarhus&quot;.</p>
+skrivebordet og sørger for, at brugeren altid logges af Internettet ved
+logout.</p>
+<p>Findes under &quot;Globale Scripts&quot; som hhv. &quot;Logout-knap&quot; og &quot;Logout-knap
+til Aarhus&quot;.</p>
 </div>
 <div class="section" id="mulighed-for-at-lukke-maskinen-pa-et-fast-tidspunkt-hver-dag">
 <h1>Mulighed for at lukke maskinen på et fast tidspunkt hver dag</h1>
@@ -527,11 +586,12 @@ Aarhus&quot;.</p>
 <dd>hours - timeangivelsen for det ønskede klokkeslet
 minutes - minutangivelsen for det ønskede klokkeslet</dd>
 </dl>
-<p>Scriptet sætter computeren til altid at lukke ned på et bestemt tidspunkt hver
-dag. Det kunne for eksempel være fem minutter efter lukketid. Brugeren varskos
-fem minutter før.</p>
+<p>Scriptet sætter computeren til altid at lukke ned på et bestemt
+tidspunkt hver dag. Det kunne for eksempel være fem minutter efter
+lukketid. Brugeren varskos fem minutter før.</p>
 <p>NB: Brugeren har ingen mulighed for at undgå dette.</p>
-<p>Scriptet finder under &quot;Globale Scripts&quot; under navnet &quot;Lukker ned dagligt&quot;.</p>
+<p>Scriptet finder under &quot;Globale Scripts&quot; under navnet &quot;Lukker ned
+dagligt&quot;.</p>
 </div>
 <div class="section" id="aktivere-og-deaktivere-pauseskaerm">
 <h1>Aktivere og deaktivere pauseskærm</h1>
@@ -542,18 +602,21 @@ xscreensaver_disable.sh
 xscreensaver_change_settings.sh</dd>
 <dt><em>Parametre:</em></dt>
 <dd>&quot;enable&quot; og &quot;disable&quot; tager ingen parametre.
-&quot;change_settings&quot; tager én parameter, nemlig en fil med indstillinger for
-xscreensaver.</dd>
+&quot;change_settings&quot; tager én parameter, nemlig en fil med indstillinger
+for xscreensaver.</dd>
 </dl>
-<p>For at aktivere pauseskærmen kører du &quot;enable&quot;. For at fjerne den igen og
-geninstallere Ubuntus egen &quot;blank skærms&quot;-baserede pauseskærm kører du
-&quot;disable&quot;.</p>
-<p>For at ændre indstillinger for pauseskærm tilretter du indstillingerne på én
-maskine, så de er præcis som du vil have dem, og kalder &quot;change_settings&quot; med
-filen &quot;.xscreensaver&quot; i din brugers hjemmemappe som parameter.</p>
-<p>Scriptet validerer ikke, at den uploadede fil indeholder noget fornuftigt.</p>
+<p>For at aktivere pauseskærmen kører du &quot;enable&quot;. For at fjerne den igen
+og geninstallere Ubuntus egen &quot;blank skærms&quot;-baserede pauseskærm kører
+du &quot;disable&quot;.</p>
+<p>For at ændre indstillinger for pauseskærm tilretter du indstillingerne
+på én maskine, så de er præcis som du vil have dem, og kalder
+&quot;change_settings&quot; med filen &quot;.xscreensaver&quot; i din brugers hjemmemappe
+som parameter.</p>
+<p>Scriptet validerer ikke, at den uploadede fil indeholder noget
+fornuftigt.</p>
 <p>De tre scripts kan findes som henholdsvis &quot;Aktivér pauseskærm&quot;, &quot;Fjern
-pauseskærm&quot; og &quot;Ændre indstillinger for pauseskærm&quot; under &quot;Globale scripts&quot;.</p>
+pauseskærm&quot; og &quot;Ændre indstillinger for pauseskærm&quot; under &quot;Globale
+scripts&quot;.</p>
 </div>
 <div class="section" id="diagnostiske-scripts">
 <h1>Diagnostiske scripts</h1>
@@ -564,9 +627,9 @@ diagnistics/fail.sh</dd>
 </dl>
 <p>Disse er mest beregnet til fejlfinding.</p>
 <p>&quot;env.sh&quot; lister de environment-variabler, der er tilgængelige for et
-BibOS-script.</p>
-<p>&quot;fail.sh&quot; er et script, der altid fejler, hvilket kan være nyttigt, hvis man
-gerne vil teste håndteringen af fejlede jobs.</p>
+OS2borgerPC-script.</p>
+<p>&quot;fail.sh&quot; er et script, der altid fejler, hvilket kan være nyttigt, hvis
+man gerne vil teste håndteringen af fejlede jobs.</p>
 </div>
 </div>
 </body>

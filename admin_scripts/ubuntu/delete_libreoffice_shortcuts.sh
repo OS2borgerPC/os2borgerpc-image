@@ -27,8 +27,8 @@
 
 set -e
 
-rm "/home/.skjult/Desktop/calc.desktop"
-rm "/home/.skjult/Desktop/writer.desktop"
-rm "/home/.skjult/Desktop/impress.desktop"
+rm "/home/.skjult/Skrivebord/calc.desktop"
+rm "/home/.skjult/Skrivebord/writer.desktop"
+rm "/home/.skjult/Skrivebord/impress.desktop"
 
 exit 0

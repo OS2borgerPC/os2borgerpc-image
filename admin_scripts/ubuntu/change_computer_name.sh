@@ -11,11 +11,10 @@ fi
 
 NEW_NAME=$1
 PREFS_FILE=/etc/hosts
-STARTPAGE_PREFS_LINE="127.0.1.1 $NEW_NAME"
-OLD_LINE=$(grep 127.0.1.1 /etc/hosts)
+OLD_NAME=$(hostname)
+
 hostname $NEW_NAME
-
 # Replace old line with new
-sed -i "s/$OLD_LINE/$STARTPAGE_PREFS_LINE/g" $PREFS_FILE
-
+sed -i "s/$OLD_NAME/$NEW_NAME/g" $PREFS_FILE
+echo $NEW_NAME > /etc/hostname
 
