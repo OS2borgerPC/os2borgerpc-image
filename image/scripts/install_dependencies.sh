@@ -69,7 +69,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
 fi
 
 # TODO: Find a more permanent way of handling this.
-pip3 install http://bibos-admin.magenta-aps.dk/archive/client_packages/os2borgerpc_client-0.0.5.1.tar.gz
+pip3 install os2borgerpc-client
 
 # Setup unattended upgrades
 "$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security
