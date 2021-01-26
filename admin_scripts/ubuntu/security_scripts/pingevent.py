@@ -1,18 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-"""
-%Description%
-"""
-
+import sys
 import csv_writer
-
-__author__ = "Danni Als"
-__copyright__ = "Copyright 2017, Magenta Aps"
-__license__ = "GPL"
-__version__ = "0.0.1"
-__maintainer__ = "Danni Als"
-__email__ = "danni@magenta.dk"
-__status__ = "Production"
 
 # securityEventCode, Tec sum, Raw data
 csv_data = []
