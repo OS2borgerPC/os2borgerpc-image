@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Security Script for finding USB keyboard attachment events happened within the last 300 seconds.
