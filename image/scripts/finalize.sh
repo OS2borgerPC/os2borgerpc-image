@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 
-if [ "$USER" == "root" ]; then
-	echo "Please do not run this script as root, run it as the superuser instead."
-	exit 1
-fi
+DIR=$(dirname $(realpath $0 ))
 
-if [ -f ~/.config/user-dirs.dirs ]; then
-    source ~/.config/user-dirs.dirs
-fi
-if [ "$XDG_DESKTOP_DIR" == "" ]; then
-    XDG_DESKTOP_DIR="$HOME/Skrivebord"
-fi
+cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
-cp script-data/finalize/*.desktop "${XDG_DESKTOP_DIR}/"
-# Copy finalize script to /usr/share/bibos/bin
-sudo cp bibos-postinstall.sh /usr/share/bibos/bin
 # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-sudo cp /etc/lightdm/lightdm.conf.bibos_firstboot /etc/lightdm/lightdm.conf
-sudo sed -i "s/autologin-user=[a-zA-Z0-9]\+/autologin-user=$USER/" /etc/lightdm/lightdm.conf
-# The PostInstall script should clean up, i.e. reverse all these changes.
+cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
+# The PostInstall script will switch to the "normal" lightdm.conf for
+# os2borgerpc, ensuring cleanup of user's directory.
 
+# Setup cleanup script in systemd.
+"$DIR/../../admin_scripts/image_core/systemd_policy_cleanup.sh" 1
+
+
+# Automatic login for user, not superuser.
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
+then
+    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+fi

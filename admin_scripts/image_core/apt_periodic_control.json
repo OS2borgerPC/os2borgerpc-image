@@ -1,0 +1,12 @@
+{
+  "name": "System - Aktivér automatiske opdateringer",
+  "description": "Opdaterer alle pakker.",
+  "parameters": [
+    {
+      "name": "OMFANG",
+      "type": "string",
+      "required": false,
+      "description": "\"sikkerhed\" for automatiske sikkerhedsopdateringer, \"alt\" for automatiske opgradering af alle pakker"
+    }
+  ]
+}

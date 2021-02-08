@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="undo_actions_limit" mtime="1323079141" type="int" value="25"/>
-	<entry name="max_undo_actions" mtime="1323079141" type="int" value="2000"/>
-</gconf>

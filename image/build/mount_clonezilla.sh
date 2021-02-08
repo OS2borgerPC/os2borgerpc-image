@@ -1,5 +1,5 @@
 #!/bin/bash
-CD="${1:-bibos_base_image.iso}" ; shift
+CD="${1:-os2borgerpc_base_image.iso}" ; shift
 
 # exit after any error:
 set -e
@@ -18,7 +18,7 @@ fi
 
 which mksquashfs
 
-MNT_DIR=$( mktemp -d "${DIR}/bibos-clonezilla.XXXXXXXXXX" )
+MNT_DIR=$( mktemp -d "${DIR}/os2borgerpc-clonezilla.XXXXXXXXXX" )
 chmod 0775 "${MNT_DIR}"
 
 # Make a link to the source CD we used

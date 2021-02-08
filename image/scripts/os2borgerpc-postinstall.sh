@@ -1,0 +1,1 @@
+../overwrites/usr/share/os2borgerpc/bin/os2borgerpc-postinstall.sh

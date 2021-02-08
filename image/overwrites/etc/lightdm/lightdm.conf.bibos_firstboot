@@ -1,6 +1,0 @@
-[SeatDefaults]
-greeter-session=unity-greeter
-user-session=ubuntu-2d
-allow-guest=false
-autologin-user-timeout=10
-autologin-user=superuser

@@ -1,0 +1,2 @@
+[org/gnome/shell]
+favorite-apps=['org.gnome.Nautilus.desktop', 'firefox.desktop', 'libreoffice-writer.desktop', 'libreoffice-calc.desktop', 'libreoffice-impress.desktop', 'yelp.desktop']

@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="notifications_focus" mtime="1323079141" type="bool" value="true"/>
-	<entry name="notifications_enabled" mtime="1323079141" type="bool" value="true"/>
-	<entry name="notifications_disabled_away" mtime="1323079141" type="bool" value="true"/>
-	<entry name="notifications_contact_signout" mtime="1323079141" type="bool" value="false"/>
-	<entry name="notifications_contact_signin" mtime="1323079141" type="bool" value="false"/>
-</gconf>
