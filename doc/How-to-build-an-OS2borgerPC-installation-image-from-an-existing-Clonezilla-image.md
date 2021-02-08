@@ -4,8 +4,8 @@ Clonezilla image
 ## Check out the code
 
 ```sh
-git clone https://github.com/magenta-aps/bibos_image.git
-cd bibos_image
+git clone https://github.com/OS2borgerPC/image.git
+cd image
 ```
 
 ## Download a stable Clonezilla live archive

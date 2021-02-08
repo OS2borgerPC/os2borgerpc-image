@@ -19,15 +19,12 @@
 #================================================================
 #  HISTORY
 #     2017/06/11 : danni : Script creation
+#     2021/02/01 : carstena: Disable completely for Ubuntu 20.04- 
 #
 #================================================================
 # END_OF_HEADER
 #================================================================
 set -e
 
-# Remove Bluetooth indicator applet from Borger user
-BLUETOOTH_INDICATOR_PATH=$(find /usr/lib -name 'indicator-bluetooth-service')
-if [ ! -z "$BLUETOOTH_INDICATOR_PATH" ]
-then
-    chmod o-x $BLUETOOTH_INDICATOR_PATH
-fi
+# Disable Bluetooth completely.
+systemctl disable --now bluetooth.service
