@@ -34,7 +34,7 @@ desktop_file="/home/.skjult/.config/autostart/chrome.desktop"
 
 if [ "$1" == "Nej" ]
 then
-    autostart_text=$(echo $autostart_text | sed -e "s/ --start-fullscreen//g")
+    autostart_text=$(echo $autostart_text | sed -e "s/ --start-fullscreen/ --start-maximized/g")
 elif [ "$1" == "Fjern" ]
 then
     echo "removing chrome from autostart"
