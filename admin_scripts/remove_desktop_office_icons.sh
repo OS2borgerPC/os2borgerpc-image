@@ -1,4 +1,4 @@
 #!/bin/bash
-rm /home/.skjult/Desktop/libreoffice-writer.desktop
-rm /home/.skjult/Desktop/libreoffice-calc.desktop
-rm /home/.skjult/Desktop/libreoffice-impress.desktop
+rm /home/.skjult/Skrivebord/libreoffice-writer.desktop
+rm /home/.skjult/Skrivebord/libreoffice-calc.desktop
+rm /home/.skjult/Skrivebord/libreoffice-impress.desktop
