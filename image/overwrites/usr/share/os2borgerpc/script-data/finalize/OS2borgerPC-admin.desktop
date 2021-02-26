@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=OS2borgerPC Admin
 Comment=Gå til admin-systemet
-Exec=firefox https://bibos-admin.magenta-aps.dk
+Exec=firefox https://os2borgerpc-admin.magenta.dk
 Icon=firefox
 Type=Application
 Terminal=false
