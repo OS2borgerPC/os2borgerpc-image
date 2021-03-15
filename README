@@ -7,7 +7,7 @@ All code is made available under Version 3 of the GNU General Public
 License - see the LICENSE and COPYRIGHT files for details.
 
 
-The BibOS system is a specialized version of Ubuntu which contains one
+The OS2borgerPC system is a specialized version of Ubuntu which contains one
 preinstalled audience user (called "user", full name "Publikum") and one
 sudo-enabled user, by convention called "superuser".
 
@@ -22,11 +22,9 @@ the install CD (or USB, or DVD).
 
 See the documentation in doc/ for more details.
 
-A couple of HOWTOs:
 
-
-Creating a new BibOS image from scratch
-=======================================
+Creating a new OS2borgerPC image from scratch
+=============================================
 
     Start installing a vanilla Ubuntu system - Ubuntu 16.04 in the
     present example. Install on a virtual or physical machine
@@ -34,7 +32,7 @@ Creating a new BibOS image from scratch
     Select the correct target language for installation - Danish if
     your users want to work in Danish.
 
-    Create the initial user as Superuser - specify BibOS2 as host name.
+    Create the initial user as Superuser - specify OS2borgerPC2 as host name.
     This is by convention, the initial user (sudo user) and host name can
     be whatever you want
 
@@ -54,15 +52,15 @@ Creating a new BibOS image from scratch
 
     # Grab the source code:
 
-    git clone https://github.com/magenta-aps/bibos_image.git
+    git clone https://github.com/OS2borgerPC/image.git
 
     # Go to the scripts folder:
 
-    cd bibos/image/scripts
+    cd image/image/scripts
 
-    # Create standard BibOS setup:
+    # Create standard OS2borgerPC setup:
 
-    ./bibos_setup.sh
+    ./os2borgerpc_setup.sh
 
     # Wait - this will update, upgrade and install a lot of packages
 
@@ -73,7 +71,7 @@ Creating a new BibOS image from scratch
 
     When done, go to the scripts folder and finalize the image:
 
-    cd bibos/image/scripts
+    cd image/image/scripts
     ./finalize.sh
 
 
@@ -85,49 +83,3 @@ in a CloneZilla image.
 
 Boot up the system with a CloneZilla live CD and clone an image, e.g.
 to your own /home/partimag using SSHFS.
-
-
-HOWTO Build BibOS CD from a CloneZilla image
-
-
-You need to install these Debian packages:
-
-* squashfs-tools
-* aufs-tools
-* e2fslibs-dev
-* genisomage
-
-This will not work on top of an eCryptFS system (i.e., don't work in
-your encrypted Ubuntu home dir).
-
-# Check out the code
-git clone https://github.com/magenta-aps/bibos_image.git
-
-# Go to the images directory
-cd bibos_image/image/build/images/
-
-# Download clonezilla
-wget 'http://downloads.sourceforge.net/project/clonezilla/clonezilla_live_alternative/OldFiles/20130314-quantal/clonezilla-live-20130314-quantal-i386.iso'
-
-# Mount this ISO as a file system
-cd ..
-sudo ./mount_clonezilla.sh images/clonezilla-live-20130314-quantal-i386.iso
-
-# Copy overwrite files to the image (the exact path is output by the
-# mount_clonezilla script)
-sudo ../scripts/do_overwrite_clonezilla.sh bibos-clonezilla.asIlGOYXbC/cd-unified
-
-# Copy a BibOS hard disk image to the CloneZilla CD
-sudo cp -r /sti/til/bibos/image/* bibos-clonezilla.asIlGOYXbC/cd-unified/bibos-image
-
-# Build a new ISO
-sudo ./build_clonezilla_image.sh bibos-clonezilla.asIlGOYXbC/
-
-The generated image is a new BibOS CD which will install the hard disk
-image you copied. The changes to clonezilla are independent of
-architecture and should work for 32 bit and 64 bit CloneZilla and Ubuntu
-alike.
-
-
-
-
