@@ -56,5 +56,5 @@ if [ -d "/etc/os2borgerpc/post-checkin.d" ]; then
 fi
 END
     chmod +x /usr/local/bin/jobmanager
-    mkdir -p /etc/os2borgerpc/{pre,post}-checkin.d
+    mkdir -p /etc/os2borgerpc/pre-checkin.d /etc/os2borgerpc/post-checkin.d
 fi
