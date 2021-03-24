@@ -60,7 +60,7 @@ cat << EOF > /usr/share/os2borgerpc/bin/inactive_logout.sh
 # If the user do not touch the mouse or press any keyboard key the session will end.
 
 # who | sed -rn 's/.*(:[0-9]*).*/\1/p'
-USER_DISPLAY=$(who | grep -w 'user' | sed -rn 's/.*(:[0-9]*).*/\1/p')
+USER_DISPLAY=\$(who | grep -w 'user' | sed -rn 's/.*(:[0-9]*).*/\1/p')
 
 export XAUTHORITY=/home/user/.Xauthority
 export DISPLAY=\$USER_DISPLAY
