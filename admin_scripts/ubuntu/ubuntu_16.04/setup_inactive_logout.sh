@@ -89,7 +89,7 @@ then
 	if [ ! -f "\$FILE" ]
 	then
 		# echo 'Running zenity...' >> \$LOG_DIR
-		zenity --warning --text="$DIALOG_TEXT" --ok-label="$BUTTON_TEXT" --display=\$USER_DISPLAY
+		zenity --warning --text="$DIALOG_TEXT" --ok-label="$BUTTON_TEXT" --no-wrap --display=\$USER_DISPLAY
 		echo 'Dialog shown' >> \$FILE
 		if [ $? = 0 ] ; then
 			rm \$FILE
