@@ -4,7 +4,7 @@ set -ex
 
 if [ !  -f "/usr/bin/gnome-control-center.real" ]
 then
-    sudo dpkg-divert --rename --divert  /usr/bin/gnome-control-center.real --add /usr/bin/gnome-control-center
+    dpkg-divert --rename --divert  /usr/bin/gnome-control-center.real --add /usr/bin/gnome-control-center
     dpkg-statoverride --update --add superuser root 770 /usr/bin/gnome-control-center.real
 fi
 
