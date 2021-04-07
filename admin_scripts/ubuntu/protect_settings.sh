@@ -4,8 +4,8 @@ set -ex
 
 if [ !  -f "/usr/bin/gnome-control-center.real" ]
 then
-    cp  /usr/bin/gnome-control-center /usr/bin/gnome-control-center.real
-    chown root:superuser superuser /usr/bin/gnome-control-center.real && chmod 770 /usr/bin/gnome-control-center.real
+    dpkg-divert --divert  /usr/bin/gnome-control-center --add /usr/bin/gnome-control-center.real
+    dpkg-statoverride superuser root 770 /usr/bin/gnome-control-center.real
 
 fi
 
