@@ -15,7 +15,7 @@ though).
 Select the correct target language for installation - Danish if your
 users want to work in Danish.
 
-Create the initial user as Superuser - specify BibOS2 as host name.
+Create the initial user as Superuser - specify os2borgerpc as host name.
 This is by convention, the initial user (sudo user) and host name
 can be whatever you want
 
@@ -80,7 +80,7 @@ in this directory for more information.
 How to build an OS2borgerPC installation image from an existing Clonezilla image
 ********************************************************************************
 
-## Check out the code
+Check out the code
 
 .. code-block:: bash
 
@@ -88,13 +88,13 @@ How to build an OS2borgerPC installation image from an existing Clonezilla image
 	cd image
 
 
-## Download a stable Clonezilla live archive
+Download a stable Clonezilla live archive
 
 The download link is
 https://clonezilla.org/downloads/download.php?branch=stable. (These
 instructions have worked with versions 2.5.6-22 and 2.6.0-37.)
 
-## Unzip this archive to a new folder with the name of the image you
+Unzip this archive to a new folder with the name of the image you
 want to create
 
 .. code-block:: bash
@@ -102,7 +102,7 @@ want to create
 	unzip path/to/clonezilla-live.zip -d OS2borgerPC_2019-02-13_M/
 
 
-## Overwrite parts of Clonezilla with OS2borgerPC-specific configuration
+Overwrite parts of Clonezilla with OS2borgerPC-specific configuration
 files
 
 .. code-block:: bash
@@ -110,14 +110,14 @@ files
 	./image/scripts/do_overwrite_clonezilla.sh OS2borgerPC_2019-02-13_M/
 
 
-## Copy the OS2borgerPC hard disk image files to the `bibos-images/bibos_default/` directory
+Copy the OS2borgerPC hard disk image files to the `bibos-images/bibos_default/` directory
 
 .. code-block:: bash
 
 	cp -r /path/to/image/* OS2borgerPC_2019-02-13_M/bibos-images/bibos_default/
 
 
-## Create an ISO image from it
+Create an ISO image from it
 
 .. code-block:: bash
 
