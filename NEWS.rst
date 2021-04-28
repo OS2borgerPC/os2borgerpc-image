@@ -1,4 +1,5 @@
-* 3.0.0, January 18, 2021
+Version 3.0.0, January 18, 2021
+-------------------------------
 
 New in this version:
 
@@ -8,20 +9,24 @@ New in this version:
   https://semver.org/.
  
  
-* 2.4.1.3, July 17, 2018
+Version 2.4.1.3, July 17, 2018
+------------------------------
 
 New in this version:
 - Changed git repo url to the new repo url.
 
-* 2.4.1.2, January 2, 2018
+Version 2.4.1.2, January 2, 2018
+--------------------------------
 
 - Installation now adds the security folder and necessary security files. 
 
-* 2.4.1.1, June 6, 2017
+Version 2.4.1.1, June 6, 2017
+-----------------------------
 
 - bibos_installtion.sh was using deleted testing branch as base for installation. This is now removed.
 
-* Version 2.4.1, June 6, 2017
+Version 2.4.1, June 6, 2017
+---------------------------
 
 New in this version:
 
@@ -30,14 +35,16 @@ New in this version:
 - Ubuntu settings is now completely locked for user "Borger".
 - Bluetooth applet is removed from top bar for user "Borger". 
 
-* Version 2.4.0, February 23, 2017
+Version 2.4.0, February 23, 2017
+--------------------------------
 
 New in this version:
 
 - The bibos installation now supports Ubuntu 16.04.
 - The 'Publikum' user now only has Desktop folder present in nautilus panel.
 
-* Version 2.3.0, March 22, 2016
+Version 2.3.0, March 22, 2016
+-----------------------------
 
 New in this version:
 
@@ -49,7 +56,8 @@ New in this version:
   for the bibos client to run.
 - Removed gimp icon from Desktop as we do not install gimp.
 
-* Version 2.2.0, May 29, 2015
+Version 2.2.0, May 29, 2015
+---------------------------
 
 New in this version:
 
@@ -60,7 +68,8 @@ New in this version:
 - Include latest bibos_client by default.
 
 
-* Version 2.1.0.1, October 25, 2013
+Version 2.1.0.1, October 25, 2013
+---------------------------------
 
 
 New in this version:
@@ -88,7 +97,8 @@ New in this version:
 
 
 
-* Version 2.0.2.2, August 16, 2013
+Version 2.0.2.2, August 16, 2013
+--------------------------------
 
 
 New in this version:
@@ -100,10 +110,8 @@ New in this version:
   * Chrome is now available in Launcher if installed
   * Chrome shortcut renamed
   * Firefox shortcut removed from desktop
-  * Downloads are sent to the user's desktop, not "Hentninger" or other
-    specific directory
-  * Shortcuts to the BibOS admin system and registration in the admin system
-    are added to the superuser's desktop
+  * Downloads are sent to the user's desktop, not "Hentninger" or other specific directory
+  * Shortcuts to the BibOS admin system and registration in the admin system are added to the superuser's desktop
   * autolog is installed by default
   * startup sound (drumbeat) is not played by default
 - Fix Firefox settings so it won't check for add-on compatibility
@@ -111,8 +119,8 @@ New in this version:
 
 
 
-* Version 2.0.2.1, July 25, 2013
-
+Version 2.0.2.1, July 25, 2013
+------------------------------
 
 New in this version:
 
@@ -127,8 +135,8 @@ New in this version:
 
 
 
-* Version 2.0.2, July 12, 2013
-
+Version 2.0.2, July 12, 2013
+----------------------------
 
 New in this version:
 
