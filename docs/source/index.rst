@@ -7,6 +7,12 @@
 OS2BorgerPc - Image
 ============================
 
+Introduction
+============
+OS2BorgerPC - Image is the specialized Ubuntu distribution for audience PCs in
+public libraries in Denmark (Part of the `OS2BorgerPC system <https://os2.eu/produkt/os2borgerpc>`_).
+
+
 .. toctree::
    :maxdepth: 2
 
