@@ -31,15 +31,13 @@ If this installation is for a clonezilla image, you'll probably want
 to open ``os2borgerpc_installation.sh`` and remove the reboot
 command at line 41.
 
-# Change execution rights for the installation file. 
-
-Open a terminal,
+Change execution rights for the installation file. Open a terminal:
 
 .. code-block:: bash
 
 	sudo chmod +x os2borgerpc_installation.sh
 
-# Start the installation:
+Start the installation:
 
 .. code-block:: bash
 
