@@ -35,11 +35,15 @@ command at line 41.
 
 Open a terminal,
 
-sudo chmod +x os2borgerpc_installation.sh
+.. code-block:: bash
+
+	sudo chmod +x os2borgerpc_installation.sh
 
 # Start the installation:
 
-./os2borgerpc_installation.sh	
+.. code-block:: bash
+
+	./os2borgerpc_installation.sh
 
 Now the system is ready to be cloned as a Clonezilla image or 
 to be connected to the admin system.

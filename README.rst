@@ -26,57 +26,67 @@ See the documentation in doc/ for more details.
 Creating a new OS2borgerPC image from scratch
 =============================================
 
-    Start installing a vanilla Ubuntu system - Ubuntu 16.04 in the
-    present example. Install on a virtual or physical machine
+Start installing a vanilla Ubuntu system - Ubuntu 16.04 in the
+present example. Install on a virtual or physical machine
 
-    Select the correct target language for installation - Danish if
-    your users want to work in Danish.
+Select the correct target language for installation - Danish if
+your users want to work in Danish.
 
-    Create the initial user as Superuser - specify OS2borgerPC2 as host name.
-    This is by convention, the initial user (sudo user) and host name can
-    be whatever you want
+Create the initial user as Superuser - specify OS2borgerPC2 as host name.
+This is by convention, the initial user (sudo user) and host name can
+be whatever you want
 
-    Enter a system/superuser password - IMPORTANT: Remember this
+Enter a system/superuser password - IMPORTANT: Remember this
 
-    Think about whether to select the option to encrypt the superuser's
-    $HOME directory (current recommendation: Do NOT do this)
+Think about whether to select the option to encrypt the superuser's
+$HOME directory (current recommendation: Do NOT do this)
 
-    Let the installation run its course - this may take some time
+Let the installation run its course - this may take some time
 
-    Reboot the computer when prompted and log in with the user name and
-    password you specified
+Reboot the computer when prompted and log in with the user name and
+password you specified
 
-    In a terminal,
+In a terminal,
+
+.. code-block:: bash
 
     sudo apt-get install git
 
-    # Grab the source code:
+# Grab the source code:
+
+.. code-block:: bash
 
     git clone https://github.com/OS2borgerPC/image.git
 
-    # Go to the scripts folder:
+# Go to the scripts folder:
+
+.. code-block:: bash
 
     cd image/image/scripts
 
-    # Create standard OS2borgerPC setup:
+# Create standard OS2borgerPC setup:
+
+.. code-block:: bash
 
     ./os2borgerpc_setup.sh
 
-    # Wait - this will update, upgrade and install a lot of packages
+# Wait - this will update, upgrade and install a lot of packages
 
-    # Reboot to complete installation process
+# Reboot to complete installation process
 
-    Perform necessary manual configuration - prepare the installation
-    so everything is ready the way our customer wants
+Perform necessary manual configuration - prepare the installation
+so everything is ready the way our customer wants
 
-    When done, go to the scripts folder and finalize the image:
+When done, go to the scripts folder and finalize the image:
+
+.. code-block:: bash
 
     cd image/image/scripts
     ./finalize.sh
 
 
-    This will force the postinstall script to execute automatically
-    next time the system is booted.
+This will force the postinstall script to execute automatically
+next time the system is booted.
 
 After executing finalize, the system is ready for cloning and inclusion
 in a CloneZilla image.
