@@ -70,9 +70,8 @@ you want to save is the main partition you installed Ubuntu on and is probably
 called sda1.
 
 Once the disk image has been saved, it can be used to create an installation
-disk. See the files HOWTOBuild_BibOS_CD_from_clonezilla_image.txt and
-How-to-build-an-OS2borgerPC-installation-USB-stick-from-an-existing-Clonezilla-image.md
-in this directory for more information.
+disk. See the sections `How to build an OS2borgerPC installation image from an existing Clonezilla image`_
+for more information.
 
 
 How to build an OS2borgerPC installation image from an existing Clonezilla image
