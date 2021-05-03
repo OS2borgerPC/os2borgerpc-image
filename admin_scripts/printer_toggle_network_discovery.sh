@@ -10,18 +10,20 @@ set -ex
 
 # Author: mfm@magenta.dk
 
-TIL_FRA=$1
+lower() {
+    echo "$@" | tr '[:upper:]' '[:lower:]'
+}
+
+ACTIVATE="$(lower "$1")"
 
 CUPS_CONFIG=/etc/cups/cups-browsed.conf
 
-if [ "$TIL_FRA" = "til" ]; then
+if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] || \
+   [ "$ACTIVATE" != 'no' ] && [ "$ACTIVATE" != 'nej' ]; then
   sed -i 's,BrowseProtocols none,# BrowseProtocols none,' $CUPS_CONFIG
-elif [ "$TIL_FRA" = "fra" ]; then
+else # Disable network printer discovery
   sed -i 's,# BrowseProtocols none,BrowseProtocols none,' $CUPS_CONFIG
-else
-  printf  '%s\n' 'Du skal specificere "til" eller "fra". Annullerer.'
-  exit 1
 fi
 
-# Restarting cups shouldn't be necessary for changes to take effect:
-# systemctl restart cups-browsed cups
+# Restarting cups to reduce the chances of needing the restart:
+systemctl restart cups-browsed cups
