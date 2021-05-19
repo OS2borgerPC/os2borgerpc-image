@@ -18,7 +18,7 @@ USER=user
 if [ "$DESKTOP" = "menu" ];
 then
   # Print only the last line only and format it a bit more nicely
-  tail -n 1 /etc/dconf/db/os2borgerpc.d/02-launcher-favorites | sed "s/favorite-apps=\[\|'\|\]//g" | tr ',' '\n'
+  tail -n 1 /etc/dconf/db/os2borgerpc.d/02-launcher-favorites | sed "s/favorite-apps=\[\|'\|\]\ \|.desktop//g" | tr ',' '\n'
   exit
 elif [ "$DESKTOP" = "skrivebord" ]
 then
