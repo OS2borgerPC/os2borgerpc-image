@@ -2,18 +2,21 @@
 
 # Adds/Removes programs from the launcher (menu) in Ubuntu 20.04
 # Author: mfm@magenta.dk
-
+#
 # Arguments:
-# 1: Write 'tilfoj' to add the program, anything else to remove it.
+# 1: Write 'nej', 'no', 'falsk' og 'false' to remove the program shortcut,
+#    anything else to add it.
+# 2: The name of the program you want to add/remove.
 
 lower() {
     echo "$@" | tr '[:upper:]' '[:lower:]'
 }
 
-PROGRAM="$(lower "$1")"
+ACTIVATE="$(lower "$1")"
+PROGRAM=$2
 
-if [ "$PROGRAM" = "tilfoj" ]
-then
+if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] || \
+   [ "$ACTIVATE" != 'no' ] && [ "$ACTIVATE" != 'nej' ]; then
 
   # Append the program specified above to the menu/launcher
   # Why ']? To not also match the first (title) line.
