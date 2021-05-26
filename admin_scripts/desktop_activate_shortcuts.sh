@@ -1,3 +1,5 @@
+#! /usr/bin/env sh
+
 USER=user
 SHADOW=.skjult
 AUTOSTART_DESKTOP_FILE_PATH=/home/$SHADOW/.config/autostart/gio-fix-desktop-file-permissions.desktop
@@ -19,6 +21,8 @@ EOF
 # Script to activate programs on the desktop 
 # (equivalent to right-click -> Allow Launching)
 cat << EOF > "$SCRIPT_PATH"
+#! /usr/bin/env sh
+
 for FILE in /home/$USER/Skrivebord/*.desktop; do
   gio set "\$FILE" metadata::trusted true
   # Can't make sense of this as it already has execute permissions, but it

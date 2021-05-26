@@ -20,12 +20,12 @@ if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] && \
 
   # Append the program specified above to the menu/launcher
   # Why ']? To not also match the first (title) line.
-  sed -i "s/'\]/', '$PROGRAM'\]/" /etc/dconf/db/os2borgerpc.d/02-launcher-favorites
+  sed -i "s/'\]/', '$PROGRAM.desktop'\]/" /etc/dconf/db/os2borgerpc.d/02-launcher-favorites
 
 else
 
   # Remove the program specified above from the menu/launcher
-  sed -i "s/, '$PROGRAM'//" /etc/dconf/db/os2borgerpc.d/02-launcher-favorites
+  sed -i "s/, '$PROGRAM.desktop'//" /etc/dconf/db/os2borgerpc.d/02-launcher-favorites
 
 fi
 

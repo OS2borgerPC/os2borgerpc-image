@@ -22,9 +22,10 @@ then
   exit
 elif [ "$DESKTOP" = "skrivebord" ]
 then
-  PTH="/home/$USER/Skrivebord"
+  PTH="/home/$USER/Skrivebord/"
 else
   PTH=/usr/share/applications/
 fi
 
-ls -1 $PTH
+# - shellcheck says find handles non-alphanumeric file names better than ls
+find $PTH -maxdepth 1 | sed "s,$PTH\|.desktop,,g"
