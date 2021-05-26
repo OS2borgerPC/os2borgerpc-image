@@ -18,7 +18,7 @@ ACTIVATE="$(lower "$1")"
 
 CUPS_CONFIG=/etc/cups/cups-browsed.conf
 
-if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] || \
+if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] && \
    [ "$ACTIVATE" != 'no' ] && [ "$ACTIVATE" != 'nej' ]; then
   sed -i 's,BrowseProtocols none,# BrowseProtocols none,' $CUPS_CONFIG
 else # Disable network printer discovery
