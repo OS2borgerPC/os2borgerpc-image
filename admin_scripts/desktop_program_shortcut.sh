@@ -21,7 +21,7 @@ PROGRAM="$(lower "$2")"
 
 SHADOW=.skjult
 
-if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] || \
+if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] && \
    [ "$ACTIVATE" != 'no' ] && [ "$ACTIVATE" != 'nej' ]; then
   cp "/usr/share/applications/$PROGRAM.desktop" /home/$SHADOW/Skrivebord/
 else

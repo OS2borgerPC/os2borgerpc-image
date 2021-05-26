@@ -1,4 +1,5 @@
 USER=user
+SHADOW=.skjult
 AUTOSTART_DESKTOP_FILE_PATH=/home/$SHADOW/.config/autostart/gio-fix-desktop-file-permissions.desktop
 SCRIPT_PATH=/usr/share/os2borgerpc/bin/gio-fix-desktop-file-permissions.sh
 

@@ -27,4 +27,4 @@ else
   PTH=/usr/share/applications/
 fi
 
-ls -l $PTH
+ls -1 $PTH

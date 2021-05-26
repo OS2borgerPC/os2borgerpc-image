@@ -15,7 +15,7 @@ lower() {
 ACTIVATE="$(lower "$1")"
 PROGRAM=$2
 
-if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] || \
+if [ "$ACTIVATE" != 'false' ] && [ "$ACTIVATE" != 'falsk' ] && \
    [ "$ACTIVATE" != 'no' ] && [ "$ACTIVATE" != 'nej' ]; then
 
   # Append the program specified above to the menu/launcher
