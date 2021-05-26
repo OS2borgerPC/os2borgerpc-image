@@ -10,17 +10,17 @@ DUPLEX=$4
 
 if [ $PAGE_SIZE != "-" ]
 then
-    lpadmin -p $1 -o PageSize=$PAGE_SIZE
+    lpadmin -p $PRINTER -o PageSize=$PAGE_SIZE
 fi
 
 if [ $COLOR_MODEL != "-" ]
 then
-    lpadmin -p $1 -o ColorModel=$COLOR_MODEL
+    lpadmin -p $PRINTER -o ColorModel=$COLOR_MODEL
 fi
 
 if [ $DUPLEX != "-" ]
 then
-    lpadmin -p $1 -o Duplex=$DUPLEX
+    lpadmin -p $PRINTER -o Duplex=$DUPLEX
 fi
 
 
