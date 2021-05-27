@@ -45,7 +45,7 @@ USERCRON=/tmp/usercron
 MESSAGE="Denne computer lukker ned om fem minutter"
 
 crontab -l > $TCRON
-sudo -u user crontab -l > $USERCRON
+crontab -u user -l > $USERCRON
 
 
 if [ "$1" == "--off" ]
@@ -60,7 +60,7 @@ then
     if [ -f $USERCRON ]
     then
         sed -i -e "/lukker/d" $USERCRON
-        sudo -u user crontab $USERCRON
+        crontab -u user $USERCRON
     fi
 
 else
@@ -90,7 +90,7 @@ else
         HRS=$(expr $(expr $HRS + 24) % 24)
         # Now output to user's crontab as well
         echo "$MINS $HRS * * * DISPLAY=:0.0 /usr/bin/notify-send \"$MESSAGE\"" >> $USERCRON
-        sudo -u user crontab $USERCRON
+        crontab -u user $USERCRON
     else
         echo "Usage: shutdown_at_time.sh [--off] [hours minutes]"
     fi
@@ -101,8 +101,3 @@ if [ -f $TCRON ]
 then
     rm $TCRON
 fi
-
-
-     
-
-
