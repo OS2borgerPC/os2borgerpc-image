@@ -37,6 +37,8 @@
 #     2018/12/12 : danni : Script creation - based on shutdown_at_time.sh
 #     2018/12/12 : danni : Changed paramter count from 2 to 3.
 #     Corrected sed delete regex.
+#     2021/05/06 : mfm : Switch from sudo -u user crontab to crontab -u 
+#                        user to not trigger our sudo warnings
 #
 #================================================================
 # END_OF_HEADER
@@ -47,8 +49,7 @@ USERCRON=/tmp/usercron
 MESSAGE="Denne computer lukker ned om fem minutter"
 
 crontab -l > $TCRON
-sudo -u user crontab -l > $USERCRON
-
+crontab -u user -l > $USERCRON
 
 if [ "$1" == "--off" ]
 then
@@ -62,7 +63,7 @@ then
     if [ -f $USERCRON ]
     then
         sed -i -e "/lukker/d" $USERCRON
-        sudo -u user crontab $USERCRON
+        crontab -u user $USERCRON
     fi
 
 else
@@ -93,11 +94,10 @@ else
         HRS=$(expr $(expr $HRS + 24) % 24)
         # Now output to user's crontab as well
         echo "$MINS $HRS * * * DISPLAY=:0.0 /usr/bin/notify-send \"$MESSAGE\"" >> $USERCRON
-        sudo -u user crontab $USERCRON
+        crontab -u user $USERCRON
     else
         echo "Usage: shutdown_and_wakeup.sh [--off] [hours minutes] [hours]"
     fi
-
 fi
 
 if [ -f $TCRON ]
