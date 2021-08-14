@@ -21,7 +21,7 @@
 
 DIR=$(dirname ${BASH_SOURCE[0]})
 
-# Overwrite file tree.
+# Overwrite file tree
 "$DIR/do_overwrite.sh"
 
 # Install all necessary packages and dependencies
@@ -39,7 +39,7 @@ touch /etc/os2borgerpc/firstboot
 mkdir -p /var/lib/os2borgerpc/jobs
 chmod -R og-r /var/lib/os2borgerpc
 
-# Switch display manager to LightDM.
+# Switch display manager to LightDM
 DEBIAN_FRONTEND=noninteractive apt -y install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt -y remove gdm3
@@ -49,6 +49,9 @@ SECURITY_DIR=/etc/os2borgerpc/security/
 mkdir -p /etc/os2borgerpc/security/
 cp -R "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/security/* "$SECURITY_DIR"
 
+# Set product in configuration
+PRODUCT="os2borgerpc"
+set_os2borgerpc_config os2_product "$PRODUCT"
 
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
