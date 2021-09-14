@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR=$(dirname $(realpath $0 ))
+DIR=$(dirname "$(realpath "$0" )")
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
