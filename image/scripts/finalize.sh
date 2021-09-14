@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR=$(dirname $(realpath $0 ))
+DIR=$(dirname "$(realpath "$0" )")
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
@@ -27,17 +27,16 @@ dpkg-divert --rename --divert  /usr/bin/gnome-control-center.real --add /usr/bin
 dpkg-statoverride --update --add superuser root 770 /usr/bin/gnome-control-center.real
 
 
-cat << EOF > /usr/bin/gnome-control-center 
-#!/bin/bash
-
-USER=\$(id -un)
-
-if [ \$USER == "user" ]; then
-  zenity --info --text="Systemindstillingerne er ikke tilgængelige for publikum.\n\n Kontakt personalet, hvis der er problemer."
-else
-  /usr/bin/gnome-control-center.real
-fi
-
+cat <<- EOF > /usr/bin/gnome-control-center 
+	#!/bin/bash
+	
+	USER=\$(id -un)
+	
+	if [ \$USER == "user" ]; then
+	  zenity --info --text="Systemindstillingerne er ikke tilgængelige for publikum.\n\n Kontakt personalet, hvis der er problemer."
+	else
+	  /usr/bin/gnome-control-center.real
+	fi
 EOF
 
 chmod +x /usr/bin/gnome-control-center
