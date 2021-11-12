@@ -58,28 +58,4 @@ VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
 # Securing grub
-"$DIR/../../admin_scripts/image_core/grub_set_password.py" $(pwgen -N 1 -s 12)
-
-
-# BLOCK ACCESS TO SETTINGS FOR THE USER BUT NOT SUPERUSER {{{
-# Related: https://os2borgerpc-admin.magenta.dk/site/magenta/scripts/748/
-
-dpkg-divert --rename --divert  /usr/bin/gnome-control-center.real --add /usr/bin/gnome-control-center
-dpkg-statoverride --update --add superuser root 770 /usr/bin/gnome-control-center.real
-
-
-cat <<- EOF > /usr/bin/gnome-control-center 
-	#!/bin/bash
-	
-	USER=\$(id -un)
-	
-	if [ \$USER == "user" ]; then
-	  zenity --info --text="Systemindstillingerne er ikke tilgængelige for publikum.\n\n Kontakt personalet, hvis der er problemer."
-	else
-	  /usr/bin/gnome-control-center.real
-	fi
-EOF
-
-chmod +x /usr/bin/gnome-control-center
-
-# /BLOCK ACCESS TO SETTINGS }}}
+"$DIR/grub_set_password.py" $(pwgen -N 1 -s 12)
