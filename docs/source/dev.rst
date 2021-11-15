@@ -96,29 +96,31 @@ want to create
 
 .. code-block:: bash
 
-	unzip path/to/clonezilla-live.zip -d OS2borgerPC_2019-02-13_M/
+	unzip path/to/clonezilla-live.zip -d OS2borgerPC_x.y.z/
 
-
+where "x.y.z" correspond to the Semantic Versioning version of this
+release, with any additional identifiers as desired (e.g., "rc")
+.
 Overwrite parts of Clonezilla with OS2borgerPC-specific configuration
 files
 
 .. code-block:: bash
 
-	./image/scripts/do_overwrite_clonezilla.sh OS2borgerPC_2019-02-13_M/
+	./image/scripts/do_overwrite_clonezilla.sh OS2borgerPC_x.y.z/
 
 
 Copy the OS2borgerPC hard disk image files to the `bibos-images/bibos_default/` directory
 
 .. code-block:: bash
 
-	cp -r /path/to/image/* OS2borgerPC_2019-02-13_M/bibos-images/bibos_default/
+	cp -r /path/to/image/* OS2borgerPC_x.y.z/os2borgerpc-images/os2borgerpc_default/
 
 
 Create an ISO image from it
 
 .. code-block:: bash
 
-	./image/scripts/make_bootable_iso.sh OS2borgerPC_2019-02-13_M
+	./image/scripts/make_bootable_iso.sh OS2borgerPC_x.y.z
 
 
 The resulting ISO image is a working boot disk, supporting both modern
