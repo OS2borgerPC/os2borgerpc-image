@@ -138,7 +138,7 @@ def prompt(prefix="? ", intro=None):
 def main():
     parser = argparse.ArgumentParser(
             description="Installs the OS2borgerPC environment.")
-    
+
     input_group = parser.add_argument_group("Input")
     input_group.add_argument(
             "--image-dir",
@@ -331,7 +331,7 @@ OS2borgerPC installer v2.0.0
         sfdisk_result = subprocess.run(["sfdisk", device_path],
                 input=nd.make_sfdisk_script(),
                 universal_newlines=True)
-        if sfdisk_result.returncode is not 0:
+        if sfdisk_result.returncode != 0:
             die(5, "sfdisk invocation failed")
         print("Partitioned disk.")
 
@@ -344,7 +344,7 @@ OS2borgerPC installer v2.0.0
         sgdisk_result = subprocess.run(
                 ["sgdisk", "--hybrid", hybrid_partitions, device_path],
                 universal_newlines=True)
-        if sfdisk_result.returncode is not 0:
+        if sfdisk_result.returncode != 0:
             die(6, "sfdisk invocation failed")
         print("Created hybrid GPT.")
     else:
@@ -380,9 +380,9 @@ OS2borgerPC installer v2.0.0
 
             decompressor.poll()
             partclone.poll()
-            if decompressor.returncode is not 0:
+            if decompressor.returncode != 0:
                 die(8, "decompression failed")
-            elif partclone.returncode is not 0:
+            elif partclone.returncode != 0:
                 die(9, "partclone.restore failed")
         print("Restored partitions.")
     else:
@@ -392,13 +392,13 @@ OS2borgerPC installer v2.0.0
         # Resize the last restored partition (-1 is the swap partition)
         e2fsck_result = subprocess.run(
                 ["e2fsck", "-y", "-f", disk_partitions[-2]["node"]])
-        if e2fsck_result.returncode is not 0:
+        if e2fsck_result.returncode != 0:
             die(10, "checking root filesystem failed")
         print("Checked new root filesystem integrity.")
 
         resize2fs_result = subprocess.run(
                 ["resize2fs", disk_partitions[-2]["node"]])
-        if resize2fs_result.returncode is not 0:
+        if resize2fs_result.returncode != 0:
             die(11, "resizing root filesystem failed")
         print("Resized new root filesystem.")
     else:
@@ -409,13 +409,13 @@ OS2borgerPC installer v2.0.0
         # mounted
         mount_result = subprocess.run(
                 ["mount", disk_partitions[1]["node"], "/mnt"])
-        if mount_result.returncode is not 0:
+        if mount_result.returncode != 0:
             die(10, "mounting new root filesystem failed")
         print("Mounted new root filesystem.")
 
         mount_result = subprocess.run(
                 ["mount", disk_partitions[0]["node"], "/mnt/boot/efi"])
-        if mount_result.returncode is not 0:
+        if mount_result.returncode != 0:
             die(12, "mounting EFI filesystem failed")
         print("Mounted new EFI filesystem.")
 
@@ -431,7 +431,7 @@ OS2borgerPC installer v2.0.0
                             "--root-directory", "/mnt",
                             device_path],
                     universal_newlines=True)
-            if mount_result.returncode is not 0:
+            if mount_result.returncode != 0:
                 die(13, "installation of EFI bootloader failed")
         else:
             print("Installing MBR bootloader.")
@@ -441,7 +441,7 @@ OS2borgerPC installer v2.0.0
                             "--root-directory", "/mnt",
                             device_path],
                     universal_newlines=True)
-            if mount_result.returncode is not 0:
+            if mount_result.returncode != 0:
                 die(13, "installation of MBR bootloader failed")
         print("Installed bootloader.")
 
