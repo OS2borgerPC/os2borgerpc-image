@@ -68,7 +68,6 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     apt-get -y clean
 fi
 
-# TODO: Find a more permanent way of handling this.
 pip3 install os2borgerpc-client
 
 # Setup unattended upgrades
