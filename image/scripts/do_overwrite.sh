@@ -18,9 +18,10 @@ cp -r "$DIR"/../overwrites/* $DESTINATION
 
 # Permissions fixup
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
+chmod 0400 ${DESTINATION}home/.skjult/.local/share/keyrings/Standardnøglering.keyring
 
 # Remove Bluetooth indicator applet from Borger user
-"$DIR/../../admin_scripts/image_core/remove_bluetooth_applet.sh"
+"$DIR/remove_bluetooth_applet.sh"
 
 # Update dconf with settings from overwrites.
 dconf update

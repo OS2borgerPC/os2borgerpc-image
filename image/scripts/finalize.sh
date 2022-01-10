@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIR=$(dirname $(realpath $0 ))
+DIR=$(dirname "$(realpath "$0" )")
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
@@ -10,7 +10,7 @@ cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
 # os2borgerpc, ensuring cleanup of user's directory.
 
 # Setup cleanup script in systemd.
-"$DIR/../../admin_scripts/image_core/systemd_policy_cleanup.sh" 1
+"$DIR/systemd_policy_cleanup.sh" 1
 
 
 # Automatic login for user, not superuser.
