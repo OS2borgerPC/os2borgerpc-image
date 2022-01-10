@@ -1,3 +1,20 @@
+Version 3.1.0, November 25, 2021
+--------------------------------
+
+New in this version:
+
+- Icon shortcuts on desktop are handled differently - by default, none er
+  present, i.e. the LibreOffice icons are removed by default.
+- By default, audience users are (once again) blocked from accessing
+  settings.
+- Disable requests for Gnome Keyring password, e.g. from Google Chrome.
+- Disable LibreOffice Tip of the Day and release notes by default.
+- Link to admin site on superuser desktop now correct (bug fix).
+- Wayland login option is disabled as it may cause the computer to
+  become unresponsive.
+- More stable process for automatic upgrades.
+
+
 Version 3.0.0, January 18, 2021
 -------------------------------
 

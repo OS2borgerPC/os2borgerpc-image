@@ -68,11 +68,10 @@ if [ "$PKGSTOINSTALL" != "" ]; then
     apt-get -y clean
 fi
 
-# TODO: Find a more permanent way of handling this.
 pip3 install os2borgerpc-client
 
 # Setup unattended upgrades
-"$DIR/../../admin_scripts/image_core/apt_periodic_control.sh" security
+"$DIR/apt_periodic_control.sh" security
 
 # Install English language package
 apt-get -y install language-pack-en language-pack-gnome-en
