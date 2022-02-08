@@ -1,3 +1,12 @@
+Version 3.1.1, February 1, 2022
+-------------------------------
+
+New in this version:
+
+* Remove explicit locale settings from ISO.
+* Remove "noisy" lines from auth.log.
+
+
 Version 3.1.0, November 25, 2021
 --------------------------------
 
