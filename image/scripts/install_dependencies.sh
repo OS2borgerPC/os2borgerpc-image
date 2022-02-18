@@ -7,8 +7,7 @@ DIR=$(dirname ${BASH_SOURCE[0]})
 # Install OS2bogerPC specific dependencies
 #           
 # The DEPENDENCIES file contains packages/programs
-# required by OS2borgerPC AND extra packages which are free dependencies
-# of Skype and MS Fonts - to shorten the postinstall process.
+# required by OS2borgerPC.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
 PKGSTOINSTALL=""
