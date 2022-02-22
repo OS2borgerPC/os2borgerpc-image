@@ -1,0 +1,49 @@
+# Locale sets language and country.
+d-i debian-installer/locale string da_DK.UTF-8
+
+# Keyboard selection.
+# Disable automatic (interactive) keymap detection.
+keyboard-configuration  keyboard-configuration/variant  select  Danish
+keyboard-configuration  keyboard-configuration/layoutcode       string  dk
+keyboard-configuration console-setup/ask_detect boolean false
+
+#
+
+# netcfg will choose an interface that has link if possible. This makes it
+# skip displaying a list if there is more than one interface.
+d-i netcfg/choose_interface select auto
+
+# Any hostname and domain names assigned from dhcp take precedence over
+# values set here. However, setting the values still prevents the questions
+# from being shown, even if values come from dhcp.
+d-i netcfg/get_hostname string os2borgerpc
+
+d-i mirror/http/hostname string archive.ubuntu.com
+
+# Controls whether or not the hardware clock is set to UTC.
+d-i clock-setup/utc boolean true
+
+# You may set this to any valid setting for $TZ; see the contents of
+# /usr/share/zoneinfo/ for valid values.
+d-i time/zone string Europe/Copenhagen
+
+ubiquity ubiquity/summary string ""
+
+# Skip creation of a normal user account.
+base-passwd	base-passwd/user-add	boolean false
+d-i passwd/make-user boolean false
+d-i passwd/user-fullname string Superuser
+d-i passwd/username string superuser
+d-i passwd/user-password password superuser
+d-i passwd/user-password-again password superuser
+
+# Enable extras.ubuntu.com.
+d-i	apt-setup/extras	boolean true
+# Install the Ubuntu desktop.
+tasksel	tasksel/first	multiselect ubuntu-desktop
+# On live DVDs, don't spend huge amounts of time removing substantial
+# application packages pulled in by language packs. Given that we clearly
+# have the space to include them on the DVD, they're useful and we might as
+# well keep them installed.
+ubiquity	ubiquity/keep-installed	string icedtea6-plugin openoffice.org
+d-i  base-installer/kernel/altmeta   string hwe-20.04

@@ -3,7 +3,11 @@
 DIR=$(dirname "$(realpath "$0" )")
 
 mkdir -p /home/superuser/Skrivebord
+mkdir /home/superuser/.config
+echo "yes" > /home/superuser/.config/gnome-initial-setup-done
+
 chown -R superuser:superuser /home/superuser
+
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
