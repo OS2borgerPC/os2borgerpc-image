@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DIR=$1; shift
-
+DIR=$1
+COMMAND=$2
+echo $COMMAND
 if [ "$DIR" == "" ]; then
     echo "No directory specified"
     exit 1;
@@ -10,11 +11,11 @@ fi
 DIR=${DIR%/}
 
 if [ ! -d "$DIR" ]; then
-    echo "$DIR does not exist"
+    echo "$DIR does not exist or is not a directory"
     exit 1
 fi
 
-# echo "Setting up resolv.conf"
+# Set up resolv.conf
 sudo cp /etc/resolv.conf squashfs-root/run/systemd/resolve/stub-resolv.conf
 
 echo "Mounting device filesystems"
@@ -24,7 +25,15 @@ sudo mount -v -t devpts none "$DIR/dev/pts/"
 sudo mount --bind /dev/ "$DIR/dev"
 
 echo "Chroot'ing"
-sudo chroot "$DIR"
+if [ -z $COMMAND ]
+then
+    sudo chroot "$DIR"
+else
+    EXE=$(basename $COMMAND)
+    sudo cp $COMMAND $DIR
+    sudo chmod +x $DIR/$EXE
+    sudo chroot "$DIR" /"$EXE"
+fi
 
 sudo umount -v "$DIR/dev/pts/"
 sudo umount -v "$DIR/dev"
