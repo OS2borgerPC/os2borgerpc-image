@@ -68,11 +68,10 @@ cp -r iso_overwrites/* iso/
 # Recalculate MD5 sums.
 cd iso
 find -type f -print0 | sudo xargs -0 md5sum |  grep -v isolinux/boot.cat | grep -v md5sum | sudo tee md5sum.txt
-find -type f -print0 | sudo xargs -0 md5sum |  grep -v isolinux/boot.cat | grep -v md5sum | sudo tee md5sum.txt
-# Seriously, do it twice.
 
 # Make image
+cd ..
+
 export IMAGE_NAME=OS2borgerPC-4.0.0-alpha1   # Eller whatever
 
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"$IMAGE_NAME".iso .
-
+xorriso -as mkisofs -r   -V "$IMAGE_NAME"   -o "$IMAGE_NAME".iso   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso
