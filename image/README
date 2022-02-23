@@ -1,77 +1,18 @@
 # HOWTO build a CD image with the tools in this directory.
 
-# PREREQUISITES: squashfs-tools genisoimage
+# PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso isolinux
 
-# Ressources:
+# Ressources about how to build or tweak this:
 # https://help.ubuntu.com/community/LiveCDCustomization
 # https://wiki.ubuntu.com/UbiquityAutomation
 # https://wiki.ubuntu.com/DesktopCDOptions
 # https://help.ubuntu.com/lts/installation-guide/amd64/apbs01.html
 
-build/extract_iso.sh /path/to/ubuntu-20.04.3-desktop-amd64.iso iso
+From this directory, run the following command:
 
-sudo unsquashfs -f iso/casper/filesystem.squashfs
+./build_os2borgerpc_image.sh iso_path image_name
 
-build/chroot_os2borgerpc.sh squashfs-root
+"iso_path" is a path to the ISO image to be remastered.
 
-# You have entered the squashed system as root.
-
-apt update
-apt upgrade
-# Ignore error about zsys daemon
-apt install git
-
-# Get code for OS2borgerPC
-
-git clone  https://github.com/OS2borgerPC/image/
-cd image
-# TODO: Delete after merge
-git checkout 48683_kill_clonezilla
-
-# Run customization.
-
-image/scripts/os2borgerpc_setup.sh
-image/scripts/finalize.sh
-
-# Cleanup
-
-apt autoremove
-apt clean
-cd ..
-rm -rf image/
-rm /tmp/*
-
-exit
-
-# You're now back in Ubuntu.
-
-# Regenerate manifest
-sudo su
-chroot squashfs-root dpkg-query -W --showformat='${Package} ${Version}\n' > iso/casper/filesystem.manifest
-exit
-cp iso/casper/filesystem.manifest iso/casper/filesystem.manifest-desktop
-sed -i '/ubiquity/d' iso/casper/filesystem.manifest-desktop
-sed -i '/casper/d' iso/casper/filesystem.manifest-desktop
-
-# Build squashfs for the ISO.
-
-rm iso/casper/filesystem.squashfs
-sudo mksquashfs squashfs-root iso/casper/filesystem.squashfs
-# Calculate FS size (sorry)
-sudo su
-printf $(du -sx --block-size=1 squashfs-root | cut -f1) > iso/casper/filesystem.size
-exit
-
-# Overwrite preseed etc.
-cp -r iso_overwrites/* iso/
-
-# Recalculate MD5 sums.
-cd iso
-find -type f -print0 | sudo xargs -0 md5sum |  grep -v isolinux/boot.cat | grep -v md5sum | sudo tee md5sum.txt
-
-# Make image
-cd ..
-
-export IMAGE_NAME=OS2borgerPC-4.0.0-alpha1   # Eller whatever
-
-xorriso -as mkisofs -r   -V "$IMAGE_NAME"   -o "$IMAGE_NAME".iso   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso
+"image_name" is the name of the output image, e.g. "OS2borgerPC-x.y.z". The 
+output ISO file will be called "$image_name".iso.

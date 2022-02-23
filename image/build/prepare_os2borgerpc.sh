@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # You have entered the squashed system as root.
+export DEBIAN_FRONTEND=noninteractive
 
-apt update
-apt upgrade
+apt-get -y update
+apt-get -y upgrade
 # Ignore error about zsys daemon
-apt install git
+apt-get -y install git
 
 # Get code for OS2borgerPC
 
@@ -21,8 +22,8 @@ image/scripts/finalize.sh
 
 # Cleanup
 
-apt autoremove
-apt clean
+apt-get -y autoremove
+apt-get -y clean
 cd ..
 rm -rf image/
 rm /tmp/*
