@@ -2,6 +2,7 @@
 
 # Find current directory
 
+export DEBIAN_FRONTEND=noninteractive
 DEPENDENCIES=( squashfs-tools genisoimage p7zip-full xorriso isolinux )
 
 PKGSTOINSTALL=""

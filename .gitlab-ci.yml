@@ -1,0 +1,40 @@
+# Copyright (C) 2022 Magenta ApS, http://magenta.dk.
+# Contact: info@magenta.dk.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+stages:
+  - build
+
+variables:
+  ISO_SHA: ${CI_COMMIT_SHORT_SHA}
+
+
+
+# Build stage
+#############
+
+
+Build ISO image:
+  stage: build
+  tags: 
+    - high-mem
+  needs: []
+  image: ubuntu:20.04
+  before_script:
+    - apt-get -y update > /dev/null
+    - apt-get -y install wget sudo apt-utils > /dev/null
+    - cd image
+    - wget -q http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso
+    - echo "${ISO_SHA}"
+  script:
+    - ./build_in_pipeline.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
+  artifacts:
+    paths:
+      - ${ISO_SHA}.iso
+    exclude:
+      - ubuntu-20.04.3-desktop-amd64.iso
+    expire_in: 1 week

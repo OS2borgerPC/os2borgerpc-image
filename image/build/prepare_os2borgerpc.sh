@@ -17,7 +17,7 @@ git checkout development
 
 # Run customization.
 
-image/scripts/os2borgerpc_setup.sh
+image/scripts/os2borgerpc_setup.sh > /dev/null
 image/scripts/finalize.sh
 
 # Cleanup

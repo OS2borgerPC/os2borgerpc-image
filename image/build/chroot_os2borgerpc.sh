@@ -35,7 +35,7 @@ else
     sudo chroot "$DIR" /"$EXE"
 fi
 
-sudo umount -v "$DIR/dev/pts/"
-sudo umount -v "$DIR/dev"
-sudo umount -v "$DIR/sys"
-sudo umount -v "$DIR/proc"
+# sudo umount -v "$DIR/dev/pts/"
+# sudo umount -v "$DIR/dev"
+# sudo umount -v "$DIR/sys"
+# sudo umount -v "$DIR/proc"
