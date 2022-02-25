@@ -12,8 +12,8 @@ apt-get -y install git
 
 git clone  https://github.com/OS2borgerPC/image/
 cd image
-# TODO: Delete after merge
-git checkout 48683_kill_clonezilla
+# TODO: Delete after merge to master
+git checkout development
 
 # Run customization.
 
