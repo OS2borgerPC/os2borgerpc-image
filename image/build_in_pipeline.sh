@@ -31,11 +31,11 @@ build/extract_iso.sh $ISO_PATH iso
 # Unsquash and customize
 sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
-build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
+build/chroot_no_mount.sh squashfs-root ./build/prepare_os2borgerpc.sh
 
 
 # Regenerate manifest
-build/chroot_os2borgerpc.sh squashfs-root build/create_manifest.sh > iso/casper/filesystem.manifest
+build/chroot_no_mount.sh squashfs-root build/create_manifest.sh > iso/casper/filesystem.manifest
 
 cp iso/casper/filesystem.manifest iso/casper/filesystem.manifest-desktop
 sed -i '/ubiquity/d' iso/casper/filesystem.manifest-desktop
