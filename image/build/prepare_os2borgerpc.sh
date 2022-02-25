@@ -12,6 +12,7 @@ apt-get -y install git
 
 git clone  https://github.com/OS2borgerPC/image/
 cd image
+
 # TODO: Delete after merge to master
 git checkout development
 
