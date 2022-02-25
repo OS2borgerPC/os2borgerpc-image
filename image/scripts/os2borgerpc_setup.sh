@@ -21,6 +21,16 @@
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 
+# Add universe repositories
+
+cat << EOF >> /etc/apt/sources.list
+# Add universe stuff
+deb http://archive.ubuntu.com/ubuntu/ focal universe
+deb http://security.ubuntu.com/ubuntu/ focal-security universe
+deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
+EOF
+
+
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
 
@@ -31,6 +41,11 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 useradd user -m -p 12345 -s /bin/bash -U
 chfn -f Borger user
 adduser user nopasswdlogin
+
+# Setup superuser
+useradd superuser -m -s /bin/bash -p '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' -U 
+chfn -f Superuser superuser
+adduser superuser sudo
 
 # Make now first boot
 touch /etc/os2borgerpc/firstboot

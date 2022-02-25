@@ -1,0 +1,18 @@
+# HOWTO build a CD image with the tools in this directory.
+
+# PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso isolinux
+
+# Ressources about how to build or tweak this:
+# https://help.ubuntu.com/community/LiveCDCustomization
+# https://wiki.ubuntu.com/UbiquityAutomation
+# https://wiki.ubuntu.com/DesktopCDOptions
+# https://help.ubuntu.com/lts/installation-guide/amd64/apbs01.html
+
+From this directory, run the following command:
+
+./build_os2borgerpc_image.sh iso_path image_name
+
+"iso_path" is a path to the ISO image to be remastered.
+
+"image_name" is the name of the output image, e.g. "OS2borgerPC-x.y.z". The 
+output ISO file will be called "$image_name".iso.

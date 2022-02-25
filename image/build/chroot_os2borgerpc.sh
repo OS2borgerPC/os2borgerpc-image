@@ -1,7 +1,8 @@
 #!/bin/bash
 
-DIR=$1; shift
-
+DIR=$1
+COMMAND=$2
+echo $COMMAND
 if [ "$DIR" == "" ]; then
     echo "No directory specified"
     exit 1;
@@ -9,28 +10,32 @@ fi
 
 DIR=${DIR%/}
 
-FS_DIR="${DIR}/filesystem"
-
-if [ ! -d "$FS_DIR" ]; then
-    echo "$DIR does not exist or does not seem to be a BibOS image"
+if [ ! -d "$DIR" ]; then
+    echo "$DIR does not exist or is not a directory"
     exit 1
 fi
 
-echo "Mounting device filesystems"
-sudo mount -v -t proc proc "$FS_DIR/proc"
-sudo mount -v -t sysfs sys "$FS_DIR/sys"
-sudo mount -v -o bind /dev "$FS_DIR/dev"
-sudo mount -v -t devpts pts "$FS_DIR/dev/pts/"
-echo "Setting up resolv.conf"
-sudo cp "$FS_DIR/etc/resolv.conf" "$FS_DIR/etc/resolv.conf.chrooted"
-sudo cp /etc/resolv.conf "$FS_DIR/etc/resolv.conf"
-echo "Chroot'ing"
-sudo chroot "$FS_DIR"
+# Set up resolv.conf
+sudo cp /etc/resolv.conf squashfs-root/run/systemd/resolve/stub-resolv.conf
 
-sudo umount -v "$FS_DIR/dev/pts/"
-sudo umount -v "$FS_DIR/dev"
-sudo umount -v "$FS_DIR/sys"
-sudo umount -v "$FS_DIR/proc"
-if [ -f "$FS_DIR/etc/resolv.conf.chrooted" ]; then
-    sudo mv "$FS_DIR/etc/resolv.conf.chrooted" "$FS_DIR/etc/resolv.conf"
+echo "Mounting device filesystems"
+sudo mount -v -t proc none "$DIR/proc"
+sudo mount -v -t sysfs none "$DIR/sys"
+sudo mount -v -t devpts none "$DIR/dev/pts/"
+sudo mount --bind /dev/ "$DIR/dev"
+
+echo "Chroot'ing"
+if [ -z $COMMAND ]
+then
+    sudo chroot "$DIR"
+else
+    EXE=$(basename $COMMAND)
+    sudo cp $COMMAND $DIR
+    sudo chmod +x $DIR/$EXE
+    sudo chroot "$DIR" /"$EXE"
 fi
+
+sudo umount -v "$DIR/dev/pts/"
+sudo umount -v "$DIR/dev"
+sudo umount -v "$DIR/sys"
+sudo umount -v "$DIR/proc"
