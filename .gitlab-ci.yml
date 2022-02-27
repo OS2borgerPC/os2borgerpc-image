@@ -34,7 +34,7 @@ Build ISO image:
     - ./build_in_pipeline.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
   artifacts:
     paths:
-      - ${ISO_SHA}.iso
+      - image/${ISO_SHA}.iso
     exclude:
-      - ubuntu-20.04.3-desktop-amd64.iso
+      - ubuntu-20.04.4-desktop-amd64.iso
     expire_in: 1 week
