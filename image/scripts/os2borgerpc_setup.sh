@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Setup the configuration we know to be necessary for this 
+# Setup the configuration we know to be necessary for this
 # computer to be "OS2borgerPC ready".
 
 # Will execute the following steps:
@@ -8,7 +8,7 @@
 # * Install packages
 # * Create and setup user "user"
 #
-# The machine will now be a fully functional and standardized 
+# The machine will now be a fully functional and standardized
 # OS2borgerPC computer which is not, however, registered with the admin
 # system nor endowed with local settings such as printers, etc.
 #
@@ -43,7 +43,7 @@ chfn -f Borger user
 adduser user nopasswdlogin
 
 # Setup superuser
-useradd superuser -m -s /bin/bash -p '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' -U 
+useradd superuser -m -s /bin/bash -p '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' -U --uid 1001
 chfn -f Superuser superuser
 adduser superuser sudo
 

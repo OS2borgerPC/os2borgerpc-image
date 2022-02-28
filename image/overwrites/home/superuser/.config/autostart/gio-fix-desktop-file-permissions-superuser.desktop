@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Automatically allow launching of .desktop files on the desktop
+Exec=/home/superuser/gio-fix-desktop-file-permissions-superuser.sh
+Icon=system-run
+X-GNOME-Autostart-enabled=true
