@@ -29,12 +29,9 @@ Build ISO image:
     - apt-get -y install wget sudo apt-utils > /dev/null
     - cd image
     - wget -q http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso
-    - echo "${ISO_SHA}"
   script:
     - ./build_in_pipeline.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
-    exclude:
-      - ubuntu-20.04.4-desktop-amd64.iso
     expire_in: 1 week
