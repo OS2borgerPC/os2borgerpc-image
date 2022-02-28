@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-# HOWTO build a CD image with the tools in this directory.
-
 # Ressources:
 # https://help.ubuntu.com/community/LiveCDCustomization
 # https://wiki.ubuntu.com/UbiquityAutomation
@@ -24,12 +22,12 @@ fi
 
 set -ex
 
-build/install_dependencies.sh
+build/install_dependencies.sh > /dev/null
 
 build/extract_iso.sh $ISO_PATH iso
 
 # Unsquash and customize
-sudo unsquashfs -f iso/casper/filesystem.squashfs
+sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
 build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
 

@@ -30,7 +30,7 @@ Build ISO image:
     - cd image
     - wget -q http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso
   script:
-    - ./build_in_pipeline.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
+    - ./build_os2borgerpc_image.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
