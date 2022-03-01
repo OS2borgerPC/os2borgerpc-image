@@ -1,5 +1,7 @@
 #!/bin/bash
 
+printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
+
 # Find current directory
 
 export DEBIAN_FRONTEND=noninteractive
@@ -19,9 +21,9 @@ done
 
 if [ "$PKGSTOINSTALL" != "" ]; then
     echo  -n "Some dependencies are missing."
-    echo " The following packages will be installed: $PKGSTOINSTALL" 
-    sudo apt-get update > /dev/null 
-    sudo apt-get -y install $PKGSTOINSTALL 
+    echo " The following packages will be installed: $PKGSTOINSTALL"
+    sudo apt-get update > /dev/null
+    sudo apt-get -y install $PKGSTOINSTALL
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2

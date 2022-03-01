@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+printf "\n\n%s\n\n" "===== RUNNING: $0 (GitHub version) ====="
+
 DIR=$(dirname "$(realpath "$0" )")
 
 mkdir -p /home/superuser/Skrivebord

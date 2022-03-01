@@ -6,6 +6,8 @@
 # https://wiki.ubuntu.com/DesktopCDOptions
 # https://help.ubuntu.com/lts/installation-guide/amd64/apbs01.html
 
+printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
+
 ISO_PATH=$1
 IMAGE_NAME=$2
 

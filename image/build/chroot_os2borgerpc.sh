@@ -1,5 +1,7 @@
 #!/bin/bash
 
+printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
+
 DIR=$1
 COMMAND=$2
 
@@ -19,7 +21,7 @@ fi
 # Set up resolv.conf
 sudo cp /etc/resolv.conf squashfs-root/run/systemd/resolve/stub-resolv.conf
 
-echo "Chroot'ing"
+echo "Chroot'ing into what will be the filesystem on the OS2BorgerPC"
 if [ -z $COMMAND ]
 then
     sudo chroot "$DIR"
