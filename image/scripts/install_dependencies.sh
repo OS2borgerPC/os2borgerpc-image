@@ -73,8 +73,5 @@ pip3 install os2borgerpc-client
 # Setup unattended upgrades
 "$DIR/apt_periodic_control.sh" security
 
-# Randomize checkins with server.
-"$DIR/randomize_jobmanager.sh" 5
-
 # Install English language package
 apt-get -y install language-pack-en language-pack-gnome-en
