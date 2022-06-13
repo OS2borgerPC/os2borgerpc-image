@@ -51,7 +51,7 @@ adduser user nopasswdlogin
 useradd superuser -m -s /bin/bash -p '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' -U
 chfn -f Superuser superuser
 adduser superuser sudo
-chmod -R 744 /home/superuser
+chmod -R 700 /home/superuser
 
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
