@@ -42,37 +42,37 @@ class Daemon:
 
     def daemonize(self):
         """
-        do the UNIX double-fork magic, see Stevens' "Advanced 
+        do the UNIX double-fork magic, see Stevens' "Advanced
         Programming in the UNIX Environment" for details (ISBN 0201563177)
         http://www.erlenstar.demon.co.uk/unix/faq_2.html#SEC16
         """
 
-        try: 
-            pid = os.fork() 
+        try:
+            pid = os.fork()
             if pid > 0:
                 # exit first parent
-                sys.exit(0) 
-        except OSError, e: 
+                sys.exit(0)
+        except OSError, e:
             sys.stderr.write("fork #1 failed: %d (%s)\n"
                              % (e.errno, e.strerror))
             sys.exit(1)
 
         # decouple from parent environment
-        os.chdir("/") 
-        os.setsid() 
-        os.umask(0) 
+        os.chdir("/")
+        os.setsid()
+        os.umask(0)
 
         # do second fork
-        try: 
-            pid = os.fork() 
+        try:
+            pid = os.fork()
             if pid > 0:
                 # exit from second parent
-                sys.exit(0) 
+                sys.exit(0)
 
-        except OSError, e: 
+        except OSError, e:
             sys.stderr.write("fork #2 failed: %d (%s)\n" %
                              (e.errno, e.strerror))
-            sys.exit(1) 
+            sys.exit(1)
 
         # redirect standard file descriptors
         sys.stdout.flush()
@@ -135,7 +135,7 @@ class Daemon:
             sys.stderr.write(message % self.pidfile)
             return # not an error in a restart
 
-        # Try killing the daemon process        
+        # Try killing the daemon process
         try:
             while 1:
                 os.kill(pid, SIGTERM)
@@ -177,21 +177,21 @@ class BibOSDaemon(Daemon):
                 server_ip = get_config('gateway_address')
             except KeyError:
                 server_ip = find_lan_addresses()[0]
-    
+
         if not server_ip:
             print >> sys.stderr, "Could not find LAN ip or no LAN ip specified"
             sys.exit(1)
-    
+
         print >> sys.stderr, "Running server, will reply with address", server_ip
-    
+
         sock = socket.socket(AF_INET, SOCK_DGRAM)
         sock.bind(('', PORT))
-    
+
         while True:
             data, addr = sock.recvfrom(1024)
             print >> sys.stderr, "Got", data, "from", addr
             sock.sendto(REPLY_MESSAGE + server_ip, addr)
- 
+
 if __name__ == "__main__":
     daemon = BibOSDaemon(
         '/var/run/bibos-localserver-daemon.pid',

@@ -17,7 +17,7 @@
 # user, add scripts, whatever. Once you're done customizing, please call the
 # *finalize* script to launch the setup script on first boot.
 
-printf "\n\n%s\n\n" "===== RUNNING: $0 (GitHub version) ====="
+printf "\n\n%s\n\n" "===== RUNNING: $0 (GITHUB VERSION, INSIDE SQUASHFS) ====="
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 
@@ -33,6 +33,9 @@ EOF
 
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
+
+# Adding this group here as apt-periodic-control called by install_dependencies.sh expects it to exist
+groupadd nopasswdlogin
 
 # Install all necessary packages and dependencies
 "$DIR/install_dependencies.sh"
@@ -57,12 +60,10 @@ chmod -R og-r /var/lib/os2borgerpc
 # Switch display manager to LightDM
 DEBIAN_FRONTEND=noninteractive apt -y install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
-apt -y remove gdm3
+apt-get remove --assume-yes gdm3
 
-# Prepare to run security events
-SECURITY_DIR=/etc/os2borgerpc/security/
+# Prepare for security scripts
 mkdir -p /etc/os2borgerpc/security/
-cp -R "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/security/* "$SECURITY_DIR"
 
 # Set product in configuration
 PRODUCT="os2borgerpc"
@@ -72,9 +73,13 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
+printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+
 # Securing grub
 "$DIR/grub_set_password.py" $(pwgen -N 1 -s 12)
 
 # Setup a script to activate the desktop shortcuts for superuser on login
 # This must run after superuser has been created
 "$DIR/superuser_fix_desktop_shortcuts_permissions.sh"
+
+printf "\n\n%s\n\n" "=== Finished running assorted OS2borgerPC scripts ==="

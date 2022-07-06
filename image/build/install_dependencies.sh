@@ -9,11 +9,11 @@ DEPENDENCIES=( squashfs-tools genisoimage p7zip-full xorriso isolinux )
 
 PKGSTOINSTALL=""
 
-dpkg -l | grep "^ii" > /tmp/installed-package-list.txt
+dpkg -l | grep "^ii" > /tmp/build_installed_packages_list.txt
 
 for  package in "${DEPENDENCIES[@]}"
 do
-    grep -w "ii  $package " /tmp/installed-package-list.txt > /dev/null
+    grep -w "ii  $package " /tmp/build_installed_packages_list.txt > /dev/null
     if [[ $? -ne 0 ]]; then
         PKGSTOINSTALL=$PKGSTOINSTALL" "$package
     fi

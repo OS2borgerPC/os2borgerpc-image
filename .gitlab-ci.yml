@@ -26,7 +26,7 @@ Build ISO image:
   image: ubuntu:20.04
   before_script:
     - apt-get -y update > /dev/null
-    - apt-get -y install wget sudo apt-utils > /dev/null
+    - apt-get -y install wget sudo apt-utils figlet > /dev/null
     - cd image
     - wget -q http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso
   script:

@@ -52,7 +52,7 @@ if [ ! -d /bibos-archive ]; then
     chown root:root /bibos-archive
     chmod og-w /bibos-archive
     echo "Done"
-fi    
+fi
 
 # Correct ssh config to chroot bibos-archive user
 grep "ChrootDirectory /bibos-archive" /etc/ssh/sshd_config > /dev/null
