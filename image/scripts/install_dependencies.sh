@@ -35,7 +35,7 @@ do
     fi
 done
 
-# upgrade
+# Upgrade packages
 apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 
