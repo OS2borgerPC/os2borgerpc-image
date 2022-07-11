@@ -10,32 +10,45 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
 ISO_PATH=$1
 IMAGE_NAME=$2
-
+CLEAN_BUILD=$3
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0" iso_file image_name"
+    echo "Usage: "$0" iso_file image_name [--clean]"
     echo ""
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
+    echo "clean: pass --clean to first delete temp build files, e.g. from within iso/"
     echo ""
     exit 1
 fi
 
+figlet "Building OS2borgerPC"
+
 set -ex
+
+if [ "$CLEAN_BUILD" = "--clean" ]
+then
+    # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
+    sudo umount squashfs-root/tmp || true
+    sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /root/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt
+fi
 
 build/install_dependencies.sh > /dev/null
 
-build/extract_iso.sh $ISO_PATH iso
+build/extract_iso.sh "$ISO_PATH" iso
 
 # Unsquash and customize
 sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
+
+figlet "About to enter chroot"
 build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
 
 
 # Regenerate manifest
 build/chroot_os2borgerpc.sh squashfs-root build/create_manifest.sh > iso/casper/filesystem.manifest
+figlet "Exiting chroot"
 
 cp iso/casper/filesystem.manifest iso/casper/filesystem.manifest-desktop
 sed -i '/ubiquity/d' iso/casper/filesystem.manifest-desktop
@@ -57,6 +70,9 @@ cp -r iso_overwrites/* iso/
 cd iso
 md5sum casper/filesystem.squashfs > md5sum.txt
 cd ..
+
+# Cleanup and unmount our tmp from squashfs-root
+sudo umount squashfs-root/tmp || true
 
 # Make image
 

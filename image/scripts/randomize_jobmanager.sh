@@ -58,9 +58,7 @@ echo "$CRON_COMMAND"
 
 CRON_PATH=/etc/cron.d/os2borgerpc-jobmanager
 
-rm $CRON_PATH
-
-cat <<EOT >> "$CRON_PATH"
+cat <<EOF > "$CRON_PATH"
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 $CRON_COMMAND
-EOT
+EOF
