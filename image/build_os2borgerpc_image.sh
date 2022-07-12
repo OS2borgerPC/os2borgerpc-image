@@ -10,7 +10,8 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
 ISO_PATH=$1
 IMAGE_NAME=$2
-CLEAN_BUILD=$3
+if [ "$3" = "--clean" ]; then CLEAN_BUILD=1; fi
+
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
@@ -23,14 +24,21 @@ then
     exit 1
 fi
 
+IMAGE_MOUNT_POINT="squashfs-root/mnt"
+TMP_MOUNT_POINT="squashfs-root/tmp"
+
+unmount_cleanup() {
+    sudo umount $TMP_MOUNT_POINT $IMAGE_MOUNT_POINT || true
+}
+
 figlet "Building OS2borgerPC"
 
 set -ex
 
-if [ "$CLEAN_BUILD" = "--clean" ]
+if [ "$CLEAN_BUILD" ]
 then
     # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
-    sudo umount squashfs-root/tmp || true
+    unmount_cleanup
     sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /root/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt
 fi
 
@@ -41,8 +49,13 @@ build/extract_iso.sh "$ISO_PATH" iso
 # Unsquash and customize
 sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
+# Mounting the build files into the chroot
+sudo mount --bind . $IMAGE_MOUNT_POINT
+# Mounting in our own tmp into the chroot so we retain access to the log files written from within it
+sudo mount --bind /tmp $TMP_MOUNT_POINT
 
 figlet "About to enter chroot"
+
 build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
 
 
@@ -72,7 +85,7 @@ md5sum casper/filesystem.squashfs > md5sum.txt
 cd ..
 
 # Cleanup and unmount our tmp from squashfs-root
-sudo umount squashfs-root/tmp || true
+unmount_cleanup
 
 # Make image
 

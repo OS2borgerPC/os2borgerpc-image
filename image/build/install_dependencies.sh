@@ -20,7 +20,7 @@ do
 done
 
 if [ "$PKGSTOINSTALL" != "" ]; then
-    echo  -n "Some dependencies are missing."
+    echo  -n "Some build dependencies are missing on the host system."
     echo " The following packages will be installed: $PKGSTOINSTALL"
     sudo apt-get update > /dev/null
     sudo apt-get -y install $PKGSTOINSTALL
@@ -30,7 +30,7 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "ERROR: Installation of dependencies failed." 1>&2
         echo "Please note that \"universe\" repository MUST be enabled" 1>&2
         echo "" 1>&2
-        exit -1
+        exit 1
     fi
 
 fi
