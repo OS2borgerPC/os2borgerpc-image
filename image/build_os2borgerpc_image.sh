@@ -8,8 +8,6 @@
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
-# Why aren't we just always bind-mounting, also in the pipeline? Because of a Permission Denied error.
-# *Might* be solveable via configuring the gitlab runner with privileged, however.
 ISO_PATH=$1
 IMAGE_NAME=$2
 if [ "$3" = "--clean" ] || [ "$4" = "--clean" ]; then CLEAN_BUILD=1; fi
@@ -18,7 +16,7 @@ if [ "$3" = "--mount" ] || [ "$4" = "--mount" ]; then MOUNT="1"; fi
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0" iso_file image_name [--clean]"
+    echo "Usage: "$0" iso_file image_name [--clean] [--mount]"
     echo ""
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
@@ -37,6 +35,15 @@ unmount_cleanup() {
 }
 
 figlet "Building OS2borgerPC"
+
+if [ ! $MOUNT ];
+then
+    # Why aren't we just always bind-mounting, also in the pipeline? Because of a Permission Denied error.
+    # *Might* be solveable by configuring the gitlab runner with "privileged", however.
+    echo "Using the files on the DEVELOPMENT branch on GITHUB(!) for the squashfs part of the build."
+    echo "If you're testing changes to those files, test locally with --mount instead, or merge to development and \
+         mirror to GitHub first."
+fi
 
 set -ex
 
