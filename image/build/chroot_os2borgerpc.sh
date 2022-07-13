@@ -22,8 +22,6 @@ fi
 
 # Set up resolv.conf
 sudo cp /etc/resolv.conf squashfs-root/run/systemd/resolve/stub-resolv.conf
-# Mounting in our own tmp into the chroot so we retain access to the log files written from within it
-sudo mount --bind /tmp squashfs-root/tmp
 
 echo "Chroot'ing into what will be the filesystem on the OS2BorgerPC"
 if [ -z $COMMAND ]
