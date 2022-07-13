@@ -8,9 +8,12 @@
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
+# Why aren't we just always bind-mounting, also in the pipeline? Because of a Permission Denied error.
+# *Might* be solveable via configuring the gitlab runner with privileged, however.
 ISO_PATH=$1
 IMAGE_NAME=$2
-if [ "$3" = "--clean" ]; then CLEAN_BUILD=1; fi
+if [ "$3" = "--clean" ] || [ "$4" = "--clean" ]; then CLEAN_BUILD=1; fi
+if [ "$3" = "--mount" ] || [ "$4" = "--mount" ]; then MOUNT="1"; fi
 
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
@@ -19,11 +22,13 @@ then
     echo ""
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
-    echo "clean: pass --clean to first delete temp build files, e.g. from within iso/"
+    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
+    echo "--mount: pass this argument to bind mount into squashfs instead of git cloning. Easier for testing locally."
     echo ""
     exit 1
 fi
 
+# Note: Ensure that this dir is also the one we git clone into so both git and bind mount approaches work
 IMAGE_MOUNT_POINT="squashfs-root/mnt"
 TMP_MOUNT_POINT="squashfs-root/tmp"
 
@@ -49,14 +54,18 @@ build/extract_iso.sh "$ISO_PATH" iso
 # Unsquash and customize
 sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
-# Mounting the build files into the chroot
-sudo mount --bind . $IMAGE_MOUNT_POINT
-# Mounting in our own tmp into the chroot so we retain access to the log files written from within it
-sudo mount --bind /tmp $TMP_MOUNT_POINT
+if [ $MOUNT ];
+then
+    # Mounting the build files into the chroot
+    sudo mount --bind ../ $IMAGE_MOUNT_POINT
+
+    # Mounting in our own tmp into the chroot so we retain access to the log files written from within it
+    sudo mount --bind /tmp $TMP_MOUNT_POINT
+fi
 
 figlet "About to enter chroot"
 
-build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
+build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh $MOUNT
 
 
 # Regenerate manifest
