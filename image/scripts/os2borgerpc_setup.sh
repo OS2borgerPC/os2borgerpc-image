@@ -77,6 +77,12 @@ set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
 printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
 
+# Setup unattended upgrades
+"$DIR/apt_periodic_control.sh" security
+
+# Randomize checkins with server.
+"$DIR/randomize_jobmanager.sh" 5
+
 # Securing grub
 "$DIR/grub_set_password.py" $(pwgen -N 1 -s 12)
 
