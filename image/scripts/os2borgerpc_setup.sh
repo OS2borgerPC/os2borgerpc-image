@@ -17,8 +17,7 @@
 # user, add scripts, whatever. Once you're done customizing, please call the
 # *finalize* script to launch the setup script on first boot.
 
-figlet "RUNNING SCRIPT:"
-echo "$0 (INSIDE SQUASHFS)"
+echo "RUNNING SCRIPT $0 (INSIDE SQUASHFS)"
 echo "Beware: This is the version on GitHub if the --mount flag wasn't passed to build_os2borgerpc_image.sh"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")

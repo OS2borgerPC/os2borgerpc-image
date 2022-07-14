@@ -4,8 +4,6 @@ set -x
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 (INSIDE SQUASHFS) ====="
 
-MOUNT=$1
-
 # You have entered the squashed system as root.
 export DEBIAN_FRONTEND=noninteractive
 
@@ -32,16 +30,6 @@ apt-get -y remove --purge deja-dup libfprint-2-2 gnome-todo thunderbird transmis
 echo "Now upgrading all packages"
 apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
-
-# Get code for OS2borgerPC
-if [ ! "$MOUNT" ];
-then
-    apt-get -y install git
-
-    git clone https://github.com/OS2borgerPC/image /mnt/
-    cd /mnt/ || exit 1
-    git checkout development
-fi
 
 # Run customization, from the image/image directory which is bind-mounted in
 /mnt/image/scripts/os2borgerpc_setup.sh || exit 1
