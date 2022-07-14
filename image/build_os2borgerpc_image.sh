@@ -11,7 +11,7 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 ISO_PATH=$1
 IMAGE_NAME=$2
 if [ "$3" = "--clean" ] || [ "$4" = "--clean" ]; then CLEAN_BUILD=1; fi
-if [ "$3" = "--mount" ] || [ "$4" = "--mount" ]; then MOUNT="1"; fi
+if [ "$3" = "--mount" ] || [ "$4" = "--mount" ]; then MOUNT=1; fi
 
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
@@ -35,6 +35,8 @@ unmount_cleanup() {
 }
 
 figlet "Building OS2borgerPC"
+
+echo "Ignore errors about zsys daemon in the log output"
 
 if [ ! $MOUNT ];
 then
@@ -104,5 +106,11 @@ cd ..
 unmount_cleanup
 
 # Make image
+
+# If the image building files were cloned in, delete them before making the image
+if [ ! $MOUNT ];
+then
+    rm -rf squashfs-root/mnt/*
+fi
 
 xorriso -as mkisofs -r   -V "$IMAGE_NAME"   -o "$IMAGE_NAME".iso   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso

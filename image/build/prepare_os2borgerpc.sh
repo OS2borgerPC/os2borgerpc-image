@@ -36,15 +36,13 @@ apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 # Get code for OS2borgerPC
 if [ ! "$MOUNT" ];
 then
-    # Ignore error about zsys daemon
     apt-get -y install git
 
     git clone https://github.com/OS2borgerPC/image /mnt/
-    cd /mnt/
+    cd /mnt/ || exit 1
     git checkout development
 fi
 
-
 # Run customization, from the image/image directory which is bind-mounted in
-/mnt/image/scripts/os2borgerpc_setup.sh
-/mnt/image/scripts/finalize.sh
+/mnt/image/scripts/os2borgerpc_setup.sh || exit 1
+/mnt/image/scripts/finalize.sh || exit 1

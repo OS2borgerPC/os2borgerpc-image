@@ -32,6 +32,7 @@ deb http://security.ubuntu.com/ubuntu/ focal-security universe
 deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
 EOF
 
+apt-get update
 
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
