@@ -33,7 +33,7 @@ Build ISO image:
     - ./build_os2borgerpc_image.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
   cache:
     paths:
-      - ./ubuntu-20.04.4-desktop-amd64.iso
+      - image/ubuntu-20.04.4-desktop-amd64.iso
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
