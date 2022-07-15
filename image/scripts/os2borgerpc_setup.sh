@@ -17,8 +17,7 @@
 # user, add scripts, whatever. Once you're done customizing, please call the
 # *finalize* script to launch the setup script on first boot.
 
-figlet "RUNNING SCRIPT:"
-echo "$0 (INSIDE SQUASHFS)"
+echo "RUNNING SCRIPT $0 (INSIDE SQUASHFS)"
 echo "Beware: This is the version on GitHub if the --mount flag wasn't passed to build_os2borgerpc_image.sh"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
@@ -32,6 +31,7 @@ deb http://security.ubuntu.com/ubuntu/ focal-security universe
 deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
 EOF
 
+apt-get update
 
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
@@ -76,6 +76,12 @@ VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
 printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+
+# Setup unattended upgrades
+"$DIR/apt_periodic_control.sh" security
+
+# Randomize checkins with server.
+"$DIR/randomize_jobmanager.sh" 5
 
 # Securing grub
 "$DIR/grub_set_password.py" $(pwgen -N 1 -s 12)

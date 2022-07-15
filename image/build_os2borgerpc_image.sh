@@ -10,40 +10,30 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
 ISO_PATH=$1
 IMAGE_NAME=$2
-if [ "$3" = "--clean" ] || [ "$4" = "--clean" ]; then CLEAN_BUILD=1; fi
-if [ "$3" = "--mount" ] || [ "$4" = "--mount" ]; then MOUNT="1"; fi
+CLEAN_BUILD=$3
 
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0" iso_file image_name [--clean] [--mount]"
+    echo "Usage: "$0" iso_file image_name [--clean]"
     echo ""
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
     echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
-    echo "--mount: pass this argument to bind mount into squashfs instead of git cloning. Easier for testing locally."
     echo ""
     exit 1
 fi
 
-# Note: Ensure that this dir is also the one we git clone into so both git and bind mount approaches work
-IMAGE_MOUNT_POINT="squashfs-root/mnt"
+BUILD_FILES_COPY_DESTINATION="squashfs-root/mnt"
 TMP_MOUNT_POINT="squashfs-root/tmp"
 
 unmount_cleanup() {
-    sudo umount $TMP_MOUNT_POINT $IMAGE_MOUNT_POINT || true
+    sudo umount $TMP_MOUNT_POINT || true
 }
 
 figlet "Building OS2borgerPC"
 
-if [ ! $MOUNT ];
-then
-    # Why aren't we just always bind-mounting, also in the pipeline? Because of a Permission Denied error.
-    # *Might* be solveable by configuring the gitlab runner with "privileged", however.
-    echo "Using the files on the DEVELOPMENT branch on GITHUB(!) for the squashfs part of the build."
-    echo "If you're testing changes to those files, test locally with --mount instead, or merge to development and \
-         mirror to GitHub first."
-fi
+echo "Ignore errors about zsys daemon in the log output"
 
 set -ex
 
@@ -61,18 +51,16 @@ build/extract_iso.sh "$ISO_PATH" iso
 # Unsquash and customize
 sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
 
-if [ $MOUNT ];
-then
-    # Mounting the build files into the chroot
-    sudo mount --bind ../ $IMAGE_MOUNT_POINT
+# Mounting in our own tmp into the chroot so we retain access to the log files written from within it
+# This will fail in the pipeline due to a permissions error, but it will work locally
+sudo mount --bind /tmp $TMP_MOUNT_POINT || true
 
-    # Mounting in our own tmp into the chroot so we retain access to the log files written from within it
-    sudo mount --bind /tmp $TMP_MOUNT_POINT
-fi
+echo "Copying in image building files before chrooting"
+sudo rsync -r --exclude squashfs-root --exclude image/*.iso --exclude .git --exclude image/iso ../ $BUILD_FILES_COPY_DESTINATION
 
 figlet "About to enter chroot"
 
-build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh $MOUNT
+build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
 
 
 # Regenerate manifest
@@ -85,6 +73,9 @@ sed -i '/casper/d' iso/casper/filesystem.manifest-desktop
 
 
 # Build squashfs for the ISO
+
+# First delete the image building files from squashfs again
+sudo rm -rf $BUILD_FILES_COPY_DESTINATION/* squashfs-root/*.sh
 
 rm iso/casper/filesystem.squashfs
 sudo mksquashfs squashfs-root iso/casper/filesystem.squashfs
@@ -105,4 +96,4 @@ unmount_cleanup
 
 # Make image
 
-xorriso -as mkisofs -r   -V "$IMAGE_NAME"   -o "$IMAGE_NAME".iso   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso
+xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso  -iso-level 3   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso

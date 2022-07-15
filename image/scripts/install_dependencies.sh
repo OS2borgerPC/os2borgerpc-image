@@ -2,24 +2,11 @@
 
 set -x
 
-printf "\n\n%s\n\n" "Updating and upgrading packages, installing dependencies"
+printf "\n\n%s\n\n" "Installing dependencies, cleaning up"
 
 # Find current directory
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
-
-# Step 1: Check for valid APT repositories.
-apt-get update &> /dev/null
-RETVAL=$?
-if [ $RETVAL -ne 0 ]; then
-    echo "" 1>&2
-    echo "ERROR: Apt repositories are not valid or cannot be reached from your network." 1>&2
-    echo "Please fix and retry" 1>&2
-    echo "" 1>&2
-    exit 1
-else
-    echo "Repositories OK: Installing packages"
-fi
 
 # The DEPENDENCIES file contains packages/programs
 # required by OS2borgerPC.
@@ -34,10 +21,6 @@ do
         PKGS_TO_INSTALL=$PKGS_TO_INSTALL" "$package
     fi
 done
-
-# Upgrade packages
-apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
-apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 
 
 if [ "$PKGS_TO_INSTALL" != "" ]; then
@@ -72,9 +55,3 @@ apt-get -y autoremove --purge
 apt-get -y clean
 
 pip3 install os2borgerpc-client
-
-# Setup unattended upgrades
-"$DIR/apt_periodic_control.sh" security
-
-# Randomize checkins with server.
-"$DIR/randomize_jobmanager.sh" 5
