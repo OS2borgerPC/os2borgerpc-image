@@ -28,7 +28,7 @@ Build ISO image:
     - apt-get -y update > /dev/null
     - apt-get -y install wget sudo apt-utils figlet rsync > /dev/null
     - cd image
-    - sh -c "[ ! -f "ubuntu-20.04.4-desktop-amd64.iso" ] && wget --progress=bar:force http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso"
+    - sh -c '[ ! -f "ubuntu-20.04.4-desktop-amd64.iso" ] && wget --progress=bar:force http://releases.ubuntu.com/focal/ubuntu-20.04.4-desktop-amd64.iso'
   script:
     - ./build_os2borgerpc_image.sh ./ubuntu-20.04.4-desktop-amd64.iso ${ISO_SHA}
   cache:
