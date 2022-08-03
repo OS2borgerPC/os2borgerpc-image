@@ -1,3 +1,11 @@
+Version 4.0.0, July 15, 2022
+----------------------------
+
+New in this version:
+
+* Rewrite build process completely for better automation and easier testing
+
+
 Version 3.1.1, February 1, 2022
 -------------------------------
 
