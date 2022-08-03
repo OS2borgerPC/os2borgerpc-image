@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
+
+printf "\n\n%s\n\n" "===== RUNNING: $0 (INSIDE SQUASHFS) ====="
+echo "Beware: This is the version on GitHub if the --mount flag wasn't passed to build_os2borgerpc_image.sh"
+
 DIR=$(dirname "$(realpath "$0" )")
+
+mkdir --parents /home/superuser/Skrivebord /home/superuser/.config
+echo "yes" > /home/superuser/.config/gnome-initial-setup-done
+
+chown -R superuser:superuser /home/superuser
+
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
@@ -10,7 +20,9 @@ cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
 # os2borgerpc, ensuring cleanup of user's directory.
 
 # Setup cleanup script in systemd.
-"$DIR/systemd_policy_cleanup.sh" 1
+# Suppress output as it will try to reload/start the systemd service which will fail,
+# as the script is usually being run on a running BorgerPC
+"$DIR/systemd_policy_cleanup.sh" 1 > /dev/null
 
 
 # Automatic login for user, not superuser.

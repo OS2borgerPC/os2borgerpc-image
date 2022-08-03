@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
+
 if [ -z $1 ]
 then
     DESTINATION='/'

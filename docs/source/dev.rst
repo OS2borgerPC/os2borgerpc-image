@@ -2,8 +2,35 @@ Technical Documentation
 =======================
 
 
-Creating a new OS2borgerPC image from scratch
-*********************************************
+********************************
+Creating a new OS2borgerPC image
+********************************
+
+PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso isolinux
+
+# Resources about how to build or tweak this:
+
+- https://help.ubuntu.com/community/LiveCDCustomization
+- https://wiki.ubuntu.com/UbiquityAutomation
+- https://wiki.ubuntu.com/DesktopCDOptions
+- https://help.ubuntu.com/lts/installation-guide/amd64/apbs01.html
+
+cd to the ``image`` directory:
+$ cd image
+
+From this directory, run the following command:
+
+$ ./build_os2borgerpc_image.sh iso_path image_name
+
+"iso_path" is a path to the ISO image to be remastered.
+
+"image_name" is the name of the output image, e.g. "OS2borgerPC-x.y.z". The 
+output ISO file will be called "$image_name".iso.
+
+
+*********************************************************
+Convert a vanilla Ubuntu installation into an OS2borgerPC
+*********************************************************
 
 Start installing a vanilla Ubuntu system - Ubuntu 20.04 in the
 present example. Install on a virtual or physical machine. If
@@ -22,109 +49,24 @@ can be whatever you want
 Enter the standard OS2borgerPC password (if you don't know it, ask
 someone or choose your own).
 
-To install OS2borgerPC, you need the ``os2borgerpc_installation.sh``
+To install OS2borgerPC, you need the ``prepare_os2borgerpc.sh``
 file. You'll find it in this repository, in
-``image/scripts/os2borgerpc_installation.sh``. You can also read
+``image/build/prepare_os2borgerpc.sh``. You can also read
 that file and perform the commands manually, step by step.
-
-If this installation is for a clonezilla image, you'll probably want
-to open ``os2borgerpc_installation.sh`` and remove the reboot
-command at line 41.
 
 Change execution rights for the installation file. Open a terminal:
 
 .. code-block:: bash
 
-	sudo chmod +x os2borgerpc_installation.sh
+	sudo chmod +x prepare_os2borgerpc.sh
 
 Start the installation:
 
 .. code-block:: bash
 
-	./os2borgerpc_installation.sh
+	./prepare_os2borgerpc.sh
 
-Now the system is ready to be cloned as a Clonezilla image or 
-to be connected to the admin system.
+Now the system is ready to be connected to the admin system.
 
-When the system is rebooted the system will log in as superuser so
-the "Færdiggør os2borgerpc installation" can be executed. 	 
-
-If it is for a CloneZilla image, boot up the system with a CloneZilla
-live CD and clone an image, e.g. to your own /home/partimag using SSHFS.
-
-See the separate guide on how to do this.
-
-
-Guide to saving an image of a hard disk prepared for OS2borgerPC installation
-*****************************************************************************
-
-To save a hard disk image for use in creating an OS2borgerPC installation disk,
-download a Clonezilla iso from http://clonezilla.org/ and boot it on the
-machine with the hard disk.
-Then follow the guide at
-
-https://clonezilla.org/show-live-doc-content.php?topic=clonezilla-live/doc/01_Save_disk_image
-
-but choose to save a single partition instead of the whole disk. The partition
-you want to save is the main partition you installed Ubuntu on and is probably
-called sda1.
-
-Once the disk image has been saved, it can be used to create an installation
-disk. See the sections `How to build an OS2borgerPC installation image from an existing Clonezilla image`_
-for more information.
-
-
-How to build an OS2borgerPC installation image from an existing Clonezilla image
-********************************************************************************
-
-Check out the code
-
-.. code-block:: bash
-
-	git clone https://github.com/OS2borgerPC/image.git
-	cd image
-
-
-Download a stable Clonezilla live archive
-
-The download link is
-https://clonezilla.org/downloads/download.php?branch=stable. (These
-instructions have worked with versions 2.5.6-22 and 2.6.0-37.)
-
-Unzip this archive to a new folder with the name of the image you
-want to create
-
-.. code-block:: bash
-
-	unzip path/to/clonezilla-live.zip -d OS2borgerPC_x.y.z/
-
-where "x.y.z" correspond to the Semantic Versioning version of this
-release, with any additional identifiers as desired (e.g., "rc")
-.
-Overwrite parts of Clonezilla with OS2borgerPC-specific configuration
-files
-
-.. code-block:: bash
-
-	./image/scripts/do_overwrite_clonezilla.sh OS2borgerPC_x.y.z/
-
-
-Copy the OS2borgerPC hard disk image files to the `bibos-images/bibos_default/` directory
-
-.. code-block:: bash
-
-	cp -r /path/to/image/* OS2borgerPC_x.y.z/os2borgerpc-images/os2borgerpc_default/
-
-
-Create an ISO image from it
-
-.. code-block:: bash
-
-	./image/scripts/make_bootable_iso.sh OS2borgerPC_x.y.z
-
-
-The resulting ISO image is a working boot disk, supporting both modern
-EFI and traditional `isohybrid`-based boot processes, and can be written
-directly to a USB stick or used as a CD-ROM image to set up a virtual
-machine.
-
+When the system is rebooted the system log in as superuser so
+the "Registrer i OS2borgerPC Admin" script can be executed from the Desktop.

@@ -1,3 +1,5 @@
 /*.komodoproject
 /.komodotools
 *.pyc
+image/squashfs-root
+image/*.iso
