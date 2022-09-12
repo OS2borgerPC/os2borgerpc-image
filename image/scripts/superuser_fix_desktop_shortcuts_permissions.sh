@@ -15,7 +15,6 @@ cat <<- EOF > $DESKTOP_FILE
 	Type=Application
 	Name=Automatically allow launching of .desktop files on the desktop
 	Exec=$SCRIPT
-	Icon=system-run
 	X-GNOME-Autostart-enabled=true
 EOF
 
