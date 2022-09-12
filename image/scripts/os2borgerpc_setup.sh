@@ -18,7 +18,6 @@
 # *finalize* script to launch the setup script on first boot.
 
 echo "RUNNING SCRIPT $0 (INSIDE SQUASHFS)"
-echo "Beware: This is the version on GitHub if the --mount flag wasn't passed to build_os2borgerpc_image.sh"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 
@@ -43,15 +42,14 @@ groupadd nopasswdlogin
 "$DIR/install_dependencies.sh"
 
 # Setup default user
-useradd user -m -p 12345 -s /bin/bash -U
-chfn -f Borger user
-adduser user nopasswdlogin
+useradd user --create-home --password 12345 --shell /bin/bash --user-group \
+  --groups nopasswdlogin --comment Borger
 
 # Setup superuser
-useradd superuser -m -s /bin/bash -p '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' -U
-chfn -f Superuser superuser
-adduser superuser sudo
-chmod -R 700 /home/superuser
+# shellcheck disable=SC2016 # It may look like it's a bash variable, but it's not
+useradd superuser --create-home --shell /bin/bash \
+  --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
+  --user-group --key UMASK=0077  --groups sudo --comment Superuser
 
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
@@ -85,7 +83,7 @@ printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
 "$DIR/randomize_jobmanager.sh" 5
 
 # Securing grub
-"$DIR/grub_set_password.py" $(pwgen -N 1 -s 12)
+"$DIR/grub_set_password.py" "$(pwgen -N 1 -s 12)"
 
 # Setup a script to activate the desktop shortcuts for superuser on login
 # This must run after superuser has been created

@@ -2,7 +2,6 @@
 
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 (INSIDE SQUASHFS) ====="
-echo "Beware: This is the version on GitHub if the --mount flag wasn't passed to build_os2borgerpc_image.sh"
 
 DIR=$(dirname "$(realpath "$0" )")
 
