@@ -42,6 +42,7 @@ then
     # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
     unmount_cleanup
     sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /root/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt
+    rm -f boot_hybrid.img ubuntu22-desktop-amd64.efi
 fi
 
 build/install_dependencies.sh > /dev/null
@@ -94,6 +95,22 @@ cd ..
 # Cleanup and unmount our tmp from squashfs-root
 unmount_cleanup
 
+mbr="/home/ap/git/os2borgerpc-image/image/boot_hybrid.img"
+
+efi="/home/ap/git/os2borgerpc-image/image/ubuntu22-desktop-amd64.efi"
+
+# Extract the MBR template
+
+dd if="$ISO_PATH" bs=1 count=446 of=$mbr
+
+# Extract EFI partition image
+
+skip=$(/sbin/fdisk -l "$ISO_PATH" | fgrep '.iso2 ' | awk '{print $2}')
+
+size=$(/sbin/fdisk -l "$ISO_PATH" | fgrep '.iso2 ' | awk '{print $4}')
+
+dd if="$ISO_PATH" bs=512 skip="$skip" count="$size" of=$efi
+
 # Make image
 
-xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso  -iso-level 3   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso
+xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso   -J -joliet-long -l -iso-level 3 -partition_offset 16 --grub2-mbr $mbr --mbr-force-bootable -append_partition 2 0xEF $efi -appended_part_as_gpt -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot   -boot-load-size 4 -boot-info-table --grub2-boot-info  -eltorito-alt-boot -e '--interval:appended_partition_2:all::' -no-emul-boot iso
