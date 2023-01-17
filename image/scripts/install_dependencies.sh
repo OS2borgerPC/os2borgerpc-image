@@ -45,10 +45,10 @@ fi
 
 echo "Install any missing language support packages"
 # shellcheck disable=SC2046 # We want word-splitting here
-apt-get install -y $(check-language-support)
+#apt-get install -y $(check-language-support)
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
-apt-mark manual $(check-language-support --show-installed)
+#apt-mark manual $(check-language-support --show-installed)
 
 # Clean .deb cache to save space
 apt-get -y autoremove --purge

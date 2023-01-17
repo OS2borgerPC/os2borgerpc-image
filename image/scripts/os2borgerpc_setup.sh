@@ -25,10 +25,12 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 
 cat << EOF >> /etc/apt/sources.list
 # Add universe stuff
-deb http://archive.ubuntu.com/ubuntu/ focal universe
-deb http://security.ubuntu.com/ubuntu/ focal-security universe
-deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
+deb http://archive.ubuntu.com/ubuntu/ jammy universe
+deb http://security.ubuntu.com/ubuntu/ jammy-security universe
+deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe
 EOF
+
+export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
@@ -59,7 +61,7 @@ mkdir -p /var/lib/os2borgerpc/jobs
 chmod -R og-r /var/lib/os2borgerpc
 
 # Switch display manager to LightDM
-DEBIAN_FRONTEND=noninteractive apt -y install lightdm
+apt-get -y install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt-get remove --assume-yes gdm3
 
