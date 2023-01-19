@@ -78,17 +78,73 @@ set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
 printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
 
+# Cloning script repository
+apt-get install --assume-yes git
+git clone https://github.com/OS2borgerPC/os2borgerpc-scripts.git
+
+# Cloned script directory
+SCRIPT_DIR="/os2borgerpc-scripts"
+
+# Remove Bluetooth indicator applet from Borger user
+"$SCRIPT_DIR/os2borgerpc/bluetooth/remove_bluetooth_applet.sh"
+
 # Setup unattended upgrades
-"$DIR/apt_periodic_control.sh" security
+"$SCRIPT_DIR/common/system/apt_periodic_control.sh" security
 
 # Randomize checkins with server.
-"$DIR/randomize_jobmanager.sh" 5
+"$SCRIPT_DIR/common/system/randomize_jobmanager.sh" 5
 
 # Securing grub
-"$DIR/grub_set_password.py" "$(pwgen -N 1 -s 12)"
+"$SCRIPT_DIR/common/system/grub_set_password.py" "$(pwgen -N 1 -s 12)"
+
+# Setup a script to activate the desktop shortcuts for user on login
+# This must run after user has been created
+"$SCRIPT_DIR/os2borgerpc/desktop/desktop_activate_shortcuts.sh"
+
+# Block suspend, shut down and reboot and remove them from the menu
+#sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
+"$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh" True True
+
+# Remove lock from the menu
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_lock_menu_dconf.sh" True
+
+# Remove change user from the menu
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_user_switching_dconf.sh" True
+
+# Remove user write access to desktop
+mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
+"$SCRIPT_DIR/os2borgerpc/desktop/desktop_toggle_writable.sh" True
+
+# Remove user access to settings
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/adjust_settings_access.sh" False
+
+# Setup /etc/lightdm/lightdm.conf, which needs to exist before we can enable running scripts at login
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
+then
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+fi
+
+# Enable running scripts at login
+"$SCRIPT_DIR/os2borgerpc/login/lightdm_greeter_setup_scripts.sh" True False
+
+# Create the directory expected by the script to set user as the default user
+mkdir --parents /var/lib/lightdm/.cache/unity-greeter
+
+# Set user as the default user
+"$SCRIPT_DIR/os2borgerpc/login/set_user_as_default_lightdm_user.sh" True
+
+# Prevent future upgrade notifications
+"$SCRIPT_DIR/os2borgerpc/desktop/remove_new_release_message.sh"
+
+# Improve Firefox browser security
+"$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
 
 # Setup a script to activate the desktop shortcuts for superuser on login
 # This must run after superuser has been created
 "$DIR/superuser_fix_desktop_shortcuts_permissions.sh"
+
+# Remove cloned script repository
+rm --recursive "$SCRIPT_DIR/"
+apt-get remove --assume-yes git
 
 printf "\n\n%s\n\n" "=== Finished running assorted OS2borgerPC scripts ==="

@@ -8,3 +8,4 @@ python3-netifaces
 python3-pip
 python3-yaml
 vim
+dbus-x11

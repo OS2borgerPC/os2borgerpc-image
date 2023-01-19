@@ -13,20 +13,11 @@ chown -R superuser:superuser /home/superuser
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
-# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
-# The PostInstall script will switch to the "normal" lightdm.conf for
-# os2borgerpc, ensuring cleanup of user's directory.
 
 # Setup cleanup script in systemd.
 # Suppress output as it will try to reload/start the systemd service which will fail,
 # as the script is usually being run on a running BorgerPC
 "$DIR/systemd_policy_cleanup.sh" 1 > /dev/null
 
-
-# Automatic login for user, not superuser.
-if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
-then
-    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
-fi
+# The lack of a command after the preceding script triggers the exit 1 in prepare_os2borgerpc.sh
+exit 0

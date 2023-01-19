@@ -13,3 +13,17 @@ ResultAny=no
 ResultInactive=no
 ResultActive=no
 
+[NetworkManager3]
+Identity=unix-user:lightdm
+Action=org.freedesktop.NetworkManager.enable-disable-network
+ResultAny=no
+ResultInactive=no
+ResultActive=no
+
+[NetworkManager4]
+Identity=unix-user:lightdm
+Action=org.freedesktop.NetworkManager.network-control
+ResultAny=no
+ResultInactive=no
+ResultActive=no
+
