@@ -11,29 +11,33 @@ stages:
 
 variables:
   ISO_SHA: ${CI_COMMIT_SHORT_SHA}
+  ISO_NAME: ubuntu-22.04.1-desktop-amd64.iso
+  BUILD_IMAGE_VERSION: 22.04
+  RELEASE_NAME: jammy
 
 
 
 # Build stage
 #############
 
+# Note: The caching of the source image does, unfortunately not seem to work yet.
 
 Build ISO image:
   stage: build
   tags:
     - high-mem
   needs: []
-  image: ubuntu:20.04
+  image: ubuntu:${BUILD_IMAGE_VERSION}
   before_script:
     - apt-get -y update > /dev/null
     - apt-get -y install wget sudo apt-utils figlet rsync > /dev/null
     - cd image
-    - sh -c '[ ! -f "ubuntu-20.04.5-desktop-amd64.iso" ] && wget --progress=bar:force http://releases.ubuntu.com/focal/ubuntu-20.04.5-desktop-amd64.iso'
+    - sh -c '[ ! -f "${ISO_NAME}" ] && wget --progress=bar:force http://releases.ubuntu.com/${RELEASE_NAME}/${ISO_NAME}'
   script:
-    - ./build_os2borgerpc_image.sh ./ubuntu-20.04.5-desktop-amd64.iso ${ISO_SHA}
+    - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
   cache:
     paths:
-      - image/ubuntu-20.04.5-desktop-amd64.iso
+      - image/${ISO_NAME
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
