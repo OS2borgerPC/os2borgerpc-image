@@ -76,7 +76,7 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
-printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+figlet "=== About to run assorted OS2borgerPC scripts ==="
 
 # Cloning script repository
 apt-get install --assume-yes git
@@ -144,7 +144,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$DIR/superuser_fix_desktop_shortcuts_permissions.sh"
 
 # Remove cloned script repository
-rm --recursive "$SCRIPT_DIR/"
+rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
 
 printf "\n\n%s\n\n" "=== Finished running assorted OS2borgerPC scripts ==="

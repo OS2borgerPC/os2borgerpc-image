@@ -32,5 +32,4 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "" 1>&2
         exit 1
     fi
-
 fi
