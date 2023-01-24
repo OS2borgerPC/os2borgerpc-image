@@ -30,7 +30,7 @@ Build ISO image:
   image: ubuntu:${BUILD_IMAGE_VERSION}
   before_script:
     - apt-get -y update > /dev/null
-    - apt-get -y install wget sudo apt-utils figlet rsync > /dev/null
+    - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
     - cd image
     - sh -c '[ ! -f "${ISO_NAME}" ] && wget --progress=bar:force http://releases.ubuntu.com/${RELEASE_NAME}/${ISO_NAME}'
   script:
