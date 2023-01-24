@@ -23,11 +23,14 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Add universe repositories
 
+# Load VERSION_CODENAME variable below, so it's dynamically set
+. /etc/os-release
+
 cat << EOF >> /etc/apt/sources.list
 # Add universe stuff
-deb http://archive.ubuntu.com/ubuntu/ jammy universe
-deb http://security.ubuntu.com/ubuntu/ jammy-security universe
-deb http://archive.ubuntu.com/ubuntu/ jammy-updates universe
+deb http://archive.ubuntu.com/ubuntu/ $VERSION_CODENAME universe
+deb http://security.ubuntu.com/ubuntu/ $VERSION_CODENAME-security universe
+deb http://archive.ubuntu.com/ubuntu/ $VERSION_CODENAME-updates universe
 EOF
 
 export DEBIAN_FRONTEND=noninteractive
