@@ -11,9 +11,9 @@ stages:
 
 variables:
   ISO_SHA: ${CI_COMMIT_SHORT_SHA}
-  ISO_NAME: ubuntu-22.04.1-desktop-amd64.iso
-  BUILD_IMAGE_VERSION: 22.04
-  RELEASE_NAME: jammy
+  BUILD_IMAGE_VERSION: "22.04"
+  ISO_NAME: "ubuntu-22.04.1-desktop-amd64.iso"
+  RELEASE_NAME: "jammy"
 
 
 
