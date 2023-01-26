@@ -142,9 +142,8 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Improve Firefox browser security
 "$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
 
-# Setup a script to activate the desktop shortcuts for superuser on login
-# This must run after superuser has been created
-"$DIR/superuser_fix_desktop_shortcuts_permissions.sh"
+# Disable the run prompt
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/dconf_run_prompt_toggle.sh" True
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"

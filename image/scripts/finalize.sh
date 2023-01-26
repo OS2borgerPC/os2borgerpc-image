@@ -5,7 +5,7 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 (INSIDE SQUASHFS) ====="
 
 DIR=$(dirname "$(realpath "$0" )")
 
-mkdir --parents /home/superuser/Skrivebord /home/superuser/.config
+mkdir --parents /home/superuser/Skrivebord /home/superuser/.config/autostart
 echo "yes" > /home/superuser/.config/gnome-initial-setup-done
 
 chown -R superuser:superuser /home/superuser
@@ -19,5 +19,13 @@ cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/h
 # as the script is usually being run on a running BorgerPC
 "$DIR/systemd_policy_cleanup.sh" 1 > /dev/null
 
-# The lack of a command after the preceding script triggers the exit 1 in prepare_os2borgerpc.sh
-exit 0
+# Setup autostart of the firstboot script that runs after superuser logs in for the first time
+mv /usr/share/os2borgerpc/script-data/firstboot.desktop /home/superuser/.config/autostart/
+
+# Let the firstboot script run with sudo permissions
+cat << EOF >> /etc/sudoers
+superuser ALL=NOPASSWD: /usr/share/os2borgerpc/bin/firstboot.sh
+EOF
+
+# Enable FSCK automatic fixes
+sed --in-place "s/FSCKFIX=no/FSCKFIX=yes/" /lib/init/vars.sh

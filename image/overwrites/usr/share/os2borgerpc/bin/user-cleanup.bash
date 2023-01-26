@@ -5,8 +5,7 @@
 USERNAME="user"
 
 
-	rm -fr /tmp/* /tmp/.??*
-	rm -rf /home/$USERNAME
+	rm --recursive --force /tmp/* /tmp/.??* /home/$USERNAME
         # Remove pending print jobs
         PRINTERS=$(lpstat -p | grep printer | awk '{ print $2; }')
 
