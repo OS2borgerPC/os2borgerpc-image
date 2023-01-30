@@ -145,6 +145,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Disable the run prompt
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/dconf_run_prompt_toggle.sh" True
 
+# Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
+"$SCRIPT_DIR/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
+
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
