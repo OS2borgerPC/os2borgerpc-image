@@ -41,7 +41,7 @@ if [ "$CLEAN_BUILD" ]
 then
     # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
     unmount_cleanup
-    sudo chattr -f -i squashfs-root/var/lib/lightdm/.cache/unity-greeter/state ||
+    sudo chattr -f -i squashfs-root/var/lib/lightdm/.cache/unity-greeter/state || true
     sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /tmp/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt boot_hybrid.img ubuntu22-desktop-amd64.efi
 fi
 

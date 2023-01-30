@@ -1,9 +1,0 @@
-#!/bin/bash
-
-USER=`id -un`
-
-if [ $USER == "user" ]; then
-  zenity --info --text="Af sikkerhedsmæssige hensyn er systemindstillingerne ikke tilgængelige for borgere.\n Kontakt venligst en medarbejder hvis du har spørgsmål vedrørende dette."
-else
-  /usr/bin/gnome-control-center.real
-fi

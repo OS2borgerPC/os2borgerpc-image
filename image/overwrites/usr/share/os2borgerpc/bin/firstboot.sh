@@ -4,9 +4,12 @@
 sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lightdm/lightdm.conf
 
 # Activate superuser desktop shortcuts
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u superuser)/bus"
 USR=superuser
 for FILE in /home/$USR/Skrivebord/*.desktop; do
-	gio set "$FILE" metadata::trusted true
+  chown superuser:superuser "$FILE"
+	runuser -u $USR gio set "$FILE" metadata::trusted true
+	chown root:root "$FILE"
 	# Can't make sense of this as it already has execute permissions, but it won't work without it
 	chmod u+x "$FILE"
 done
