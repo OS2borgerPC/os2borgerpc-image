@@ -148,6 +148,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
 "$SCRIPT_DIR/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
 
+# Set fix-broken true by default in the apt-get configuration
+"$SCRIPT_DIR/common/system/apt_get_config_set_fix_broken.sh" True
+
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
