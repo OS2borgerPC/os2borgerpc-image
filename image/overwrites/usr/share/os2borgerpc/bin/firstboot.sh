@@ -10,8 +10,8 @@ for FILE in /home/$USR/Skrivebord/*.desktop; do
   chown superuser:superuser "$FILE"
 	runuser -u $USR gio set "$FILE" metadata::trusted true
 	chown root:root "$FILE"
-	# Can't make sense of this as it already has execute permissions, but it won't work without it
-	chmod u+x "$FILE"
+	# In order for gio changes to take effect, it is necessary to update the file time stamp
+	touch "$FILE"
 done
 
 # Remove password bypass on firstboot.sh

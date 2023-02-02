@@ -2,6 +2,3 @@ Dpkg::Options {
    "--force-confdef";
    "--force-confold";
 };
-Dpkg::Lock {
-    Timeout "300";
-}
