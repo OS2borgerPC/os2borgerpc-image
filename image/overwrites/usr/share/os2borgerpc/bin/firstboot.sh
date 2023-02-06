@@ -14,6 +14,9 @@ for FILE in /home/$USR/Skrivebord/*.desktop; do
 	touch "$FILE"
 done
 
+# Install dbus-x11 for dbus-launch
+apt-get -y install dbus-x11
+
 # Remove password bypass on firstboot.sh
 sed --in-place "/firstboot/d" /etc/sudoers
 
