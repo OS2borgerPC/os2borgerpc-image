@@ -1,0 +1,11 @@
+default:
+  @just --choose
+
+# Install the package containing sphinx-build, which is used in the Makefile
+# UNTESTED: Package names might not be correct
+install-deps-ubuntu:
+  sudo apt-get install python3-sphinx python3-sphinx-rtd-theme
+
+# Install depenendencies on Fedora - note the slightly different package names
+install-deps-fedora:
+  sudo dnf install python3-sphinx python3-sphinx_rtd_theme
