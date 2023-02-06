@@ -1,7 +1,6 @@
-#Test commands to automate install
+# Always do normal installation and download updates during installation
 ubiquity ubiquity/use_nonfree boolean true
 ubiquity ubiquity/download_updates boolean true
-d-i finish-install/reboot_in_progress note
 
 # Locale sets language and country.
 d-i debian-installer/locale string da_DK.UTF-8

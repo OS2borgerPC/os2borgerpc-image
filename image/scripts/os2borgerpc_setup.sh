@@ -146,13 +146,13 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/dconf_run_prompt_toggle.sh" True
 
 # Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
-"$SCRIPT_DIR/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
+"$SCRIPT_DIR/os2borgerpc/desktop/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Make apt-get wait 5 min for dpkg lock
-"$SCRIPT_DIR/common/system/apt_get_config_set_dpkg_lock_timeout.sh" True
+"$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
 
 # Set fix-broken true by default in the apt-get configuration
-"$SCRIPT_DIR/common/system/apt_get_config_set_fix_broken.sh" True
+"$SCRIPT_DIR/images/apt_get_config_set_fix_broken.sh" True
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
