@@ -148,6 +148,10 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
 "$SCRIPT_DIR/os2borgerpc/desktop/install_okular_and_set_as_standard_pdf_reader.sh" True
 
+# Set background images on login screen and desktop
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.png
+"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" /usr/share/backgrounds/os2bpc_default_login.png
+
 # Make apt-get wait 5 min for dpkg lock
 "$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
 
