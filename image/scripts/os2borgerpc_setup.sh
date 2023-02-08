@@ -83,7 +83,7 @@ figlet "=== About to run assorted OS2borgerPC scripts ==="
 
 # Cloning script repository
 apt-get install --assume-yes git
-git clone https://github.com/OS2borgerPC/os2borgerpc-scripts.git
+git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
 
 # Cloned script directory
 SCRIPT_DIR="/os2borgerpc-scripts"
@@ -116,10 +116,10 @@ SCRIPT_DIR="/os2borgerpc-scripts"
 
 # Remove user write access to desktop
 mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
-"$SCRIPT_DIR/os2borgerpc/desktop/desktop_toggle_writable.sh" True
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/desktop_toggle_writable.sh" True
 
 # Remove user access to settings
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/adjust_settings_access.sh" False
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
 
 # Setup /etc/lightdm/lightdm.conf, which needs to exist before we can enable running scripts at login
 if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
@@ -143,14 +143,14 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
 
 # Disable the run prompt
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/dconf_run_prompt_toggle.sh" True
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
 
 # Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
 "$SCRIPT_DIR/os2borgerpc/desktop/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.png
-"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" /usr/share/backgrounds/os2bpc_default_login.png
+"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
 "$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True

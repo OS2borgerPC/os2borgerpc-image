@@ -37,7 +37,7 @@ Build ISO image:
     - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
   cache:
     paths:
-      - image/${ISO_NAME
+      - image/${ISO_NAME}
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
