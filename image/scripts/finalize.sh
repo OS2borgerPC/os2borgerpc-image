@@ -8,10 +8,10 @@ DIR=$(dirname "$(realpath "$0" )")
 mkdir --parents /home/superuser/Skrivebord /home/superuser/.config/autostart
 echo "yes" > /home/superuser/.config/gnome-initial-setup-done
 
-chown -R superuser:superuser /home/superuser
-
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
+
+chown -R superuser:superuser /home/superuser
 
 
 # Setup cleanup script in systemd.

@@ -7,9 +7,7 @@ sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lig
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u superuser)/bus"
 USR=superuser
 for FILE in /home/$USR/Skrivebord/*.desktop; do
-  chown superuser:superuser "$FILE"
 	runuser -u $USR gio set "$FILE" metadata::trusted true
-	chown root:root "$FILE"
 	# In order for gio changes to take effect, it is necessary to update the file time stamp
 	touch "$FILE"
 done

@@ -158,6 +158,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Set fix-broken true by default in the apt-get configuration
 "$SCRIPT_DIR/images/apt_get_config_set_fix_broken.sh" True
 
+# Hide libreoffice tip of the day
+"$SCRIPT_DIR/os2borgerpc/libreoffice/overwrite_libreoffice_config.sh" True False
+
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
