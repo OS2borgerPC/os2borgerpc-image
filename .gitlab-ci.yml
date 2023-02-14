@@ -21,9 +21,6 @@ variables:
 Build ISO image:
   stage: build
   tags:
-    # TODO Remove this tag when #42309 is done and the kubernetes runners are
-    # default.
-    - kubernetes
     - high-mem
   needs: []
   image: ubuntu:20.04
