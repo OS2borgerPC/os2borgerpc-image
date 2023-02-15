@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=First boot script
-Exec=sudo /usr/share/os2borgerpc/bin/firstboot.sh
-Comment=This script will switch to the normal lightdm.conf and then delete itself

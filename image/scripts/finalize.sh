@@ -19,13 +19,9 @@ chown -R superuser:superuser /home/superuser
 # as the script is usually being run on a running BorgerPC
 "$DIR/systemd_policy_cleanup.sh" 1 > /dev/null
 
-# Setup autostart of the firstboot script that runs after superuser logs in for the first time
-mv /usr/share/os2borgerpc/script-data/firstboot.desktop /home/superuser/.config/autostart/
+# Setup autostart of the firstboot script that runs when lightdm is reached for the first time
+mv /usr/share/os2borgerpc/script-data/firstboot.sh /etc/lightdm/greeter-setup-scripts/
 
-# Let the firstboot script run with sudo permissions
-cat << EOF >> /etc/sudoers
-superuser ALL=NOPASSWD: /usr/share/os2borgerpc/bin/firstboot.sh
-EOF
 
 # Enable FSCK automatic fixes
 sed --in-place "s/FSCKFIX=no/FSCKFIX=yes/" /lib/init/vars.sh
