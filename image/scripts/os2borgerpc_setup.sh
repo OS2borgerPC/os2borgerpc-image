@@ -79,6 +79,11 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
+# Download the dbus-x11 .deb file to a known folder
+cd /etc/os2borgerpc/
+apt download dbus-x11
+cd -
+
 figlet "=== About to run assorted OS2borgerPC scripts ==="
 
 # Cloning script repository
