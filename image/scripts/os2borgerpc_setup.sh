@@ -154,7 +154,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.png
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
 "$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
