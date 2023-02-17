@@ -51,3 +51,9 @@ tasksel	tasksel/first	multiselect ubuntu-desktop
 # well keep them installed.
 ubiquity	ubiquity/keep-installed	string icedtea6-plugin openoffice.org
 d-i  base-installer/kernel/altmeta   string hwe-20.04
+
+# Install support for danish language only
+d-i pkgsel/language-packs multiselect da, en
+
+# Enable universe repository
+# d-i apt-setup/universe boolean true
