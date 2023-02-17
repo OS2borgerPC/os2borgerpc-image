@@ -27,6 +27,9 @@ echo "Removing packages we don't need, before we upgrade all packages:"
 # gnome-todo, thunderbird and transmission because they likely aren't needed by users
 apt-get -y remove --purge apport deja-dup evince libfprint-2-2 gnome-todo remmina thunderbird transmission-gtk whoopsie
 
+# Also remove some unneeded language packs, as the installer seemed to spend a decent amount of time removing them after the installation
+apt-get -y remove --purge language-pack-de-base language-pack-de language-pack-es-base language-pack-es language-pack-fr-base language-pack-fr language-pack-gnome-de-base language-pack-gnome-de language-pack-gnome-en-base language-pack-gnome-en language-pack-gnome-es-base language-pack-gnome-es language-pack-gnome-fr-base language-pack-gnome-fr language-pack-gnome-it-base language-pack-gnome-it language-pack-gnome-pt-base language-pack-gnome-pt language-pack-gnome-ru-base language-pack-gnome-ru language-pack-gnome-zh-hans-base language-pack-gnome-zh-hans language-pack-it-base language-pack-it language-pack-pt-base language-pack-pt language-pack-ru-base language-pack-ru language-pack-zh-hans-base language-pack-zh-hans
+
 echo "Now upgrading all packages"
 apt-get -y upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
