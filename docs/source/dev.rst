@@ -5,7 +5,7 @@ Technical Documentation
 Creating a new OS2borgerPC image
 ********************************
 
-PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso isolinux
+PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso figlet
 
 # Resources about how to build or tweak this:
 
