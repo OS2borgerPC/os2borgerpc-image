@@ -8,18 +8,32 @@
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
+# Handle optional arguments
+COUNT=0
+if [ "$1" = "--clean" ] || [ "$2" = "--clean" ]; then
+  CLEAN_BUILD=true
+  COUNT=$((COUNT+1))
+fi
+
+if [ "$1" == "--skip-build-deps" ] || [ "$2" == "--skip-build-deps" ]; then
+  SKIP_BUILD_DEPS=true
+  COUNT=$((COUNT+1))
+fi
+# Remove the optional arguments if there were any, so we only have the required ones left
+shift $COUNT
+
 ISO_PATH=$1
 IMAGE_NAME=$2
-CLEAN_BUILD=$3
 
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0" iso_file image_name [--clean]"
+    echo "Usage: "$0"  [--clean] [--skip-build-deps] iso_file image_name"
     echo ""
+    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
+    echo "--skip-build-deps: pass this argument to skip installing build dependencies. Useful if testing on a non-debian-system, ie. without apt"
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
-    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
     echo ""
     exit 1
 fi
@@ -45,7 +59,10 @@ then
     sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /tmp/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt boot_hybrid.img ubuntu22-desktop-amd64.efi
 fi
 
-build/install_dependencies.sh > /dev/null
+if [ ! "$SKIP_BUILD_DEPS" ]
+then
+    build/install_dependencies.sh > /dev/null
+fi
 
 build/extract_iso.sh "$ISO_PATH" iso
 
