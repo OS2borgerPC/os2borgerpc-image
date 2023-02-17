@@ -166,6 +166,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Hide libreoffice tip of the day
 "$SCRIPT_DIR/os2borgerpc/libreoffice/overwrite_libreoffice_config.sh" True False
 
+# Enable universal access menu by default
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_a11y.sh" True
+
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
