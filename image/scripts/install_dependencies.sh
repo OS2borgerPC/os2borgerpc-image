@@ -2,7 +2,7 @@
 
 set -x
 
-printf "\n\n%s\n\n" "Installing dependencies, cleaning up"
+printf "\n\n%s\n\n" "Installing dependencies"
 
 # Find current directory
 
@@ -49,9 +49,5 @@ fi
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
 #apt-mark manual $(check-language-support -l da --show-installed)
-
-# Clean .deb cache to save space
-apt-get -y autoremove --purge
-apt-get -y clean
 
 pip3 install os2borgerpc-client
