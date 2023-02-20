@@ -36,4 +36,9 @@ apt-get -y dist-upgrade | tee /tmp/os2borgerpc_upgrade_log.txt
 
 # Run customization, from the image/image directory which is bind-mounted in
 /mnt/image/scripts/os2borgerpc_setup.sh || exit 1
+
+# Ideally at this point nothing else within the image is installed/uninstalled, so we can clean up old package versions etc.
+apt-get -y autoremove --purge
+apt-get -y clean
+
 /mnt/image/scripts/finalize.sh || exit 1
