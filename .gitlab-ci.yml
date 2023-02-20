@@ -41,4 +41,4 @@ Build ISO image:
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
-    expire_in: 1 week
+    expire_in: 4 weeks
