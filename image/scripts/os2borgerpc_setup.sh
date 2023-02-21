@@ -96,8 +96,11 @@ SCRIPT_DIR="/os2borgerpc-scripts"
 # Remove Bluetooth indicator applet from Borger user
 "$SCRIPT_DIR/os2borgerpc/bluetooth/remove_bluetooth_applet.sh"
 
-# Setup unattended upgrades
-"$SCRIPT_DIR/common/system/apt_periodic_control.sh" security
+# Initially disable unattended upgrades to prevent problems with firstboot script
+"$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
+
+# Move unattended upgrades script to another folder so that firstboot can run it later
+mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Randomize checkins with server.
 "$SCRIPT_DIR/common/system/randomize_jobmanager.sh" 5
