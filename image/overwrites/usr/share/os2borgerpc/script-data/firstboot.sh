@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 # switch to normal lightdm timeout
 sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lightdm/lightdm.conf
 
@@ -14,5 +16,8 @@ for FILE in /home/$USR/Skrivebord/*.desktop; do
 	touch "$FILE"
 done
 
+# Setup unattended upgrades
+"/etc/os2borgerpc/apt_periodic_control.sh" security
+
 # Remove the firstboot-related files
-rm  /etc/lightdm/greeter-setup-scripts/firstboot.sh /etc/os2borgerpc/*.deb
+rm  /etc/lightdm/greeter-setup-scripts/firstboot.sh /etc/os2borgerpc/*.deb /etc/os2borgerpc/apt_periodic_control.sh
