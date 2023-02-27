@@ -1,7 +1,3 @@
-# Always do normal installation and do not download updates during installation
-ubiquity ubiquity/use_nonfree boolean false
-ubiquity ubiquity/download_updates boolean false
-
 # Locale sets language and country.
 d-i debian-installer/locale string da_DK.UTF-8
 
