@@ -50,4 +50,7 @@ fi
 # shellcheck disable=SC2046 # We want word-splitting here
 #apt-mark manual $(check-language-support -l da --show-installed)
 
+apt-get install -y $(check-language-support)
+apt-mark manual $(check-language-support --show-installed)
+
 pip3 install os2borgerpc-client
