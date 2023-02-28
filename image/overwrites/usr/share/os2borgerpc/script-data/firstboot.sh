@@ -17,7 +17,7 @@ for FILE in /home/$USR/Skrivebord/*.desktop; do
 done
 
 # setup delayed start of unattended upgrades
-TIME_TO_START=$(date -d 'now+10minutes' +%FT%R)
+TIME_TO_START=$(date -d 'now+2hours' +%FT%R)
 mkdir --parents "/usr/local/lib/os2borgerpc"
 UNATTENDED_UPGRADES_DELAY="/usr/local/lib/os2borgerpc/unattended_upgrades_delay.py"
 UNATTENDED_UPGRADES_DELAY_SERVICE="/etc/systemd/system/os2borgerpc-unattended_upgrades_delay.service"

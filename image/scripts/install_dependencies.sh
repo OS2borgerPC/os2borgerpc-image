@@ -45,12 +45,9 @@ fi
 
 #echo "Install any missing language support packages for danish specifically"
 # shellcheck disable=SC2046 # We want word-splitting here
-#apt-get install -y $(check-language-support -l da)
+apt-get install -y $(check-language-support -l da) $(check-language-support -l en)
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
-#apt-mark manual $(check-language-support -l da --show-installed)
-
-apt-get install -y $(check-language-support)
-apt-mark manual $(check-language-support --show-installed)
+apt-mark manual $(check-language-support -l da --show-installed) $(check-language-support -l en --show-installed)
 
 pip3 install os2borgerpc-client
