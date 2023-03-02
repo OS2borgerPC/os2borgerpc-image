@@ -32,7 +32,7 @@ Build ISO image:
     - apt-get -y update > /dev/null
     - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
     - cd image
-    - sh -c '[ ! -f "${ISO_NAME}" ] && wget --progress=bar:force http://releases.ubuntu.com/${RELEASE_NAME}/${ISO_NAME}'
+    - sh -c "[ ! -f \"${ISO_NAME}\" ] && wget --progress=bar:force http://releases.ubuntu.com/${RELEASE_NAME}/${ISO_NAME}"
   script:
     - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
   cache:
