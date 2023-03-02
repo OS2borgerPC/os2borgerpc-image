@@ -13,9 +13,6 @@ variables:
   ISO_SHA: ${CI_COMMIT_SHORT_SHA}
   BUILD_IMAGE_VERSION: "22.04"
   ISO_NAME: "ubuntu-22.04.2-desktop-amd64.iso"
-  RELEASE_NAME: "jammy"
-
-
 
 # Build stage
 #############
@@ -30,7 +27,7 @@ Build ISO image:
     - apt-get -y update > /dev/null
     - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
     - cd image
-    - sh -c "[ ! -f \"${ISO_NAME}\" ] && wget --progress=bar:force http://releases.ubuntu.com/${RELEASE_NAME}/${ISO_NAME}"
+    - wget --progress=bar:force --continue http://releases.ubuntu.com/${BUILD_IMAGE_VERSION}/${ISO_NAME}
   script:
     - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
   cache:
