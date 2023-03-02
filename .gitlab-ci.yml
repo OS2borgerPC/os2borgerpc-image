@@ -24,8 +24,6 @@ variables:
 
 Build ISO image:
   stage: build
-  tags:
-    - high-mem
   needs: []
   image: ubuntu:${BUILD_IMAGE_VERSION}
   before_script:
