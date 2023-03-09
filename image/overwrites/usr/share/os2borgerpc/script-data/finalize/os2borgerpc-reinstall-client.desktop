@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Opdater/Geninstallér OS2borgerPC-klient
-Comment=Opdater/Geninstallér OS2borgerPC-klient
+Name=Opdater OS2borgerPC-klient
+Comment=Opdater OS2borgerPC-klient
 Exec=sudo pip install --force-reinstall os2borgerpc-client
-Icon=org.gnome.Terminal
+Icon=emblem-synchronizing
 Type=Application
 Categories=Utility;Documentation;ConsoleOnly;
 Terminal=true
