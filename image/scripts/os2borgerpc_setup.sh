@@ -23,12 +23,17 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 
 # Add universe repositories
 
+# Load VERSION_CODENAME variable below, so it's dynamically set
+. /etc/os-release
+
 cat << EOF >> /etc/apt/sources.list
 # Add universe stuff
-deb http://archive.ubuntu.com/ubuntu/ focal universe
-deb http://security.ubuntu.com/ubuntu/ focal-security universe
-deb http://archive.ubuntu.com/ubuntu/ focal-updates universe
+deb http://archive.ubuntu.com/ubuntu/ $VERSION_CODENAME universe
+deb http://security.ubuntu.com/ubuntu/ $VERSION_CODENAME-security universe
+deb http://archive.ubuntu.com/ubuntu/ $VERSION_CODENAME-updates universe
 EOF
+
+export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
@@ -59,7 +64,7 @@ mkdir -p /var/lib/os2borgerpc/jobs
 chmod -R og-r /var/lib/os2borgerpc
 
 # Switch display manager to LightDM
-DEBIAN_FRONTEND=noninteractive apt -y install lightdm
+apt-get -y install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt-get remove --assume-yes gdm3
 
@@ -74,19 +79,104 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
-printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+# Download the dbus-x11 .deb file to a known folder
+cd /etc/os2borgerpc/
+apt download dbus-x11
+cd -
 
-# Setup unattended upgrades
-"$DIR/apt_periodic_control.sh" security
+figlet "=== About to run assorted OS2borgerPC scripts ==="
+
+# Cloning script repository
+apt-get install --assume-yes git
+git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
+
+# Cloned script directory
+SCRIPT_DIR="/os2borgerpc-scripts"
+
+# Remove Bluetooth indicator applet from Borger user
+"$SCRIPT_DIR/os2borgerpc/bluetooth/remove_bluetooth_applet.sh"
+
+# Initially disable unattended upgrades to prevent problems with firstboot script
+"$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
+
+# Move unattended upgrades script to another folder so that firstboot can run it later
+mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Randomize checkins with server.
-"$DIR/randomize_jobmanager.sh" 5
+"$SCRIPT_DIR/common/system/randomize_jobmanager.sh" 5
 
 # Securing grub
-"$DIR/grub_set_password.py" "$(pwgen -N 1 -s 12)"
+"$SCRIPT_DIR/common/system/grub_set_password.py" "$(pwgen -N 1 -s 12)"
 
-# Setup a script to activate the desktop shortcuts for superuser on login
-# This must run after superuser has been created
-"$DIR/superuser_fix_desktop_shortcuts_permissions.sh"
+# Setup a script to activate the desktop shortcuts for user on login
+# This must run after user has been created
+"$SCRIPT_DIR/os2borgerpc/desktop/desktop_activate_shortcuts.sh"
+
+# Block suspend, shut down and reboot and remove them from the menu
+#sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
+"$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh" True True
+
+# Remove lock from the menu
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_lock_menu_dconf.sh" True
+
+# Remove change user from the menu
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_user_switching_dconf.sh" True
+
+# Remove user write access to desktop
+mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/desktop_toggle_writable.sh" True
+
+# Remove user access to settings
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
+
+# Setup /etc/lightdm/lightdm.conf, which needs to exist before we can enable running scripts at login
+if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
+then
+    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+fi
+
+# Enable running scripts at login
+"$SCRIPT_DIR/os2borgerpc/login/lightdm_greeter_setup_scripts.sh" True False
+
+# Create the directory expected by the script to set user as the default user
+mkdir --parents /var/lib/lightdm/.cache/unity-greeter
+
+# Set user as the default user
+"$SCRIPT_DIR/os2borgerpc/login/set_user_as_default_lightdm_user.sh" True
+
+# Prevent future upgrade notifications
+"$SCRIPT_DIR/os2borgerpc/desktop/remove_new_release_message.sh"
+
+# Improve Firefox browser security
+"$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
+
+# Correctly make Firefox the initial standard browser
+"SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox
+
+# Disable the run prompt
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
+
+# Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
+
+# Set background images on login screen and desktop
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
+"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
+
+# Make apt-get wait 5 min for dpkg lock
+"$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
+
+# Set fix-broken true by default in the apt-get configuration
+"$SCRIPT_DIR/images/apt_get_config_set_fix_broken.sh" True
+
+# Hide libreoffice tip of the day
+"$SCRIPT_DIR/os2borgerpc/libreoffice/overwrite_libreoffice_config.sh" True False
+
+# Enable universal access menu by default
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_a11y.sh" True
+
+# Remove cloned script repository
+rm --recursive "$SCRIPT_DIR"
+apt-get remove --assume-yes git
 
 printf "\n\n%s\n\n" "=== Finished running assorted OS2borgerPC scripts ==="

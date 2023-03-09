@@ -20,5 +20,5 @@ installation on a physical or virtual computer, clone that system's hard
 disk with CloneZilla and create a custome CloneZilla CD which is used as
 the install CD (or USB, or DVD).
 
-Read the documentation for this project in docs/ or at 
+Read the documentation for this project in docs/ or at
 `Read The Docs <https://os2borgerpc-image.readthedocs.io/>`_.

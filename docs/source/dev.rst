@@ -1,12 +1,11 @@
 Technical Documentation
 =======================
 
-
 ********************************
 Creating a new OS2borgerPC image
 ********************************
 
-PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso isolinux
+PREREQUISITES: squashfs-tools genisoimage p7zip-full xorriso figlet
 
 # Resources about how to build or tweak this:
 
@@ -24,7 +23,7 @@ $ ./build_os2borgerpc_image.sh iso_path image_name
 
 "iso_path" is a path to the ISO image to be remastered.
 
-"image_name" is the name of the output image, e.g. "OS2borgerPC-x.y.z". The 
+"image_name" is the name of the output image, e.g. "OS2borgerPC-x.y.z". The
 output ISO file will be called "$image_name".iso.
 
 

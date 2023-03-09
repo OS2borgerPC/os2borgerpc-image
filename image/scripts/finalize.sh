@@ -5,28 +5,23 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 (INSIDE SQUASHFS) ====="
 
 DIR=$(dirname "$(realpath "$0" )")
 
-mkdir --parents /home/superuser/Skrivebord /home/superuser/.config
+mkdir --parents /home/superuser/Skrivebord /home/superuser/.config/autostart
 echo "yes" > /home/superuser/.config/gnome-initial-setup-done
-
-chown -R superuser:superuser /home/superuser
 
 
 cp "$DIR"/../overwrites/usr/share/os2borgerpc/script-data/finalize/*.desktop "/home/superuser/Skrivebord"
 
-# Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-cp /etc/lightdm/lightdm.conf.os2borgerpc_firstboot /etc/lightdm/lightdm.conf
-# The PostInstall script will switch to the "normal" lightdm.conf for
-# os2borgerpc, ensuring cleanup of user's directory.
+chown -R superuser:superuser /home/superuser
+
 
 # Setup cleanup script in systemd.
 # Suppress output as it will try to reload/start the systemd service which will fail,
 # as the script is usually being run on a running BorgerPC
 "$DIR/systemd_policy_cleanup.sh" 1 > /dev/null
 
+# Setup autostart of the firstboot script that runs when lightdm is reached for the first time
+mv /usr/share/os2borgerpc/script-data/firstboot.sh /etc/lightdm/greeter-setup-scripts/
 
-# Automatic login for user, not superuser.
-if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
-then
-    # Modify /etc/lightdm/lightdm.conf to avoid automatic user login
-    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
-fi
+
+# Enable FSCK automatic fixes
+sed --in-place "s/FSCKFIX=no/FSCKFIX=yes/" /lib/init/vars.sh
