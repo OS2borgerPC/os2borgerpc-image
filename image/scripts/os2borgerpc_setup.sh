@@ -151,7 +151,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
 
 # Correctly make Firefox the initial standard browser
-"SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox_firefox
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox_firefox
 
 # Disable the run prompt
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
