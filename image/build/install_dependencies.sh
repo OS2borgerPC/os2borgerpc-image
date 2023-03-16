@@ -5,7 +5,7 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 # Find current directory
 
 export DEBIAN_FRONTEND=noninteractive
-DEPENDENCIES=( squashfs-tools genisoimage p7zip-full xorriso isolinux )
+DEPENDENCIES=( squashfs-tools genisoimage p7zip-full xorriso figlet )
 
 PKGSTOINSTALL=""
 
@@ -32,5 +32,4 @@ if [ "$PKGSTOINSTALL" != "" ]; then
         echo "" 1>&2
         exit 1
     fi
-
 fi

@@ -9,10 +9,6 @@ else
     DESTINATION=$1
 fi
 
-# First, special handling of Gnome Control Center
-pushd /usr/bin/ > /dev/null
-cp gnome-control-center gnome-control-center.real
-popd > /dev/null
 
 # Now do the deed
 DIR=$(dirname $(realpath $0 ))
@@ -22,8 +18,6 @@ cp -r "$DIR"/../overwrites/* $DESTINATION
 chmod 0440 ${DESTINATION}etc/sudoers.d/keep-proxy
 chmod 0400 ${DESTINATION}home/.skjult/.local/share/keyrings/Standardnøglering.keyring
 
-# Remove Bluetooth indicator applet from Borger user
-"$DIR/remove_bluetooth_applet.sh"
 
 # Update dconf with settings from overwrites.
 dconf update

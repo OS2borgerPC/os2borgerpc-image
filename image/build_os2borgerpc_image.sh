@@ -8,18 +8,32 @@
 
 printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
+# Handle optional arguments
+COUNT=0
+if [ "$1" = "--clean" ] || [ "$2" = "--clean" ]; then
+  CLEAN_BUILD=true
+  COUNT=$((COUNT+1))
+fi
+
+if [ "$1" == "--skip-build-deps" ] || [ "$2" == "--skip-build-deps" ]; then
+  SKIP_BUILD_DEPS=true
+  COUNT=$((COUNT+1))
+fi
+# Remove the optional arguments if there were any, so we only have the required ones left
+shift $COUNT
+
 ISO_PATH=$1
 IMAGE_NAME=$2
-CLEAN_BUILD=$3
 
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0" iso_file image_name [--clean]"
+    echo "Usage: "$0"  [--clean] [--skip-build-deps] iso_file image_name"
     echo ""
+    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
+    echo "--skip-build-deps: pass this argument to skip installing build dependencies. Useful if testing on a non-debian-system, ie. without apt"
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
-    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
     echo ""
     exit 1
 fi
@@ -41,10 +55,14 @@ if [ "$CLEAN_BUILD" ]
 then
     # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
     unmount_cleanup
-    sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /root/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt
+    sudo chattr -f -i squashfs-root/var/lib/lightdm/.cache/unity-greeter/state || true
+    sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /tmp/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt boot_hybrid.img ubuntu22-desktop-amd64.efi
 fi
 
-build/install_dependencies.sh > /dev/null
+if [ ! "$SKIP_BUILD_DEPS" ]
+then
+    build/install_dependencies.sh > /dev/null
+fi
 
 build/extract_iso.sh "$ISO_PATH" iso
 
@@ -94,6 +112,22 @@ cd ..
 # Cleanup and unmount our tmp from squashfs-root
 unmount_cleanup
 
+mbr="boot_hybrid.img"
+
+efi="ubuntu22-desktop-amd64.efi"
+
+# Extract the MBR template
+
+dd if="$ISO_PATH" bs=1 count=446 of=$mbr
+
+# Extract EFI partition image
+
+skip=$(/sbin/fdisk -l "$ISO_PATH" | grep -F '.iso2 ' | awk '{print $2}')
+
+size=$(/sbin/fdisk -l "$ISO_PATH" | grep -F '.iso2 ' | awk '{print $4}')
+
+dd if="$ISO_PATH" bs=512 skip="$skip" count="$size" of=$efi
+
 # Make image
 
-xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso  -iso-level 3   -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot   -boot-load-size 4 -boot-info-table   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot   -isohybrid-gpt-basdat -isohybrid-apm-hfsplus   -isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin iso/boot iso
+xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso   -J -joliet-long -l -iso-level 3 -partition_offset 16 --grub2-mbr $mbr --mbr-force-bootable -append_partition 2 0xEF $efi -appended_part_as_gpt -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot   -boot-load-size 4 -boot-info-table --grub2-boot-info  -eltorito-alt-boot -e '--interval:appended_partition_2:all::' -no-emul-boot iso

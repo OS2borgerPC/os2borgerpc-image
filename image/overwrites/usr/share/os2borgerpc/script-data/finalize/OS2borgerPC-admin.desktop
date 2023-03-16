@@ -2,7 +2,7 @@
 Name=OS2borgerPC Admin
 Comment=Gå til admin-systemet
 Exec=firefox https://os2borgerpc-admin.magenta.dk
-Icon=firefox
+Icon=/snap/firefox/current/default256.png
 Type=Application
 Terminal=false
 X-Desktop-File-Install-Version=0.24

@@ -1,3 +1,7 @@
+# Always do normal installation and do not download updates during installation
+ubiquity ubiquity/use_nonfree boolean false
+ubiquity ubiquity/download_updates boolean false
+
 # Locale sets language and country.
 d-i debian-installer/locale string da_DK.UTF-8
 
@@ -39,11 +43,8 @@ d-i passwd/user-password-again password superuser
 
 # Enable extras.ubuntu.com.
 d-i	apt-setup/extras	boolean true
+
 # Install the Ubuntu desktop.
 tasksel	tasksel/first	multiselect ubuntu-desktop
-# On live DVDs, don't spend huge amounts of time removing substantial
-# application packages pulled in by language packs. Given that we clearly
-# have the space to include them on the DVD, they're useful and we might as
-# well keep them installed.
-ubiquity	ubiquity/keep-installed	string icedtea6-plugin openoffice.org
+
 d-i  base-installer/kernel/altmeta   string hwe-20.04

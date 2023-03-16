@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Opdater OS2borgerPC-klient
+Comment=Opdater OS2borgerPC-klient
+Exec=sudo pip install --force-reinstall os2borgerpc-client
+Icon=emblem-synchronizing
+Type=Application
+Categories=Utility;Documentation;ConsoleOnly;
+Terminal=true
+X-Desktop-File-Install-Version=0.24

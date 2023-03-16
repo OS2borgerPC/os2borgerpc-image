@@ -5,7 +5,6 @@ ResultAny=no
 ResultInactive=no
 ResultActive=no
 
- 
 [NetworkManager2]
 Identity=unix-group:user
 Action=org.freedesktop.NetworkManager.enable-disable-network
@@ -13,3 +12,9 @@ ResultAny=no
 ResultInactive=no
 ResultActive=no
 
+[NetworkManager3]
+Identity=unix-user:lightdm
+Action=org.freedesktop.NetworkManager.*
+ResultAny=no
+ResultInactive=no
+ResultActive=no
