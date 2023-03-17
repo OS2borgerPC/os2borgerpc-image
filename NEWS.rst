@@ -1,19 +1,34 @@
+Version 5.0.0, March 9, 2023
+----------------------------
+
+New in this version:
+
+- Upgrade to Ubuntu 22.04.2.
+- Clone scripts repo and install from there instead of duplicating code.
+- Build in a lot more scripts - especially many security related scripts
+  to provide an improved "Out of the box" experience.
+- Remove some unneeded packages.
+- Take a few steps to speed up the installer and reduce interactivity.
+- Add firstboot script to fx. delay enabling automatic updates so rolling
+  out scripts immediately after installation should work more consistently.
+- Update CI-files and scripts to hopefully make it easier to upgrade to
+  future versions.
+- Add flag to the build process where dependency installation is skipped.
+
 Version 4.0.0, July 15, 2022
 ----------------------------
 
 New in this version:
 
-* Rewrite build process completely for better automation and easier testing
-
+- Rewrite build process completely for better automation and easier testing.
 
 Version 3.1.1, February 1, 2022
 -------------------------------
 
 New in this version:
 
-* Remove explicit locale settings from ISO.
-* Remove "noisy" lines from auth.log.
-
+- Remove explicit locale settings from ISO.
+- Remove "noisy" lines from auth.log.
 
 Version 3.1.0, November 25, 2021
 --------------------------------
@@ -31,7 +46,6 @@ New in this version:
   become unresponsive.
 - More stable process for automatic upgrades.
 
-
 Version 3.0.0, January 18, 2021
 -------------------------------
 
@@ -41,8 +55,7 @@ New in this version:
   well as all scripts.
 - Versioning scheme changed to semantic versioning, cf.
   https://semver.org/.
- 
- 
+
 Version 2.4.1.3, July 17, 2018
 ------------------------------
 
@@ -52,7 +65,7 @@ New in this version:
 Version 2.4.1.2, January 2, 2018
 --------------------------------
 
-- Installation now adds the security folder and necessary security files. 
+- Installation now adds the security folder and necessary security files.
 
 Version 2.4.1.1, June 6, 2017
 -----------------------------
@@ -83,10 +96,10 @@ Version 2.3.0, March 22, 2016
 New in this version:
 
 - The bibos installation now supports Ubuntu 12.04 and Ubuntu 14.04.
-- Added new bibos_installation.sh script. It automates the bibos installation 
+- Added new bibos_installation.sh script. It automates the bibos installation
   process. After the script has been executed the user only needs to run
   "Færdiggør BibOS installationen".
-- Dependency list has been on a diet. It only contains the necessary packages 
+- Dependency list has been on a diet. It only contains the necessary packages
   for the bibos client to run.
 - Removed gimp icon from Desktop as we do not install gimp.
 
@@ -101,10 +114,8 @@ New in this version:
 - Include print job removal patch on image.
 - Include latest bibos_client by default.
 
-
 Version 2.1.0.1, October 25, 2013
 ---------------------------------
-
 
 New in this version:
 
@@ -113,9 +124,9 @@ New in this version:
   apt-check from running in the background - there's no need for UpdateManager
   to launch all of a sudden (ticket #9101).
 - Battery indicator was missing on audience user's login (#9089). Enable Gnome-
-  settings plugin for user (presumably this was previously disabled as an 
+  settings plugin for user (presumably this was previously disabled as an
   attempt to solve #7875).
-- Icons are sometimes jumbled (ticket #8279). We now don't try to specify the 
+- Icons are sometimes jumbled (ticket #8279). We now don't try to specify the
   location of default desktop icons - this seems to avoid the timing problem.
 - BibOS client is updated to support wireless networking cards (ticket #8951).
 - BibOS client is also updated to support fixed gateway which is not
@@ -129,11 +140,8 @@ New in this version:
   admin_scripts/ in this repository.
 - New boot image on install disk.
 
-
-
 Version 2.0.2.2, August 16, 2013
 --------------------------------
-
 
 New in this version:
 
@@ -149,9 +157,7 @@ New in this version:
   * autolog is installed by default
   * startup sound (drumbeat) is not played by default
 - Fix Firefox settings so it won't check for add-on compatibility
-- Updated documentation 
-
-
+- Updated documentation
 
 Version 2.0.2.1, July 25, 2013
 ------------------------------
@@ -167,8 +173,6 @@ New in this version:
 - Prompt the user before rebooting so there is time to remove the installation
   image, cf. ticket #8496
 
-
-
 Version 2.0.2, July 12, 2013
 ----------------------------
 
@@ -176,7 +180,7 @@ New in this version:
 
 - BibOS 2 moves from alpha to beta
 - Lots of changes to the default user setup
-- Completely new postinstall script 
+- Completely new postinstall script
 - Proxy Internet connection through local gateway
 - Connect to BibOS Admin system.
 - Network install works.

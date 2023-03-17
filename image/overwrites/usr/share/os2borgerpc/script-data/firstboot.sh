@@ -76,5 +76,7 @@ EOF
 
 systemctl enable --now "$(basename $UNATTENDED_UPGRADES_DELAY_SERVICE)"
 
+apt-get remove -y --purge kdeconnect
+
 # Remove the firstboot-related files
 rm  /etc/lightdm/greeter-setup-scripts/firstboot.sh /etc/os2borgerpc/*.deb
