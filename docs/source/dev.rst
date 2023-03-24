@@ -31,7 +31,7 @@ output ISO file will be called "$image_name".iso.
 Convert a vanilla Ubuntu installation into an OS2borgerPC
 *********************************************************
 
-Start installing a vanilla Ubuntu system - Ubuntu 20.04 in the
+Start installing a vanilla Ubuntu system - Ubuntu 22.04 in the
 present example. Install on a virtual or physical machine. If
 installing in a virtual machine, be sure to use UEFI boot - the
 install scripts currently don't handle images with legacy boot well
