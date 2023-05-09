@@ -10,13 +10,21 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
 # Handle optional arguments
 COUNT=0
-if [ "$1" = "--clean" ] || [ "$2" = "--clean" ]; then
+if [ "$1" = "--clean" ] || [ "$2" = "--clean" ] || [ "$3" = "--clean" ]; then
   CLEAN_BUILD=true
+  echo "Arguments: Clean building"
   COUNT=$((COUNT+1))
 fi
 
-if [ "$1" == "--skip-build-deps" ] || [ "$2" == "--skip-build-deps" ]; then
+if [ "$1" == "--skip-build-deps" ] || [ "$2" == "--skip-build-deps" ] || [ "$3" == "--skip-build-deps" ]; then
   SKIP_BUILD_DEPS=true
+  echo "Arguments: Skipping installing build deps"
+  COUNT=$((COUNT+1))
+fi
+
+if [ "$1" == "--lang-all" ] || [ "$2" == "--lang-all" ] || [ "$3" == "--lang-all" ]; then
+  LANG_ALL=true
+  echo "Arguments: Setting up better support for all languages"
   COUNT=$((COUNT+1))
 fi
 # Remove the optional arguments if there were any, so we only have the required ones left
@@ -28,10 +36,11 @@ IMAGE_NAME=$2
 
 if [[ -z $ISO_PATH || -z $IMAGE_NAME ]]
 then
-    echo "Usage: "$0"  [--clean] [--skip-build-deps] iso_file image_name"
+    echo "Usage: "$0"  [--clean] [--skip-build-deps] [--lang-all] iso_file image_name"
     echo ""
-    echo "--clean: pass this argument to first delete temp build files, e.g. from within iso/"
-    echo "--skip-build-deps: pass this argument to skip installing build dependencies. Useful if testing on a non-debian-system, ie. without apt"
+    echo "--clean: First delete temp build files, e.g. from within iso/"
+    echo "--skip-build-deps: Skip installing build dependencies. Useful if testing on a non-debian-system, ie. without apt"
+    echo "--lang-all: Build an image with more multi-language-support out of the box"
     echo "iso_file must be a valid path to the ISO file to be remastered"
     echo "image_name is the name of the output image"
     echo ""
@@ -47,7 +56,7 @@ unmount_cleanup() {
 
 figlet "Building OS2borgerPC"
 
-echo "Ignore errors about zsys daemon in the log output"
+echo "You can ignore errors about zsys daemon in the log output"
 
 set -ex
 
@@ -78,7 +87,7 @@ sudo rsync -r --exclude squashfs-root --exclude image/*.iso --exclude .git --exc
 
 figlet "About to enter chroot"
 
-build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh
+build/chroot_os2borgerpc.sh squashfs-root ./build/prepare_os2borgerpc.sh "$LANG_ALL"
 
 
 # Regenerate manifest
@@ -103,6 +112,11 @@ printf $(sudo du -sx --block-size=1 squashfs-root | cut -f1) > iso/casper/filesy
 
 # Overwrite preseed etc.
 cp -r iso_overwrites/* iso/
+# Make a few changes to the copied preseed file if we're building an image with multi-language-support
+if [ "$LANG_ALL" ]
+then
+  sed --in-place --expression "\@keyboard-configuration@d" --expression "\@debian-installer/locale@d" iso/preseed/ubuntu.seed
+fi
 
 # Recalculate MD5 sums.
 cd iso

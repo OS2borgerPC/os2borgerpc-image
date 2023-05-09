@@ -17,11 +17,12 @@ variables:
 # Build stage
 #############
 
-# Note: The caching of the source image does, unfortunately not seem to work yet.
+# Note: The caching of the source image does, unfortunately not seem to work yet?
 
 Build ISO image:
   stage: build
   needs: []
+  when: manual
   image: ubuntu:${BUILD_IMAGE_VERSION}
   before_script:
     - apt-get -y update > /dev/null
@@ -30,6 +31,27 @@ Build ISO image:
     - wget --progress=bar:force --continue http://releases.ubuntu.com/${BUILD_IMAGE_VERSION}/${ISO_NAME}
   script:
     - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
+  cache:
+    paths:
+      - image/${ISO_NAME}
+  artifacts:
+    paths:
+      - image/${ISO_SHA}.iso
+    expire_in: 4 weeks
+
+# Like above, but call build_os2borgerpc_image.sh with the optional argument enabling multilang support
+Build Multilang ISO image:
+  stage: build
+  needs: []
+  when: manual
+  image: ubuntu:${BUILD_IMAGE_VERSION}
+  before_script:
+    - apt-get -y update > /dev/null
+    - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
+    - cd image
+    - wget --progress=bar:force --continue http://releases.ubuntu.com/${BUILD_IMAGE_VERSION}/${ISO_NAME}
+  script:
+    - ./build_os2borgerpc_image.sh --lang-all ./${ISO_NAME} ${ISO_SHA}
   cache:
     paths:
       - image/${ISO_NAME}
