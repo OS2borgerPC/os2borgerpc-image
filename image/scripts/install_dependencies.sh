@@ -12,6 +12,16 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 # required by OS2borgerPC.
 DEPENDENCIES=( $(cat "$DIR/DEPENDENCIES") )
 
+if [ "$LANG_ALL" ]; then
+    # Add support for specific languages besides those preinstalled
+  LN="sv"
+  DEPENDENCIES+=(language-pack-"$LN")
+else
+  # The current default: Only add support for Danish
+  LN="da"
+  DEPENDENCIES+=(language-pack-"$LN")
+fi
+
 dpkg -l | grep "^ii" > /tmp/scripts_installed_packages_list.txt
 
 for  package in "${DEPENDENCIES[@]}"
@@ -43,11 +53,11 @@ else
     echo "No dependencies missing...?"
 fi
 
-#echo "Install any missing language support packages for danish specifically"
+#echo "Install any missing language support packages for the missing target languages specifically"
 # shellcheck disable=SC2046 # We want word-splitting here
-apt-get install -y $(check-language-support -l da) $(check-language-support -l en)
+apt-get install -y $(check-language-support -l $LN) $(check-language-support -l en)
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
-apt-mark manual $(check-language-support -l da --show-installed) $(check-language-support -l en --show-installed)
+apt-mark manual $(check-language-support -l $LN --show-installed) $(check-language-support -l en --show-installed)
 
 pip3 install os2borgerpc-client
