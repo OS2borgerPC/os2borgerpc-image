@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Registrer i OS2borgerPC Admin
+Name[sv]=Registrera dator i MedborgarPC Admin
 Comment=Registrer i admin-systemet
+Comment[sv]=Registrera dator i adminsystemet
 Exec=sudo /usr/local/bin/register_new_os2borgerpc_client.sh
 Icon=org.gnome.Terminal
 Type=Application
