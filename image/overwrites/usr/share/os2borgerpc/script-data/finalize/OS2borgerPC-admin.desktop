@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=OS2borgerPC Admin
+Name[sv]=Sambruk MedborgarPC Admin
 Comment=Gå til admin-systemet
+Comment[sv]=Gå till adminsystemet
 Exec=firefox https://os2borgerpc-admin.magenta.dk
 Icon=/snap/firefox/current/default256.png
 Type=Application

@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=Opdater OS2borgerPC-klient
+Name[sv]=Uppdatera MedborgarPC-klient
 Comment=Opdater OS2borgerPC-klient
+Comment[sv]=Uppdatera MedborgarPC-klient
 Exec=sudo pip install --force-reinstall os2borgerpc-client
 Icon=emblem-synchronizing
 Type=Application

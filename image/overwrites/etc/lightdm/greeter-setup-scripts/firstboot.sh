@@ -8,15 +8,40 @@ sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lig
 # Install dbus-x11 for dbus-launch from .deb file
 dpkg -i /etc/os2borgerpc/*.deb
 
+# Detect the locale chosen under the installation and rename "Borger" if not Danish
+# Locale file may or may not contain " around the value of LANG
+LOCALE=$(grep LANG /etc/default/locale | cut --delimiter '=' --fields 2 | tr --delete '"' | cut --delimiter '_' --fields 1)
+if [ "$LOCALE" = "sv" ]; then
+    usermod --comment 'Medborgare' user
+elif [ "$LOCALE" = "en" ]; then
+    usermod --comment 'Citizen' user
+fi
+
 # Activate superuser desktop shortcuts
-USR=superuser
-for FILE in /home/$USR/Skrivebord/*.desktop; do
+# Obtain the name of superusers DESKTOP dir in their current locale. This is done deliberately in .config/autostart,
+# because xdg-user-dir doesn't know its name before superuser has logged in the first time
+DESKTOP_PATH=$(xdg-user-dir DESKTOP)
+
+USR="superuser"
+DESKTOP_FILES_DIR="/usr/share/os2borgerpc/script-data/finalize"
+
+export "$(grep LANG= /etc/default/locale | tr --delete '"')"
+runuser -u $USR xdg-user-dirs-update
+DESKTOP=$(runuser -u $USR xdg-user-dir DESKTOP)
+
+mv $DESKTOP_FILES_DIR/*.desktop "$DESKTOP/"
+chown --recursive superuser:superuser "$DESKTOP"
+chmod --recursive u+x "$DESKTOP"
+
+for FILE in "$DESKTOP"/*.desktop; do
 	runuser -u $USR dbus-launch gio set "$FILE" metadata::trusted true
 	# In order for gio changes to take effect, it is necessary to update the file time stamp
 	touch "$FILE"
 done
 
-# setup delayed start of unattended upgrades
+rm --recursive $DESKTOP_FILES_DIR
+
+# Setup delayed start of unattended upgrades
 TIME_TO_START=$(date -d 'now+2hours' +%FT%R)
 mkdir --parents "/usr/local/lib/os2borgerpc"
 UNATTENDED_UPGRADES_DELAY="/usr/local/lib/os2borgerpc/unattended_upgrades_delay.py"

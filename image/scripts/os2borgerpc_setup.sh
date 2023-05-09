@@ -56,6 +56,10 @@ useradd superuser --create-home --shell /bin/bash \
   --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
   --user-group --key UMASK=0077  --groups sudo --comment Superuser
 
+# Now make superuser own its home dir and its contents, and also the script-data dir, so it can delete it after moving
+#.its desktop files
+chown --recursive superuser:superuser /home/superuser /usr/share/os2borgerpc/bin/script-data
+
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
 
@@ -121,10 +125,6 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Remove change user from the menu
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_user_switching.sh" True
-
-# Remove user write access to desktop
-mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/desktop_toggle_writable.sh" True
 
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
