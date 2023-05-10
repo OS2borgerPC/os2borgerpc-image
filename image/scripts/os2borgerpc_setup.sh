@@ -175,6 +175,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 # Enable universal access menu by default
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
 
+# Allow superuser to manage CUPS / change printer settings (and make changes via CUPS' web interface)
+"$SCRIPT_DIR/printer/allow_superuser_to_manage_cups.sh" True
+
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
 apt-get remove --assume-yes git
