@@ -117,10 +117,10 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh" True True
 
 # Remove lock from the menu
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_lock_menu_dconf.sh" True
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/disable_user_switching_dconf.sh" True
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_user_switching.sh" True
 
 # Remove user write access to desktop
 mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
@@ -160,7 +160,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
 "$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
@@ -173,7 +173,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/libreoffice/overwrite_libreoffice_config.sh" True False
 
 # Enable universal access menu by default
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_policy_a11y.sh" True
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
