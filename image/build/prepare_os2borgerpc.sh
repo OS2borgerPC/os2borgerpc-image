@@ -27,7 +27,7 @@ echo "Removing packages we don't need, before we upgrade all packages:"
 # deja-dup because...?
 # libfprint-2-2 because it fails during installation/updating because of an unmet interactive step, but we don't need finger print reading anyway so we can delete it
 # ...and the rest because they likely aren't needed by users
-apt-get -y remove --purge apport cheese deja-dup evince libfprint-2-2 gnome-todo openvpn remmina thunderbird totem transmission-gtk whoopsie
+apt-get --assume-yes remove --purge apport cheese deja-dup evince libfprint-2-2 gnome-todo openvpn remmina thunderbird totem transmission-gtk whoopsie
 
 if [ ! "$LANG_ALL" ]; then
     # Danish image version: Remove unneeded language support, as the installer seems to otherwise spend a decent amount of time removing them during the installation
@@ -39,7 +39,7 @@ fi
 /mnt/image/scripts/os2borgerpc_setup.sh || exit 1
 
 # Ideally at this point nothing else within the image is installed/uninstalled, so we can clean up old package versions etc.
-apt-get -y autoremove --purge
-apt-get -y clean
+apt-get --assume-yes autoremove --purge
+apt-get --assume-yes clean
 
 /mnt/image/scripts/finalize.sh || exit 1

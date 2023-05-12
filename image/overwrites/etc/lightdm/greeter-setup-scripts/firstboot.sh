@@ -2,7 +2,7 @@
 
 set -e
 
-# switch to normal lightdm timeout
+# Switch to normal lightdm timeout
 sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lightdm/lightdm.conf
 
 # Install dbus-x11 for dbus-launch from .deb file
@@ -101,7 +101,8 @@ EOF
 
 systemctl enable --now "$(basename $UNATTENDED_UPGRADES_DELAY_SERVICE)"
 
-apt-get remove -y --purge kdeconnect
+# We remove kdeconnect here, because it's not installed during install_dependencies.sh(?!) so we can't remove it there
+apt-get remove --assume-yes --purge kdeconnect
 
 # Remove the firstboot-related files
 rm  /etc/lightdm/greeter-setup-scripts/firstboot.sh /etc/os2borgerpc/*.deb
