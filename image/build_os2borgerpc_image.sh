@@ -65,7 +65,7 @@ then
     # In case it was cancelled prematurely and /tmp is still bind-mounted to squashfs-root/tmp
     unmount_cleanup
     sudo chattr -f -i squashfs-root/var/lib/lightdm/.cache/unity-greeter/state || true
-    sudo rm -rf iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /tmp/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt boot_hybrid.img ubuntu22-desktop-amd64.efi
+    sudo rm --recursive --force iso/.disk/ iso/* squashfs squashfs-root/ /tmp/build_installed_packages_list.txt /tmp/scripts_installed_packages_list.txt /tmp/os2borgerpc_install_log.txt /tmp/os2borgerpc_upgrade_log.txt boot_hybrid.img ubuntu22-desktop-amd64.efi
 fi
 
 if [ ! "$SKIP_BUILD_DEPS" ]
@@ -76,14 +76,14 @@ fi
 build/extract_iso.sh "$ISO_PATH" iso
 
 # Unsquash and customize
-sudo unsquashfs -f iso/casper/filesystem.squashfs > /dev/null
+sudo unsquashfs -force iso/casper/filesystem.squashfs > /dev/null
 
 # Mounting in our own tmp into the chroot so we retain access to the log files written from within it
 # This will fail in the pipeline due to a permissions error, but it will work locally
 sudo mount --bind /tmp $TMP_MOUNT_POINT || true
 
 echo "Copying in image building files before chrooting"
-sudo rsync -r --exclude squashfs-root --exclude image/*.iso --exclude .git --exclude image/iso ../ $BUILD_FILES_COPY_DESTINATION
+sudo rsync --recursive --exclude squashfs-root --exclude image/*.iso --exclude .git --exclude image/iso ../ $BUILD_FILES_COPY_DESTINATION
 
 figlet "About to enter chroot"
 
@@ -95,23 +95,23 @@ build/chroot_os2borgerpc.sh squashfs-root build/create_manifest.sh > iso/casper/
 figlet "Exiting chroot"
 
 cp iso/casper/filesystem.manifest iso/casper/filesystem.manifest-desktop
-sed -i '/ubiquity/d' iso/casper/filesystem.manifest-desktop
-sed -i '/casper/d' iso/casper/filesystem.manifest-desktop
+sed --in-place '/ubiquity/d' iso/casper/filesystem.manifest-desktop
+sed --in-place '/casper/d' iso/casper/filesystem.manifest-desktop
 
 
 # Build squashfs for the ISO
 
 # First delete the image building files from squashfs again
-sudo rm -rf $BUILD_FILES_COPY_DESTINATION/* squashfs-root/*.sh
+sudo rm --recursive --force $BUILD_FILES_COPY_DESTINATION/* squashfs-root/*.sh
 
 rm iso/casper/filesystem.squashfs
 sudo mksquashfs squashfs-root iso/casper/filesystem.squashfs
 
 # Calculate FS size
-printf $(sudo du -sx --block-size=1 squashfs-root | cut -f1) > iso/casper/filesystem.size
+printf $(sudo du --summarize --one-file-system --block-size=1 squashfs-root | cut --fields 1) > iso/casper/filesystem.size
 
 # Overwrite preseed etc.
-cp -r iso_overwrites/* iso/
+cp --recursive iso_overwrites/* iso/
 # Make a few changes to the copied preseed file if we're building an image with multi-language-support
 if [ "$LANG_ALL" ]
 then
@@ -136,12 +136,12 @@ dd if="$ISO_PATH" bs=1 count=446 of=$mbr
 
 # Extract EFI partition image
 
-skip=$(/sbin/fdisk -l "$ISO_PATH" | grep -F '.iso2 ' | awk '{print $2}')
+skip=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $2}')
 
-size=$(/sbin/fdisk -l "$ISO_PATH" | grep -F '.iso2 ' | awk '{print $4}')
+size=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $4}')
 
 dd if="$ISO_PATH" bs=512 skip="$skip" count="$size" of=$efi
 
 # Make image
 
-xorriso -as mkisofs -r   -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso   -J -joliet-long -l -iso-level 3 -partition_offset 16 --grub2-mbr $mbr --mbr-force-bootable -append_partition 2 0xEF $efi -appended_part_as_gpt -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot   -boot-load-size 4 -boot-info-table --grub2-boot-info  -eltorito-alt-boot -e '--interval:appended_partition_2:all::' -no-emul-boot iso
+xorriso -as mkisofs -r -V "$IMAGE_NAME" -o "$IMAGE_NAME".iso -J -joliet-long -l -iso-level 3 -partition_offset 16 --grub2-mbr $mbr --mbr-force-bootable -append_partition 2 0xEF $efi -appended_part_as_gpt -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot   -boot-load-size 4 -boot-info-table --grub2-boot-info  -eltorito-alt-boot -e '--interval:appended_partition_2:all::' -no-emul-boot iso

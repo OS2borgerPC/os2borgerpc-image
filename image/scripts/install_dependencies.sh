@@ -22,11 +22,11 @@ else
   DEPENDENCIES+=(language-pack-"$LN")
 fi
 
-dpkg -l | grep "^ii" > /tmp/scripts_installed_packages_list.txt
+dpkg --list | grep "^ii" > /tmp/scripts_installed_packages_list.txt
 
-for  package in "${DEPENDENCIES[@]}"
+for package in "${DEPENDENCIES[@]}"
 do
-    grep -w "ii  $package " /tmp/scripts_installed_packages_list.txt > /dev/null
+    grep --word-regexp "ii  $package " /tmp/scripts_installed_packages_list.txt > /dev/null
     if [[ $? -ne 0 ]]; then
         PKGS_TO_INSTALL=$PKGS_TO_INSTALL" "$package
     fi
@@ -40,7 +40,7 @@ if [ "$PKGS_TO_INSTALL" != "" ]; then
     # Step 2: Do the actual installation. Abort if it fails.
     # and install
     # shellcheck disable=SC2086 # We want word-splitting here
-    apt-get -y install $PKGS_TO_INSTALL | tee /tmp/os2borgerpc_install_log.txt
+    apt-get --assume-yes install $PKGS_TO_INSTALL | tee /tmp/os2borgerpc_install_log.txt
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
         echo "" 1>&2
@@ -55,7 +55,7 @@ fi
 
 #echo "Install any missing language support packages for the missing target languages specifically"
 # shellcheck disable=SC2046 # We want word-splitting here
-apt-get install -y $(check-language-support -l $LN) $(check-language-support -l en)
+apt-get install --assume-yes $(check-language-support -l $LN) $(check-language-support -l en)
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
 apt-mark manual $(check-language-support -l $LN --show-installed) $(check-language-support -l en --show-installed)

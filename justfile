@@ -1,6 +1,9 @@
 _umount-old-image MOUNTPOINT:
   sudo umount {{MOUNTPOINT}}
 
+build_os2borgerpc_image INPUT_ISO OUTPUT_ISO:
+  cd image && ./build_os2borgerpc_image.sh {{INPUT_ISO}} {{OUTPUT_ISO}}
+
 # Unpacks and mounts most images older than 4.0.0
 mount-old-image IMG MOUNTPOINT:
   -just _umount-old-image {{MOUNTPOINT}}

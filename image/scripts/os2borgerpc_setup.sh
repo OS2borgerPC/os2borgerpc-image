@@ -64,16 +64,16 @@ chown --recursive superuser:superuser /home/superuser /usr/share/os2borgerpc/bin
 touch /etc/os2borgerpc/firstboot
 
 # Prepare to run jobs
-mkdir -p /var/lib/os2borgerpc/jobs
-chmod -R og-r /var/lib/os2borgerpc
+mkdir --parents /var/lib/os2borgerpc/jobs
+chmod --recursive og-r /var/lib/os2borgerpc
 
 # Switch display manager to LightDM
-apt-get -y install lightdm
+apt-get --assume-yes install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt-get remove --assume-yes gdm3
 
 # Prepare for security scripts
-mkdir -p /etc/os2borgerpc/security/
+mkdir --parents /etc/os2borgerpc/security/
 
 # Set product in configuration
 PRODUCT="os2borgerpc"
