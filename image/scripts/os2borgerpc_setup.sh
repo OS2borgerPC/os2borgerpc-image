@@ -160,8 +160,14 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
-"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
+# Multi user image uses a different image because the Danish one has Danish text on it
+if [ "$LANG_ALL" ]; then
+  BG="/usr/share/backgrounds/os2bpc_default_login.png"
+else
+  BG="/usr/share/backgrounds/os2bpc_default_desktop.svg"
+fi
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" $BG
+"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True $BG
 
 # Make apt-get wait 5 min for dpkg lock
 "$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
