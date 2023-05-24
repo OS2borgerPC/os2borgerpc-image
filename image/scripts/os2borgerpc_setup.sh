@@ -64,8 +64,7 @@ chown --recursive superuser:superuser /home/superuser /usr/share/os2borgerpc/bin
 touch /etc/os2borgerpc/firstboot
 
 # Prepare to run jobs
-mkdir --parents /var/lib/os2borgerpc/jobs
-chmod --recursive og-r /var/lib/os2borgerpc
+mkdir /var/lib/os2borgerpc --mode 700
 
 # Switch display manager to LightDM
 apt-get --assume-yes install lightdm
