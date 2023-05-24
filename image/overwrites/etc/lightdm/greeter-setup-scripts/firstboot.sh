@@ -17,7 +17,7 @@ elif [ "$LOCALE" = "en" ]; then
     usermod --comment 'Citizen' user
 fi
 
-# Activate superuser desktop shortcuts
+# Copy over superuser desktop shortcuts - they're activated by a .config/autostart script
 
 USR="superuser"
 DESKTOP_FILES_DIR="/usr/share/os2borgerpc/script-data/finalize"
@@ -29,12 +29,6 @@ DESKTOP=$(runuser -u $USR xdg-user-dir DESKTOP)
 mv $DESKTOP_FILES_DIR/*.desktop "$DESKTOP/"
 chown --recursive superuser:superuser "$DESKTOP"
 chmod --recursive u+x "$DESKTOP"
-
-for FILE in "$DESKTOP"/*.desktop; do
-	runuser -u $USR dbus-launch gio set "$FILE" metadata::trusted true
-	# In order for gio changes to take effect, it is necessary to update the file time stamp
-	touch "$FILE"
-done
 
 rm --recursive $DESKTOP_FILES_DIR
 

@@ -37,6 +37,15 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
+# Setup superuser. This is done before do_overwrite, as that currently copies in some files into superusers home dir.
+# shellcheck disable=SC2016 # It may look like it's a bash variable, but it's not
+useradd superuser --create-home --shell /bin/bash \
+  --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
+  --user-group --key UMASK=0077  --groups sudo --comment Superuser
+
+# Now make superuser own the script-data dir, so it can delete it after moving .its desktop files
+chown --recursive superuser:superuser /usr/share/os2borgerpc/bin/script-data
+
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
 
@@ -49,16 +58,6 @@ groupadd nopasswdlogin
 # Setup default user
 useradd user --create-home --password 12345 --shell /bin/bash --user-group \
   --groups nopasswdlogin --comment Borger
-
-# Setup superuser
-# shellcheck disable=SC2016 # It may look like it's a bash variable, but it's not
-useradd superuser --create-home --shell /bin/bash \
-  --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
-  --user-group --key UMASK=0077  --groups sudo --comment Superuser
-
-# Now make superuser own its home dir and its contents, and also the script-data dir, so it can delete it after moving
-#.its desktop files
-chown --recursive superuser:superuser /home/superuser /usr/share/os2borgerpc/bin/script-data
 
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
