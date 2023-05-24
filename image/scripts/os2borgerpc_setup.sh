@@ -166,7 +166,7 @@ else
   BG="/usr/share/backgrounds/os2bpc_default_desktop.svg"
 fi
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" $BG
-"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True $BG
+"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
 "$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
