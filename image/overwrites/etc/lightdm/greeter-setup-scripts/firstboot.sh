@@ -18,9 +18,6 @@ elif [ "$LOCALE" = "en" ]; then
 fi
 
 # Activate superuser desktop shortcuts
-# Obtain the name of superusers DESKTOP dir in their current locale. This is done deliberately in .config/autostart,
-# because xdg-user-dir doesn't know its name before superuser has logged in the first time
-DESKTOP_PATH=$(xdg-user-dir DESKTOP)
 
 USR="superuser"
 DESKTOP_FILES_DIR="/usr/share/os2borgerpc/script-data/finalize"

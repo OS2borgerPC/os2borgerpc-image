@@ -9,8 +9,7 @@ USERNAME="user"
 # we run xdg-user-dirs-update, which generates it based on the environment variables
 # LANG and LANGUAGE. These variables are empty in lightdm so we first export them
 # based on the values stored in /etc/default/locale
-export "$(grep LANG= /etc/default/locale)"
-export "$(grep LANGUAGE /etc/default/locale)"
+export "$(grep LANG= /etc/default/locale | tr -d '"')"
 runuser -u $USERNAME xdg-user-dirs-update
 DESKTOP=$(runuser -u $USERNAME xdg-user-dir DESKTOP)
 
