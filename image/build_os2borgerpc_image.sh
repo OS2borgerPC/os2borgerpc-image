@@ -115,8 +115,8 @@ cp --recursive iso_overwrites/* iso/
 # Make a few changes to the copied preseed file if we're building an image with multi-language-support
 if [ "$LANG_ALL" ]
 then
-  # Don't preseed locale
-  sed --in-place --expression "/keyboard-configuration/d" --expression "\@debian-installer/locale@d" iso/preseed/ubuntu.seed
+  # Don't preseed locale/timezone
+  sed --in-place --expression "/keyboard-configuration/d" --expression "\@debian-installer/locale@d" --expression "\@d-i time/zone@d" iso/preseed/ubuntu.seed
   # Don't use the OS2-specific background image
   rm iso/boot/grub/borgerpc_grub_bg.png
   # TODO: Potentially remove in the future if converting to a true language agnostic image: Hardcode ISO bootup text to Swedish
