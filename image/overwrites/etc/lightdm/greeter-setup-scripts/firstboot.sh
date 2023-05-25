@@ -2,21 +2,37 @@
 
 set -e
 
-# switch to normal lightdm timeout
+# Switch to normal lightdm timeout
 sed --in-place "s/autologin-user-timeout=30/autologin-user-timeout=10/" /etc/lightdm/lightdm.conf
 
 # Install dbus-x11 for dbus-launch from .deb file
 dpkg -i /etc/os2borgerpc/*.deb
 
-# Activate superuser desktop shortcuts
-USR=superuser
-for FILE in /home/$USR/Skrivebord/*.desktop; do
-	runuser -u $USR dbus-launch gio set "$FILE" metadata::trusted true
-	# In order for gio changes to take effect, it is necessary to update the file time stamp
-	touch "$FILE"
-done
+# Detect the locale chosen under the installation and rename "Borger" if not Danish
+# Locale file may or may not contain " around the value of LANG
+LOCALE=$(grep LANG /etc/default/locale | cut --delimiter '=' --fields 2 | tr --delete '"' | cut --delimiter '_' --fields 1)
+if [ "$LOCALE" = "sv" ]; then
+    usermod --comment 'Medborgare' user
+elif [ "$LOCALE" = "en" ]; then
+    usermod --comment 'Citizen' user
+fi
 
-# setup delayed start of unattended upgrades
+# Copy over superuser desktop shortcuts - they're activated by a .config/autostart script
+
+USR="superuser"
+DESKTOP_FILES_DIR="/usr/share/os2borgerpc/script-data/finalize"
+
+export "$(grep LANG= /etc/default/locale | tr --delete '"')"
+runuser -u $USR xdg-user-dirs-update
+DESKTOP=$(runuser -u $USR xdg-user-dir DESKTOP)
+
+mv $DESKTOP_FILES_DIR/*.desktop "$DESKTOP/"
+chown --recursive superuser:superuser "$DESKTOP"
+chmod --recursive u+x "$DESKTOP"
+
+rm --recursive $DESKTOP_FILES_DIR
+
+# Setup delayed start of unattended upgrades
 TIME_TO_START=$(date -d 'now+2hours' +%FT%R)
 mkdir --parents "/usr/local/lib/os2borgerpc"
 UNATTENDED_UPGRADES_DELAY="/usr/local/lib/os2borgerpc/unattended_upgrades_delay.py"
@@ -76,7 +92,8 @@ EOF
 
 systemctl enable --now "$(basename $UNATTENDED_UPGRADES_DELAY_SERVICE)"
 
-apt-get remove -y --purge kdeconnect
+# We remove kdeconnect here, because it's not installed during install_dependencies.sh(?!) so we can't remove it there
+apt-get remove --assume-yes --purge kdeconnect
 
 # Remove the firstboot-related files
 rm  /etc/lightdm/greeter-setup-scripts/firstboot.sh /etc/os2borgerpc/*.deb

@@ -6,11 +6,12 @@ printf "\n\n%s\n\n" "===== RUNNING: $0 ====="
 
 DIR=$1
 COMMAND=$2
+ARG=$3 # Optional
 
 echo $COMMAND
 if [ "$DIR" == "" ]; then
     echo "No directory specified"
-    exit 1;
+    exit 1
 fi
 
 DIR=${DIR%/}
@@ -31,5 +32,5 @@ else
     EXE=$(basename $COMMAND)
     sudo cp $COMMAND $DIR
     sudo chmod +x $DIR/$EXE
-    sudo chroot "$DIR" /"$EXE"
+    sudo chroot "$DIR" /"$EXE" "$ARG"
 fi

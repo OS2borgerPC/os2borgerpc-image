@@ -37,6 +37,15 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
 
+# Setup superuser. This is done before do_overwrite, as that currently copies in some files into superusers home dir.
+# shellcheck disable=SC2016 # It may look like it's a bash variable, but it's not
+useradd superuser --create-home --shell /bin/bash \
+  --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
+  --user-group --key UMASK=0077  --groups sudo --comment Superuser
+
+# Now make superuser own the script-data dir, so it can delete it after moving .its desktop files
+chown --recursive superuser:superuser /usr/share/os2borgerpc/bin/script-data
+
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
 
@@ -50,26 +59,19 @@ groupadd nopasswdlogin
 useradd user --create-home --password 12345 --shell /bin/bash --user-group \
   --groups nopasswdlogin --comment Borger
 
-# Setup superuser
-# shellcheck disable=SC2016 # It may look like it's a bash variable, but it's not
-useradd superuser --create-home --shell /bin/bash \
-  --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
-  --user-group --key UMASK=0077  --groups sudo --comment Superuser
-
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
 
 # Prepare to run jobs
-mkdir -p /var/lib/os2borgerpc/jobs
-chmod -R og-r /var/lib/os2borgerpc
+mkdir /var/lib/os2borgerpc --mode 700
 
 # Switch display manager to LightDM
-apt-get -y install lightdm
+apt-get --assume-yes install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt-get remove --assume-yes gdm3
 
 # Prepare for security scripts
-mkdir -p /etc/os2borgerpc/security/
+mkdir --parents /etc/os2borgerpc/security/
 
 # Set product in configuration
 PRODUCT="os2borgerpc"
@@ -122,10 +124,6 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 # Remove change user from the menu
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_user_switching.sh" True
 
-# Remove user write access to desktop
-mkdir --parents /home/user/Skrivebord /home/.skjult/Skrivebord
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/desktop_toggle_writable.sh" True
-
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
 
@@ -160,7 +158,13 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" /usr/share/backgrounds/os2bpc_default_desktop.svg
+# Multi user image uses a different image because the Danish one has Danish text on it
+if [ "$LANG_ALL" ]; then
+  BG="/usr/share/backgrounds/os2bpc_default_login.png"
+else
+  BG="/usr/share/backgrounds/os2bpc_default_desktop.svg"
+fi
+"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" $BG
 "$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
@@ -174,6 +178,9 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 
 # Enable universal access menu by default
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
+
+# Allow superuser to manage CUPS / change printer settings (and make changes via CUPS' web interface)
+"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh" True
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
