@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Automatically allow launching of .desktop files on the desktop
+Exec=/home/superuser/gio_fix_desktop_file_permissions_superuser.sh

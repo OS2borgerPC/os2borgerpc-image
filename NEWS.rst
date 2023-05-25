@@ -1,3 +1,12 @@
+Version 5.1.0, May 25, 2023
+---------------------------
+
+New in this version:
+
+- A new international image released separaretely.
+  In future versions they'll be released simultaneously, with the same
+  version numbers.
+
 Version 5.0.0, March 9, 2023
 ----------------------------
 
