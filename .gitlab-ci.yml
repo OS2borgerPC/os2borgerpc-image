@@ -37,7 +37,7 @@ Build ISO image:
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
-    expire_in: 4 weeks
+    expire_in: 1 week
 
 # Like above, but call build_os2borgerpc_image.sh with the optional argument enabling multilang support
 Build Multilang ISO image:
@@ -58,4 +58,4 @@ Build Multilang ISO image:
   artifacts:
     paths:
       - image/${ISO_SHA}.iso
-    expire_in: 4 weeks
+    expire_in: 1 week
