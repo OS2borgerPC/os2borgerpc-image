@@ -1,5 +1,0 @@
-Host *
-    User bibos-archive
-    IdentityFile /usr/share/bibos/gateway/ssh/bibos-key
-    UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no
