@@ -122,7 +122,7 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_user_switching.sh" True
+"$SCRIPT_DIR/common/udfases/dconf_disable_user_switching.sh" True
 
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
