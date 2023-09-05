@@ -81,12 +81,17 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
+echo "About to run assorted OS2borgerPC scripts from this repo:"
+
+# Remove Bluetooth indicator applet from Borger user
+"$DIR/remove_bluetooth_applet.sh"
+
 # Download the dbus-x11 .deb file to a known folder
 cd /etc/os2borgerpc/
 apt download dbus-x11
 cd -
 
-figlet "=== About to run assorted OS2borgerPC scripts ==="
+figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 
 # Cloning script repository
 apt-get install --assume-yes git
@@ -94,9 +99,6 @@ git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
 
 # Cloned script directory
 SCRIPT_DIR="/os2borgerpc-scripts"
-
-# Remove Bluetooth indicator applet from Borger user
-"$SCRIPT_DIR/os2borgerpc/bluetooth/remove_bluetooth_applet.sh"
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
 "$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
