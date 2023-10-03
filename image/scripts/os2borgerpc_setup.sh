@@ -136,16 +136,16 @@ then
 fi
 
 # Enable running scripts at login
-"$SCRIPT_DIR/os2borgerpc/login/lightdm_greeter_setup_scripts.sh" True False
+"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" True False
 
 # Create the directory expected by the script to set user as the default user
 mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 
 # Set user as the default user
-"$SCRIPT_DIR/os2borgerpc/login/set_user_as_default_lightdm_user.sh" True
+"$SCRIPT_DIR/os2borgerpc/udfases/set_user_as_default_lightdm_user.sh" True
 
 # Prevent future upgrade notifications
-"$SCRIPT_DIR/os2borgerpc/desktop/remove_new_release_message.sh"
+"$SCRIPT_DIR/os2borgerpc/udfases/remove_new_release_message.sh"
 
 # Improve Firefox browser security
 "$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
