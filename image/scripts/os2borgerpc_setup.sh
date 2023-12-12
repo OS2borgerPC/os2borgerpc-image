@@ -114,7 +114,7 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Setup a script to activate the desktop shortcuts for user on login
 # This must run after user has been created
-"$SCRIPT_DIR/os2borgerpc/desktop/desktop_activate_shortcuts.sh"
+"$SCRIPT_DIR/os2borgerpc/udfases/desktop_activate_shortcuts.sh"
 
 # Block suspend, shut down and reboot and remove them from the menu
 #sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
@@ -124,7 +124,7 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
-"$SCRIPT_DIR/common/udfases/dconf_disable_user_switching.sh" True
+"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
 
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
@@ -148,7 +148,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/udfases/remove_new_release_message.sh"
 
 # Improve Firefox browser security
-"$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
+"$SCRIPT_DIR/os2borgerpc/browser/firefox_global_policies.sh" https://borger.dk
 
 # Correctly make Firefox the initial standard browser
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox_firefox
