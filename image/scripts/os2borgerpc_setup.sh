@@ -136,7 +136,7 @@ then
 fi
 
 # Enable running scripts at login
-"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" True False
+"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" False
 
 # Include fix for rare LightDM startup error
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
@@ -154,7 +154,7 @@ mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 "$SCRIPT_DIR/os2borgerpc/browser/firefox_global_policies.sh" https://borger.dk
 
 # Correctly make Firefox the initial standard browser
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox_firefox
+"$SCRIPT_DIR/os2borgerpc/browser/browser_set_default.sh" firefox_firefox
 
 # Disable the run prompt
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
