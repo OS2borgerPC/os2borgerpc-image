@@ -138,6 +138,9 @@ fi
 # Enable running scripts at login
 "$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" True False
 
+# Include fix for rare LightDM startup error
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
+
 # Create the directory expected by the script to set user as the default user
 mkdir --parents /var/lib/lightdm/.cache/unity-greeter
 
