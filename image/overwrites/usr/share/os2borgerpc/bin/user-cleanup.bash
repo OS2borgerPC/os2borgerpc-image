@@ -15,7 +15,13 @@ DESKTOP=$(runuser -u $USERNAME xdg-user-dir DESKTOP)
 
 chattr -i "$DESKTOP"
 
-rm --recursive --force /tmp/* /tmp/.??* /home/$USERNAME
+# Kill all processes started by user
+pkill -KILL -u user
+
+# Find all files/directories owned by user in the world-writable directories
+FILES_DIRS=$(find /var/tmp/ /var/crash/ /var/metrics/ /var/lock/ -user user)
+
+rm --recursive --force /tmp/* /tmp/.??* /dev/shm/* /dev/shm/.??* /home/$USERNAME $FILES_DIRS
 # Remove pending print jobs
 PRINTERS=$(lpstat -p | grep printer | awk '{ print $2; }')
 
@@ -31,3 +37,9 @@ chown -R $USERNAME:$USERNAME /home/$USERNAME
 # Make the desktop read only to user
 chown -R root:$USERNAME "$DESKTOP"
 chattr +i "$DESKTOP"
+# The exact cause is unclear, but xdg-user-dir will rarely fail in such
+# a way that DESKTOP=/home/user. The lines below prevent this error
+# from causing login issues.
+chattr -i /home/user/
+chown $USERNAME:$USERNAME /home/$USERNAME
+chown -R $USERNAME:$USERNAME /home/$USERNAME/.config /home/$USERNAME/.local
