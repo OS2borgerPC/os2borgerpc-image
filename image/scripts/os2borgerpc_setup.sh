@@ -182,7 +182,7 @@ fi
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
 
 # Allow superuser to manage CUPS / change printer settings (and make changes via CUPS' web interface)
-"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh" True
+"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh"
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
