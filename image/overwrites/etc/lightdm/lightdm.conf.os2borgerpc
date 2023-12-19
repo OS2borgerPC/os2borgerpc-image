@@ -1,4 +1,4 @@
-[SeatDefaults]
+[Seat:*]
 session-cleanup-script=/usr/share/os2borgerpc/bin/user-cleanup.bash
 allow-guest=false
 autologin-user-timeout=30
