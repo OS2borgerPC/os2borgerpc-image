@@ -10,7 +10,7 @@ cp --recursive "$DIR"/../overwrites/* /
 chmod 0400 "/home/.skjult/.local/share/keyrings/Standardnøglering.keyring"
 chown --recursive superuser:superuser /home/superuser
 # Set more restrictive permissions on some system files
-chmod 0700 "/usr/share/os2borgerpc/bin/user-cleanup.bash"
+chmod 0700 "/usr/share/os2borgerpc/bin/user-cleanup.bash" "/usr/share/os2borgerpc/bin/xset.sh"
 
 # Update dconf with settings from overwrites.
 dconf update
