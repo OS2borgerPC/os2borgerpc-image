@@ -141,9 +141,6 @@ fi
 # Include fix for rare LightDM startup error
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
 
-# Create the directory expected by the script to set user as the default user
-mkdir --parents /var/lib/lightdm/.cache/unity-greeter
-
 # Set user as the default user
 "$SCRIPT_DIR/os2borgerpc/udfases/set_user_as_default_lightdm_user.sh" True
 
