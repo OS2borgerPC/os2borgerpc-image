@@ -1,3 +1,19 @@
+Version 5.2.0, December 20, 2023
+--------------------------------
+
+New in this version:
+
+- Upgraded to Ubuntu 22.04.3.
+- Attempt to update the client before registering the PC.
+- Build in scripts that fix a LightDM startup error and allow superuser to manage CUPS.
+- Update LightDM config section name.
+- Improve user-cleanup.bash to also clear /dev/shm and user-owned files in world-writable directories.
+  Also kill all user-started processes and include login loop prevention.
+- Set more restrictive permissions on user-cleanup.bash and xset.sh
+- Remove files related to obsolete gateway functionality
+- Remove unused X-tcp-server
+- Use consistent naming for the superuser shortcuts
+
 Version 5.1.0, May 25, 2023
 ---------------------------
 
