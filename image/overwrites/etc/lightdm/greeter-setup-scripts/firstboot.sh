@@ -17,6 +17,10 @@ elif [ "$LOCALE" = "en" ]; then
     usermod --comment 'Citizen' user
 fi
 
+# Ensure that user is the default lightdm user
+# Making this file immutable during image building does not work
+chattr +i /var/lib/lightdm/.cache/unity-greeter/state
+
 # Copy over superuser desktop shortcuts - they're activated by a .config/autostart script
 
 USR="superuser"

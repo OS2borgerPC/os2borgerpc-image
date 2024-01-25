@@ -81,12 +81,17 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
+echo "About to run assorted OS2borgerPC scripts from this repo:"
+
+# Remove Bluetooth indicator applet from Borger user
+"$DIR/remove_bluetooth_applet.sh"
+
 # Download the dbus-x11 .deb file to a known folder
 cd /etc/os2borgerpc/
 apt download dbus-x11
 cd -
 
-figlet "=== About to run assorted OS2borgerPC scripts ==="
+figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 
 # Cloning script repository
 apt-get install --assume-yes git
@@ -94,9 +99,6 @@ git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
 
 # Cloned script directory
 SCRIPT_DIR="/os2borgerpc-scripts"
-
-# Remove Bluetooth indicator applet from Borger user
-"$SCRIPT_DIR/os2borgerpc/bluetooth/remove_bluetooth_applet.sh"
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
 "$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
@@ -112,7 +114,7 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Setup a script to activate the desktop shortcuts for user on login
 # This must run after user has been created
-"$SCRIPT_DIR/os2borgerpc/desktop/desktop_activate_shortcuts.sh"
+"$SCRIPT_DIR/os2borgerpc/udfases/desktop_activate_shortcuts.sh"
 
 # Block suspend, shut down and reboot and remove them from the menu
 #sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
@@ -122,7 +124,7 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_user_switching.sh" True
+"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
 
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
@@ -134,22 +136,22 @@ then
 fi
 
 # Enable running scripts at login
-"$SCRIPT_DIR/os2borgerpc/login/lightdm_greeter_setup_scripts.sh" True False
+"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" False
 
-# Create the directory expected by the script to set user as the default user
-mkdir --parents /var/lib/lightdm/.cache/unity-greeter
+# Include fix for rare LightDM startup error
+"$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
 
 # Set user as the default user
-"$SCRIPT_DIR/os2borgerpc/login/set_user_as_default_lightdm_user.sh" True
+"$SCRIPT_DIR/os2borgerpc/udfases/set_user_as_default_lightdm_user.sh" True
 
 # Prevent future upgrade notifications
-"$SCRIPT_DIR/os2borgerpc/desktop/remove_new_release_message.sh"
+"$SCRIPT_DIR/os2borgerpc/udfases/remove_new_release_message.sh"
 
 # Improve Firefox browser security
-"$SCRIPT_DIR/os2borgerpc/firefox/firefox_global_policies.sh" https://borger.dk
+"$SCRIPT_DIR/os2borgerpc/browser/firefox_global_policies.sh" https://borger.dk
 
 # Correctly make Firefox the initial standard browser
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/browser_set_default.sh" firefox_firefox
+"$SCRIPT_DIR/os2borgerpc/browser/browser_set_default.sh" firefox_firefox
 
 # Disable the run prompt
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
@@ -180,7 +182,7 @@ fi
 "$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
 
 # Allow superuser to manage CUPS / change printer settings (and make changes via CUPS' web interface)
-"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh" True
+"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh"
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
