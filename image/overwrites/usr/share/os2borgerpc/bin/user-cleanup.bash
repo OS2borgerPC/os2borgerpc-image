@@ -30,6 +30,14 @@ do
     lprm -P $PRINTER -
 done
 
+# Restore user crontab
+crontab -u user /etc/os2borgerpc/usercron
+
+# Remove possible scheduled at commands
+if [ -f /usr/bin/at ]; then
+  atq | cut --fields 1 | xargs --no-run-if-empty atrm
+fi
+
 # Restore $HOME
 rsync -vaz /home/.skjult/ /home/$USERNAME/
 chown -R $USERNAME:$USERNAME /home/$USERNAME
