@@ -27,7 +27,7 @@ echo "Removing packages we don't need, before we upgrade all packages:"
 # deja-dup because...?
 # libfprint-2-2 because it fails during installation/updating because of an unmet interactive step, but we don't need finger print reading anyway so we can delete it
 # ...and the rest because they likely aren't needed by users
-apt-get --assume-yes remove --purge apport cheese deja-dup evince libfprint-2-2 gnome-todo openvpn remmina thunderbird totem transmission-gtk whoopsie
+apt-get --assume-yes remove --purge apport cheese deja-dup evince libfprint-2-2 gnome-todo nautilus-extension-gnome-terminal openvpn remmina thunderbird totem transmission-gtk whoopsie
 
 if [ ! "$LANG_ALL" ]; then
     # Danish image version: Remove unneeded language support, as the installer seems to otherwise spend a decent amount of time removing them during the installation
