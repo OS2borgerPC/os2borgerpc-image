@@ -126,6 +126,12 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 # Remove change user from the menu
 "$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
 
+# Block Gnome Remote Desktop
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_disable_gnome_remote_desktop.sh" True
+
+# Remove user access to terminal
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/protect_terminal.sh" False
+
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
 
