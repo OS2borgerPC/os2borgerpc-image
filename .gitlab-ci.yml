@@ -11,7 +11,7 @@ stages:
 
 variables:
   UBUNTU_RELEASE: "22.04"
-  SOURCE_ISO_NAME: "ubuntu-22.04.3-desktop-amd64.iso"
+  SOURCE_ISO_NAME: "ubuntu-22.04.4-desktop-amd64.iso"
 
 # Build stage
 #############
