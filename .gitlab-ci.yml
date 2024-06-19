@@ -40,12 +40,14 @@ Build ISO image:
   <<: *build-prepare
   script:
     - VERSION=$(cat ../VERSION)
-    - DESTINATION_ISO_PATH=../os2borgerpc-$VERSION
+    # Note: Max length of the file name is 32 characters incl. the extension, otherwise xorriso complains
+    - DESTINATION_ISO_PATH=../os2bpc-$VERSION-${UBUNTU_RELEASE}-x64
     - ./build_os2borgerpc_image.sh ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
 
 Build Multilang ISO image:
   <<: *build-prepare
   script:
     - VERSION=$(cat ../VERSION)
-    - DESTINATION_ISO_PATH=../medborgarpc-$VERSION
+    # Note: Max length of the file name is 32 characters incl. the extension, otherwise xorriso complains
+    - DESTINATION_ISO_PATH=../medbpc-$VERSION-${UBUNTU_RELEASE}-x64
     - ./build_os2borgerpc_image.sh --lang-all ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
