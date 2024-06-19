@@ -24,7 +24,7 @@ chattr +i /var/lib/lightdm/.cache/unity-greeter/state
 # Copy over superuser desktop shortcuts - they're activated by a .config/autostart script
 
 USR="superuser"
-DESKTOP_FILES_DIR="/usr/share/os2borgerpc/script-data/finalize"
+DESKTOP_FILES_DIR="/usr/share/os2borgerpc/superuser-desktop"
 
 export "$(grep LANG= /etc/default/locale | tr --delete '"')"
 runuser -u $USR xdg-user-dirs-update
