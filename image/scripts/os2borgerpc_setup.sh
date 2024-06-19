@@ -118,10 +118,10 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Block suspend, shut down and reboot and remove them from the menu
 #sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
-"$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh" True True
+"$SCRIPT_DIR/os2borgerpc/sikkerhed/polkit_policy_shutdown_suspend.sh" True True
 
 # Remove lock from the menu
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_disable_lock_menu.sh" True
+"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
 "$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
