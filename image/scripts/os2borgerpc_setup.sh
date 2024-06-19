@@ -67,6 +67,9 @@ apt-get --assume-yes install lightdm
 echo "/usr/sbin/lightdm" > /etc/X11/default-display-manager
 apt-get remove --assume-yes gdm3
 
+# Setup /etc/lightdm/lightdm.conf
+mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
+
 # Prepare for security scripts
 mkdir --parents /etc/os2borgerpc/security/
 
@@ -109,19 +112,9 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 # Securing grub
 "$SCRIPT_DIR/common/system/grub_set_password.py" "$(pwgen -N 1 -s 12)"
 
-# Setup a script to activate the desktop shortcuts for user on login
-# This must run after user has been created
-"$SCRIPT_DIR/os2borgerpc/udfases/desktop_activate_shortcuts.sh"
-
 # Block suspend, shut down and reboot and remove them from the menu
 #sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/polkit_policy_shutdown_suspend.sh" True True
-
-# Remove lock from the menu
-"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_lock_menu.sh" True
-
-# Remove change user from the menu
-"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
 
 # Block Gnome Remote Desktop
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_disable_gnome_remote_desktop.sh" True
@@ -132,23 +125,11 @@ mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
 # Remove user access to settings
 "$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
 
-# Setup /etc/lightdm/lightdm.conf, which needs to exist before we can enable running scripts at login
-if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
-then
-    mv /etc/lightdm/lightdm.conf.os2borgerpc /etc/lightdm/lightdm.conf
-fi
-
-# Enable running scripts at login
-"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" False
-
 # Include fix for rare LightDM startup error
 "$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
 
-# Set user as the default user
-"$SCRIPT_DIR/os2borgerpc/udfases/set_user_as_default_lightdm_user.sh" True
-
 # Prevent future upgrade notifications
-"$SCRIPT_DIR/os2borgerpc/udfases/remove_new_release_message.sh"
+sed --in-place "s/Prompt=.*/Prompt=never/" /etc/update-manager/release-upgrades
 
 # Improve Firefox browser security
 "$SCRIPT_DIR/os2borgerpc/browser/firefox_global_policies.sh" https://borger.dk

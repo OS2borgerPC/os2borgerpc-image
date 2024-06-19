@@ -5,3 +5,4 @@ autologin-user-timeout=30
 autologin-user=user
 xserver-allow-tcp=false
 display-setup-script=/usr/share/os2borgerpc/bin/xset.sh
+greeter-setup-script=/etc/lightdm/greeter_setup_script.sh
