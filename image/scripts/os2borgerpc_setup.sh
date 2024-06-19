@@ -81,7 +81,9 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
-echo "About to run assorted OS2borgerPC scripts from this repo:"
+printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+
+echo "Running scripts from within this image repo"
 
 # Remove Bluetooth indicator applet from Borger user
 "$DIR/remove_bluetooth_applet.sh"
@@ -91,7 +93,7 @@ cd /etc/os2borgerpc/
 apt download dbus-x11
 cd -
 
-figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
+echo "Running scripts from the scripts repo"
 
 # Cloning script repository
 apt-get install --assume-yes git
@@ -102,6 +104,7 @@ SCRIPT_DIR="/os2borgerpc-scripts"
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
 "$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
+>>>>>>> 0fa7ce4 (Make the caller script check for errors for anything happening in os2borgerpc_setup)
 
 # Move unattended upgrades script to another folder so that firstboot can run it later
 mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
