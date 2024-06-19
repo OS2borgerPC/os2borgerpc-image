@@ -1,3 +1,13 @@
+Version 5.3.0, June 13, 2024
+----------------------------
+
+New in this version:
+
+- Upgraded to Ubuntu 22.04.4.
+- Improve user-cleanup.bash to also reset user crontab and clear possible user at commands.
+- Build in scripts that block Gnome Remote Desktop and user access to terminal.
+- Make the ISOs built by the pipeline more human readable.
+
 Version 5.2.0, December 20, 2023
 --------------------------------
 

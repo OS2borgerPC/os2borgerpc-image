@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Magenta ApS, http://magenta.dk.
+# Copyright (C) 2024 Magenta ApS, http://magenta.dk.
 # Contact: info@magenta.dk.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,52 +10,42 @@ stages:
   - build
 
 variables:
-  ISO_SHA: ${CI_COMMIT_SHORT_SHA}
-  BUILD_IMAGE_VERSION: "22.04"
-  ISO_NAME: "ubuntu-22.04.3-desktop-amd64.iso"
+  UBUNTU_RELEASE: "22.04"
+  SOURCE_ISO_NAME: "ubuntu-22.04.4-desktop-amd64.iso"
 
 # Build stage
 #############
 
-# Note: The caching of the source image does, unfortunately not seem to work yet?
+# Note: The caching of the source image does, unfortunately, not seem to work yet?
+
+.build-prepare: &build-prepare
+  stage: build
+  needs: []
+  when: manual
+  image: ubuntu:${UBUNTU_RELEASE}
+  before_script:
+    - apt-get -y update > /dev/null
+    - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
+    - cd image
+    - wget --progress=bar:force --continue http://releases.ubuntu.com/${UBUNTU_RELEASE}/${SOURCE_ISO_NAME}
+  cache:
+    paths:
+      - image/${SOURCE_ISO_NAME}
+  artifacts:
+    paths:
+      - ./*.iso
+    expire_in: 1 week
 
 Build ISO image:
-  stage: build
-  needs: []
-  when: manual
-  image: ubuntu:${BUILD_IMAGE_VERSION}
-  before_script:
-    - apt-get -y update > /dev/null
-    - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
-    - cd image
-    - wget --progress=bar:force --continue http://releases.ubuntu.com/${BUILD_IMAGE_VERSION}/${ISO_NAME}
+  <<: *build-prepare
   script:
-    - ./build_os2borgerpc_image.sh ./${ISO_NAME} ${ISO_SHA}
-  cache:
-    paths:
-      - image/${ISO_NAME}
-  artifacts:
-    paths:
-      - image/${ISO_SHA}.iso
-    expire_in: 1 week
+    - VERSION=$(cat ../VERSION)
+    - DESTINATION_ISO_PATH=../os2borgerpc-$VERSION
+    - ./build_os2borgerpc_image.sh ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
 
-# Like above, but call build_os2borgerpc_image.sh with the optional argument enabling multilang support
 Build Multilang ISO image:
-  stage: build
-  needs: []
-  when: manual
-  image: ubuntu:${BUILD_IMAGE_VERSION}
-  before_script:
-    - apt-get -y update > /dev/null
-    - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
-    - cd image
-    - wget --progress=bar:force --continue http://releases.ubuntu.com/${BUILD_IMAGE_VERSION}/${ISO_NAME}
+  <<: *build-prepare
   script:
-    - ./build_os2borgerpc_image.sh --lang-all ./${ISO_NAME} ${ISO_SHA}
-  cache:
-    paths:
-      - image/${ISO_NAME}
-  artifacts:
-    paths:
-      - image/${ISO_SHA}.iso
-    expire_in: 1 week
+    - VERSION=$(cat ../VERSION)
+    - DESTINATION_ISO_PATH=../medborgarpc-$VERSION
+    - ./build_os2borgerpc_image.sh --lang-all ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
