@@ -43,9 +43,6 @@ useradd superuser --create-home --shell /bin/bash \
   --password '$6$/c6Zcifihma/P9NL$MJfwhzrFAcQ0Wq992Wc8XvQ.4mb0aPHK7sUyvRMyicghNmfe7zbvwb5j2AI5AEZq3OfVQRQDbGfzgjrxSfKbp1' \
   --user-group --key UMASK=0077  --groups sudo --comment Superuser
 
-# Now make superuser own the script-data dir, so it can delete it after moving .its desktop files
-chown --recursive superuser:superuser /usr/share/os2borgerpc/bin/script-data
-
 # Overwrite file tree
 "$DIR/do_overwrite.sh"
 
