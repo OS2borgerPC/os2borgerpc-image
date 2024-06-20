@@ -11,7 +11,10 @@ stages:
 
 variables:
   UBUNTU_RELEASE: "22.04"
-  SOURCE_ISO_NAME: "ubuntu-22.04.4-desktop-amd64.iso"
+  SOURCE_ISO: "ubuntu-22.04.4-desktop-amd64.iso"
+  # NOTE: The purpose of this is to have something to uniquely identify the output ISO name by under "artifacts", as it has no access to the DESTINATION_ISO variable
+  DESTINATION_ISO_MATCH: "bpc"
+  ARCHITECTURE: "x64"
 
 # Build stage
 #############
@@ -27,25 +30,29 @@ variables:
     - apt-get -y update > /dev/null
     - apt-get -y install apt-utils fdisk figlet rsync sudo wget > /dev/null
     - cd image
-    - wget --progress=bar:force --continue http://releases.ubuntu.com/${UBUNTU_RELEASE}/${SOURCE_ISO_NAME}
+    - wget --progress=bar:force --continue http://releases.ubuntu.com/${UBUNTU_RELEASE}/${SOURCE_ISO}
   cache:
     paths:
-      - image/${SOURCE_ISO_NAME}
+      - image/${SOURCE_ISO}
   artifacts:
     paths:
-      - ./*.iso
+      - image/*${DESTINATION_ISO_MATCH}*.iso
     expire_in: 1 week
 
 Build ISO image:
   <<: *build-prepare
   script:
     - VERSION=$(cat ../VERSION)
-    - DESTINATION_ISO_PATH=../os2borgerpc-$VERSION
-    - ./build_os2borgerpc_image.sh ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
+    # NOTE: DESTINATION_ISO is both used as the ISO name AND the path to the outputted ISO - it must be valid for both
+    # NOTE: Max length of the file name is 32 characters incl. the extension, otherwise xorriso complains
+    - DESTINATION_ISO=os2${DESTINATION_ISO_MATCH}-${VERSION}-${UBUNTU_RELEASE}-${ARCHITECTURE}
+    - ./build_os2borgerpc_image.sh ./${SOURCE_ISO} ${DESTINATION_ISO}
 
 Build Multilang ISO image:
   <<: *build-prepare
   script:
     - VERSION=$(cat ../VERSION)
-    - DESTINATION_ISO_PATH=../medborgarpc-$VERSION
-    - ./build_os2borgerpc_image.sh --lang-all ./${SOURCE_ISO_NAME} ${DESTINATION_ISO_PATH}
+    # NOTE: DESTINATION_ISO is both used as the ISO name AND the path to the outputted ISO - it must be valid for both
+    # NOTE: Max length of the file name is 32 characters incl. the extension, otherwise xorriso complains
+    - DESTINATION_ISO=med${DESTINATION_ISO_MATCH}-${VERSION}-${UBUNTU_RELEASE}-${ARCHITECTURE}
+    - ./build_os2borgerpc_image.sh --lang-all ./${SOURCE_ISO} ${DESTINATION_ISO}
