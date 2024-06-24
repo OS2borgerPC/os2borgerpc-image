@@ -59,8 +59,8 @@ useradd user --create-home --password 12345 --shell /bin/bash --user-group \
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
 
-# Prepare to run jobs
-mkdir /var/lib/os2borgerpc --mode 700
+# Ensure the correct, restrictive permissions on this client directory
+chmod 700 /var/lib/os2borgerpc
 
 # Switch display manager to LightDM
 apt-get --assume-yes install lightdm
@@ -104,7 +104,6 @@ SCRIPT_DIR="/os2borgerpc-scripts"
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
 "$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
->>>>>>> 0fa7ce4 (Make the caller script check for errors for anything happening in os2borgerpc_setup)
 
 # Move unattended upgrades script to another folder so that firstboot can run it later
 mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
