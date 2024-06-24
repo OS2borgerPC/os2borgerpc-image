@@ -41,6 +41,7 @@ fi
 # Restore $HOME
 rsync -vaz /home/.skjult/ /home/$USERNAME/
 chown -R $USERNAME:$USERNAME /home/$USERNAME
+/usr/share/os2borgerpc/bin/gio-fix-desktop-file-permissions.sh
 
 # Make the desktop read only to user
 chown -R root:$USERNAME "$DESKTOP"
