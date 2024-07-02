@@ -35,8 +35,20 @@ if [ ! "$LANG_ALL" ]; then
     apt-get -y remove --purge language-pack-de-base language-pack-de language-pack-es-base language-pack-es language-pack-fr-base language-pack-fr language-pack-gnome-de-base language-pack-gnome-de language-pack-gnome-en-base language-pack-gnome-en language-pack-gnome-es-base language-pack-gnome-es language-pack-gnome-fr-base language-pack-gnome-fr language-pack-gnome-it-base language-pack-gnome-it language-pack-gnome-pt-base language-pack-gnome-pt language-pack-gnome-ru-base language-pack-gnome-ru language-pack-gnome-zh-hans-base language-pack-gnome-zh-hans language-pack-it-base language-pack-it language-pack-pt-base language-pack-pt language-pack-ru-base language-pack-ru language-pack-zh-hans-base language-pack-zh-hans libreoffice-help-de libreoffice-help-es libreoffice-help-fr libreoffice-help-it libreoffice-help-pt-br libreoffice-help-pt libreoffice-help-ru libreoffice-help-zh-cn libreoffice-help-zh-tw libreoffice-l10n-de libreoffice-l10n-en-za libreoffice-l10n-es libreoffice-l10n-fr libreoffice-l10n-it libreoffice-l10n-pt-br libreoffice-l10n-pt libreoffice-l10n-ru libreoffice-l10n-zh-cn libreoffice-l10n-zh-tw hunspell-de-at-frami hunspell-de-ch-frami hunspell-de-de-frami hunspell-es hunspell-fr-classical hunspell-fr hunspell-it hunspell-pt-br hunspell-pt-pt hunspell-ru ibus-hangul libhangul-data libhangul1 gnome-user-docs-de gnome-user-docs-es gnome-user-docs-fr gnome-user-docs-it gnome-user-docs-pt gnome-user-docs-ru gnome-user-docs-zh-hans hyphen-de hyphen-es hyphen-fr hyphen-it hyphen-pt-br hyphen-pt-pt hyphen-ru || exit 1
 fi
 
+SETUP_LOG="os2borgerpc_setup_log.txt"
+
 # Run customization, from the image/image directory which is bind-mounted in
-/mnt/image/scripts/os2borgerpc_setup.sh || exit 1
+/mnt/image/scripts/os2borgerpc_setup.sh 2>&1 | tee $SETUP_LOG
+
+# If any "No such file or directory" popped up (e.g. a script has been renamed/moved): Exit with an error
+# Ignore this variant of the line, though:
+sed --in-place "/Cannot set LC_ALL to default locale: No such file or directory/d" $SETUP_LOG
+if grep --no-ignore-case "No such file or directory" $SETUP_LOG; then
+  echo "A 'No such file or directory' (case sensitive!) error was encountered (see above for the full line) \
+       either a script is missing or has a wrong name, or a script is expecting a file to be there which wasn't. \
+       Exiting."
+  exit 1
+fi
 
 # Ideally at this point nothing else within the image is installed/uninstalled, so we can clean up old package versions etc.
 apt-get --assume-yes autoremove --purge

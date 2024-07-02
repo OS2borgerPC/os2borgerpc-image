@@ -59,8 +59,8 @@ useradd user --create-home --password 12345 --shell /bin/bash --user-group \
 # Make now first boot
 touch /etc/os2borgerpc/firstboot
 
-# Prepare to run jobs
-mkdir /var/lib/os2borgerpc --mode 700
+# Ensure the correct, restrictive permissions on this client directory
+chmod 700 /var/lib/os2borgerpc
 
 # Switch display manager to LightDM
 apt-get --assume-yes install lightdm
@@ -81,7 +81,9 @@ set_os2borgerpc_config os2_product "$PRODUCT"
 VERSION=$(cat "$DIR"/../../VERSION)
 set_os2borgerpc_config os2borgerpc_version "$VERSION"
 
-echo "About to run assorted OS2borgerPC scripts from this repo:"
+printf "\n\n%s\n\n" "=== About to run assorted OS2borgerPC scripts ==="
+
+echo "Running scripts from within this image repo"
 
 # Remove Bluetooth indicator applet from Borger user
 "$DIR/remove_bluetooth_applet.sh"
@@ -91,7 +93,7 @@ cd /etc/os2borgerpc/
 apt download dbus-x11
 cd -
 
-figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
+echo "Running scripts from the scripts repo"
 
 # Cloning script repository
 apt-get install --assume-yes git
