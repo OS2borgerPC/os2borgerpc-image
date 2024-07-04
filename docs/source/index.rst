@@ -3,12 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-============================
-OS2BorgerPc - Image
-============================
+###################
+OS2BorgerPC - Image
+###################
 
+************
 Introduction
-============
+************
+
 OS2BorgerPC - Image is the specialized Ubuntu distribution for audience PCs in
 public libraries in Denmark (Part of the `OS2BorgerPC system <https://os2.eu/produkt/os2borgerpc>`_).
 
@@ -16,15 +18,15 @@ public libraries in Denmark (Part of the `OS2BorgerPC system <https://os2.eu/pro
 .. toctree::
    :maxdepth: 2
 
-   dev
    readme
+   hardware_known_issues
+   dev
    news
 
 
-
-
+******************
 Indices and tables
-==================
+******************
 
 * :ref:`genindex`
 * :ref:`modindex`
