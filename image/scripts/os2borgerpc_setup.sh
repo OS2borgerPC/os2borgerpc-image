@@ -72,11 +72,28 @@ mkdir --parents /etc/os2borgerpc/security/
 
 # Set product in configuration
 PRODUCT="os2borgerpc"
-set_os2borgerpc_config os2_product "$PRODUCT"
+echo "os2_product $PRODUCT" >> /etc/os2borgerpc/os2borgerpc.conf
 
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
-set_os2borgerpc_config os2borgerpc_version "$VERSION"
+echo "os2borgerpc_version $VERSION" >> /etc/os2borgerpc/os2borgerpc.conf
+
+# Insert values from config.cfg that are prefixed with 'DEFAULT_' into os2borgerpc.conf.
+# Path to the configuration file
+CONFIG_FILE="$DIR/../../config.cfg"
+
+# Read each line in the configuration file and reformat it
+while IFS='=' read -r key value; do
+    # Skip empty lines, lines without '=', and lines starting with '#'
+    if [[ -n "$key" && -n "$value" && "$key" != \#* ]]; then
+        # Convert key to lowercase and remove "DEFAULT_" prefix
+        lowercase_key=$(echo "$key" | sed 's/^DEFAULT_//' | tr '[:upper:]' '[:lower:]')
+        
+        # Write in "key: value" format
+        echo "${lowercase_key}: ${value}" >> /etc/os2borgerpc/os2borgerpc.conf
+    fi
+done < "$CONFIG_FILE"
+
 
 echo "About to run assorted OS2borgerPC scripts from this repo:"
 

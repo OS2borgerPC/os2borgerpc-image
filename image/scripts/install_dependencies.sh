@@ -59,5 +59,3 @@ apt-get install --assume-yes $(check-language-support -l $LN) $(check-language-s
 # Mark language support packages as explicitly installed as otherwise it seems later stages gets rid of some of them
 # shellcheck disable=SC2046 # We want word-splitting here
 apt-mark manual $(check-language-support -l $LN --show-installed) $(check-language-support -l en --show-installed)
-
-pip3 install os2borgerpc-client
