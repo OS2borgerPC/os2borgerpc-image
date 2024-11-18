@@ -72,11 +72,11 @@ mkdir --parents /etc/os2borgerpc/security/
 
 # Set product in configuration
 PRODUCT="os2borgerpc"
-echo "os2_product $PRODUCT" >> /etc/os2borgerpc/os2borgerpc.conf
+echo "os2_product: $PRODUCT" >> /etc/os2borgerpc/os2borgerpc.conf
 
 # Set version in configuration
 VERSION=$(cat "$DIR"/../../VERSION)
-echo "os2borgerpc_version $VERSION" >> /etc/os2borgerpc/os2borgerpc.conf
+echo "os2borgerpc_version: $VERSION" >> /etc/os2borgerpc/os2borgerpc.conf
 
 # Insert values from config.cfg that are prefixed with 'DEFAULT_' into os2borgerpc.conf.
 # Path to the configuration file
