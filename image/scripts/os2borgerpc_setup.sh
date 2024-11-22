@@ -108,7 +108,6 @@ cd -
 figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 
 # Cloning script repository
-apt-get install --assume-yes git
 git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
 
 # Cloned script directory
@@ -206,6 +205,5 @@ fi
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
-apt-get remove --assume-yes git
 
 printf "\n\n%s\n\n" "=== Finished running assorted OS2borgerPC scripts ==="

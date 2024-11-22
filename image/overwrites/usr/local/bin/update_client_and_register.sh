@@ -6,7 +6,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # default fallback os2borgerpc-client if no value is configured.
-DEFAULT_OS2BORGERPC_CLIENT=https://github.com/OS2borgerPC/os2borgerpc-client
+DEFAULT_OS2BORGERPC_CLIENT=https://github.com/OS2borgerPC/os2borgerpc-client.git
 
 # Install the configured os2borgerpc-client if it's not already installed
 if ! pip show os2borgerpc-client > /dev/null 2>&1; then
@@ -25,7 +25,7 @@ if ! pip show os2borgerpc-client > /dev/null 2>&1; then
   if [[ "$PACKAGE_NAME" == https://github.com/* ]]; then
       # Parse GitHub username and repository name
       GITHUB_USER=$(echo "$PACKAGE_NAME" | awk -F'/' '{print $(NF-1)}')
-      REPO_NAME=$(echo "$PACKAGE_NAME" | awk -F'/' '{print $NF}')
+      REPO_NAME=$(echo "$PACKAGE_NAME" | awk -F'/' '{print $NF}' | sed 's/.git$//')
 
       # Fetch the latest tag from the GitHub API
       LATEST_TAG=$(curl -s "https://api.github.com/repos/$GITHUB_USER/$REPO_NAME/tags" | jq -r '.[0].name')
