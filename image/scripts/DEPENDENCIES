@@ -6,3 +6,5 @@ python3-lockfile
 python3-netifaces
 python3-pip
 python3-yaml
+git
+jq
