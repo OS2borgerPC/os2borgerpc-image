@@ -1,0 +1,61 @@
+name: Build and Release Custom Ubuntu ISO
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  build-and-release-iso:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up cache for Ubuntu ISO
+        id: cache-ubuntu-iso
+        uses: actions/cache@v3
+        with:
+          path: ubuntu-22.04.4-desktop-amd64.iso
+          key: ubuntu-iso-${{ runner.os }}-${{ hashFiles('ubuntu-22.04.4-desktop-amd64.iso') }}
+          restore-keys: |
+            ubuntu-iso-${{ runner.os }}-
+
+      - name: Download Ubuntu ISO if not cached
+        if: steps.cache-ubuntu-iso.outputs.cache-hit != 'true'
+        run: |
+          wget -O ubuntu-22.04.4-desktop-amd64.iso https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso
+
+      - name: Determine ISO filename
+        id: get-filename
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "FILENAME=borgerpc-amd64-${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          else
+            echo "FILENAME=borgerpc-amd64-dev" >> $GITHUB_ENV
+          fi
+
+      - name: Build OS2borgerpc image
+        run: |
+          cd image && ./build_os2borgerpc_image.sh ../ubuntu-22.04.4-desktop-amd64.iso $FILENAME
+
+      - name: Upload ISO as an artifact (for non-release events)
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FILENAME }}.iso
+          path: ./image/${{ env.FILENAME }}.iso
+
+      - name: Upload ISO to release (only for release events)
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./image/${{ env.FILENAME }}.iso
+          asset_name: ${{ env.FILENAME }}.iso
+          asset_content_type: application/octet-stream
