@@ -21,15 +21,15 @@ jobs:
         id: cache-ubuntu-iso
         uses: actions/cache@v3
         with:
-          path: ubuntu-22.04.4-desktop-amd64.iso
-          key: ubuntu-iso-${{ runner.os }}-${{ hashFiles('ubuntu-22.04.4-desktop-amd64.iso') }}
+          path: ubuntu-22.04-desktop-amd64.iso
+          key: ubuntu-iso-${{ runner.os }}-${{ hashFiles('ubuntu-22.04-desktop-amd64.iso') }}
           restore-keys: |
             ubuntu-iso-${{ runner.os }}-
 
       - name: Download Ubuntu ISO if not cached
         if: steps.cache-ubuntu-iso.outputs.cache-hit != 'true'
         run: |
-          wget -O ubuntu-22.04.4-desktop-amd64.iso https://releases.ubuntu.com/22.04.4/ubuntu-22.04.4-desktop-amd64.iso
+          wget -O ubuntu-22.04-desktop-amd64.iso https://old-releases.ubuntu.com/releases/jammy/ubuntu-22.04-desktop-amd64.iso
 
       - name: Determine ISO filename
         id: get-filename
@@ -42,7 +42,7 @@ jobs:
 
       - name: Build OS2borgerpc image
         run: |
-          cd image && ./build_os2borgerpc_image.sh ../ubuntu-22.04.4-desktop-amd64.iso $FILENAME
+          cd image && ./build_os2borgerpc_image.sh ../ubuntu-22.04-desktop-amd64.iso $FILENAME
 
       - name: Upload ISO as an artifact (for non-release events)
         if: github.event_name != 'release'
