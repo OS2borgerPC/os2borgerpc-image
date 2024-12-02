@@ -29,7 +29,7 @@ jobs:
       - name: Download Ubuntu ISO if not cached
         if: steps.cache-ubuntu-iso.outputs.cache-hit != 'true'
         run: |
-          wget -O ubuntu-22.04.5-desktop-amd64.iso http://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso
+          wget -O ubuntu-22.04.5-desktop-amd64.iso https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso
 
       - name: Determine ISO filename
         id: get-filename
