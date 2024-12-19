@@ -115,7 +115,10 @@ figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-core-scripts.git
 
 # Cloned script directory
-SCRIPT_DIR="/scripts"
+SCRIPT_DIR="/os2borgerpc-core-scripts/scripts"
+
+# Make sure all scripts are executable
+chmod +x $SCRIPT_DIR/*
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
 "$SCRIPT_DIR/apt_periodic_control.sh" false
