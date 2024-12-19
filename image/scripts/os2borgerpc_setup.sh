@@ -112,45 +112,48 @@ figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 "./usr/local/bin/update_client.sh"
 
 # Cloning script repository
-git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-scripts.git
+git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-core-scripts.git
 
 # Cloned script directory
-SCRIPT_DIR="/os2borgerpc-scripts"
+SCRIPT_DIR="/os2borgerpc-core-scripts/scripts"
+
+# Make sure all scripts are executable
+chmod +x $SCRIPT_DIR/*
 
 # Initially disable unattended upgrades to prevent problems with firstboot script
-"$SCRIPT_DIR/common/system/apt_periodic_control.sh" false
+"$SCRIPT_DIR/apt_periodic_control.sh" false
 
 # Move unattended upgrades script to another folder so that firstboot can run it later
-mv "$SCRIPT_DIR/common/system/apt_periodic_control.sh" "/etc/os2borgerpc/"
+mv "$SCRIPT_DIR/apt_periodic_control.sh" "/etc/os2borgerpc/"
 
 # Randomize checkins with server.
-"$SCRIPT_DIR/common/system/randomize_jobmanager.sh" 5
+"$SCRIPT_DIR/randomize_jobmanager.sh" 5
 
 # Securing grub
-"$SCRIPT_DIR/common/system/grub_set_password.py" "$(pwgen -N 1 -s 12)"
+"$SCRIPT_DIR/grub_set_password.py" "$(pwgen -N 1 -s 12)"
 
 # Setup a script to activate the desktop shortcuts for user on login
 # This must run after user has been created
-"$SCRIPT_DIR/os2borgerpc/udfases/desktop_activate_shortcuts.sh"
+"$SCRIPT_DIR/desktop_activate_shortcuts.sh"
 
 # Block suspend, shut down and reboot and remove them from the menu
 #sed --in-place "/polkitd/d" "$SCRIPT_DIR/os2borgerpc/desktop/polkit_policy_shutdown_suspend.sh"
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/polkit_policy_shutdown_suspend.sh" True True
+"$SCRIPT_DIR/polkit_policy_shutdown_suspend.sh" True True
 
 # Remove lock from the menu
-"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_lock_menu.sh" True
+"$SCRIPT_DIR/dconf_disable_lock_menu.sh" True
 
 # Remove change user from the menu
-"$SCRIPT_DIR/os2borgerpc/udfases/dconf_disable_user_switching.sh" True
+"$SCRIPT_DIR/dconf_disable_user_switching.sh" True
 
 # Block Gnome Remote Desktop
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_disable_gnome_remote_desktop.sh" True
+"$SCRIPT_DIR/dconf_disable_gnome_remote_desktop.sh" True
 
 # Remove user access to terminal
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/protect_terminal.sh" False
+"$SCRIPT_DIR/protect_terminal.sh" False
 
 # Remove user access to settings
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/adjust_settings_access.sh" False
+"$SCRIPT_DIR/adjust_settings_access.sh" False
 
 # Setup /etc/lightdm/lightdm.conf, which needs to exist before we can enable running scripts at login
 if [[ -f /etc/lightdm/lightdm.conf.os2borgerpc ]]
@@ -159,28 +162,28 @@ then
 fi
 
 # Enable running scripts at login
-"$SCRIPT_DIR/os2borgerpc/udfases/lightdm_greeter_setup_scripts.sh" False
+"$SCRIPT_DIR/lightdm_greeter_setup_scripts.sh" False
 
 # Include fix for rare LightDM startup error
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/lightdm_fix_boot_error.sh" True
+"$SCRIPT_DIR/lightdm_fix_boot_error.sh" True
 
 # Set user as the default user
-"$SCRIPT_DIR/os2borgerpc/udfases/set_user_as_default_lightdm_user.sh" True
+"$SCRIPT_DIR/set_user_as_default_lightdm_user.sh" True
 
 # Prevent future upgrade notifications
-"$SCRIPT_DIR/os2borgerpc/udfases/remove_new_release_message.sh"
+"$SCRIPT_DIR/remove_new_release_message.sh"
 
 # Improve Firefox browser security
-"$SCRIPT_DIR/os2borgerpc/browser/firefox_global_policies.sh" https://borger.dk
+"$SCRIPT_DIR/firefox_global_policies.sh" https://borger.dk
 
 # Correctly make Firefox the initial standard browser
-"$SCRIPT_DIR/os2borgerpc/browser/browser_set_default.sh" firefox_firefox
+"$SCRIPT_DIR/browser_set_default.sh" firefox_firefox
 
 # Disable the run prompt
-"$SCRIPT_DIR/os2borgerpc/sikkerhed/dconf_run_prompt_toggle.sh" True
+"$SCRIPT_DIR/dconf_run_prompt_toggle.sh" True
 
 # Install Okular and set it as default PDF reader, mostly because it can conveniently also edit PDFs
-"$SCRIPT_DIR/os2borgerpc/os2borgerpc/install_okular_and_set_as_standard_pdf_reader.sh" True
+"$SCRIPT_DIR/install_okular_and_set_as_standard_pdf_reader.sh" True
 
 # Set background images on login screen and desktop
 # Multi user image uses a different image because the Danish one has Danish text on it
@@ -189,23 +192,23 @@ if [ "$LANG_ALL" ]; then
 else
   BG="/usr/share/backgrounds/os2bpc_default_desktop.svg"
 fi
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_desktop_background.sh" $BG
-"$SCRIPT_DIR/os2borgerpc/login/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
+"$SCRIPT_DIR/dconf_desktop_background.sh" $BG
+"$SCRIPT_DIR/dconf_change_login_bg.sh" True /usr/share/backgrounds/os2bpc_default_login.png
 
 # Make apt-get wait 5 min for dpkg lock
-"$SCRIPT_DIR/images/apt_get_config_set_dpkg_lock_timeout.sh" True
+"$SCRIPT_DIR/apt_get_config_set_dpkg_lock_timeout.sh" True
 
 # Set fix-broken true by default in the apt-get configuration
-"$SCRIPT_DIR/images/apt_get_config_set_fix_broken.sh" True
+"$SCRIPT_DIR/apt_get_config_set_fix_broken.sh" True
 
 # Hide libreoffice tip of the day
-"$SCRIPT_DIR/os2borgerpc/libreoffice/overwrite_libreoffice_config.sh" True False
+"$SCRIPT_DIR/overwrite_libreoffice_config.sh" True False
 
 # Enable universal access menu by default
-"$SCRIPT_DIR/os2borgerpc/desktop/dconf_a11y.sh" True
+"$SCRIPT_DIR/dconf_a11y.sh" True
 
 # Allow superuser to manage CUPS / change printer settings (and make changes via CUPS' web interface)
-"$SCRIPT_DIR/os2borgerpc/printer/allow_superuser_to_manage_cups.sh"
+"$SCRIPT_DIR/allow_superuser_to_manage_cups.sh"
 
 # Remove cloned script repository
 rm --recursive "$SCRIPT_DIR"
