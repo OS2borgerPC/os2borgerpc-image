@@ -52,7 +52,7 @@ jobs:
           path: ./image/${{ env.FILENAME }}.iso
 
       - name: Upload ISO to release (only for release events)
-        if: github.event_name == 'release'
+        if: github.event_name != 'release'
         uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
           command: cp
