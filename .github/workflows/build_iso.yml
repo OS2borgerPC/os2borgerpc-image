@@ -53,9 +53,10 @@ jobs:
 
       - name: Upload ISO to release (only for release events)
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
+        uses: keithweaver/aws-s3-github-action@v1.0.0
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./image/${{ env.FILENAME }}.iso
-          asset_name: ${{ env.FILENAME }}.iso
-          asset_content_type: application/octet-stream
+          command: cp
+          source: ./image/${{ env.FILENAME }}.iso
+          destination: s3://os2borgerpc/${{ env.FILENAME }}.iso
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
