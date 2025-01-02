@@ -54,7 +54,7 @@ jobs:
       - name: Release ISO for public access (only for release events)
         if: github.event_name != 'release' # TODO change to only run on release
         run: |
-          aws s3 --endpoint-url https://fsn1.your-objectstorage.com cp ./image/${{ env.FILENAME }}.iso s3://os2borgerpc-os-images
+          aws s3 --endpoint-url https://fsn1.your-objectstorage.com cp ./image/${{ env.FILENAME }}.iso s3://os2borgerpc/os2borgerpc-os-images/pc_image_latest.iso
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HETZNER_OS2BORGERPC_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
