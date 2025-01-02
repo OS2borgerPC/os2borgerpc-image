@@ -51,17 +51,10 @@ jobs:
           name: ${{ env.FILENAME }}.iso
           path: ./image/${{ env.FILENAME }}.iso
 
-      - name: Prepare upload ISO to release (only for release events)
-        if: github.event_name != 'release' # TODO change to only run on release
-        uses: s3-actions/s3cmd@v1.9.0
-        with:
-          command: cp
-          source: ./image/${{ env.FILENAME }}.iso
-          provider: hetzner cloud
-          access_key: ${{ secrets.HETZNER_OS2BORGERPC_ACCESS_KEY }}
-          secret_key: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
-
-      - name: Upload ISO to release (only for release events)
+      - name: Release ISO for public access (only for release events)
         if: github.event_name != 'release' # TODO change to only run on release
         run: |
-          s3cmd sync ./image/ s3://os2borgerpc/
+          aws s3 --endpoint-url https://fsn1.your-objectstorage.com cp ./image/${{ env.FILENAME }}.iso s3://os2borgerpc-os-images
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.HETZNER_OS2BORGERPC_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
