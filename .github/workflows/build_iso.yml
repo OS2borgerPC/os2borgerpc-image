@@ -51,11 +51,19 @@ jobs:
           name: ${{ env.FILENAME }}.iso
           path: ./image/${{ env.FILENAME }}.iso
 
-      - name: Upload ISO to release (only for release events)
+      - name: Release ISO for public access (only for release events)
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./image/${{ env.FILENAME }}.iso
-          asset_name: ${{ env.FILENAME }}.iso
-          asset_content_type: application/octet-stream
+        run: |
+          aws s3 --endpoint-url https://fsn1.your-objectstorage.com cp ./image/${{ env.FILENAME }}.iso s3://os2borgerpc/borgerpc-os-images/${{ env.FILENAME }}.iso
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.HETZNER_OS2BORGERPC_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
+      - name: Add download URL to release notes
+        if: github.event_name == 'release'
+        run: |
+          DOWNLOAD_URL="https://fsn1.your-objectstorage.com/os2borgerpc/borgerpc-os-images/${{ env.FILENAME }}.iso"
+          curl -X PATCH \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"body\": \"Download the ISO here: $DOWNLOAD_URL\"}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}
