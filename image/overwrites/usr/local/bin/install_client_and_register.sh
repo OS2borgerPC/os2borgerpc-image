@@ -5,8 +5,8 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
-# Update os2borgerpc-client
-/usr/local/bin/update_client.sh
+# install os2borgerpc-client
+/usr/local/bin/install_client.sh
 
 # Register 
 /usr/local/bin/register_new_os2borgerpc_client.sh

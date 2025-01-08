@@ -109,7 +109,7 @@ figlet "=== About to run assorted OS2borgerPC scripts from the scripts repo ==="
 
 # Temporary intall os2borgerpc-client, as it is a dependency for running the scripts below.
 # the script has been copied by do_overwrite.sh above.
-"./usr/local/bin/update_client.sh"
+"./usr/local/bin/install_client.sh"
 
 # Cloning script repository
 git clone --depth 1 https://github.com/OS2borgerPC/os2borgerpc-core-scripts.git
