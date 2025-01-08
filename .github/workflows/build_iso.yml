@@ -11,7 +11,11 @@ on:
 
 jobs:
   build-and-release-iso:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+
+    env:
+      UBUNTU_ISO_URL: https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso
+      UBUNTU_ISO_FILENAME: ubuntu-22.04.5-desktop-amd64.iso
 
     steps:
       - name: Checkout repository
@@ -21,15 +25,15 @@ jobs:
         id: cache-ubuntu-iso
         uses: actions/cache@v3
         with:
-          path: ubuntu-22.04.5-desktop-amd64.iso
-          key: ubuntu-iso-${{ runner.os }}-${{ hashFiles('ubuntu-22.04.5-desktop-amd64.iso') }}
+          path: ${{ env.UBUNTU_ISO_FILENAME }}
+          key: ubuntu-iso-${{ runner.os }}-${{ hashFiles(env.UBUNTU_ISO_FILENAME) }}
           restore-keys: |
             ubuntu-iso-${{ runner.os }}-
 
       - name: Download Ubuntu ISO if not cached
         if: steps.cache-ubuntu-iso.outputs.cache-hit != 'true'
         run: |
-          wget -O ubuntu-22.04.5-desktop-amd64.iso https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso
+          wget -O ${{ env.UBUNTU_ISO_FILENAME }} ${{ env.UBUNTU_ISO_URL }}
 
       - name: Determine ISO filename
         id: get-filename
@@ -42,7 +46,7 @@ jobs:
 
       - name: Build OS2borgerpc image
         run: |
-          cd image && ./build_os2borgerpc_image.sh ../ubuntu-22.04.5-desktop-amd64.iso $FILENAME
+          cd image && ./build_os2borgerpc_image.sh ../${{ env.UBUNTU_ISO_FILENAME }} $FILENAME
 
       - name: Upload ISO as an artifact (for non-release events)
         if: github.event_name != 'release'
@@ -58,12 +62,23 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HETZNER_OS2BORGERPC_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
-      - name: Add download URL to release notes
+      
+      - name: Append download URL to release notes
         if: github.event_name == 'release'
         run: |
+          # Fetch the current release notes
+          CURRENT_BODY=$(curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }} \
+            | jq -r .body)
+
+          # Update the release notes with new content appended, jq used to escape the JSON properly.
           DOWNLOAD_URL="https://fsn1.your-objectstorage.com/os2borgerpc/borgerpc-os-images/${{ env.FILENAME }}.iso"
+          UPDATED_BODY=$(printf "%s\r\n## Download the ISO\r\n%s" "$CURRENT_BODY" "$DOWNLOAD_URL" | jq -Rs .)
+
+          # Patch the release notes
           curl -X PATCH \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "{\"body\": \"Download the ISO here: $DOWNLOAD_URL\"}" \
+            -d "{\"body\": $UPDATED_BODY}" \
             https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}
