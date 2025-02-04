@@ -16,6 +16,7 @@ jobs:
     env:
       UBUNTU_ISO_URL: https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso
       UBUNTU_ISO_FILENAME: ubuntu-22.04.5-desktop-amd64.iso
+      DELETE_DOWNLOADED_ISO: true # Used by build_os2borgerpc_image.sh
 
     steps:
       - name: Checkout repository
