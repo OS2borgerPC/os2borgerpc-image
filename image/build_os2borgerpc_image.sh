@@ -47,6 +47,25 @@ then
     exit 1
 fi
 
+mbr="boot_hybrid.img"
+
+efi="ubuntu22-desktop-amd64.efi"
+
+# Extract the MBR template (used for "Make image" below)
+
+dd if="$ISO_PATH" bs=1 count=446 of=$mbr
+
+# Extract EFI partition image (used for "Make image" below)
+
+skip=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $2}')
+
+size=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $4}')
+
+dd if="$ISO_PATH" bs=512 skip="$skip" count="$size" of=$efi
+
+
+
+
 BUILD_FILES_COPY_DESTINATION="squashfs-root/mnt"
 TMP_MOUNT_POINT="squashfs-root/tmp"
 
@@ -74,6 +93,11 @@ then
 fi
 
 build/extract_iso.sh "$ISO_PATH" iso
+
+if [ "$DELETE_DOWNLOADED_ISO" = "true" ] #  Useful for CI, that otherwise might run out of space
+then
+    sudo rm -f $ISO_PATH
+fi
 
 # Unsquash and customize
 sudo unsquashfs -force iso/casper/filesystem.squashfs > /dev/null
@@ -130,22 +154,6 @@ cd ..
 
 # Cleanup and unmount our tmp from squashfs-root
 unmount_cleanup
-
-mbr="boot_hybrid.img"
-
-efi="ubuntu22-desktop-amd64.efi"
-
-# Extract the MBR template
-
-dd if="$ISO_PATH" bs=1 count=446 of=$mbr
-
-# Extract EFI partition image
-
-skip=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $2}')
-
-size=$(/sbin/fdisk --list "$ISO_PATH" | grep --fixed-strings '.iso2 ' | awk '{print $4}')
-
-dd if="$ISO_PATH" bs=512 skip="$skip" count="$size" of=$efi
 
 # Make image
 
