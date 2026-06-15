@@ -8,6 +8,15 @@ on:
   release:
     types: [created]
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Genbyg eksisterende tag (f.eks. v1.2.3). Lad være tom for almindelig dev-build.'
+        required: false
+        default: ''
+      release_id:
+        description: 'Release ID fra GitHub (valgfri, kun til opdatering af release-noter)'
+        required: false
+        default: ''
 
 jobs:
   build-and-release-iso:
@@ -36,28 +45,51 @@ jobs:
         run: |
           wget -O ${{ env.UBUNTU_ISO_FILENAME }} ${{ env.UBUNTU_ISO_URL }}
 
-      - name: Determine ISO filename
+      - name: Determine ISO filename and Release info
         id: get-filename
         run: |
+          # 1. Håndter TAG
           if [[ "${{ github.event_name }}" == "release" ]]; then
-            echo "FILENAME=borgerpc-amd64-${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+            TAG_NAME="${{ github.event.release.tag_name }}"
+            IS_RELEASE="true"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.release_tag }}" != "" ]]; then
+            TAG_NAME="${{ github.event.inputs.release_tag }}"
+            IS_RELEASE="true"
+          else
+            TAG_NAME="dev"
+            IS_RELEASE="false"
+          fi
+          
+          # 2. Håndter RELEASE ID (til API-kaldet i bunden)
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            REL_ID="${{ github.event.release.id }}"
+          else
+            REL_ID="${{ github.event.inputs.release_id }}"
+          fi
+          
+          # 3. Sæt variabler til resten af workflowet
+          if [[ "$IS_RELEASE" == "true" ]]; then
+            echo "FILENAME=borgerpc-amd64-$TAG_NAME" >> $GITHUB_ENV
           else
             echo "FILENAME=borgerpc-amd64-dev" >> $GITHUB_ENV
           fi
+          
+          echo "IS_RELEASE=$IS_RELEASE" >> $GITHUB_ENV
+          echo "RELEASE_ID=$REL_ID" >> $GITHUB_ENV
 
       - name: Build OS2borgerpc image
         run: |
           cd image && ./build_os2borgerpc_image.sh ../${{ env.UBUNTU_ISO_FILENAME }} $FILENAME
 
       - name: Upload ISO as an artifact (for non-release events)
-        if: github.event_name != 'release'
+        if: env.IS_RELEASE == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILENAME }}.iso
           path: ./image/${{ env.FILENAME }}.iso
 
-      - name: Release ISO for public access (only for release events)
-        if: github.event_name == 'release'
+      - name: Release ISO for public access (for releases or forced manual releases)
+        if: env.IS_RELEASE == 'true'
         run: |
           aws s3 --endpoint-url https://fsn1.your-objectstorage.com cp ./image/${{ env.FILENAME }}.iso s3://os2borgerpc/borgerpc-os-images/${{ env.FILENAME }}.iso
         env:
@@ -65,12 +97,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HETZNER_OS2BORGERPC_SECRET_KEY }}
       
       - name: Append download URL to release notes
-        if: github.event_name == 'release'
+        # Kør kun hvis det er en release, ELLER hvis vi manuelt har givet den et Release ID med
+        if: env.IS_RELEASE == 'true' && env.RELEASE_ID != ''
         run: |
           # Fetch the current release notes
           CURRENT_BODY=$(curl -s \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }} \
+            https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }} \
             | jq -r .body)
 
           # Update the release notes with new content appended, jq used to escape the JSON properly.
@@ -82,4 +115,4 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d "{\"body\": $UPDATED_BODY}" \
-            https://api.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}
+            https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}
