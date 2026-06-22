@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.release_tag || github.ref }}
 
       - name: Set up cache for Ubuntu ISO
         id: cache-ubuntu-iso
@@ -76,6 +78,15 @@ jobs:
           
           echo "IS_RELEASE=$IS_RELEASE" >> $GITHUB_ENV
           echo "RELEASE_ID=$REL_ID" >> $GITHUB_ENV
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+      - name: Write VERSION file from tag
+        run: |
+          if [[ "${{ env.IS_RELEASE }}" == "true" ]]; then
+            echo "${{ env.TAG_NAME }}" | sed 's/^v//' > VERSION
+          else
+            echo "dev" > VERSION
+          fi
 
       - name: Build OS2borgerpc image
         run: |
